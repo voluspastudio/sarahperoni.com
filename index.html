@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARAH PERONI — Design & Creative Direction</title>
+<meta name="description" content="Multi-discipline designer specializing in UI/UX, branding, illustration, and creative direction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Anybody:wght@100;400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0a0a0a;
+  --surface: #111110;
+  --cream: #e8e4de;
+  --cream-dim: #c8c4be;
+  --warm-gray: #8a8478;
+  --mid-gray: #5a5650;
+  --dark-gray: #2a2824;
+  --green: #5a7a4a;
+  --green-bright: #7a9a6a;
+  --green-dim: #3a5a2a;
+  --green-glow: rgba(90, 122, 74, 0.15);
+  --red-data: #8a4a3a;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Anybody', system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --cube-size: 380px;
+  --cube-half: 190px;
+  --cube-perspective: 1200px;
+  --snap-duration: 0.8s;
+}
+
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+
+body {
+  font-family: var(--font-mono);
+  background: var(--black);
+  color: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--green); color: var(--black); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+/* ——— GRAIN + SCANLINES ——— */
+.grain {
+  position: fixed; inset: 0; z-index: 9998;
+  pointer-events: none; opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+.scanlines {
+  position: fixed; inset: 0; z-index: 9997;
+  pointer-events: none; opacity: 0.03;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px, rgba(232,228,222,0.03) 2px, rgba(232,228,222,0.03) 4px
+  );
+}
+
+/* ——— NAV ——— */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.25rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  mix-blend-mode: difference;
+}
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cream);
+}
+.nav-logo .blink { animation: blink 1.2s step-end infinite; color: var(--green-bright); }
+@keyframes blink { 50% { opacity: 0; } }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cream); opacity: 0.6; transition: opacity 0.3s;
+}
+.nav-links a:hover { opacity: 1; }
+.nav-coord {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--warm-gray); letter-spacing: 0.1em; opacity: 0.5;
+}
+
+/* ——— HERO ——— */
+.hero {
+  position: relative; min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  padding: 6rem 3rem 3rem; overflow: hidden;
+  gap: 2rem;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--dark-gray) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dark-gray) 1px, transparent 1px);
+  background-size: 80px 80px; opacity: 0.08;
+}
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, var(--black) 100%);
+}
+.hero-glow {
+  position: absolute; width: 500px; height: 500px; top: 15%; right: 10%;
+  background: radial-gradient(circle, rgba(90,122,74,0.08) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: glowDrift 12s ease-in-out infinite alternate;
+}
+@keyframes glowDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-60px, 40px) scale(1.2); }
+}
+
+.hero-data {
+  position: absolute;
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--warm-gray); letter-spacing: 0.1em;
+  opacity: 0; animation: dataFade 0.8s var(--ease-out-expo) forwards;
+}
+.hero-data.d1 { top: 18%; left: 6%; animation-delay: 1.2s; }
+.hero-data.d2 { top: 12%; right: 15%; animation-delay: 1.5s; }
+.hero-data.d3 { top: 45%; right: 5%; animation-delay: 1.8s; }
+.hero-data.d4 { bottom: 30%; left: 4%; animation-delay: 2s; }
+.hero-data .hl { color: var(--green); }
+@keyframes dataFade { to { opacity: 0.5; } }
+
+.hero-content { position: relative; z-index: 2; }
+.hero-index {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--green); letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 900; font-style: italic;
+  font-size: clamp(5rem, 14vw, 13rem);
+  line-height: 0.85; letter-spacing: -0.03em;
+  color: var(--cream); position: relative;
+}
+.hero-name span {
+  display: block;
+  opacity: 0; transform: translateY(80px) skewY(3deg);
+  animation: heroReveal 1.2s var(--ease-out-expo) forwards;
+}
+.hero-name span:nth-child(1) { animation-delay: 0.1s; }
+.hero-name span:nth-child(2) {
+  animation-delay: 0.25s;
+  color: transparent; -webkit-text-stroke: 1.5px var(--cream);
+  margin-left: 8vw;
+}
+@keyframes heroReveal { to { opacity: 1; transform: translateY(0) skewY(0); } }
+
+.hero-tagline {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 300;
+  color: var(--warm-gray); letter-spacing: 0.08em; line-height: 1.8;
+  max-width: 340px; margin-top: 2rem;
+  opacity: 0; transform: translateY(15px);
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.7s forwards;
+}
+.hero-tagline .hl { color: var(--green-bright); }
+
+.hero-status {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--warm-gray);
+  line-height: 1.8; letter-spacing: 0.05em;
+  margin-top: 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out-expo) 1.2s forwards;
+}
+.hero-status .dot {
+  display: inline-block; width: 5px; height: 5px;
+  background: var(--green-bright); border-radius: 50%;
+  margin-right: 6px; animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+.hero-scroll-indicator {
+  position: absolute; bottom: 2rem; right: 3rem; z-index: 3;
+  writing-mode: vertical-lr;
+  font-size: 0.5rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--mid-gray);
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out-expo) 1.5s forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ——— SECTION DIVIDER ——— */
+.divider {
+  padding: 0 2rem;
+  display: flex; align-items: center; gap: 1rem; height: 1px;
+}
+.divider-line { flex: 1; height: 1px; background: var(--dark-gray); }
+.divider-text {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--mid-gray); letter-spacing: 0.2em;
+  text-transform: uppercase; white-space: nowrap;
+}
+
+/* ——— WORK HEADER ——— */
+.work-header {
+  padding: 2rem 2rem 0.75rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.work-title {
+  font-family: var(--font-mono); font-weight: 500;
+  font-size: 0.65rem; line-height: 1;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--warm-gray);
+}
+.work-title .outline {
+  color: var(--green);
+}
+.work-meta-block {
+  text-align: right;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--mid-gray); line-height: 2;
+  letter-spacing: 0.1em;
+}
+.work-meta-block .hl { color: var(--green); }
+
+/* ——— 3D CUBE SECTION (inside hero) ——— */
+.cube-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  user-select: none;
+  z-index: 2;
+}
+.cube-section-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--dark-gray) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dark-gray) 1px, transparent 1px);
+  background-size: 60px 60px; opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Cube HUD */
+.cube-hud {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 5;
+}
+.cube-hud > span {
+  position: absolute;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--warm-gray); letter-spacing: 0.1em; opacity: 0.5;
+}
+.cube-hud-tl { top: 1.5rem; left: 2rem; }
+.cube-hud-tr { top: 1.5rem; right: 2rem; text-align: right; }
+.cube-hud-bl { bottom: 1.5rem; left: 2rem; }
+.cube-hud-br { bottom: 1.5rem; right: 2rem; text-align: right; }
+.cube-hud .hl { color: var(--green); }
+
+/* Crosshair */
+.cube-crosshair {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px; height: 80px;
+  pointer-events: none; opacity: 0.08;
+}
+.cube-crosshair::before, .cube-crosshair::after {
+  content: ''; position: absolute; background: var(--cream);
+}
+.cube-crosshair::before { width: 1px; height: 100%; left: 50%; }
+.cube-crosshair::after { width: 100%; height: 1px; top: 50%; }
+.cube-crosshair-corners {
+  position: absolute; inset: 0;
+}
+.cube-crosshair-corners span {
+  position: absolute; width: 12px; height: 12px;
+  border-color: var(--cream); border-style: solid;
+}
+.cube-crosshair-corners span:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.cube-crosshair-corners span:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.cube-crosshair-corners span:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.cube-crosshair-corners span:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+/* Face ticker (left) */
+.cube-face-ticker {
+  position: absolute; left: 2rem; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  z-index: 5;
+}
+.cube-ticker-item {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.1em; color: var(--dark-gray);
+  transition: color 0.4s;
+  cursor: pointer;
+}
+.cube-ticker-item.active { color: var(--green-bright); }
+.cube-ticker-item:hover { color: var(--warm-gray); }
+
+/* Cube viewport */
+.cube-viewport {
+  perspective: var(--cube-perspective);
+  perspective-origin: 50% 50%;
+  width: var(--cube-size); height: var(--cube-size);
+  position: relative; z-index: 3;
+  cursor: grab;
+  touch-action: none;
+}
+.cube-viewport:active { cursor: grabbing; }
+
+/* The 3D cube */
+.cube {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Faces */
+.cube-face {
+  position: absolute;
+  width: var(--cube-size); height: var(--cube-size);
+  backface-visibility: hidden;
+  border: 1px solid var(--dark-gray);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+}
+.cube-face--front  { transform: rotateY(  0deg) translateZ(var(--cube-half)); }
+.cube-face--right  { transform: rotateY( 90deg) translateZ(var(--cube-half)); }
+.cube-face--back   { transform: rotateY(180deg) translateZ(var(--cube-half)); }
+.cube-face--left   { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
+.cube-face--top    { transform: rotateX( 90deg) translateZ(var(--cube-half)); }
+.cube-face--bottom { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+
+/* Face background */
+.cube-face-bg {
+  position: absolute; inset: 0;
+}
+.cube-face[data-color="olive"] .cube-face-bg   { background: linear-gradient(135deg, #2a3020, #1a2018, #0e1410, #1a1e14); }
+.cube-face[data-color="slate"] .cube-face-bg   { background: linear-gradient(135deg, #1a1e24, #14181e, #0e1218, #181c22); }
+.cube-face[data-color="earth"] .cube-face-bg   { background: linear-gradient(135deg, #241e18, #1e1a14, #181410, #201c16); }
+.cube-face[data-color="ink"] .cube-face-bg     { background: linear-gradient(135deg, #141418, #101014, #181820, #0e0e14); }
+.cube-face[data-color="rust"] .cube-face-bg    { background: linear-gradient(135deg, #241814, #1e1410, #201610, #1a120e); }
+.cube-face[data-color="moss"] .cube-face-bg    { background: linear-gradient(135deg, #1a2018, #141a12, #0e1610, #182016); }
+
+/* Face overlay */
+.cube-face-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.7) 100%);
+}
+
+/* Face HUD */
+.cube-face-hud {
+  position: absolute; inset: 0; padding: 0.75rem;
+  pointer-events: none;
+}
+.cube-face-idx {
+  position: absolute; top: 0.6rem; left: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--green); letter-spacing: 0.1em; opacity: 0.8;
+}
+.cube-face-type {
+  position: absolute; top: 0.6rem; right: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.45rem;
+  color: var(--warm-gray); letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--dark-gray);
+  padding: 0.15rem 0.4rem;
+}
+.cube-face-cross {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px; opacity: 0.15;
+}
+.cube-face-cross::before, .cube-face-cross::after {
+  content: ''; position: absolute; background: var(--cream);
+}
+.cube-face-cross::before { width: 1px; height: 100%; left: 50%; }
+.cube-face-cross::after { width: 100%; height: 1px; top: 50%; }
+.cube-face-coord {
+  position: absolute; bottom: 0.6rem; right: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.4rem;
+  color: var(--mid-gray); letter-spacing: 0.08em;
+  text-align: right; line-height: 1.6;
+}
+
+/* Face title (large, bottom of face) */
+.cube-face-title {
+  position: relative; z-index: 2;
+  padding: 0.75rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.4rem; line-height: 1.1;
+  color: var(--cream);
+}
+
+/* ——— INFO SVG LINES ——— */
+.cube-info-svg {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: calc(100% + 180px);
+  z-index: 4; pointer-events: none;
+  overflow: visible;
+}
+.info-line {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px rgba(90,122,74,0.3));
+  transition: opacity 0.3s;
+}
+.info-line.drawing {
+  opacity: 1;
+  stroke-dashoffset: 0 !important;
+  transition: stroke-dashoffset 0.8s var(--ease-out-expo), opacity 0.2s;
+}
+.info-line.pulsing {
+  opacity: 1;
+  animation: currentPulse 3s ease-in-out infinite;
+}
+.info-line-glow {
+  fill: none;
+  stroke: var(--green-bright);
+  stroke-width: 2;
+  opacity: 0;
+  filter: blur(3px);
+}
+.info-line-glow.active { opacity: 0.15; }
+
+/* spark traveling along the line */
+.info-spark {
+  opacity: 0;
+}
+.info-spark.active {
+  opacity: 1;
+}
+
+@keyframes currentPulse {
+  0%, 100% { stroke-opacity: 1; }
+  50% { stroke-opacity: 0.4; }
+}
+
+/* ——— INFO PANELS ——— */
+.cube-info-panels-slot {
+  position: relative;
+  width: var(--cube-size);
+  min-height: 130px;
+  margin-top: 1rem;
+}
+.cube-info-panel {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--dark-gray);
+  border-left: 2px solid var(--green);
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.5s 0.3s, transform 0.5s 0.3s var(--ease-out-expo);
+  z-index: 6;
+}
+.cube-info-panel.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.cube-info-tags {
+  display: flex; flex-wrap: wrap; gap: 0.3rem;
+  margin-bottom: 0.75rem;
+}
+.cube-info-tag {
+  font-family: var(--font-mono); font-size: 0.45rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); border: 1px solid var(--green-dim);
+  padding: 0.15rem 0.4rem;
+}
+.cube-info-name {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.3rem; line-height: 1.15;
+  color: var(--cream); margin-bottom: 0.25rem;
+}
+.cube-info-year {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--mid-gray); letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+.cube-info-desc {
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 300;
+  color: var(--cream-dim); line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+.cube-info-link {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green-bright);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: color 0.3s;
+}
+.cube-info-link:hover { color: var(--cream); }
+
+/* ——— MARQUEE ——— */
+.marquee {
+  padding: 2.5rem 0; overflow: hidden;
+  border-top: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--dark-gray);
+}
+.marquee-track {
+  display: flex; width: max-content;
+  animation: marqueeScroll 40s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  white-space: nowrap; padding: 0 1rem;
+  color: var(--dark-gray); transition: color 0.4s;
+}
+.marquee-track:hover .marquee-item { color: var(--mid-gray); }
+.marquee-sep {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--green-dim); padding: 0 1.5rem;
+  vertical-align: middle;
+}
+@keyframes marqueeScroll { to { transform: translateX(-50%); } }
+
+/* ——— ABOUT ——— */
+.about {
+  padding: 6rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 3rem; position: relative;
+}
+.about-divider-v { width: 1px; background: var(--dark-gray); align-self: stretch; }
+.about-label {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.about-label::before { content: ''; width: 20px; height: 1px; background: var(--green); }
+.about-quote {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 2rem;
+}
+.about-quote em {
+  font-style: italic; color: transparent;
+  -webkit-text-stroke: 1px var(--cream);
+}
+.about-bio {
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
+  color: var(--warm-gray); line-height: 1.9; margin-bottom: 1.5rem;
+}
+.about-right { padding-top: 0.5rem; }
+.about-data-label {
+  font-family: var(--font-mono); font-size: 0.45rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--mid-gray); margin-bottom: 0.75rem;
+}
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 0; margin-bottom: 2.5rem;
+}
+.stat { padding: 1.25rem 0; border-top: 1px solid var(--dark-gray); }
+.stat:not(:last-child) { padding-right: 1.5rem; border-right: 1px solid var(--dark-gray); }
+.stat + .stat { padding-left: 1.5rem; }
+.stat-num {
+  font-family: var(--font-display); font-size: 2.5rem; font-weight: 900;
+  color: var(--cream); line-height: 1;
+}
+.stat-unit {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--green); letter-spacing: 0.15em;
+  text-transform: uppercase; margin-top: 0.35rem;
+}
+.services-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.service-item {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.08em; color: var(--cream-dim);
+  border: 1px solid var(--dark-gray);
+  padding: 0.4rem 0.8rem;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.service-item:hover {
+  border-color: var(--green);
+  color: var(--green-bright);
+  background: var(--green-glow);
+}
+
+/* ——— CONTACT ——— */
+.contact {
+  padding: 6rem 2rem; position: relative; text-align: center;
+}
+.contact-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--dark-gray) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dark-gray) 1px, transparent 1px);
+  background-size: 60px 60px; opacity: 0.06;
+}
+.contact-glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 400px;
+  background: radial-gradient(circle, rgba(90,122,74,0.06), transparent 70%);
+  pointer-events: none;
+}
+.contact-inner { position: relative; z-index: 2; }
+.contact-label {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 2rem;
+}
+.contact-heading {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1; letter-spacing: -0.02em; margin-bottom: 0.5rem;
+}
+.contact-heading .outline {
+  -webkit-text-stroke: 1.5px var(--cream); color: transparent;
+}
+.contact-sub {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 300;
+  color: var(--warm-gray); margin-bottom: 3rem; line-height: 1.7;
+}
+.contact-email-btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: var(--font-mono); font-size: 0.8rem;
+  font-weight: 500; letter-spacing: 0.05em;
+  color: var(--green-bright);
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--green-dim);
+  transition: background 0.4s, border-color 0.4s, transform 0.3s var(--ease-out-expo);
+}
+.contact-email-btn:hover {
+  background: var(--green-glow); border-color: var(--green);
+  transform: translateY(-2px);
+}
+.contact-email-btn .arrow { transition: transform 0.3s var(--ease-out-expo); }
+.contact-email-btn:hover .arrow { transform: translate(3px, -3px); }
+.contact-socials {
+  display: flex; justify-content: center; gap: 2rem; margin-top: 2.5rem;
+}
+.contact-socials a {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid-gray); transition: color 0.3s;
+}
+.contact-socials a:hover { color: var(--green-bright); }
+
+/* ——— FOOTER ——— */
+.footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--dark-gray);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--mid-gray); letter-spacing: 0.08em;
+}
+.footer-center { text-align: center; color: var(--green-dim); }
+.footer-right { text-align: right; }
+
+/* ——— SCROLL REVEAL ——— */
+.reveal {
+  opacity: 0; transform: translateY(25px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ——— RESPONSIVE ——— */
+@media (max-width: 900px) {
+  :root { --cube-size: 260px; --cube-half: 130px; --cube-perspective: 900px; }
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 6rem 1.5rem 2.5rem;
+    gap: 1rem;
+  }
+  .hero-data { display: none; }
+  .hero-name span:nth-child(2) { margin-left: 0; }
+  .hero-content { text-align: center; }
+  .hero-name { font-size: clamp(4rem, 12vw, 7rem); }
+  .hero-tagline { margin-left: auto; margin-right: auto; }
+  .hero-status { text-align: center; }
+  .hero-scroll-indicator { right: 1.5rem; }
+  .nav { padding: 1rem 1.5rem; }
+  .nav-coord { display: none; }
+  .cube-hud-br { display: none; }
+  .cube-hud-tl, .cube-hud-tr { font-size: 0.45rem; }
+  .cube-face-ticker { display: none; }
+  .cube-info-svg { display: none; }
+  .cube-info-panels-slot { width: 100%; max-width: var(--cube-size); }
+  .about { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
+  .about-divider-v { display: none; }
+  .work-header { padding: 1.5rem 1.5rem 0.5rem; }
+  .contact { padding: 4rem 1.5rem; }
+  .footer { padding: 1.25rem 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  :root { --cube-size: 220px; --cube-half: 110px; --cube-perspective: 700px; }
+  .nav-links { display: none; }
+  .hero { padding: 5rem 1.25rem 2rem; }
+  .hero-name { font-size: clamp(3.5rem, 16vw, 5rem); }
+  .hero-scroll-indicator { display: none; }
+  .cube-hud { display: none; }
+  .cube-crosshair { display: none; }
+  .cube-face-coord { display: none; }
+  .cube-section::after {
+    content: 'DRAG TO EXPLORE';
+    font-family: var(--font-mono); font-size: 0.45rem;
+    color: var(--mid-gray); letter-spacing: 0.15em;
+    text-align: center; display: block; margin-top: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .about-stats { grid-template-columns: 1fr; }
+  .stat:nth-child(odd) { padding-right: 0; border-right: none; }
+  .stat:nth-child(even) { padding-left: 0; }
+  .contact-heading { font-size: clamp(2rem, 10vw, 3rem); }
+  .footer { grid-template-columns: 1fr; gap: 0.5rem; text-align: center; }
+  .footer-left, .footer-right { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="scanlines"></div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#" class="nav-logo">S.PERONI<span class="blink">_</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">[work]</a></li>
+    <li><a href="#about">[about]</a></li>
+    <li><a href="#contact">[contact]</a></li>
+  </ul>
+  <span class="nav-coord">45.4642° N, 9.1900° E</span>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-data d1">SYS.STATUS: <span class="hl">ACTIVE</span><br>FRAME: 001 / ∞</div>
+  <div class="hero-data d2">CLASSIFICATION: <span class="hl">CREATIVE_DIR</span><br>MULTIDISCIPLINE.DESIGN</div>
+  <div class="hero-data d3">DATE: <span class="hl">02.26.2026</span><br>LAT 45.46 // LONG 9.19</div>
+  <div class="hero-data d4">PROJECTS: <span class="hl">060+</span><br>CLIENTS: 025+</div>
+  <div class="hero-content">
+    <div class="hero-index">[000] — Portfolio / 2026</div>
+    <h1 class="hero-name">
+      <span>Sarah</span>
+      <span>Peroni</span>
+    </h1>
+    <p class="hero-tagline">
+      Multi-discipline designer &amp; creative director —<br>
+      <span class="hl">branding</span>, <span class="hl">UI/UX</span>, <span class="hl">illustration</span>,<br>
+      and everything in between.
+    </p>
+    <div class="hero-status">
+      <span class="dot"></span>AVAILABLE FOR PROJECTS<br>Q2 2026 — ONWARD
+    </div>
+  </div>
+
+  <!-- 3D Cube (hero right column) -->
+  <div class="cube-section" id="cube-section">
+    <div class="cube-section-grid"></div>
+
+    <!-- SVG info lines -->
+    <svg class="cube-info-svg" id="cube-info-svg" aria-hidden="true">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path class="info-line-glow" id="info-glow-0"/>
+      <path class="info-line" id="info-line-0"/>
+      <circle class="info-spark" id="info-spark-0" r="2.5" fill="#7a9a6a">
+        <animateMotion dur="2s" repeatCount="indefinite" id="spark-motion-0">
+          <mpath href="#info-line-0"/>
+        </animateMotion>
+      </circle>
+    </svg>
+
+    <!-- HUD -->
+    <div class="cube-hud">
+      <span class="cube-hud-tl">[OBJECT_3D] — PROJ.CUBE</span>
+      <span class="cube-hud-tr">FACES: <span class="hl">006</span> // ACTIVE: <span class="hl cube-hud-active">001</span></span>
+      <span class="cube-hud-bl">ROT_X: <span class="hl" id="hud-rx">-15.00</span>° // ROT_Y: <span class="hl" id="hud-ry">0.00</span>°</span>
+      <span class="cube-hud-br">PERSPECTIVE: 1200px // Z: 190</span>
+      <div class="cube-crosshair">
+        <div class="cube-crosshair-corners">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Face ticker -->
+    <div class="cube-face-ticker" id="face-ticker">
+      <span class="cube-ticker-item active" data-face="0">001</span>
+      <span class="cube-ticker-item" data-face="1">002</span>
+      <span class="cube-ticker-item" data-face="2">003</span>
+      <span class="cube-ticker-item" data-face="3">004</span>
+      <span class="cube-ticker-item" data-face="4">005</span>
+      <span class="cube-ticker-item" data-face="5">006</span>
+    </div>
+
+    <!-- Cube -->
+    <div class="cube-viewport" id="cube-viewport">
+      <div class="cube" id="cube">
+
+        <div class="cube-face cube-face--front" data-index="0" data-color="olive">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[001]</span>
+            <span class="cube-face-type">Brand Identity</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: AW-2025<br>RES: 4800×3200</div>
+          </div>
+          <div class="cube-face-title">Aurelio Wines</div>
+        </div>
+
+        <div class="cube-face cube-face--right" data-index="1" data-color="slate">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[002]</span>
+            <span class="cube-face-type">UI/UX</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: LM-2025<br>RES: 1440×900</div>
+          </div>
+          <div class="cube-face-title">Luminary App</div>
+        </div>
+
+        <div class="cube-face cube-face--back" data-index="2" data-color="earth">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[003]</span>
+            <span class="cube-face-type">Illustration</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: RW-2024<br>RES: 3600×4800</div>
+          </div>
+          <div class="cube-face-title">Rewild Series</div>
+        </div>
+
+        <div class="cube-face cube-face--left" data-index="3" data-color="ink">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[004]</span>
+            <span class="cube-face-type">Web Design</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: NS-2024<br>RES: 1920×1080</div>
+          </div>
+          <div class="cube-face-title">Noctis Studio</div>
+        </div>
+
+        <div class="cube-face cube-face--top" data-index="4" data-color="rust">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[005]</span>
+            <span class="cube-face-type">Packaging</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: ER-2023<br>RES: 3000×2000</div>
+          </div>
+          <div class="cube-face-title">Ember Roasters</div>
+        </div>
+
+        <div class="cube-face cube-face--bottom" data-index="5" data-color="moss">
+          <div class="cube-face-bg"></div>
+          <div class="cube-face-overlay"></div>
+          <div class="cube-face-hud">
+            <span class="cube-face-idx">[006]</span>
+            <span class="cube-face-type">Creative Dir</span>
+            <div class="cube-face-cross"></div>
+            <div class="cube-face-coord">REF: VF-2023<br>RES: 5400×3600</div>
+          </div>
+          <div class="cube-face-title">Veil Fragrance</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Info panels slot -->
+    <div class="cube-info-panels-slot">
+      <div class="cube-info-panel" id="info-panel-0">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">Branding</span>
+          <span class="cube-info-tag">Packaging</span>
+          <span class="cube-info-tag">Art Dir</span>
+        </div>
+        <h3 class="cube-info-name">Aurelio Wines</h3>
+        <div class="cube-info-year">2025</div>
+        <p class="cube-info-desc">Complete visual identity for a boutique winery — merging old-world craft with contemporary elegance.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+
+      <div class="cube-info-panel" id="info-panel-1">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">UI/UX</span>
+          <span class="cube-info-tag">Mobile</span>
+          <span class="cube-info-tag">Design Sys</span>
+        </div>
+        <h3 class="cube-info-name">Luminary App</h3>
+        <div class="cube-info-year">2025</div>
+        <p class="cube-info-desc">A meditation and wellness platform designed around calm, clarity, and effortless daily rituals.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+
+      <div class="cube-info-panel" id="info-panel-2">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">Illustration</span>
+          <span class="cube-info-tag">Editorial</span>
+          <span class="cube-info-tag">Print</span>
+        </div>
+        <h3 class="cube-info-name">Rewild Series</h3>
+        <div class="cube-info-year">2024</div>
+        <p class="cube-info-desc">Editorial illustrations exploring humanity's relationship with untamed landscapes.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+
+      <div class="cube-info-panel" id="info-panel-3">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">Web</span>
+          <span class="cube-info-tag">Dev</span>
+          <span class="cube-info-tag">Motion</span>
+        </div>
+        <h3 class="cube-info-name">Noctis Studio</h3>
+        <div class="cube-info-year">2024</div>
+        <p class="cube-info-desc">Immersive portfolio for a music production studio — audio-reactive visuals meets dark aesthetics.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+
+      <div class="cube-info-panel" id="info-panel-4">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">Packaging</span>
+          <span class="cube-info-tag">Branding</span>
+          <span class="cube-info-tag">Print</span>
+        </div>
+        <h3 class="cube-info-name">Ember Roasters</h3>
+        <div class="cube-info-year">2023</div>
+        <p class="cube-info-desc">Packaging and visual identity for a specialty coffee roastery — warmth, ritual, and the slow morning.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+
+      <div class="cube-info-panel" id="info-panel-5">
+        <div class="cube-info-tags">
+          <span class="cube-info-tag">Art Dir</span>
+          <span class="cube-info-tag">Photo</span>
+          <span class="cube-info-tag">Campaign</span>
+        </div>
+        <h3 class="cube-info-name">Veil Fragrance</h3>
+        <div class="cube-info-year">2023</div>
+        <p class="cube-info-desc">Art direction for a luxury fragrance launch — mystery, sensuality, and unseen layers of scent.</p>
+        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">SCROLL ↓</div>
+</section>
+
+<!-- Divider -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <span class="divider-text">DISCIPLINES // CAPABILITIES // 2023—2026</span>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Work Header -->
+<div class="work-header" id="work">
+  <div class="work-title">Selected <span class="outline">Work</span></div>
+  <div class="work-meta-block">
+    006 ENTRIES // <span class="hl">DRAG</span> OR <span class="hl">SCROLL</span>
+  </div>
+</div>
+
+<!-- Marquee -->
+<section class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Branding</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">UI/UX</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Illustration</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Creative Direction</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Packaging</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Web Design</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Art Direction</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Motion</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Branding</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">UI/UX</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Illustration</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Creative Direction</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Packaging</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Web Design</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Art Direction</span><span class="marquee-sep">◆</span>
+    <span class="marquee-item">Motion</span><span class="marquee-sep">◆</span>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="about-left reveal">
+    <div class="about-label">—— ABOUT // BIO</div>
+    <h2 class="about-quote">I design at the intersection of <em>strategy</em> and raw <em>feeling</em></h2>
+    <p class="about-bio">I'm a multi-discipline designer and creative director. My work spans visual identities, digital interfaces, illustrations, and art direction — always searching for the tension between what a brand needs to say and how it should feel.</p>
+    <p class="about-bio">From early-stage startups to established luxury houses, I bring the same obsessive attention to craft. Every project gets an original point of view. No templates. No shortcuts.</p>
+  </div>
+  <div class="about-divider-v"></div>
+  <div class="about-right reveal">
+    <div class="about-data-label">—— DATA // METRICS</div>
+    <div class="about-stats">
+      <div class="stat"><div class="stat-num">8+</div><div class="stat-unit">Years Active</div></div>
+      <div class="stat"><div class="stat-num">60+</div><div class="stat-unit">Projects</div></div>
+      <div class="stat"><div class="stat-num">25+</div><div class="stat-unit">Clients</div></div>
+    </div>
+    <div class="about-data-label">—— SERVICES // CAPABILITIES</div>
+    <div class="services-grid">
+      <span class="service-item">Brand Identity</span>
+      <span class="service-item">UI/UX Design</span>
+      <span class="service-item">Creative Direction</span>
+      <span class="service-item">Illustration</span>
+      <span class="service-item">Packaging</span>
+      <span class="service-item">Web Design</span>
+      <span class="service-item">Art Direction</span>
+      <span class="service-item">Motion</span>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <span class="divider-text">TRANSMISSION // OPEN_CHANNEL</span>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-grid-bg"></div>
+  <div class="contact-glow"></div>
+  <div class="contact-inner">
+    <div class="contact-label reveal">[TRANSMIT] — GET IN TOUCH</div>
+    <h2 class="contact-heading reveal">Let's build<br>something <span class="outline">extraordinary</span></h2>
+    <p class="contact-sub reveal">Currently accepting select projects for Q2 2026 onward.<br>Clear brief or spark of an idea — either works.</p>
+    <a href="mailto:peroni.sarah@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Let%E2%80%99s%20Work%20Together&body=Hi%20Sarah%2C%0A%0AI%E2%80%99d%20love%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20type%3A%20%0ABrief%20description%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0ALooking%20forward%20to%20hearing%20from%20you!" class="contact-email-btn reveal">
+      GET IN TOUCH
+      <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+    <div class="contact-socials reveal">
+      <a href="#">Instagram</a>
+      <a href="#">Dribbble</a>
+      <a href="#">Behance</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-left">© 2026 SARAH PERONI</span>
+  <span class="footer-center">45.4642°N // 9.1900°E</span>
+  <span class="footer-right">END_TRANSMISSION</span>
+</footer>
+
+<script>
+// ——— Scroll Reveal ———
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ——— Smooth nav scroll ———
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(link.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ——— Hero parallax ———
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  if (s < window.innerHeight * 1.2) {
+    const hero = document.querySelector('.hero-content');
+    const cubeArea = document.getElementById('cube-section');
+    const fadeOut = 1 - (s / (window.innerHeight * 0.9));
+    hero.style.transform = `translateY(${s * 0.15}px)`;
+    hero.style.opacity = Math.max(0, fadeOut);
+    if (cubeArea) {
+      cubeArea.style.transform = `translateY(${s * 0.08}px)`;
+      cubeArea.style.opacity = Math.max(0, fadeOut);
+    }
+    document.querySelectorAll('.hero-data').forEach((d, i) => {
+      d.style.transform = `translateY(${s * (0.05 + i * 0.03)}px)`;
+    });
+  }
+});
+
+// ——— Text scramble ———
+class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#_░▒▓';
+    this.update = this.update.bind(this);
+  }
+  setText(newText) {
+    const oldText = this.el.innerText;
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise(resolve => this.resolve = resolve);
+    this.queue = [];
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 30);
+      const end = start + Math.floor(Math.random() * 30);
+      this.queue.push({ from, to, start, end });
+    }
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+    return promise;
+  }
+  update() {
+    let output = '', complete = 0;
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i];
+      if (this.frame >= end) { complete++; output += to; }
+      else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.chars[Math.floor(Math.random() * this.chars.length)];
+          this.queue[i].char = char;
+        }
+        output += `<span style="color:var(--green);opacity:0.7">${char}</span>`;
+      } else { output += from; }
+    }
+    this.el.innerHTML = output;
+    if (complete === this.queue.length) { this.resolve(); }
+    else { this.frameRequest = requestAnimationFrame(this.update); this.frame++; }
+  }
+}
+setTimeout(() => {
+  document.querySelectorAll('.hero-name span').forEach(span => {
+    const original = span.textContent;
+    const fx = new TextScramble(span);
+    fx.setText(original);
+  });
+}, 1400);
+
+// ═══════════════════════════════════════
+// ——— 3D CUBE CONTROLLER ———
+// ═══════════════════════════════════════
+
+const cubeEl = document.getElementById('cube');
+const cubeViewport = document.getElementById('cube-viewport');
+const cubeSectionEl = document.getElementById('cube-section');
+const svgEl = document.getElementById('cube-info-svg');
+const hudRx = document.getElementById('hud-rx');
+const hudRy = document.getElementById('hud-ry');
+const hudActive = document.querySelector('.cube-hud-active');
+const tickerItems = document.querySelectorAll('.cube-ticker-item');
+
+const PROJECT_DATA = [
+  { face: 'front',  snapY: 0,    snapX: 0,   index: 0 },
+  { face: 'right',  snapY: -90,  snapX: 0,   index: 1 },
+  { face: 'back',   snapY: -180, snapX: 0,   index: 2 },
+  { face: 'left',   snapY: -270, snapX: 0,   index: 3 },
+  { face: 'top',    snapY: 0,    snapX: -90, index: 4 },
+  { face: 'bottom', snapY: 0,    snapX: 90,  index: 5 },
+];
+
+const state = {
+  rotX: -15,
+  rotY: 0,
+  targetRotX: -15,
+  targetRotY: 0,
+  velX: 0,
+  velY: 0,
+  isDragging: false,
+  dragStartX: 0,
+  dragStartY: 0,
+  dragStartRotX: 0,
+  dragStartRotY: 0,
+  lastMoveX: 0,
+  lastMoveY: 0,
+  autoRotateActive: true,
+  autoRotateSpeed: 0.12,
+  autoRotateTimeout: null,
+  isSnapping: false,
+  activeFace: 0,
+  frameCount: 0,
+  rafId: null,
+  visible: false,
+};
+
+function applyCubeTransform() {
+  cubeEl.style.transform = `rotateX(${state.rotX}deg) rotateY(${state.rotY}deg)`;
+}
+
+// ——— Face detection ———
+function getFrontFace() {
+  const normX = ((state.rotX % 360) + 360) % 360;
+  // Check top/bottom
+  if (normX > 50 && normX < 130) return 5;   // bottom
+  if (normX > 230 && normX < 310) return 4;  // top
+  // Check if we're close enough to ±90 from X perspective
+  const absModX = Math.abs(((state.rotX % 360) + 360) % 360);
+  if (absModX > 50 && absModX < 130) return 5;
+
+  // Equatorial: determine by Y
+  let normY = ((-state.rotY % 360) + 360) % 360;
+  if (normY >= 315 || normY < 45) return 0;   // front
+  if (normY >= 45 && normY < 135) return 1;   // right
+  if (normY >= 135 && normY < 225) return 2;  // back
+  return 3;                                     // left
+}
+
+// ——— Snap to nearest face ———
+function snapToFace(faceIdx) {
+  if (faceIdx === undefined) faceIdx = null;
+  state.isSnapping = true;
+
+  let snapX, snapY;
+
+  if (faceIdx !== null) {
+    // Snap to specific face
+    const proj = PROJECT_DATA[faceIdx];
+    snapX = proj.snapX;
+    // For Y, find nearest equivalent rotation
+    snapY = proj.snapY;
+    const currentNormY = state.rotY;
+    // Find the closest multiple
+    const diff = snapY - (currentNormY % 360);
+    snapY = currentNormY + diff;
+    if (Math.abs(diff) > 180) snapY += diff > 0 ? -360 : 360;
+  } else {
+    // Snap to nearest
+    snapY = Math.round(state.rotY / 90) * 90;
+
+    const normAbsX = Math.abs(state.rotX);
+    if (normAbsX > 40) {
+      snapX = state.rotX > 0 ? 90 : -90;
+    } else {
+      snapX = 0;
+    }
+  }
+
+  state.targetRotX = snapX;
+  state.targetRotY = snapY;
+
+  // Animate with easing
+  const startX = state.rotX;
+  const startY = state.rotY;
+  const startTime = performance.now();
+  const duration = 800;
+
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function animateSnap(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeOutExpo(progress);
+
+    state.rotX = startX + (snapX - startX) * eased;
+    state.rotY = startY + (snapY - startY) * eased;
+    applyCubeTransform();
+
+    if (progress < 1) {
+      requestAnimationFrame(animateSnap);
+    } else {
+      state.rotX = snapX;
+      state.rotY = snapY;
+      state.isSnapping = false;
+      applyCubeTransform();
+
+      // Determine which face and show info
+      const face = getFrontFace();
+      if (face !== state.activeFace || faceIdx !== null) {
+        hideAllInfo();
+        state.activeFace = face;
+        updateTicker(face);
+        updateHUD(face);
+        setTimeout(() => showInfo(face), 100);
+      }
+    }
+  }
+
+  requestAnimationFrame(animateSnap);
+}
+
+// ——— Info line + panel ———
+function showInfo(faceIdx) {
+  const panelEl = document.getElementById(`info-panel-${faceIdx}`);
+
+  // Draw SVG info line (cube bottom → panel top, circuit-board style)
+  const svgRect = svgEl.getBoundingClientRect();
+  const cubeRect = cubeViewport.getBoundingClientRect();
+
+  // Cube bottom-center relative to SVG
+  const cx = cubeRect.left + cubeRect.width / 2 - svgRect.left;
+  const cubeBottom = cubeRect.bottom - svgRect.top;
+
+  // Panel slot position
+  const slotEl = document.querySelector('.cube-info-panels-slot');
+  const slotRect = slotEl.getBoundingClientRect();
+  const px = slotRect.left + slotRect.width / 2 - svgRect.left;
+  const py = slotRect.top - svgRect.top;
+
+  // Circuit-board path: down from cube bottom, jog, then to panel
+  const jog = (faceIdx % 2 === 0) ? -20 : 20;
+  const midY = cubeBottom + (py - cubeBottom) * 0.5;
+
+  const d = `M ${cx} ${cubeBottom + 5} L ${cx} ${midY} L ${cx + jog} ${midY} L ${cx + jog} ${py}`;
+
+  const line = document.getElementById('info-line-0');
+  const glow = document.getElementById('info-glow-0');
+  const spark = document.getElementById('info-spark-0');
+
+  line.setAttribute('d', d);
+  glow.setAttribute('d', d);
+
+  const length = line.getTotalLength();
+  line.style.strokeDasharray = length;
+  line.style.strokeDashoffset = length;
+  glow.style.strokeDasharray = length;
+  glow.style.strokeDashoffset = length;
+
+  // Trigger draw animation
+  requestAnimationFrame(() => {
+    line.classList.add('drawing');
+    glow.classList.add('active');
+    glow.style.strokeDashoffset = '0';
+
+    setTimeout(() => {
+      line.classList.remove('drawing');
+      line.classList.add('pulsing');
+      line.style.strokeDashoffset = '0';
+      line.style.strokeDasharray = length;
+      spark.classList.add('active');
+    }, 850);
+  });
+
+  // Show panel
+  panelEl.classList.add('active');
+}
+
+function hideAllInfo() {
+  document.querySelectorAll('.cube-info-panel').forEach(p => p.classList.remove('active'));
+  const line = document.getElementById('info-line-0');
+  const glow = document.getElementById('info-glow-0');
+  const spark = document.getElementById('info-spark-0');
+  line.classList.remove('drawing', 'pulsing');
+  line.style.strokeDashoffset = line.style.strokeDasharray;
+  line.style.opacity = '0';
+  glow.classList.remove('active');
+  spark.classList.remove('active');
+  setTimeout(() => { line.style.opacity = ''; }, 300);
+}
+
+function updateTicker(face) {
+  tickerItems.forEach((t, i) => t.classList.toggle('active', i === face));
+}
+
+function updateHUD(face) {
+  if (hudActive) hudActive.textContent = String(face + 1).padStart(3, '0');
+}
+
+// ——— Ticker click navigation ———
+tickerItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const faceIdx = parseInt(item.dataset.face);
+    state.autoRotateActive = false;
+    clearTimeout(state.autoRotateTimeout);
+    hideAllInfo();
+    snapToFace(faceIdx);
+    state.autoRotateTimeout = setTimeout(() => { state.autoRotateActive = true; }, 4000);
+  });
+});
+
+// ——— Pointer events (mouse + touch) ———
+function onPointerDown(x, y) {
+  state.isDragging = true;
+  state.autoRotateActive = false;
+  clearTimeout(state.autoRotateTimeout);
+  state.dragStartX = x;
+  state.dragStartY = y;
+  state.dragStartRotX = state.rotX;
+  state.dragStartRotY = state.rotY;
+  state.lastMoveX = x;
+  state.lastMoveY = y;
+  state.velX = 0;
+  state.velY = 0;
+  hideAllInfo();
+}
+
+function onPointerMove(x, y) {
+  if (!state.isDragging) return;
+  const dx = x - state.dragStartX;
+  const dy = y - state.dragStartY;
+
+  state.rotY = state.dragStartRotY + dx * 0.4;
+  state.rotX = state.dragStartRotX - dy * 0.4;
+  state.rotX = Math.max(-75, Math.min(75, state.rotX));
+
+  // Track velocity
+  state.velY = (x - state.lastMoveX) * 0.4;
+  state.velX = -(y - state.lastMoveY) * 0.4;
+  state.lastMoveX = x;
+  state.lastMoveY = y;
+
+  applyCubeTransform();
+}
+
+function onPointerUp() {
+  if (!state.isDragging) return;
+  state.isDragging = false;
+  snapToFace();
+  state.autoRotateTimeout = setTimeout(() => {
+    state.autoRotateActive = true;
+    state.autoRotateSpeed = 0.12;
+  }, 3500);
+}
+
+// Mouse events
+cubeViewport.addEventListener('mousedown', e => {
+  e.preventDefault();
+  onPointerDown(e.clientX, e.clientY);
+});
+window.addEventListener('mousemove', e => onPointerMove(e.clientX, e.clientY));
+window.addEventListener('mouseup', onPointerUp);
+
+// Touch events
+cubeViewport.addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  onPointerDown(t.clientX, t.clientY);
+}, { passive: true });
+cubeViewport.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  onPointerMove(t.clientX, t.clientY);
+}, { passive: false });
+cubeViewport.addEventListener('touchend', onPointerUp);
+
+// ——— Hover influence ———
+cubeViewport.addEventListener('mousemove', e => {
+  if (state.isDragging) return;
+  const rect = cubeViewport.getBoundingClientRect();
+  const dist = Math.sqrt(
+    Math.pow((e.clientX - rect.left) / rect.width - 0.5, 2) +
+    Math.pow((e.clientY - rect.top) / rect.height - 0.5, 2)
+  );
+  state.autoRotateSpeed = 0.12 + dist * 0.5;
+});
+cubeViewport.addEventListener('mouseleave', () => {
+  if (!state.isDragging) state.autoRotateSpeed = 0.12;
+});
+
+// ——— Main animation loop ———
+function mainLoop() {
+  if (!state.isDragging && !state.isSnapping && state.autoRotateActive) {
+    state.rotY += state.autoRotateSpeed;
+    applyCubeTransform();
+  }
+
+  // Update HUD readouts every 3rd frame
+  if (state.frameCount % 3 === 0 && hudRx && hudRy) {
+    hudRx.textContent = state.rotX.toFixed(2);
+    hudRy.textContent = (state.rotY % 360).toFixed(2);
+  }
+  state.frameCount++;
+
+  if (state.visible) {
+    state.rafId = requestAnimationFrame(mainLoop);
+  }
+}
+
+// ——— Visibility observer — only animate when in view ———
+const cubeVisObs = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    state.visible = true;
+    if (!state.rafId) mainLoop();
+  } else {
+    state.visible = false;
+    cancelAnimationFrame(state.rafId);
+    state.rafId = null;
+  }
+}, { threshold: 0.05 });
+cubeVisObs.observe(cubeSectionEl);
+
+// ——— Initial snap to show first face info ———
+setTimeout(() => {
+  snapToFace(0);
+}, 200);
+
+// ——— Scroll-driven rotation (gentle blend) ———
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+  if (state.isDragging || state.isSnapping) return;
+  const rect = cubeSectionEl.getBoundingClientRect();
+  const wh = window.innerHeight;
+  if (rect.top > wh || rect.bottom < 0) return;
+
+  const delta = window.scrollY - lastScrollY;
+  lastScrollY = window.scrollY;
+
+  if (state.autoRotateActive) {
+    state.rotY += delta * 0.15;
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
