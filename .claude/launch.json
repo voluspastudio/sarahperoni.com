@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "8080", "/Users/sarahperoni/Library/CloudStorage/Dropbox/3.Business/sarahperoni.com"],
+      "port": 8080
+    }
+  ]
+}
