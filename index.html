@@ -1280,6 +1280,7 @@ const state = {
   autoRotateTimeout: null,
   isSnapping: false,
   activeFace: 0,
+  hoveringCube: false,
   frameCount: 0,
   rafId: null,
   visible: false,
@@ -1362,10 +1363,12 @@ function snapToFace(faceIdx) {
         state.activeFace = face;
         updateTicker(face);
         updateHUD(face);
-        // Add color-active to front face
-        const frontFaceEl = document.querySelector(`.cube-face[data-index="${face}"]`);
-        if (frontFaceEl) frontFaceEl.classList.add('color-active');
-        setTimeout(() => showInfo(face), 100);
+        // Show info only if mouse is hovering over cube
+        if (state.hoveringCube) {
+          const frontFaceEl = document.querySelector(`.cube-face[data-index="${face}"]`);
+          if (frontFaceEl) frontFaceEl.classList.add('color-active');
+          setTimeout(() => showInfo(face), 100);
+        }
       }
     }
   }
@@ -1522,15 +1525,19 @@ document.querySelectorAll('a.cube-face').forEach(face => {
   });
 });
 
-// Remove color when mouse leaves cube area
+// Remove color + hide info when mouse leaves cube area
 cubeViewport.addEventListener('mouseleave', () => {
   document.querySelectorAll('.cube-face').forEach(f => f.classList.remove('color-active'));
+  hideAllInfo();
+  state.hoveringCube = false;
 });
-// Re-add color when mouse enters cube area (if not dragging)
+// Show color + info when mouse enters cube area (if not dragging)
 cubeViewport.addEventListener('mouseenter', () => {
+  state.hoveringCube = true;
   if (!state.isDragging && state.activeFace !== null) {
     const frontFaceEl = document.querySelector(`.cube-face[data-index="${state.activeFace}"]`);
     if (frontFaceEl) frontFaceEl.classList.add('color-active');
+    showInfo(state.activeFace);
   }
 });
 
@@ -1582,9 +1589,6 @@ function mainLoop() {
       state.activeFace = currentFront;
       updateTicker(currentFront);
       updateHUD(currentFront);
-      const frontFaceEl = document.querySelector(`.cube-face[data-index="${currentFront}"]`);
-      if (frontFaceEl) frontFaceEl.classList.add('color-active');
-      setTimeout(() => showInfo(currentFront), 100);
     }
   }
 
