@@ -7,24 +7,24 @@
 <meta name="description" content="Multi-discipline designer specializing in UI/UX, branding, illustration, and creative direction.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Anybody:wght@100;400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Anybody:wght@100;400;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --black: #0a0a0a;
-  --surface: #111110;
-  --cream: #e8e4de;
-  --cream-dim: #c8c4be;
-  --warm-gray: #8a8478;
-  --mid-gray: #5a5650;
-  --dark-gray: #2a2824;
+  --black: #e8e4de;
+  --surface: #ddd8d0;
+  --cream: #0a0a0a;
+  --cream-dim: #2a2820;
+  --warm-gray: #5a5448;
+  --mid-gray: #7a7670;
+  --dark-gray: #c8c4be;
   --green: #5a7a4a;
   --green-bright: #7a9a6a;
   --green-dim: #3a5a2a;
   --green-glow: rgba(90, 122, 74, 0.15);
   --red-data: #8a4a3a;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --font-sans: 'Anybody', system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,9 +45,61 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--green); color: var(--black); }
+::selection { background: var(--green); color: #e8e4de; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+/* ——— CUSTOM CURSOR ——— */
+*, *::before, *::after { cursor: none !important; }
+.cursor-crosshair {
+  position: fixed; z-index: 99999;
+  width: 28px; height: 28px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+.cursor-crosshair::before, .cursor-crosshair::after {
+  content: ''; position: absolute; background: var(--green);
+}
+.cursor-crosshair::before { width: 1px; height: 100%; left: 50%; }
+.cursor-crosshair::after { width: 100%; height: 1px; top: 50%; }
+.cursor-corner {
+  position: absolute; width: 8px; height: 8px;
+  border-color: var(--green); border-style: solid;
+  transition: opacity 0.25s ease;
+}
+.cursor-corner:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.cursor-corner:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.cursor-corner:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.cursor-corner:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+.cursor-dot {
+  position: absolute; top: 50%; left: 50%;
+  width: 3px; height: 3px;
+  background: var(--green-bright);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(122, 154, 106, 0.6);
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.cursor-crosshair.hovering .cursor-dot {
+  width: 32px; height: 32px;
+  background: rgba(122, 154, 106, 0.15);
+  border: 1px solid var(--green-bright);
+  box-shadow: 0 0 12px rgba(122, 154, 106, 0.3);
+}
+.cursor-crosshair.hovering::before,
+.cursor-crosshair.hovering::after { opacity: 0; }
+.cursor-crosshair.hovering .cursor-corner { opacity: 0; }
+.cursor-trail {
+  position: fixed; z-index: 99998;
+  pointer-events: none;
+  width: 4px; height: 4px;
+  background: var(--green-bright);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: none;
+}
 
 /* ——— GRAIN + SCANLINES ——— */
 .grain {
@@ -73,9 +125,9 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 }
 .nav-logo {
   font-family: var(--font-mono);
-  font-size: 0.65rem; font-weight: 500;
+  font-size: 0.65rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--cream);
+  color: #0a0a0a;
 }
 .nav-logo .blink { animation: blink 1.2s step-end infinite; color: var(--green-bright); }
 @keyframes blink { 50% { opacity: 0; } }
@@ -95,9 +147,10 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 /* ——— HERO ——— */
 .hero {
   position: relative; min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 6rem 3rem 3rem; overflow: hidden;
   gap: 2rem;
 }
@@ -110,7 +163,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 }
 .hero-vignette {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, var(--black) 100%);
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, rgba(232,228,222,0.6) 100%);
 }
 .hero-glow {
   position: absolute; width: 500px; height: 500px; top: 15%; right: 10%;
@@ -134,7 +187,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 .hero-data.d3 { top: 45%; right: 5%; animation-delay: 1.8s; }
 .hero-data.d4 { bottom: 30%; left: 4%; animation-delay: 2s; }
 .hero-data .hl { color: var(--green); }
-@keyframes dataFade { to { opacity: 0.5; } }
+@keyframes dataFade { to { opacity: 0.7; } }
 
 .hero-content { position: relative; z-index: 2; }
 .hero-index {
@@ -146,7 +199,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 }
 .hero-name {
   font-family: var(--font-display);
-  font-weight: 900; font-style: italic;
+  font-weight: 900;
   font-size: clamp(5rem, 14vw, 13rem);
   line-height: 0.85; letter-spacing: -0.03em;
   color: var(--cream); position: relative;
@@ -197,8 +250,8 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 
 /* ——— SECTION DIVIDER ——— */
 .divider {
-  padding: 0 2rem;
-  display: flex; align-items: center; gap: 1rem; height: 1px;
+  padding: 1rem 2rem;
+  display: flex; align-items: center; gap: 1rem;
 }
 .divider-line { flex: 1; height: 1px; background: var(--dark-gray); }
 .divider-text {
@@ -239,6 +292,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   overflow: visible;
   user-select: none;
   z-index: 2;
+  padding: calc(var(--cube-size) * 0.12) calc(var(--cube-size) * 0.2);
 }
 .cube-section-grid {
   position: absolute; inset: 0;
@@ -251,13 +305,17 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 
 /* Cube HUD */
 .cube-hud {
-  position: absolute; inset: 0;
+  position: absolute;
+  top: calc(var(--cube-size) * -0.08 - 1.5rem);
+  bottom: calc(var(--cube-size) * -0.08 - 1.5rem);
+  left: calc(var(--cube-size) * -0.15 - 1.5rem);
+  right: calc(var(--cube-size) * -0.15 - 1.5rem);
   pointer-events: none; z-index: 5;
 }
 .cube-hud > span {
   position: absolute;
   font-family: var(--font-mono); font-size: 0.5rem;
-  color: var(--warm-gray); letter-spacing: 0.1em; opacity: 0.5;
+  color: var(--cream); letter-spacing: 0.1em; opacity: 0.7;
 }
 .cube-hud-tl { top: 1.5rem; left: 2rem; }
 .cube-hud-tr { top: 1.5rem; right: 2rem; text-align: right; }
@@ -273,7 +331,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   pointer-events: none; opacity: 0.08;
 }
 .cube-crosshair::before, .cube-crosshair::after {
-  content: ''; position: absolute; background: var(--cream);
+  content: ''; position: absolute; background: #0a0a0a;
 }
 .cube-crosshair::before { width: 1px; height: 100%; left: 50%; }
 .cube-crosshair::after { width: 100%; height: 1px; top: 50%; }
@@ -282,7 +340,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 }
 .cube-crosshair-corners span {
   position: absolute; width: 12px; height: 12px;
-  border-color: var(--cream); border-style: solid;
+  border-color: #0a0a0a; border-style: solid;
 }
 .cube-crosshair-corners span:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
 .cube-crosshair-corners span:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
@@ -291,7 +349,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 
 /* Face ticker (left) */
 .cube-face-ticker {
-  position: absolute; left: 2rem; top: 50%;
+  position: absolute; left: calc(var(--cube-size) * -0.15 - 1rem); top: 50%;
   transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 0.6rem;
   z-index: 5;
@@ -329,10 +387,11 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   position: absolute;
   width: var(--cube-size); height: var(--cube-size);
   backface-visibility: hidden;
-  border: 1px solid var(--dark-gray);
+  border: 1px solid rgba(10,10,10,0.12);
   overflow: hidden;
   display: flex; flex-direction: column;
   justify-content: flex-end;
+  box-shadow: inset 0 0 30px rgba(10,10,10,0.06);
 }
 .cube-face--front  { transform: rotateY(  0deg) translateZ(var(--cube-half)); }
 .cube-face--right  { transform: rotateY( 90deg) translateZ(var(--cube-half)); }
@@ -340,23 +399,46 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 .cube-face--left   { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
 .cube-face--top    { transform: rotateX( 90deg) translateZ(var(--cube-half)); }
 .cube-face--bottom { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+.cube-face--top .cube-face-bg,
+.cube-face--bottom .cube-face-bg {
+  background: linear-gradient(135deg, #d4e4f0, #e8eef4, #f0f4f8, #dce8f0, #c8d8e8) !important;
+  filter: grayscale(100%) !important;
+}
+.cube-face--top .cube-face-hud,
+.cube-face--bottom .cube-face-hud,
+.cube-face--top .cube-face-title,
+.cube-face--bottom .cube-face-title { display: none; }
+a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
 
 /* Face background */
 .cube-face-bg {
   position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
 }
-.cube-face[data-color="olive"] .cube-face-bg   { background: linear-gradient(135deg, #2a3020, #1a2018, #0e1410, #1a1e14); }
-.cube-face[data-color="slate"] .cube-face-bg   { background: linear-gradient(135deg, #1a1e24, #14181e, #0e1218, #181c22); }
-.cube-face[data-color="earth"] .cube-face-bg   { background: linear-gradient(135deg, #241e18, #1e1a14, #181410, #201c16); }
-.cube-face[data-color="ink"] .cube-face-bg     { background: linear-gradient(135deg, #141418, #101014, #181820, #0e0e14); }
-.cube-face[data-color="rust"] .cube-face-bg    { background: linear-gradient(135deg, #241814, #1e1410, #201610, #1a120e); }
-.cube-face[data-color="moss"] .cube-face-bg    { background: linear-gradient(135deg, #1a2018, #141a12, #0e1610, #182016); }
+.cube-face:hover .cube-face-bg,
+.cube-face.color-active .cube-face-bg {
+  filter: grayscale(0%);
+}
+.cube-face[data-color="olive"] .cube-face-bg   { background: url('images/projects/MNTA-website.png') center/cover no-repeat; }
+.cube-face[data-color="slate"] .cube-face-bg   { background: url('images/projects/LastBite-restaurant.png') center/cover no-repeat; }
+.cube-face[data-color="earth"] .cube-face-bg   { background: url('images/projects/Deadwax-zine.png') center/cover no-repeat; }
+.cube-face[data-color="ink"] .cube-face-bg     { background: url('images/projects/LowBatteryPress-app.png') center/cover no-repeat; }
 
 /* Face overlay */
 .cube-face-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.7) 100%);
+  background: linear-gradient(to bottom, rgba(10,10,10,0.05) 0%, rgba(10,10,10,0.45) 100%);
 }
+/* Shading per face for 3D depth */
+.cube-face--front .cube-face-overlay  { background: linear-gradient(to bottom, rgba(10,10,10,0.02) 0%, rgba(10,10,10,0.35) 100%); }
+.cube-face--right .cube-face-overlay  { background: linear-gradient(to bottom, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.50) 100%); }
+.cube-face--left .cube-face-overlay   { background: linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0.55) 100%); }
+.cube-face--back .cube-face-overlay   { background: linear-gradient(to bottom, rgba(10,10,10,0.20) 0%, rgba(10,10,10,0.60) 100%); }
+.cube-face--top .cube-face-overlay    { background: linear-gradient(to bottom, rgba(10,10,10,0.0) 0%, rgba(10,10,10,0.25) 100%); }
+.cube-face--bottom .cube-face-overlay { background: linear-gradient(to bottom, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.60) 100%); }
 
 /* Face HUD */
 .cube-face-hud {
@@ -382,7 +464,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   width: 16px; height: 16px; opacity: 0.15;
 }
 .cube-face-cross::before, .cube-face-cross::after {
-  content: ''; position: absolute; background: var(--cream);
+  content: ''; position: absolute; background: #e8e4de;
 }
 .cube-face-cross::before { width: 1px; height: 100%; left: 50%; }
 .cube-face-cross::after { width: 100%; height: 1px; top: 50%; }
@@ -399,7 +481,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   padding: 0.75rem;
   font-family: var(--font-display); font-weight: 700;
   font-size: 1.4rem; line-height: 1.1;
-  color: var(--cream);
+  color: #e8e4de;
 }
 
 /* ——— INFO SVG LINES ——— */
@@ -464,7 +546,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   padding: 1rem 1.25rem;
   border: 1px solid var(--dark-gray);
   border-left: 2px solid var(--green);
-  background: rgba(10, 10, 10, 0.92);
+  background: rgba(232, 228, 222, 0.94);
   backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
@@ -490,7 +572,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 .cube-info-name {
   font-family: var(--font-display); font-weight: 700;
   font-size: 1.3rem; line-height: 1.15;
-  color: var(--cream); margin-bottom: 0.25rem;
+  color: #0a0a0a; margin-bottom: 0.25rem;
 }
 .cube-info-year {
   font-family: var(--font-mono); font-size: 0.5rem;
@@ -557,8 +639,8 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 2rem;
 }
 .about-quote em {
-  font-style: italic; color: transparent;
-  -webkit-text-stroke: 1px var(--cream);
+  color: transparent;
+  -webkit-text-stroke: 1px #0a0a0a;
 }
 .about-bio {
   font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
@@ -599,6 +681,14 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   color: var(--green-bright);
   background: var(--green-glow);
 }
+.about-linkedin {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green-bright); margin-top: 2rem;
+  transition: color 0.3s;
+}
+.about-linkedin:hover { color: var(--cream); }
 
 /* ——— CONTACT ——— */
 .contact {
@@ -629,7 +719,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   line-height: 1; letter-spacing: -0.02em; margin-bottom: 0.5rem;
 }
 .contact-heading .outline {
-  -webkit-text-stroke: 1.5px var(--cream); color: transparent;
+  -webkit-text-stroke: 1.5px #0a0a0a; color: transparent;
 }
 .contact-sub {
   font-family: var(--font-mono); font-size: 0.7rem; font-weight: 300;
@@ -682,16 +772,10 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 @media (max-width: 900px) {
   :root { --cube-size: 260px; --cube-half: 130px; --cube-perspective: 900px; }
   .hero {
-    grid-template-columns: 1fr;
     padding: 6rem 1.5rem 2.5rem;
     gap: 1rem;
   }
   .hero-data { display: none; }
-  .hero-name span:nth-child(2) { margin-left: 0; }
-  .hero-content { text-align: center; }
-  .hero-name { font-size: clamp(4rem, 12vw, 7rem); }
-  .hero-tagline { margin-left: auto; margin-right: auto; }
-  .hero-status { text-align: center; }
   .hero-scroll-indicator { right: 1.5rem; }
   .nav { padding: 1rem 1.5rem; }
   .nav-coord { display: none; }
@@ -711,7 +795,6 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   :root { --cube-size: 220px; --cube-half: 110px; --cube-perspective: 700px; }
   .nav-links { display: none; }
   .hero { padding: 5rem 1.25rem 2rem; }
-  .hero-name { font-size: clamp(3.5rem, 16vw, 5rem); }
   .hero-scroll-indicator { display: none; }
   .cube-hud { display: none; }
   .cube-crosshair { display: none; }
@@ -734,6 +817,23 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 </head>
 <body>
 
+<!-- Custom Cursor -->
+<div class="cursor-crosshair" id="cursor-crosshair">
+  <span class="cursor-corner"></span>
+  <span class="cursor-corner"></span>
+  <span class="cursor-corner"></span>
+  <span class="cursor-corner"></span>
+  <span class="cursor-dot"></span>
+</div>
+<div class="cursor-trail" id="ct-0"></div>
+<div class="cursor-trail" id="ct-1"></div>
+<div class="cursor-trail" id="ct-2"></div>
+<div class="cursor-trail" id="ct-3"></div>
+<div class="cursor-trail" id="ct-4"></div>
+<div class="cursor-trail" id="ct-5"></div>
+<div class="cursor-trail" id="ct-6"></div>
+<div class="cursor-trail" id="ct-7"></div>
+
 <div class="grain"></div>
 <div class="scanlines"></div>
 
@@ -755,23 +855,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   <div class="hero-glow"></div>
   <div class="hero-data d1">SYS.STATUS: <span class="hl">ACTIVE</span><br>FRAME: 001 / ∞</div>
   <div class="hero-data d2">CLASSIFICATION: <span class="hl">CREATIVE_DIR</span><br>MULTIDISCIPLINE.DESIGN</div>
-  <div class="hero-data d3">DATE: <span class="hl">02.26.2026</span><br>LAT 45.46 // LONG 9.19</div>
-  <div class="hero-data d4">PROJECTS: <span class="hl">060+</span><br>CLIENTS: 025+</div>
-  <div class="hero-content">
-    <div class="hero-index">[000] — Portfolio / 2026</div>
-    <h1 class="hero-name">
-      <span>Sarah</span>
-      <span>Peroni</span>
-    </h1>
-    <p class="hero-tagline">
-      Multi-discipline designer &amp; creative director —<br>
-      <span class="hl">branding</span>, <span class="hl">UI/UX</span>, <span class="hl">illustration</span>,<br>
-      and everything in between.
-    </p>
-    <div class="hero-status">
-      <span class="dot"></span>AVAILABLE FOR PROJECTS<br>Q2 2026 — ONWARD
-    </div>
-  </div>
+  <div class="hero-data d3">DATE: <span class="hl" id="hero-date"></span><br>LAT 45.46 // LONG 9.19</div>
 
   <!-- 3D Cube (hero right column) -->
   <div class="cube-section" id="cube-section">
@@ -797,7 +881,7 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
     <!-- HUD -->
     <div class="cube-hud">
       <span class="cube-hud-tl">[OBJECT_3D] — PROJ.CUBE</span>
-      <span class="cube-hud-tr">FACES: <span class="hl">006</span> // ACTIVE: <span class="hl cube-hud-active">001</span></span>
+      <span class="cube-hud-tr">FACES: <span class="hl">004</span> // ACTIVE: <span class="hl cube-hud-active">001</span></span>
       <span class="cube-hud-bl">ROT_X: <span class="hl" id="hud-rx">-15.00</span>° // ROT_Y: <span class="hl" id="hud-ry">0.00</span>°</span>
       <span class="cube-hud-br">PERSPECTIVE: 1200px // Z: 190</span>
       <div class="cube-crosshair">
@@ -813,84 +897,68 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
       <span class="cube-ticker-item" data-face="1">002</span>
       <span class="cube-ticker-item" data-face="2">003</span>
       <span class="cube-ticker-item" data-face="3">004</span>
-      <span class="cube-ticker-item" data-face="4">005</span>
-      <span class="cube-ticker-item" data-face="5">006</span>
     </div>
 
     <!-- Cube -->
     <div class="cube-viewport" id="cube-viewport">
       <div class="cube" id="cube">
 
-        <div class="cube-face cube-face--front" data-index="0" data-color="olive">
+        <a href="projects/mnta.html" class="cube-face cube-face--front" data-index="0" data-color="olive">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
           <div class="cube-face-hud">
             <span class="cube-face-idx">[001]</span>
             <span class="cube-face-type">Brand Identity</span>
             <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: AW-2025<br>RES: 4800×3200</div>
+            <div class="cube-face-coord">X: 46.83<br>EXPERIENTIAL DESIGN</div>
           </div>
-          <div class="cube-face-title">Aurelio Wines</div>
-        </div>
+          <div class="cube-face-title">MNTA</div>
+        </a>
 
-        <div class="cube-face cube-face--right" data-index="1" data-color="slate">
+        <a href="projects/last-bite.html" class="cube-face cube-face--right" data-index="1" data-color="slate">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
           <div class="cube-face-hud">
             <span class="cube-face-idx">[002]</span>
-            <span class="cube-face-type">UI/UX</span>
+            <span class="cube-face-type">Brand Identity</span>
             <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: LM-2025<br>RES: 1440×900</div>
+            <div class="cube-face-coord">X: 34.12<br>FOOD SYSTEM DESIGN</div>
           </div>
-          <div class="cube-face-title">Luminary App</div>
-        </div>
+          <div class="cube-face-title">Last Bite</div>
+        </a>
 
-        <div class="cube-face cube-face--back" data-index="2" data-color="earth">
+        <a href="projects/deadwax.html" class="cube-face cube-face--back" data-index="2" data-color="earth">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
           <div class="cube-face-hud">
             <span class="cube-face-idx">[003]</span>
-            <span class="cube-face-type">Illustration</span>
+            <span class="cube-face-type">Editorial</span>
             <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: RW-2024<br>RES: 3600×4800</div>
+            <div class="cube-face-coord">X: 12.00<br>EDITORIAL DESIGN</div>
           </div>
-          <div class="cube-face-title">Rewild Series</div>
-        </div>
+          <div class="cube-face-title">Deadwax</div>
+        </a>
 
-        <div class="cube-face cube-face--left" data-index="3" data-color="ink">
+        <a href="projects/low-battery-press.html" class="cube-face cube-face--left" data-index="3" data-color="ink">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
           <div class="cube-face-hud">
             <span class="cube-face-idx">[004]</span>
-            <span class="cube-face-type">Web Design</span>
+            <span class="cube-face-type">UX/UI</span>
             <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: NS-2024<br>RES: 1920×1080</div>
+            <div class="cube-face-coord">X: 02.47<br>PRODUCT DESIGN</div>
           </div>
-          <div class="cube-face-title">Noctis Studio</div>
-        </div>
+          <div class="cube-face-title">Low Battery Press</div>
+        </a>
 
-        <div class="cube-face cube-face--top" data-index="4" data-color="rust">
+        <div class="cube-face cube-face--top">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
-          <div class="cube-face-hud">
-            <span class="cube-face-idx">[005]</span>
-            <span class="cube-face-type">Packaging</span>
-            <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: ER-2023<br>RES: 3000×2000</div>
-          </div>
-          <div class="cube-face-title">Ember Roasters</div>
         </div>
 
-        <div class="cube-face cube-face--bottom" data-index="5" data-color="moss">
+        <div class="cube-face cube-face--bottom">
           <div class="cube-face-bg"></div>
           <div class="cube-face-overlay"></div>
-          <div class="cube-face-hud">
-            <span class="cube-face-idx">[006]</span>
-            <span class="cube-face-type">Creative Dir</span>
-            <div class="cube-face-cross"></div>
-            <div class="cube-face-coord">REF: VF-2023<br>RES: 5400×3600</div>
-          </div>
-          <div class="cube-face-title">Veil Fragrance</div>
         </div>
 
       </div>
@@ -900,74 +968,50 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
     <div class="cube-info-panels-slot">
       <div class="cube-info-panel" id="info-panel-0">
         <div class="cube-info-tags">
-          <span class="cube-info-tag">Branding</span>
-          <span class="cube-info-tag">Packaging</span>
-          <span class="cube-info-tag">Art Dir</span>
+          <span class="cube-info-tag">Brand Identity</span>
+          <span class="cube-info-tag">UX/UI</span>
+          <span class="cube-info-tag">Interactive</span>
         </div>
-        <h3 class="cube-info-name">Aurelio Wines</h3>
-        <div class="cube-info-year">2025</div>
-        <p class="cube-info-desc">Complete visual identity for a boutique winery — merging old-world craft with contemporary elegance.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+        <h3 class="cube-info-name">MNTA</h3>
+        <div class="cube-info-year">Mountains · Nature · Travel · Access</div>
+        <p class="cube-info-desc">An immersive digital platform giving people who cannot physically reach mountains a cinematic encounter with the alpine world.</p>
+        <a href="projects/mnta.html" class="cube-info-link">VIEW PROJECT →</a>
       </div>
 
       <div class="cube-info-panel" id="info-panel-1">
         <div class="cube-info-tags">
-          <span class="cube-info-tag">UI/UX</span>
-          <span class="cube-info-tag">Mobile</span>
-          <span class="cube-info-tag">Design Sys</span>
+          <span class="cube-info-tag">Brand Identity</span>
+          <span class="cube-info-tag">Packaging</span>
+          <span class="cube-info-tag">Web Design</span>
         </div>
-        <h3 class="cube-info-name">Luminary App</h3>
-        <div class="cube-info-year">2025</div>
-        <p class="cube-info-desc">A meditation and wellness platform designed around calm, clarity, and effortless daily rituals.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+        <h3 class="cube-info-name">Last Bite</h3>
+        <div class="cube-info-year">Food System Design</div>
+        <p class="cube-info-desc">Brand ecosystem for a post-apocalyptic sustainable restaurant concept. Defiant identity built for a world where food is fuel and flavor is resistance.</p>
+        <a href="projects/last-bite.html" class="cube-info-link">VIEW PROJECT →</a>
       </div>
 
       <div class="cube-info-panel" id="info-panel-2">
         <div class="cube-info-tags">
-          <span class="cube-info-tag">Illustration</span>
           <span class="cube-info-tag">Editorial</span>
-          <span class="cube-info-tag">Print</span>
+          <span class="cube-info-tag">Digital Zine</span>
+          <span class="cube-info-tag">Art Dir</span>
         </div>
-        <h3 class="cube-info-name">Rewild Series</h3>
-        <div class="cube-info-year">2024</div>
-        <p class="cube-info-desc">Editorial illustrations exploring humanity's relationship with untamed landscapes.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+        <h3 class="cube-info-name">Deadwax</h3>
+        <div class="cube-info-year">Editorial Design</div>
+        <p class="cube-info-desc">Underground digital music zine powered by community submissions and monthly editorial picks. Propaganda-grade design meets the rawness of the record underground.</p>
+        <a href="projects/deadwax.html" class="cube-info-link">VIEW PROJECT →</a>
       </div>
 
       <div class="cube-info-panel" id="info-panel-3">
         <div class="cube-info-tags">
-          <span class="cube-info-tag">Web</span>
-          <span class="cube-info-tag">Dev</span>
-          <span class="cube-info-tag">Motion</span>
+          <span class="cube-info-tag">UX/UI</span>
+          <span class="cube-info-tag">Web App</span>
+          <span class="cube-info-tag">Product Design</span>
         </div>
-        <h3 class="cube-info-name">Noctis Studio</h3>
-        <div class="cube-info-year">2024</div>
-        <p class="cube-info-desc">Immersive portfolio for a music production studio — audio-reactive visuals meets dark aesthetics.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-
-      <div class="cube-info-panel" id="info-panel-4">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">Packaging</span>
-          <span class="cube-info-tag">Branding</span>
-          <span class="cube-info-tag">Print</span>
-        </div>
-        <h3 class="cube-info-name">Ember Roasters</h3>
-        <div class="cube-info-year">2023</div>
-        <p class="cube-info-desc">Packaging and visual identity for a specialty coffee roastery — warmth, ritual, and the slow morning.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-
-      <div class="cube-info-panel" id="info-panel-5">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">Art Dir</span>
-          <span class="cube-info-tag">Photo</span>
-          <span class="cube-info-tag">Campaign</span>
-        </div>
-        <h3 class="cube-info-name">Veil Fragrance</h3>
-        <div class="cube-info-year">2023</div>
-        <p class="cube-info-desc">Art direction for a luxury fragrance launch — mystery, sensuality, and unseen layers of scent.</p>
-        <a href="#" class="cube-info-link">VIEW PROJECT →</a>
+        <h3 class="cube-info-name">Low Battery Press</h3>
+        <div class="cube-info-year">Product Design</div>
+        <p class="cube-info-desc">Web-based daily planning tool with free-form text input that auto-organizes. Glass morphism UI built for the kind of thinking that refuses to fit into boxes.</p>
+        <a href="projects/low-battery-press.html" class="cube-info-link">VIEW PROJECT →</a>
       </div>
     </div>
   </div>
@@ -976,18 +1020,10 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 </section>
 
 <!-- Divider -->
-<div class="divider">
+<div class="divider" id="work">
   <div class="divider-line"></div>
-  <span class="divider-text">DISCIPLINES // CAPABILITIES // 2023—2026</span>
+  <span class="divider-text">SELECTED WORK // 004 ENTRIES // <span class="hl">DRAG</span> OR <span class="hl">SCROLL</span></span>
   <div class="divider-line"></div>
-</div>
-
-<!-- Work Header -->
-<div class="work-header" id="work">
-  <div class="work-title">Selected <span class="outline">Work</span></div>
-  <div class="work-meta-block">
-    006 ENTRIES // <span class="hl">DRAG</span> OR <span class="hl">SCROLL</span>
-  </div>
 </div>
 
 <!-- Marquee -->
@@ -1039,6 +1075,9 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
       <span class="service-item">Art Direction</span>
       <span class="service-item">Motion</span>
     </div>
+    <a href="https://www.linkedin.com/in/sarahperoni/" target="_blank" class="about-linkedin">
+      CONNECT ON LINKEDIN →
+    </a>
   </div>
 </section>
 
@@ -1056,17 +1095,10 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
   <div class="contact-inner">
     <div class="contact-label reveal">[TRANSMIT] — GET IN TOUCH</div>
     <h2 class="contact-heading reveal">Let's build<br>something <span class="outline">extraordinary</span></h2>
-    <p class="contact-sub reveal">Currently accepting select projects for Q2 2026 onward.<br>Clear brief or spark of an idea — either works.</p>
     <a href="mailto:peroni.sarah@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Let%E2%80%99s%20Work%20Together&body=Hi%20Sarah%2C%0A%0AI%E2%80%99d%20love%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20type%3A%20%0ABrief%20description%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0ALooking%20forward%20to%20hearing%20from%20you!" class="contact-email-btn reveal">
       GET IN TOUCH
       <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5"/></svg>
     </a>
-    <div class="contact-socials reveal">
-      <a href="#">Instagram</a>
-      <a href="#">Dribbble</a>
-      <a href="#">Behance</a>
-      <a href="#">LinkedIn</a>
-    </div>
   </div>
 </section>
 
@@ -1078,6 +1110,77 @@ button { font: inherit; border: none; background: none; cursor: pointer; color: 
 </footer>
 
 <script>
+// ——— Custom Cursor + Trail ———
+(function() {
+  const crosshair = document.getElementById('cursor-crosshair');
+  const trailCount = 8;
+  const trails = [];
+  for (let i = 0; i < trailCount; i++) {
+    trails.push(document.getElementById('ct-' + i));
+  }
+
+  const positions = [];
+  for (let i = 0; i < trailCount; i++) {
+    positions.push({ x: -100, y: -100 });
+  }
+
+  let mouseX = -100, mouseY = -100;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    crosshair.style.left = mouseX + 'px';
+    crosshair.style.top = mouseY + 'px';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    crosshair.style.opacity = '0';
+    trails.forEach(t => t.style.opacity = '0');
+  });
+  document.addEventListener('mouseenter', () => {
+    crosshair.style.opacity = '1';
+  });
+
+  document.addEventListener('mouseover', e => {
+    const target = e.target.closest('a, button, [onclick], .cube-ticker-item, .service-item');
+    if (target) {
+      crosshair.classList.add('hovering');
+    } else {
+      crosshair.classList.remove('hovering');
+    }
+  });
+
+  function animateTrail() {
+    let prevX = mouseX, prevY = mouseY;
+    for (let i = 0; i < trailCount; i++) {
+      const pos = positions[i];
+      pos.x += (prevX - pos.x) * (0.35 - i * 0.03);
+      pos.y += (prevY - pos.y) * (0.35 - i * 0.03);
+      trails[i].style.left = pos.x + 'px';
+      trails[i].style.top = pos.y + 'px';
+      const opacity = (1 - i / trailCount) * 0.5;
+      const scale = 1 - i * 0.08;
+      trails[i].style.opacity = opacity;
+      trails[i].style.transform = `translate(-50%, -50%) scale(${scale})`;
+      trails[i].style.boxShadow = `0 0 ${4 - i * 0.4}px rgba(122, 154, 106, ${opacity})`;
+      prevX = pos.x;
+      prevY = pos.y;
+    }
+    requestAnimationFrame(animateTrail);
+  }
+  animateTrail();
+})();
+
+// ——— Dynamic Date ———
+(function() {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  const el = document.getElementById('hero-date');
+  if (el) el.textContent = mm + '.' + dd + '.' + yyyy;
+})();
+
 // ——— Scroll Reveal ———
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -1296,9 +1399,14 @@ function snapToFace(faceIdx) {
       const face = getFrontFace();
       if (face !== state.activeFace || faceIdx !== null) {
         hideAllInfo();
+        // Remove color-active from all faces
+        document.querySelectorAll('.cube-face').forEach(f => f.classList.remove('color-active'));
         state.activeFace = face;
         updateTicker(face);
         updateHUD(face);
+        // Add color-active to front face
+        const frontFaceEl = document.querySelector(`.cube-face[data-index="${face}"]`);
+        if (frontFaceEl) frontFaceEl.classList.add('color-active');
         setTimeout(() => showInfo(face), 100);
       }
     }
@@ -1399,8 +1507,10 @@ tickerItems.forEach(item => {
 // ——— Pointer events (mouse + touch) ———
 function onPointerDown(x, y) {
   state.isDragging = true;
+  state.hasDragged = false;
   state.autoRotateActive = false;
   clearTimeout(state.autoRotateTimeout);
+  document.querySelectorAll('.cube-face').forEach(f => f.classList.remove('color-active'));
   state.dragStartX = x;
   state.dragStartY = y;
   state.dragStartRotX = state.rotX;
@@ -1416,6 +1526,11 @@ function onPointerMove(x, y) {
   if (!state.isDragging) return;
   const dx = x - state.dragStartX;
   const dy = y - state.dragStartY;
+
+  // Mark as dragged if moved more than 5px
+  if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+    state.hasDragged = true;
+  }
 
   state.rotY = state.dragStartRotY + dx * 0.4;
   state.rotX = state.dragStartRotX - dy * 0.4;
@@ -1439,6 +1554,27 @@ function onPointerUp() {
     state.autoRotateSpeed = 0.12;
   }, 3500);
 }
+
+// Prevent cube face links from firing on drag
+document.querySelectorAll('a.cube-face').forEach(face => {
+  face.addEventListener('click', e => {
+    if (state.hasDragged) {
+      e.preventDefault();
+    }
+  });
+});
+
+// Remove color when mouse leaves cube area
+cubeViewport.addEventListener('mouseleave', () => {
+  document.querySelectorAll('.cube-face').forEach(f => f.classList.remove('color-active'));
+});
+// Re-add color when mouse enters cube area (if not dragging)
+cubeViewport.addEventListener('mouseenter', () => {
+  if (!state.isDragging && state.activeFace !== null) {
+    const frontFaceEl = document.querySelector(`.cube-face[data-index="${state.activeFace}"]`);
+    if (frontFaceEl) frontFaceEl.classList.add('color-active');
+  }
+});
 
 // Mouse events
 cubeViewport.addEventListener('mousedown', e => {
