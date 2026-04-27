@@ -820,7 +820,6 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
     <li><a href="#about">[about]</a></li>
     <li><a href="#contact">[contact]</a></li>
   </ul>
-  <span class="nav-coord">45.4642° N, 9.1900° E</span>
 </nav>
 
 <!-- Hero -->
@@ -828,43 +827,11 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
   <div class="hero-grid"></div>
   <div class="hero-vignette"></div>
   <div class="hero-glow"></div>
-  <div class="hero-data d1">SYS.STATUS: <span class="hl">ACTIVE</span><br>FRAME: 001 / ∞</div>
-  <div class="hero-data d2">CLASSIFICATION: <span class="hl">CREATIVE_DIR</span><br>MULTIDISCIPLINE.DESIGN</div>
-  <div class="hero-data d3">DATE: <span class="hl" id="hero-date"></span><br>LAT 45.46 // LONG 9.19</div>
+  <div class="hero-data d3">DATE: <span class="hl" id="hero-date"></span></div>
 
   <!-- 3D Cube (hero right column) -->
   <div class="cube-section" id="cube-section">
     <div class="cube-section-grid"></div>
-
-    <!-- SVG info lines -->
-    <svg class="cube-info-svg" id="cube-info-svg" aria-hidden="true">
-      <defs>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <path class="info-line-glow" id="info-glow-0"/>
-      <path class="info-line" id="info-line-0"/>
-      <circle class="info-spark" id="info-spark-0" r="2.5" fill="#7a9a6a">
-        <animateMotion dur="2s" repeatCount="indefinite" id="spark-motion-0">
-          <mpath href="#info-line-0"/>
-        </animateMotion>
-      </circle>
-    </svg>
-
-    <!-- HUD -->
-    <div class="cube-hud">
-      <span class="cube-hud-tl">[OBJECT_3D] — PROJ.CUBE</span>
-      <span class="cube-hud-tr">FACES: <span class="hl">004</span> // ACTIVE: <span class="hl cube-hud-active">001</span></span>
-      <span class="cube-hud-bl">ROT_X: <span class="hl" id="hud-rx">-15.00</span>° // ROT_Y: <span class="hl" id="hud-ry">0.00</span>°</span>
-      <span class="cube-hud-br">PERSPECTIVE: 1200px // Z: 190</span>
-      <div class="cube-crosshair">
-        <div class="cube-crosshair-corners">
-          <span></span><span></span><span></span><span></span>
-        </div>
-      </div>
-    </div>
 
     <!-- Face ticker -->
     <div class="cube-face-ticker" id="face-ticker">
@@ -939,56 +906,6 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
       </div>
     </div>
 
-    <!-- Info panels slot -->
-    <div class="cube-info-panels-slot">
-      <div class="cube-info-panel" id="info-panel-0">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">Brand Identity</span>
-          <span class="cube-info-tag">UX/UI</span>
-          <span class="cube-info-tag">Interactive</span>
-        </div>
-        <h3 class="cube-info-name">MNTA</h3>
-        <div class="cube-info-year">Mountains · Nature · Travel · Access</div>
-        <p class="cube-info-desc">An immersive digital platform giving people who cannot physically reach mountains a cinematic encounter with the alpine world.</p>
-        <a href="projects/mnta.html" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-
-      <div class="cube-info-panel" id="info-panel-1">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">Brand Identity</span>
-          <span class="cube-info-tag">Packaging</span>
-          <span class="cube-info-tag">Web Design</span>
-        </div>
-        <h3 class="cube-info-name">Last Bite</h3>
-        <div class="cube-info-year">Food System Design</div>
-        <p class="cube-info-desc">Brand ecosystem for a post-apocalyptic sustainable restaurant concept. Defiant identity built for a world where food is fuel and flavor is resistance.</p>
-        <a href="projects/last-bite.html" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-
-      <div class="cube-info-panel" id="info-panel-2">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">Editorial</span>
-          <span class="cube-info-tag">Digital Zine</span>
-          <span class="cube-info-tag">Art Dir</span>
-        </div>
-        <h3 class="cube-info-name">Deadwax</h3>
-        <div class="cube-info-year">Editorial Design</div>
-        <p class="cube-info-desc">Underground digital music zine powered by community submissions and monthly editorial picks.</p>
-        <a href="projects/deadwax.html" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-
-      <div class="cube-info-panel" id="info-panel-3">
-        <div class="cube-info-tags">
-          <span class="cube-info-tag">UX/UI</span>
-          <span class="cube-info-tag">Web App</span>
-          <span class="cube-info-tag">Product Design</span>
-        </div>
-        <h3 class="cube-info-name">Low Battery Press</h3>
-        <div class="cube-info-year">Product Design</div>
-        <p class="cube-info-desc">Web-based daily planning tool with free-form text input that auto-organizes.</p>
-        <a href="projects/low-battery-press.html" class="cube-info-link">VIEW PROJECT →</a>
-      </div>
-    </div>
   </div>
 
   <div class="hero-scroll-indicator">SCROLL ↓</div>
@@ -1377,73 +1294,10 @@ function snapToFace(faceIdx) {
 }
 
 // ——— Info line + panel ———
-function showInfo(faceIdx) {
-  const panelEl = document.getElementById(`info-panel-${faceIdx}`);
-
-  // Draw SVG info line (cube bottom → panel top, circuit-board style)
-  const svgRect = svgEl.getBoundingClientRect();
-  const cubeRect = cubeViewport.getBoundingClientRect();
-
-  // Cube bottom-center relative to SVG
-  const cx = cubeRect.left + cubeRect.width / 2 - svgRect.left;
-  const cubeBottom = cubeRect.bottom - svgRect.top;
-
-  // Panel slot position
-  const slotEl = document.querySelector('.cube-info-panels-slot');
-  const slotRect = slotEl.getBoundingClientRect();
-  const px = slotRect.left + slotRect.width / 2 - svgRect.left;
-  const py = slotRect.top - svgRect.top;
-
-  // Circuit-board path: down from cube bottom, jog, then to panel
-  const jog = (faceIdx % 2 === 0) ? -20 : 20;
-  const midY = cubeBottom + (py - cubeBottom) * 0.5;
-
-  const d = `M ${cx} ${cubeBottom + 5} L ${cx} ${midY} L ${cx + jog} ${midY} L ${cx + jog} ${py}`;
-
-  const line = document.getElementById('info-line-0');
-  const glow = document.getElementById('info-glow-0');
-  const spark = document.getElementById('info-spark-0');
-
-  line.setAttribute('d', d);
-  glow.setAttribute('d', d);
-
-  const length = line.getTotalLength();
-  line.style.strokeDasharray = length;
-  line.style.strokeDashoffset = length;
-  glow.style.strokeDasharray = length;
-  glow.style.strokeDashoffset = length;
-
-  // Trigger draw animation
-  requestAnimationFrame(() => {
-    line.classList.add('drawing');
-    glow.classList.add('active');
-    glow.style.strokeDashoffset = '0';
-
-    setTimeout(() => {
-      line.classList.remove('drawing');
-      line.classList.add('pulsing');
-      line.style.strokeDashoffset = '0';
-      line.style.strokeDasharray = length;
-      spark.classList.add('active');
-    }, 850);
-  });
-
-  // Show panel
-  panelEl.classList.add('active');
-}
-
-function hideAllInfo() {
-  document.querySelectorAll('.cube-info-panel').forEach(p => p.classList.remove('active'));
-  const line = document.getElementById('info-line-0');
-  const glow = document.getElementById('info-glow-0');
-  const spark = document.getElementById('info-spark-0');
-  line.classList.remove('drawing', 'pulsing');
-  line.style.strokeDashoffset = line.style.strokeDasharray;
-  line.style.opacity = '0';
-  glow.classList.remove('active');
-  spark.classList.remove('active');
-  setTimeout(() => { line.style.opacity = ''; }, 300);
-}
+// Info panels and SVG lines were removed from the homepage chrome.
+// These remain as no-ops so existing call-sites in the cube controller stay safe.
+function showInfo(faceIdx) {}
+function hideAllInfo() {}
 
 function updateTicker(face) {
   tickerItems.forEach((t, i) => t.classList.toggle('active', i === face));

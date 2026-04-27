@@ -120,6 +120,20 @@
   .topbar a:hover { opacity: 1; color: var(--bone); }
   .topbar .mark { display:flex; align-items:center; gap:10px; pointer-events:auto; color: var(--bone); opacity: 1; }
   .topbar .mark svg { width: 22px; height: 14px; }
+  .topbar .back-link {
+    pointer-events: auto;
+    color: var(--parchment-dim); opacity: 0.7;
+    border-right: 1px solid var(--hairline);
+    padding-right: 22px; margin-right: 6px;
+    transition: opacity .3s, color .3s;
+  }
+  .topbar .back-link:hover { opacity: 1; color: var(--bone); }
+  @media (max-width: 720px) {
+    .topbar { padding: 18px 24px; }
+    .topbar .left { gap: 16px; }
+    .topbar .back-link { padding-right: 16px; }
+    .topbar .right { display: none; }
+  }
 
   /* ——— HERO ——— */
   .hero {
@@ -741,15 +755,10 @@
 </head>
 <body>
 
-<!-- SITE NAV — portfolio wrapper -->
-<nav class="site-nav">
-  <a href="../" class="site-nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni"></a>
-  <a href="../" class="site-nav-back">← Selected work</a>
-</nav>
-
-<!-- Top brand bar -->
+<!-- Top brand bar — integrates portfolio back-link with MNTA in-page nav -->
 <div class="topbar" id="topbar">
   <div class="left">
+    <a href="../" class="back-link">← Sarah Peroni</a>
     <a href="#hero" class="mark">
       <svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter">
         <path d="M2 46 L22 18 L32 30 L42 8 L58 28 L66 22 L78 46 Z" />
