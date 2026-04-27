@@ -2311,18 +2311,12 @@
 <!-- STATUS -->
 <div class="status">
   <div>
-    <span class="open">
-</span>
-    <span>
-</span>
-    <span>
-</span>
+    <span></span>
+    <span></span>
   </div>
   <div><span class="pin">A MEAL WORTH REMEMBERING</span></div>
   <div>
-    <span>
-</span>
-    <span class="clock" id="clock" style="color: var(--mustard);">18:42:00</span>
+    <span></span>
   </div>
 </div>
 
@@ -2337,7 +2331,6 @@
 
   <div class="cover-grid">
     <div class="cover-left">
-      <span class="vault-tag">DESIGNER ▪ CASE FILE</span>
       <h1 class="wordmark">
         Last
         <span class="sub">Bite!</span>
@@ -2374,7 +2367,6 @@
       <div class="caution-box cb-cover">
         Deliverables<br/>
         Inside!
-        <small>read in any order</small>
       </div>
     </div>
   </div>
@@ -2632,29 +2624,6 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
       <p>Industrial line set — 3px stroke, square caps, no flourishes. Used for ration class, vessel type, return state, hazard. Drawn to live as stamps on lids.</p>
     </div>
 
-    <!-- VOICE -->
-    <div class="bs-tile bs-voice">
-      <span class="corner">05 / VOICE</span>
-      <h4>The <em>Voice.</em></h4>
-      <div class="quotes">
-        <div class="quote">
-          Doomsday comfort food, served quietly.
-          <span class="who">— Wall poster, Unit 7</span>
-        </div>
-        <div class="quote">
-          Sealed at issue. Returned at meal end. The room rebuilds itself one ration at a time.
-          <span class="who">— Footer, Field Report</span>
-        </div>
-        <div class="quote">
-          Built for the end of the world. Served like the start of the next one.
-          <span class="who">— Hero, Website</span>
-        </div>
-        <div class="quote">
-          Flavour outlives fear.
-          <span class="who">— Sign-off mantra</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2901,16 +2870,6 @@ The interface translates the printed system into mobile: typewritten text, stamp
 </section>
 
 <script>
-/* clock */
-(function() {
-  const el = document.getElementById('clock');
-  function tick() {
-    const d = new Date();
-    el.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
-  }
-  tick(); setInterval(tick, 1000);
-})();
-
 /* barcode bars */
 function buildBars(target, count = 36) {
   const el = document.getElementById(target);
