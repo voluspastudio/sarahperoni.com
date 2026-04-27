@@ -1,167 +1,1178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Low Battery Press — Sarah Peroni</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Low Battery Press · Sarah Peroni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ============================================================
+   LOW BATTERY PRESS · case file
+   teen bedroom, 1999. iridescent. lived-in. real.
+   ============================================================ */
+
 :root {
-  --black: #e8e4de;
-  --cream: #0a0a0a;
-  --cream-dim: #2a2820;
-  --warm-gray: #5a5448;
-  --mid-gray: #7a7670;
-  --dark-gray: #c8c4be;
-  --green: #5a7a4a;
-  --green-bright: #7a9a6a;
-  --green-dim: #3a5a2a;
-  --font-display: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-mono); background: var(--black); color: var(--cream); -webkit-font-smoothing: antialiased; }
-a { color: inherit; text-decoration: none; }
+  --pearl:        #f1e9f4;
+  --pearl-warm:   #f6e9ee;
+  --pearl-cool:   #e8e6f7;
+  --pearl-deep:   #d4c8e2;
 
-/* Nav */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1.25rem 2rem;
+  --lav-1:        #ddccf5;
+  --lav-2:        #c0a8e8;
+  --lav-3:        #8a6dd6;
+  --lav-4:        #5a3fa0;
+
+  --plum:         #2a1e3f;
+  --plum-soft:    #3d2e58;
+  --plum-mid:     #6a5586;
+
+  --chrome-hi:    #ffffff;
+  --chrome-mid:   #c8c4d4;
+  --chrome-lo:    #6c6580;
+
+  --hot:          #e64aa8;
+  --hot-soft:     #f5b0d8;
+
+  --mint:         #c2e8d4;
+  --peach:        #f7d4c0;
+  --sky:          #c8d8f2;
+
+  --glass:        rgba(255,255,255,0.45);
+  --glass-edge:   rgba(255,255,255,0.85);
+  --hairline:     rgba(90,63,160,0.18);
+
+  --display:      'Anton', 'Helvetica Neue', sans-serif;
+  --chunk:        'Bowlby One', 'Impact', sans-serif;
+  --body:         'Space Mono', 'Courier New', monospace;
+  --pixel:        'VT323', 'Courier New', monospace;
+  --serif:        'DM Serif Display', Georgia, serif;
+
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--pearl);
+  color: var(--plum);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--lav-3); color: var(--pearl); }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, h4, h5, p { margin: 0; }
+
+/* ============================================================
+   IRIDESCENT BACKGROUND · pearl wash, subtle holographic streaks
+   ============================================================ */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -2;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(247,212,192,0.55) 0%, transparent 40%),
+    radial-gradient(ellipse at 88% 14%, rgba(194,232,212,0.50) 0%, transparent 38%),
+    radial-gradient(ellipse at 22% 78%, rgba(200,216,242,0.55) 0%, transparent 42%),
+    radial-gradient(ellipse at 82% 86%, rgba(221,204,245,0.65) 0%, transparent 44%),
+    radial-gradient(ellipse at 50% 50%, rgba(245,233,240,0.6) 0%, transparent 60%),
+    linear-gradient(135deg, var(--pearl-cool) 0%, var(--pearl) 40%, var(--pearl-warm) 100%);
+}
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background-image:
+    repeating-linear-gradient(118deg,
+      rgba(255,255,255,0.0) 0px, rgba(255,255,255,0.0) 80px,
+      rgba(255,255,255,0.10) 81px, rgba(255,255,255,0.0) 86px,
+      rgba(255,255,255,0.0) 200px, rgba(247,212,192,0.10) 201px,
+      rgba(255,255,255,0.0) 206px),
+    radial-gradient(circle at 30% 20%, rgba(194,232,212,0.20) 0%, transparent 8%),
+    radial-gradient(circle at 70% 60%, rgba(245,176,216,0.15) 0%, transparent 6%);
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+/* ============================================================
+   SHARED PRIMITIVES
+   ============================================================ */
+.section { position: relative; padding: clamp(80px, 10vw, 140px) var(--pad); }
+.section-inner { max-width: 1240px; margin: 0 auto; position: relative; }
+
+.label {
+  font-family: var(--pixel);
+  font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lav-3);
+}
+.kicker {
+  font-family: var(--body); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--plum-mid);
+}
+.serif-em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+
+/* glass chip · frosted glass charm */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(221,204,245,0.4) 60%, rgba(255,255,255,0.6) 100%);
+  border: 1px solid var(--glass-edge);
+  border-radius: 999px;
+  padding: 8px 16px 7px;
+  font-family: var(--body); font-size: 12px;
+  color: var(--plum);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(110,80,170,0.12),
+    0 4px 16px rgba(110,80,170,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.chip .heart { color: var(--hot); }
+
+/* hairline divider */
+.rule { height: 1px; background: var(--hairline); width: 100%; }
+
+/* ============================================================
+   SITE NAV · portfolio chrome
+   ============================================================ */
+.site-nav {
+  position: relative; z-index: 200;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.9);
+  box-shadow: 0 1px 0 rgba(110,80,170,0.10);
+  padding: 12px var(--pad);
   display: flex; justify-content: space-between; align-items: center;
-  background: rgba(232, 228, 222, 0.9); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--dark-gray);
+  font-family: var(--body);
 }
-.nav-logo { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0a0a0a; }
-.nav-back { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-gray); transition: color 0.3s; }
-.nav-back:hover { color: var(--cream); }
+.site-nav-logo { display: block; line-height: 0; }
+.site-nav-logo img { height: 16px; width: auto; display: block; opacity: 0.85; }
+.site-nav-back {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--plum-soft); text-decoration: none;
+  transition: color 0.2s;
+}
+.site-nav-back:hover { color: var(--lav-3); }
 
-/* Hero */
-.project-hero {
-  padding: 8rem 2rem 4rem;
-  max-width: 1200px; margin: 0 auto;
+/* ============================================================
+   1. THE DESK · hero
+   ============================================================ */
+.desk {
+  position: relative;
+  padding: clamp(60px, 8vw, 100px) var(--pad) clamp(80px, 10vw, 140px);
+  min-height: 92vh;
+  display: flex; flex-direction: column; justify-content: center;
 }
-.project-meta {
-  display: flex; gap: 0.4rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+.desk-inner {
+  width: 100%; max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 96px);
+  align-items: center; position: relative;
 }
-.project-tag {
-  font-family: var(--font-mono); font-size: 0.45rem;
+
+/* corner timestamps · tiny system chrome */
+.desk-stamps {
+  width: 100%; max-width: 1240px; margin: 0 auto clamp(28px, 4vw, 48px);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.2em;
+  color: var(--plum-mid); text-transform: uppercase;
+  flex-wrap: wrap; gap: 12px;
+}
+.desk-stamps .blink { color: var(--hot); }
+
+.desk-mark .label { display: inline-block; margin-bottom: 18px; }
+
+.wordmark {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(70px, 11.5vw, 168px);
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    #f8f4ff 0%,
+    #d8d2e4 22%,
+    #ffffff 38%,
+    #b6abc8 56%,
+    #f5eef8 70%,
+    #8678a0 88%,
+    #d8d2e4 100%
+  );
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  filter: drop-shadow(2px 3px 0 rgba(90,63,160,0.18))
+          drop-shadow(0 0 24px rgba(221,204,245,0.55));
+  -webkit-text-stroke: 1px rgba(90,63,160,0.22);
+}
+.wordmark .battery {
+  display: inline-block;
+  width: 0.9em; height: 0.45em;
+  border: 0.07em solid var(--plum);
+  border-radius: 0.06em;
+  position: relative;
+  margin: 0 0.05em 0.1em 0.04em;
+  vertical-align: middle;
+  background: linear-gradient(90deg, var(--lav-2) 0%, var(--lav-2) 28%, transparent 28.1%);
+  -webkit-text-stroke: 0;
+  filter: none;
+}
+.wordmark .battery::after {
+  content: ''; position: absolute;
+  right: -0.13em; top: 50%; transform: translateY(-50%);
+  width: 0.08em; height: 0.22em;
+  background: var(--plum);
+  border-radius: 0 0.04em 0.04em 0;
+}
+
+.desk-tag {
+  font-family: var(--body); font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 400; line-height: 1.55;
+  color: var(--plum); margin-top: clamp(20px, 2.4vw, 30px);
+  max-width: 460px;
+}
+.desk-tag .em { color: var(--lav-4); }
+
+.desk-blurb {
+  font-family: var(--body); font-size: 13px; line-height: 1.7;
+  color: var(--plum-mid); margin-top: 18px; max-width: 460px;
+}
+
+.desk-meta {
+  margin-top: clamp(28px, 3vw, 40px);
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+
+.desk-right {
+  position: relative; min-height: 460px;
+  display: flex; align-items: center; justify-content: center;
+}
+.desk-charm {
+  position: absolute; top: -10px; right: 0;
+  width: clamp(160px, 17vw, 240px); transform: rotate(8deg);
+  filter: drop-shadow(8px 14px 24px rgba(110,80,170,0.30));
+  z-index: 3;
+}
+.desk-phone {
+  width: clamp(220px, 26vw, 360px);
+  filter: drop-shadow(0 30px 60px rgba(110,80,170,0.30))
+          drop-shadow(0 0 60px rgba(245,208,232,0.4));
+  transform: rotate(-3deg);
+  position: relative; z-index: 2;
+}
+.desk-stickers {
+  position: absolute; pointer-events: none;
+  font-family: var(--pixel); font-size: 24px;
+  color: var(--lav-3);
+}
+.desk-stickers.s1 { top: 12%; left: 4%; transform: rotate(-12deg); font-size: 28px; color: var(--hot); }
+.desk-stickers.s2 { bottom: 8%; left: 8%; transform: rotate(8deg); }
+.desk-stickers.s3 { bottom: 18%; right: -2%; transform: rotate(-6deg); color: var(--lav-4); }
+
+@media (max-width: 880px) {
+  .desk-inner { grid-template-columns: 1fr; gap: 56px; }
+  .desk-right { min-height: 380px; }
+  .desk-charm { right: 4%; width: 140px; }
+}
+
+/* ============================================================
+   2. THE NOTE · brief
+   ============================================================ */
+.note { padding-top: clamp(40px, 6vw, 80px); }
+.note-inner {
+  max-width: 980px; margin: 0 auto; position: relative;
+}
+.note-stamp {
+  display: inline-block;
+  font-family: var(--pixel); font-size: 18px; letter-spacing: 0.18em;
+  color: var(--hot); text-transform: uppercase;
+  background: rgba(255,255,255,0.6); padding: 4px 12px;
+  border: 1px dashed var(--hot); border-radius: 4px;
+  transform: rotate(-1.5deg);
+  margin-bottom: 28px;
+}
+.note-paper {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.65) 100%);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 6px;
+  padding: clamp(36px, 5vw, 64px) clamp(28px, 4vw, 56px);
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.8) inset,
+    0 30px 60px rgba(110,80,170,0.10),
+    0 4px 0 rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* lined-paper rules */
+.note-paper::before {
+  content: ''; position: absolute; inset: 28px 0 28px 0;
+  background-image: linear-gradient(rgba(160,140,196,0.08) 1px, transparent 1px);
+  background-size: 100% 32px; pointer-events: none;
+}
+.note-paper::after {
+  /* red margin line */
+  content: ''; position: absolute; left: clamp(48px,5.5vw,72px); top: 16px; bottom: 16px;
+  width: 1px; background: var(--hot-soft); opacity: 0.55;
+}
+/* tape on corners */
+.tape {
+  position: absolute; width: 84px; height: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(221,204,245,0.55) 100%);
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: 0 2px 6px rgba(110,80,170,0.10);
+}
+.tape.tl { top: -10px; left: 30px; transform: rotate(-6deg); }
+.tape.tr { top: -10px; right: 30px; transform: rotate(7deg); }
+
+.note-h {
+  font-family: var(--chunk);
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.05; color: var(--plum);
+  margin-bottom: 22px; position: relative;
+}
+.note-h em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
+.note-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3.5vw, 56px);
+  position: relative; margin-top: 12px;
+}
+.note-block .h {
+  font-family: var(--pixel); font-size: 20px; letter-spacing: 0.16em;
+  color: var(--lav-3); text-transform: uppercase; margin-bottom: 10px;
+}
+.note-block p {
+  font-family: var(--body); font-size: 14px; line-height: 1.75;
+  color: var(--plum-soft);
+}
+.note-block p + p { margin-top: 12px; }
+.note-sign {
+  margin-top: clamp(36px, 4vw, 52px);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: var(--body); font-size: 12px; color: var(--plum-mid);
+}
+.note-sign .sig {
+  font-family: var(--serif); font-style: italic; font-size: 32px;
+  color: var(--lav-4); transform: rotate(-3deg);
+}
+@media (max-width: 720px) { .note-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   3. THE CHARM · brand voice
+   ============================================================ */
+.charm-section {
+  background:
+    radial-gradient(ellipse at 70% 40%, rgba(221,204,245,0.55) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(245,208,232,0.40) 0%, transparent 55%);
+}
+.charm-inner {
+  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+.charm-vis { position: relative; min-height: 480px; display: flex; align-items: center; justify-content: center; }
+.charm-vis img {
+  width: clamp(260px, 32vw, 440px);
+  filter: drop-shadow(0 30px 60px rgba(110,80,170,0.30))
+          drop-shadow(0 0 80px rgba(245,208,232,0.45));
+  transform: rotate(-6deg);
+}
+.charm-copy .label { display: inline-block; margin-bottom: 22px; }
+.charm-copy h2 {
+  font-family: var(--chunk);
+  font-size: clamp(36px, 4.4vw, 60px);
+  line-height: 1.0; color: var(--plum);
+}
+.charm-copy h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
+.charm-copy .sub {
+  font-family: var(--body); font-size: 14px; line-height: 1.75;
+  color: var(--plum-soft); margin-top: 22px; max-width: 560px;
+}
+.charm-tags {
+  margin-top: clamp(28px, 3vw, 40px);
+  display: flex; flex-wrap: wrap; gap: 10px 12px;
+}
+.charm-tags .chip { font-size: 13px; padding: 9px 18px 8px; }
+.charm-tags .chip strong { font-weight: 700; color: var(--lav-4); }
+
+@media (max-width: 880px) {
+  .charm-inner { grid-template-columns: 1fr; }
+  .charm-vis { min-height: 320px; }
+}
+
+/* ============================================================
+   4. THE CLOSET · visual system
+   ============================================================ */
+.closet-head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  flex-wrap: wrap; margin-bottom: clamp(40px, 5vw, 64px);
+}
+.closet-head h2 {
+  font-family: var(--chunk); font-size: clamp(32px, 4vw, 52px); line-height: 1.0;
+  color: var(--plum); max-width: 560px;
+}
+.closet-head h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
+.closet-head p {
+  font-family: var(--body); font-size: 13px; line-height: 1.7;
+  color: var(--plum-soft); max-width: 380px;
+}
+
+.closet-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;
+}
+.closet-tile {
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: 24px;
+  padding: clamp(28px, 3vw, 40px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    0 30px 60px rgba(110,80,170,0.10);
+  position: relative;
+}
+.closet-tile .corner {
+  position: absolute; top: 16px; right: 20px;
+  font-family: var(--pixel); font-size: 14px;
+  letter-spacing: 0.18em; color: var(--lav-3); text-transform: uppercase;
+}
+.closet-tile h3 {
+  font-family: var(--chunk); font-size: 22px; color: var(--plum);
+  margin-bottom: 6px;
+}
+.closet-tile h3 em { font-family: var(--serif); font-style: italic; color: var(--lav-4); font-weight: 400; }
+.closet-tile p {
+  font-family: var(--body); font-size: 12.5px; line-height: 1.7;
+  color: var(--plum-soft); max-width: 460px; margin-bottom: 24px;
+}
+
+/* palette · pearl bead string */
+.palette-tile { grid-column: 1 / 2; grid-row: 1; }
+.bead-string {
+  display: flex; flex-wrap: wrap;
+  gap: 28px 22px;
+  margin-top: 18px;
+  justify-content: flex-start;
+}
+.bead-item {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  flex: 0 0 auto; width: 76px;
+}
+.bead {
+  width: 72px; height: 72px; border-radius: 999px; position: relative;
+  box-shadow:
+    inset 4px 6px 8px rgba(255,255,255,0.85),
+    inset -6px -8px 14px rgba(110,80,170,0.30),
+    0 12px 24px rgba(110,80,170,0.18);
+  flex-shrink: 0;
+}
+.bead-item .name {
+  font-family: var(--pixel); font-size: 14px; color: var(--plum);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  line-height: 1; white-space: nowrap;
+}
+.bead-item .hex {
+  font-family: var(--body); font-size: 10px; color: var(--lav-3);
+  letter-spacing: 0.12em; line-height: 1; white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .bead-string { gap: 22px 16px; }
+  .bead-item { width: 64px; }
+  .bead { width: 60px; height: 60px; }
+}
+.bead.pearl   { background: radial-gradient(circle at 30% 30%, #ffffff, #f1e9f4 50%, #d4c8e2); }
+.bead.lav     { background: radial-gradient(circle at 30% 30%, #f0e3ff, #c0a8e8 50%, #8a6dd6); }
+.bead.deep    { background: radial-gradient(circle at 30% 30%, #b09cd4, #6a55a8 50%, #3d2e58); }
+.bead.hot     { background: radial-gradient(circle at 30% 30%, #ffe0f0, #f5b0d8 50%, #e64aa8); }
+.bead.mint    { background: radial-gradient(circle at 30% 30%, #e0f5ea, #c2e8d4 50%, #88c5a8); }
+.bead.peach   { background: radial-gradient(circle at 30% 30%, #fff0e8, #f7d4c0 50%, #d8a888); }
+.bead.chrome  { background: linear-gradient(135deg, #ffffff 0%, #c8c4d4 50%, #6c6580 100%); }
+
+/* type · chrome decals */
+.type-tile { grid-column: 2 / 3; grid-row: 1; }
+.type-stack { display: flex; flex-direction: column; gap: 22px; margin-top: 12px; }
+.type-line { display: flex; align-items: flex-start; gap: 14px; }
+.type-line .ttl {
+  font-family: var(--pixel); font-size: 14px; color: var(--lav-3);
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--green); border: 1px solid var(--green-dim);
-  padding: 0.15rem 0.5rem;
+  min-width: 78px; flex-shrink: 0; padding-top: 6px;
 }
-.project-title {
-  font-family: var(--font-display); font-weight: 900;
-  font-size: clamp(3rem, 8vw, 6rem); line-height: 1;
-  letter-spacing: -0.03em; margin-bottom: 1rem;
+.type-spec { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.type-spec .v { color: var(--plum); }
+.type-spec .font-name {
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--lav-3); letter-spacing: 0.16em; text-transform: uppercase;
 }
-.project-subtitle {
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
-  color: var(--warm-gray); line-height: 1.8; max-width: 600px;
-  margin-bottom: 2rem;
+.type-line { flex-wrap: wrap; }
+.type-display {
+  font-family: var(--display); font-style: italic;
+  font-size: 36px; line-height: 1; text-transform: uppercase;
+  background: linear-gradient(180deg, #f8f4ff 0%, #c8c0e0 30%, #ffffff 50%, #8678a0 80%, #d8d2e4 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 1px rgba(90,63,160,0.25);
 }
-.project-coord {
-  font-family: var(--font-mono); font-size: 0.5rem;
-  color: var(--mid-gray); letter-spacing: 0.1em;
+.type-chunk { font-family: var(--chunk); font-size: 22px; color: var(--plum); }
+.type-body  { font-family: var(--body); font-size: 14px; color: var(--plum); }
+.type-pixel { font-family: var(--pixel); font-size: 22px; color: var(--lav-3); letter-spacing: 0.06em; }
+
+/* texture grid */
+.tex-tile { grid-column: 1 / -1; }
+.tex-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  margin-top: 12px;
+}
+.tex {
+  aspect-ratio: 1.25/1; border-radius: 16px; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 24px rgba(110,80,170,0.10);
+}
+.tex .lbl {
+  position: absolute; left: 12px; bottom: 10px;
+  font-family: var(--pixel); font-size: 14px; letter-spacing: 0.14em;
+  color: var(--plum); text-transform: uppercase;
+  background: rgba(255,255,255,0.75); padding: 2px 8px; border-radius: 4px;
+}
+.tex.glass {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(221,204,245,0.55) 60%, rgba(255,255,255,0.5) 100%);
+  backdrop-filter: blur(10px);
+}
+.tex.pearl {
+  background:
+    radial-gradient(ellipse at 30% 25%, #ffffff 0%, #f1e9f4 35%, #d4c8e2 80%);
+}
+.tex.holo {
+  background:
+    linear-gradient(115deg,
+      #f7d4c0 0%, #f5b0d8 18%, #ddccf5 36%, #c2e8d4 54%, #c8d8f2 72%, #f5b0d8 90%, #f7d4c0 100%);
+}
+.tex.fur {
+  background-color: #b69bdc;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.75) 0%, transparent 22%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.65) 0%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(70,40,110,0.55) 0%, transparent 16%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.55) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(50,28,90,0.50) 0%, transparent 14%),
+    radial-gradient(ellipse 60% 80% at 50% 40%, rgba(255,255,255,0.18), transparent 70%),
+    linear-gradient(180deg, #c8b0ec 0%, #9272c8 100%);
+  background-size:
+    3px 5px, 4px 7px, 3px 6px, 5px 8px, 4px 6px,
+    100% 100%, 100% 100%;
+  background-position:
+    0 0, 1px 2px, 2px 1px, 1px 3px, 3px 2px,
+    0 0, 0 0;
+  filter: blur(0.4px) contrast(1.05);
+}
+.tex.knit {
+  background-color: #b69bdc;
+  background-image:
+    radial-gradient(ellipse 4px 2.5px at 50% 30%, rgba(255,255,255,0.55), transparent 70%),
+    radial-gradient(ellipse 4px 2.5px at 50% 70%, rgba(60,38,100,0.45), transparent 70%),
+    radial-gradient(ellipse 2px 4px at 25% 50%, rgba(255,255,255,0.30), transparent 70%),
+    radial-gradient(ellipse 2px 4px at 75% 50%, rgba(60,38,100,0.30), transparent 70%),
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.18) 0 1.5px,
+      transparent 1.5px 6px,
+      rgba(60,38,100,0.18) 6px 7.5px,
+      transparent 7.5px 12px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.14) 0 1.5px,
+      transparent 1.5px 6px,
+      rgba(60,38,100,0.14) 6px 7.5px,
+      transparent 7.5px 12px),
+    linear-gradient(180deg, #c8b0ec 0%, #9272c8 100%);
+  background-size:
+    16px 14px, 16px 14px, 16px 14px, 16px 14px,
+    100% 100%, 100% 100%, 100% 100%;
+  filter: contrast(1.1);
 }
 
-/* Hero Image */
-.project-hero-img {
-  width: 100%; max-width: 1200px; margin: 0 auto 4rem;
-  padding: 0 2rem;
+/* iconography strip */
+.icons-tile { grid-column: 1 / -1; }
+.icons {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  margin-top: 12px;
 }
-.project-hero-img img {
-  width: 100%; height: auto; display: block;
-  border: 1px solid var(--dark-gray);
-}
-
-/* Content Sections */
-.project-content {
-  max-width: 800px; margin: 0 auto;
-  padding: 0 2rem 4rem;
-}
-.project-content h2 {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: 1.8rem; margin-bottom: 1.5rem;
-}
-.project-content p {
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
-  color: var(--cream-dim); line-height: 1.9; margin-bottom: 1.5rem;
+.icons .icon {
+  width: 64px; height: 64px; border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(221,204,245,0.5) 60%, rgba(255,255,255,0.6) 100%);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 8px 18px rgba(110,80,170,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--pixel); font-size: 28px; color: var(--lav-4);
+  backdrop-filter: blur(8px);
 }
 
-/* Image Grid */
-.project-images {
-  max-width: 1200px; margin: 0 auto;
-  padding: 0 2rem 4rem;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+@media (max-width: 880px) {
+  .closet-grid { grid-template-columns: 1fr; }
+  .palette-tile, .type-tile { grid-column: 1 / -1; grid-row: auto; }
+  .tex-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.project-images.full { grid-template-columns: 1fr; }
-.project-images img {
-  width: 100%; height: auto; display: block;
-  border: 1px solid var(--dark-gray);
+@media (max-width: 520px) {
+  .tex-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Footer */
-.project-footer {
-  padding: 2rem;
-  border-top: 1px solid var(--dark-gray);
+/* ============================================================
+   5. THE STACK · mockups
+   ============================================================ */
+.stack-section {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(245,208,232,0.40) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 70%, rgba(200,216,242,0.45) 0%, transparent 55%);
+}
+.stack-head {
+  text-align: center; margin-bottom: clamp(48px, 6vw, 80px);
+}
+.stack-head .label { display: inline-block; margin-bottom: 18px; }
+.stack-head h2 {
+  font-family: var(--chunk); font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.0; color: var(--plum); max-width: 760px; margin: 0 auto;
+}
+.stack-head h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
+.stack-head p {
+  font-family: var(--body); font-size: 13px; line-height: 1.7;
+  color: var(--plum-soft); max-width: 560px; margin: 18px auto 0;
+}
+
+.stack-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(24px, 3vw, 40px);
+  align-items: end; margin-bottom: clamp(60px, 8vw, 100px);
+}
+.stack-row.solo { grid-template-columns: 1fr; max-width: 720px; margin-left: auto; margin-right: auto; }
+.stack-row.duo  { grid-template-columns: 1fr 1fr; }
+
+.shot {
+  position: relative;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 18px;
+  padding: 18px 18px 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    0 30px 60px rgba(110,80,170,0.18),
+    0 6px 0 rgba(255,255,255,0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.shot.tilt-l { transform: rotate(-2deg); }
+.shot.tilt-r { transform: rotate(2.5deg); }
+.shot.tilt-c { transform: rotate(-1deg); }
+.shot img { width: 100%; display: block; border-radius: 10px; }
+.shot .cap {
+  margin-top: 12px;
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.12em;
+  color: var(--plum); text-transform: uppercase;
+  display: flex; justify-content: space-between; gap: 10px;
+}
+.shot .cap span:last-child { color: var(--lav-3); }
+
+/* tablet wide row */
+.stack-tablet {
+  position: relative; padding: 22px 22px 16px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 22px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 40px 80px rgba(110,80,170,0.20);
+  backdrop-filter: blur(10px);
+  transform: rotate(-0.6deg);
+}
+.stack-tablet img { width: 100%; border-radius: 12px; }
+.stack-tablet .cap {
+  margin-top: 14px;
   display: flex; justify-content: space-between; align-items: center;
-  max-width: 1200px; margin: 0 auto;
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.14em;
+  color: var(--plum); text-transform: uppercase;
 }
-.project-footer a {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--green-bright); transition: color 0.3s;
+.stack-tablet .cap .price {
+  font-family: var(--body); font-size: 11px; color: var(--lav-3);
+  letter-spacing: 0.18em;
 }
-.project-footer a:hover { color: var(--cream); }
+
+@media (max-width: 880px) {
+  .stack-row, .stack-row.duo { grid-template-columns: 1fr; }
+  .shot.tilt-l, .shot.tilt-r, .shot.tilt-c { transform: none; }
+}
+
+/* ============================================================
+   6. THE LIBRARY · interaction notes
+   ============================================================ */
+.library-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+.library-copy .label { display: inline-block; margin-bottom: 22px; }
+.library-copy h2 {
+  font-family: var(--chunk); font-size: clamp(32px, 4vw, 52px); line-height: 1.0; color: var(--plum);
+}
+.library-copy h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
+.library-copy p {
+  font-family: var(--body); font-size: 14px; line-height: 1.75;
+  color: var(--plum-soft); margin-top: 22px; max-width: 520px;
+}
+
+.flow-list {
+  margin-top: clamp(28px, 3vw, 36px);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.flow {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: 16px;
+  padding: 14px 18px;
+  backdrop-filter: blur(8px);
+}
+.flow .ix {
+  font-family: var(--pixel); font-size: 18px; color: var(--lav-4);
+  background: var(--pearl-cool); border: 1px solid var(--hairline);
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.flow .body {
+  font-family: var(--body); font-size: 13px; line-height: 1.65; color: var(--plum);
+}
+.flow .body strong { color: var(--lav-4); font-weight: 700; }
+
+/* polaroid grid · past entries */
+.polaroids {
+  position: relative; min-height: 540px;
+}
+.poloroid-stage {
+  position: relative; width: 100%; height: 540px;
+}
+.poloroid {
+  position: absolute;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.95);
+  padding: 14px 14px 28px;
+  box-shadow: 0 18px 40px rgba(110,80,170,0.20);
+  backdrop-filter: blur(6px);
+  width: 220px;
+  font-family: var(--pixel); font-size: 14px; color: var(--plum-mid);
+  letter-spacing: 0.04em;
+}
+.poloroid .face {
+  height: 200px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--body); font-size: 11px; line-height: 1.6;
+  color: var(--plum); padding: 16px; text-align: center;
+}
+.poloroid .face .em { color: var(--lav-4); font-family: var(--serif); font-style: italic; font-size: 18px; display: block; margin-top: 6px; }
+.poloroid .stamp {
+  display: flex; justify-content: space-between; margin-top: 10px;
+  font-size: 13px;
+}
+.poloroid .mood { color: var(--hot); }
+
+.poloroid.p1 { top: 0; left: 4%; transform: rotate(-5deg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85)); }
+.poloroid.p1 .face { background: linear-gradient(135deg, var(--peach), var(--hot-soft)); }
+
+.poloroid.p2 { top: 30px; right: 6%; transform: rotate(6deg); width: 220px; }
+.poloroid.p2 .face { background: linear-gradient(135deg, var(--mint), var(--sky)); }
+
+.poloroid.p3 { bottom: 30px; left: 10%; transform: rotate(3deg); }
+.poloroid.p3 .face { background: linear-gradient(135deg, var(--lav-1), var(--pearl-warm)); }
+
+.poloroid.p4 { bottom: 0; right: 2%; transform: rotate(-7deg); width: 200px; }
+.poloroid.p4 .face { background: linear-gradient(135deg, var(--sky), var(--lav-1)); }
+
+@media (max-width: 880px) {
+  .library-inner { grid-template-columns: 1fr; }
+  .poloroid-stage { height: 460px; }
+  .poloroid { width: 180px; }
+  .poloroid .face { height: 160px; }
+}
+
+/* ============================================================
+   7. OUTRO · sign off
+   ============================================================ */
+.outro { text-align: center; padding-bottom: clamp(60px, 8vw, 100px); }
+.outro .mark {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(72px, 12vw, 180px); line-height: 0.85;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    #f8f4ff 0%,
+    #d8d2e4 22%,
+    #ffffff 38%,
+    #b6abc8 56%,
+    #f5eef8 70%,
+    #8678a0 88%,
+    #d8d2e4 100%
+  );
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 1px rgba(90,63,160,0.22);
+  filter: drop-shadow(2px 3px 0 rgba(90,63,160,0.18))
+          drop-shadow(0 0 24px rgba(221,204,245,0.55));
+  margin: 0 auto 18px;
+}
+.outro .mark .battery {
+  display: inline-block;
+  width: 0.9em; height: 0.45em;
+  border: 0.07em solid var(--plum);
+  border-radius: 0.06em;
+  position: relative;
+  margin: 0 0.05em 0.1em 0.04em;
+  vertical-align: middle;
+  background: linear-gradient(90deg, var(--lav-2) 0%, var(--lav-2) 28%, transparent 28.1%);
+  -webkit-text-stroke: 0;
+  filter: none;
+}
+.outro .mark .battery::after {
+  content: ''; position: absolute;
+  right: -0.13em; top: 50%; transform: translateY(-50%);
+  width: 0.08em; height: 0.22em;
+  background: var(--plum);
+  border-radius: 0 0.04em 0.04em 0;
+}
+.outro .charm-out {
+  margin: 28px auto 0;
+  width: 130px;
+  filter: drop-shadow(0 14px 28px rgba(110,80,170,0.25));
+}
+
+/* ============================================================
+   SITE FOOTER · project nav
+   ============================================================ */
+.site-footer {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255,255,255,0.9);
+  padding: 28px var(--pad);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  font-family: var(--body);
+}
+.site-footer a {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--plum-soft); text-decoration: none;
+  transition: color 0.2s;
+}
+.site-footer a:hover { color: var(--hot); }
+.site-footer .sf-mark {
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.18em;
+  color: var(--lav-3); text-transform: uppercase;
+}
 
 @media (max-width: 600px) {
-  .project-hero { padding: 6rem 1.25rem 2rem; }
-  .project-images { grid-template-columns: 1fr; }
-  .project-hero-img { padding: 0 1.25rem; }
-  .project-content { padding: 0 1.25rem 3rem; }
+  .site-nav, .site-footer { padding: 14px 20px; }
+  .desk-stamp { display: none; }
 }
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="../" class="nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni" style="height: 20px; width: auto;"></a>
-  <a href="../" class="nav-back">← BACK TO WORK</a>
+<!-- SITE NAV · portfolio wrapper -->
+<nav class="site-nav">
+  <a href="../" class="site-nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni"></a>
+  <a href="../" class="site-nav-back">← Selected work</a>
 </nav>
 
-<section class="project-hero">
-  <div class="project-meta">
-    <span class="project-tag">UX/UI</span>
-    <span class="project-tag">Web App</span>
-    <span class="project-tag">Product Design</span>
+<!-- ============================================================
+     1. THE DESK (hero)
+     ============================================================ -->
+<section class="desk section">
+  <div class="desk-stamps">
+    <span>file 03 / 04 ✦ ux + brand</span>
   </div>
-  <h1 class="project-title">Low Battery Press</h1>
-  <p class="project-subtitle">Web-based daily planning tool with free-form text input that auto-organizes.</p>
-  <div class="project-coord">X: 02.47 / PRODUCT DESIGN</div>
+
+  <div class="desk-inner">
+    <div class="desk-mark">
+      <span class="label">a journal app · brand + ux case file</span>
+      <h1 class="wordmark">Low<br/>Battery<br/>Press<span class="battery"></span></h1>
+
+      <p class="desk-tag">your life. your notes. <span class="em">your moments.</span></p>
+      <p class="desk-blurb">a journal app for writing anything, anytime. write a sentence, a list, a rant, a plan. low battery press organizes the rest. a journal for the days you actually want to journal.</p>
+
+      <div class="desk-meta">
+        <span class="chip">brand identity</span>
+        <span class="chip">ux / ui</span>
+        <span class="chip">product writing</span>
+        <span class="chip">native ios + ipados</span>
+      </div>
+    </div>
+
+    <div class="desk-right">
+      <span class="desk-stickers s1">♡</span>
+      <span class="desk-stickers s2">★</span>
+      <span class="desk-stickers s3">✦</span>
+      <img class="desk-charm" src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm: no rules, no problem, idc"/>
+      <img class="desk-phone" src="../images/projects/lowbatterypress/lbp-phone-login.png" alt="lbp login screen"/>
+    </div>
+  </div>
 </section>
 
-<div class="project-hero-img">
-  <img src="../images/projects/LowBatteryPress-app.png" alt="Low Battery Press Project">
-</div>
+<!-- ============================================================
+     2. THE NOTE (brief)
+     ============================================================ -->
+<section class="section note">
+  <div class="note-inner">
+    <span class="note-stamp">read me ♡</span>
 
-<!-- Add your content sections here -->
-<section class="project-content">
-  <h2>Overview</h2>
-  <p>Add your project overview and case study content here.</p>
+    <div class="note-paper">
+      <span class="tape tl"></span>
+      <span class="tape tr"></span>
+
+      <h2 class="note-h">the journaling apps were <em>doing too much.</em></h2>
+
+      <div class="note-grid">
+        <div class="note-block">
+          <div class="h">the problem</div>
+          <p>gen z and gen alpha are the most journaled-at generation alive. apps stack streaks, score moods, scrape data, and gamify feelings into therapy-grade output. the ones who actually want to write give up because the form keeps asking them to be <em>better</em>.</p>
+          <p>most don't want a wellness coach. they want a place to talk to themselves without performing.</p>
+        </div>
+        <div class="note-block">
+          <div class="h">the answer</div>
+          <p>low battery press is a journal you write into like you'd text yourself. vent, brag, daydream, plan, or just ramble. it all counts. you write the sentence. the app organizes the rest into a private library you can come back to.</p>
+          <p>journaling as <em>identity</em>, not as homework.</p>
+        </div>
+      </div>
+
+      <div class="note-sign">
+        <span class="sig">love, lbp xx</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Add more images here -->
-<div class="project-images">
-  <!-- <img src="../images/projects/mnta-detail-1.jpg" alt="MNTA Detail"> -->
-  <!-- <img src="../images/projects/mnta-detail-2.jpg" alt="MNTA Detail"> -->
-</div>
+<!-- ============================================================
+     3. THE CHARM (voice)
+     ============================================================ -->
+<section class="section charm-section">
+  <div class="section-inner charm-inner">
+    <div class="charm-vis">
+      <img src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm with no rules, no problem, idc"/>
+    </div>
+    <div class="charm-copy">
+      <span class="label">02 · the charm</span>
+      <h2><em>no rules.</em></h2>
+      <p class="sub">the brand voice lives on the charm. it talks to you the way a friend texts back at 1am: short, unbothered, on your side. every screen ships with a different charm. they read like things you'd say out loud, then forget you said. the voice is the product.</p>
+      <div class="charm-tags">
+        <span class="chip"><strong>♡</strong> no rules, just real you</span>
+        <span class="chip"><strong>✦</strong> you do you</span>
+        <span class="chip"><strong>★</strong> collect moments, not things</span>
+        <span class="chip"><strong>♡</strong> i'll take care of the rest</span>
+        <span class="chip"><strong>✦</strong> it all counts</span>
+        <span class="chip"><strong>★</strong> hey, dreamer</span>
+        <span class="chip"><strong>♡</strong> today is mine</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer class="project-footer">
-  <a href="deadwax.html">← PREV PROJECT</a>
-  <a href="mnta.html">NEXT PROJECT →</a>
+<!-- ============================================================
+     4. THE CLOSET (visual system)
+     ============================================================ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="closet-head">
+      <div>
+        <span class="label">03 · the system</span>
+        <h2 style="margin-top:18px;">pulled from a <em>1999 bedroom.</em></h2>
+      </div>
+      <p>pearl. holographic. fluffy. glassy. iridescent. four textures, one mood. the thing on your dresser at 14, lit by a CRT.</p>
+    </div>
+
+    <div class="closet-grid">
+
+      <!-- palette -->
+      <div class="closet-tile palette-tile">
+        <span class="corner">a · color</span>
+        <h3>the <em>color palette.</em></h3>
+        <div class="bead-string">
+          <div class="bead-item"><div class="bead pearl"></div><span class="name">pearl</span><span class="hex">#F1E9F4</span></div>
+          <div class="bead-item"><div class="bead lav"></div><span class="name">lavender</span><span class="hex">#C0A8E8</span></div>
+          <div class="bead-item"><div class="bead deep"></div><span class="name">plum</span><span class="hex">#2A1E3F</span></div>
+          <div class="bead-item"><div class="bead chrome"></div><span class="name">chrome</span><span class="hex">#C8C4D4</span></div>
+          <div class="bead-item"><div class="bead hot"></div><span class="name">hot</span><span class="hex">#E64AA8</span></div>
+          <div class="bead-item"><div class="bead mint"></div><span class="name">mint</span><span class="hex">#C2E8D4</span></div>
+          <div class="bead-item"><div class="bead peach"></div><span class="name">peach</span><span class="hex">#F7D4C0</span></div>
+        </div>
+      </div>
+
+      <!-- type -->
+      <div class="closet-tile type-tile">
+        <span class="corner">b · type</span>
+        <h3>chrome decals on <em>lined paper.</em></h3>
+        <p>display in italic chrome for the magazine-cover moments. body in clean mono for the diary-quiet ones. system text in pixel font like the OS that came with the laptop.</p>
+        <div class="type-stack">
+          <div class="type-line">
+            <span class="ttl">display</span>
+            <div class="type-spec">
+              <span class="v type-display">low battery</span>
+              <span class="font-name">Anton · italic</span>
+            </div>
+          </div>
+          <div class="type-line">
+            <span class="ttl">section</span>
+            <div class="type-spec">
+              <span class="v type-chunk">today's note ♡</span>
+              <span class="font-name">Bowlby One</span>
+            </div>
+          </div>
+          <div class="type-line">
+            <span class="ttl">body</span>
+            <div class="type-spec">
+              <span class="v type-body">hey, dreamer. what's on your mind?</span>
+              <span class="font-name">Space Mono</span>
+            </div>
+          </div>
+          <div class="type-line">
+            <span class="ttl">system</span>
+            <div class="type-spec">
+              <span class="v type-pixel">★ FILE 03 / 04 ✦ TUE 9:41</span>
+              <span class="font-name">VT323</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- texture -->
+      <div class="closet-tile tex-tile">
+        <span class="corner">c · texture</span>
+        <h3>five surfaces, <em>one feeling.</em></h3>
+        <p>the entire interface is built from these five. nothing flat. nothing solid. nothing screams.</p>
+        <div class="tex-grid">
+          <div class="tex glass"><span class="lbl">glass</span></div>
+          <div class="tex pearl"><span class="lbl">pearl</span></div>
+          <div class="tex holo"><span class="lbl">holo</span></div>
+          <div class="tex fur"><span class="lbl">fur</span></div>
+          <div class="tex knit"><span class="lbl">knit</span></div>
+        </div>
+      </div>
+
+      <!-- iconography -->
+      <div class="closet-tile icons-tile">
+        <span class="corner">d · stickers</span>
+        <h3>a sticker pack <em>from the 90's.</em></h3>
+        <p>icons live as stickers. CDs, butterflies, stars, kaomoji. they tag the entry without explaining it. notebook doodles.</p>
+        <div class="icons">
+          <div class="icon">♡</div>
+          <div class="icon">★</div>
+          <div class="icon">✦</div>
+          <div class="icon">☻</div>
+          <div class="icon">☯</div>
+          <div class="icon">✿</div>
+          <div class="icon">⚡︎</div>
+          <div class="icon">◐</div>
+          <div class="icon">:)</div>
+          <div class="icon">:|</div>
+          <div class="icon">:D</div>
+          <div class="icon">-_-</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. THE STACK (mockups)
+     ============================================================ -->
+<section class="section stack-section">
+  <div class="section-inner">
+
+    <div class="stack-head">
+      <span class="label">04 · the stack</span>
+      <h2>a journal that <em>looks like an object</em> on your dresser.</h2>
+      <p>three screens, three charms, two devices. native iOS and iPadOS. each surface earns its own moment. log in, free write, today's note, library, settings.</p>
+    </div>
+
+    <div class="stack-row">
+      <div class="shot tilt-l">
+        <img src="../images/projects/lowbatterypress/lbp-phone-login.png" alt="login screen"/>
+        <div class="cap"><span>screen 01</span><span>log in</span></div>
+      </div>
+      <div class="shot tilt-c">
+        <img src="../images/projects/lowbatterypress/lbp-phone-main.png" alt="today's note with mood selector"/>
+        <div class="cap"><span>screen 02</span><span>today's note</span></div>
+      </div>
+      <div class="shot tilt-r">
+        <img src="../images/projects/lowbatterypress/lbp-phone-freewrite.png" alt="free write screen"/>
+        <div class="cap"><span>screen 03</span><span>free write</span></div>
+      </div>
+    </div>
+
+    <div class="stack-tablet">
+      <img src="../images/projects/lowbatterypress/lbp-tablet.png" alt="lbp on iPad in landscape"/>
+      <div class="cap">
+        <span>★ ipad · landscape</span>
+        <span class="price">write with the apple pencil on a lined paper screen. it feels like the real thing.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     6. THE LIBRARY (interaction)
+     ============================================================ -->
+<section class="section">
+  <div class="section-inner library-inner">
+
+    <div class="library-copy">
+      <span class="label">05 · the library</span>
+      <h2>write the sentence. <em>i'll take care of the rest.</em></h2>
+      <p>The writing surface stays open. Mood tagging is optional, driven by kaomoji, and never scored. AI reflects the entry back in your own voice in three lines, so when you open the library later, it still sounds like you.</p>
+
+      <div class="flow-list">
+        <div class="flow"><span class="ix">1</span><span class="body"><strong>open.</strong> you're greeted with a charm and the date.</span></div>
+        <div class="flow"><span class="ix">2</span><span class="body"><strong>write.</strong> 1000 characters. no formatting. no prompts unless you want one.</span></div>
+        <div class="flow"><span class="ix">3</span><span class="body"><strong>tag.</strong> add a kaomoji mood or a vibe sticker if it fits.</span></div>
+        <div class="flow"><span class="ix">4</span><span class="body"><strong>save.</strong> the app sends it back as a three line recap in your own voice.</span></div>
+        <div class="flow"><span class="ix">5</span><span class="body"><strong>library.</strong> everything lands in a wall of polaroids. nothing scored. nothing missing if you skipped.</span></div>
+      </div>
+    </div>
+
+    <div class="polaroids">
+      <div class="poloroid-stage">
+        <div class="poloroid p1">
+          <div class="face">today is mine.<br/>good vibes <span class="em">only.</span></div>
+          <div class="stamp"><span>05·14·26</span><span class="mood">:) good</span></div>
+        </div>
+        <div class="poloroid p2">
+          <div class="face"><span class="em">grateful for the small things<br/>and big adventures.</span></div>
+          <div class="stamp"><span>05·11·26</span><span class="mood">:D hyped</span></div>
+        </div>
+        <div class="poloroid p3">
+          <div class="face">no rules. <br/>just <span class="em">real you.</span></div>
+          <div class="stamp"><span>05·09·26</span><span class="mood">:) chill</span></div>
+        </div>
+        <div class="poloroid p4">
+          <div class="face">collect moments,<br/><span class="em">not things.</span></div>
+          <div class="stamp"><span>05·06·26</span><span class="mood">-_- tired</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     7. OUTRO
+     ============================================================ -->
+<section class="section outro">
+  <div class="section-inner">
+    <h2 class="mark">Low<br/>Battery<br/>Press<span class="battery"></span></h2>
+    <img class="charm-out" src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm"/>
+  </div>
+</section>
+
+<!-- SITE FOOTER · mixtape -->
+<footer class="site-footer">
+  <a href="deadwax.html">← previous track</a>
+  <span class="sf-mark">★ track 03 / 04 ✦ side a</span>
+  <a href="mnta.html">next track →</a>
 </footer>
 
 </body>
