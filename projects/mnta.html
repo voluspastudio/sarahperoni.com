@@ -6,7 +6,7 @@
 <title>MNTA — Case Study</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --night: #07101c;
@@ -55,13 +55,13 @@
 
   /* ——— Type system ——— */
   .display {
-    font-family: "Libre Caslon Text", "Cormorant Garamond", Georgia, serif;
+    font-family: "Libre Bodoni", "Cormorant Garamond", Georgia, serif;
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.04;
   }
   .label {
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-family: "Space Grotesk", ui-monospace, monospace;
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.18em;
@@ -69,7 +69,7 @@
     color: var(--stone-2);
   }
   .lead {
-    font-family: "Libre Caslon Text", serif;
+    font-family: "Libre Bodoni", serif;
     font-style: italic;
     font-weight: 400;
     color: var(--parchment);
@@ -101,7 +101,7 @@
     z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 22px 40px;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Space Grotesk", monospace;
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -186,7 +186,7 @@
   }
   .hero-tag {
     margin-top: 28px;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Space Grotesk", monospace;
     font-size: 12px;
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -202,13 +202,13 @@
     z-index: 2;
     opacity: 0; animation: fadeUp 2s 2.4s ease-out forwards;
   }
-  .hero-foot .col { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone-2); }
+  .hero-foot .col { font-family: "Space Grotesk", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone-2); }
   .hero-foot .col strong { color: var(--bone); font-weight: 400; display:block; margin-top: 6px; letter-spacing:0.14em; }
   .scroll-cue {
     position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
     z-index: 3;
     display: flex; flex-direction: column; align-items: center; gap: 14px;
-    font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--parchment-dim);
+    font-family: "Space Grotesk", monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--parchment-dim);
     opacity: 0; animation: fadeUp 2s 3s ease-out forwards;
   }
   .scroll-cue .line {
@@ -226,17 +226,26 @@
     display:flex; align-items:center; gap: 14px;
     margin-bottom: 56px;
   }
-  .sec-num .ix { font-family:"JetBrains Mono",monospace; color: var(--horizon); font-size: 11px; letter-spacing:.2em; }
-  .sec-num .ttl { font-family:"JetBrains Mono",monospace; color: var(--stone-2); font-size: 11px; letter-spacing:.24em; text-transform:uppercase; }
+  .sec-num .ix { font-family:"Space Grotesk",monospace; color: var(--horizon); font-size: 11px; letter-spacing:.2em; }
+  .sec-num .ttl { font-family:"Space Grotesk",monospace; color: var(--stone-2); font-size: 11px; letter-spacing:.24em; text-transform:uppercase; }
   .sec-num .rule { flex: 1; height: 1px; background: var(--hairline); }
 
-  /* reveal-on-scroll */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1.4s cubic-bezier(.2,.7,.2,1), transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  /* reveal-on-scroll · roll into view */
+  .reveal {
+    opacity: 0; transform: translateY(72px);
+    transition:
+      opacity 1.6s cubic-bezier(.16,.84,.32,1),
+      transform 1.6s cubic-bezier(.16,.84,.32,1);
+    will-change: opacity, transform;
+  }
   .reveal.in { opacity: 1; transform: none; }
-  .reveal.delay-1 { transition-delay: 0.15s; }
-  .reveal.delay-2 { transition-delay: 0.3s; }
-  .reveal.delay-3 { transition-delay: 0.45s; }
-  .reveal.delay-4 { transition-delay: 0.6s; }
+  .reveal.delay-1 { transition-delay: 0.12s; }
+  .reveal.delay-2 { transition-delay: 0.24s; }
+  .reveal.delay-3 { transition-delay: 0.36s; }
+  .reveal.delay-4 { transition-delay: 0.48s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transform: none; transition: opacity 0.4s ease; }
+  }
 
   /* ——— BRIEF ——— */
   .brief { background: var(--night); }
@@ -245,17 +254,17 @@
   .brief h2 { font-size: clamp(40px, 5.2vw, 76px); color: var(--bone); }
   .brief p.body { font-size: 19px; max-width: 560px; }
   .brief .pull { margin-top: 56px; padding-top: 48px; border-top: 1px solid var(--hairline); display:grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .brief .pull .stat-l { font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-bottom: 14px; }
-  .brief .pull .stat-v { font-family:"Libre Caslon Text",serif; font-size: 28px; color: var(--parchment); }
+  .brief .pull .stat-l { font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-bottom: 14px; }
+  .brief .pull .stat-v { font-family:"Libre Bodoni",serif; font-size: 28px; color: var(--parchment); }
   .brief .meta { display: flex; flex-direction: column; gap: 28px; padding-top: 14px; border-left: 1px solid var(--hairline); padding-left: 40px; }
   @media (max-width: 900px) { .brief .meta { border-left:0; padding-left:0; border-top: 1px solid var(--hairline); padding-top: 40px;} }
-  .meta-row .l { font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.2em; color: var(--stone-2); text-transform:uppercase; margin-bottom: 8px; }
+  .meta-row .l { font-family:"Space Grotesk",monospace; font-size:10px; letter-spacing:.2em; color: var(--stone-2); text-transform:uppercase; margin-bottom: 8px; }
   .meta-row .v { font-family:"Space Grotesk",sans-serif; font-size: 16px; color: var(--bone); font-weight: 400; }
 
   /* ——— PROBLEM ——— */
   .problem { background: linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%); }
   .problem-quote {
-    font-family: "Libre Caslon Text", serif;
+    font-family: "Libre Bodoni", serif;
     font-style: italic;
     font-size: clamp(34px, 4.2vw, 60px);
     line-height: 1.2;
@@ -270,7 +279,7 @@
   .problem-quote .light { color: var(--stone-2); }
   .problem-meta { margin-top: 80px; display:grid; grid-template-columns: repeat(3, 1fr); gap: 60px; padding-top: 60px; border-top: 1px solid var(--hairline); }
   @media (max-width: 900px) { .problem-meta { grid-template-columns: 1fr; gap: 40px; } }
-  .problem-meta .h { font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.2em; color: var(--horizon); margin-bottom: 16px; text-transform:uppercase; }
+  .problem-meta .h { font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.2em; color: var(--horizon); margin-bottom: 16px; text-transform:uppercase; }
   .problem-meta .b { font-family:"Space Grotesk",sans-serif; font-size: 16px; color: var(--parchment-dim); line-height: 1.6; }
 
   /* ——— INSIDE THE MOUNTAIN (Shasta cutout) ——— */
@@ -306,13 +315,13 @@
   .inside-h { font-size: clamp(38px, 4.8vw, 68px); color: var(--bone); line-height: 1.06; max-width: 640px; }
   .inside-h em { color: var(--horizon); font-style: italic; }
   .inside-cols { display: flex; flex-direction: column; gap: 28px; padding-top: 12px; }
-  .inside-cols .k { font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--horizon); letter-spacing:.22em; text-transform:uppercase; margin-bottom: 8px; }
+  .inside-cols .k { font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--horizon); letter-spacing:.22em; text-transform:uppercase; margin-bottom: 8px; }
   .inside-cols .v { font-family:"Space Grotesk",sans-serif; font-size: 15px; color: var(--parchment-dim); line-height: 1.6; max-width: 380px; }
   .inside-caption {
     position: absolute; bottom: 22px; left: 0; right: 0; z-index: 4;
     display: flex; justify-content: space-between;
     padding: 0 80px;
-    font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.22em; text-transform:uppercase;
+    font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.22em; text-transform:uppercase;
     color: var(--stone-2);
   }
   @media (max-width: 900px) { .inside-caption { padding: 0 32px; flex-direction: column; gap: 6px; } }
@@ -350,28 +359,28 @@
   .ident-corners .tl { bottom:14px; left:14px; border-bottom-width:1px; border-left-width:1px; }
   .ident-corners .br { bottom:14px; right:14px; border-bottom-width:1px; border-right-width:1px; }
 
-  .meaning h3 { font-family:"Libre Caslon Text",serif; font-size: clamp(28px, 3.4vw, 44px); color: var(--bone); margin-bottom: 12px; line-height: 1.15; }
+  .meaning h3 { font-family:"Libre Bodoni",serif; font-size: clamp(28px, 3.4vw, 44px); color: var(--bone); margin-bottom: 12px; line-height: 1.15; }
   .meaning p { font-size: 17px; color: var(--parchment-dim); max-width: 520px; margin-bottom: 36px; line-height: 1.7; }
   .word-rows { display:flex; flex-direction: column; gap: 0; border-top: 1px solid var(--hairline); }
-  .word-row { display:grid; grid-template-columns: 64px 110px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--hairline); }
-  .word-row .ix { font-family:"JetBrains Mono",monospace; font-size:11px; color: var(--stone-2); letter-spacing:.18em; }
-  .word-row .w { font-family:"Libre Caslon Text",serif; font-size: 26px; color: var(--bone); }
-  .word-row .d { font-family:"Space Grotesk",sans-serif; color: var(--parchment-dim); font-size: 14px; line-height: 1.5; }
+  .word-row { display:grid; grid-template-columns: minmax(180px, 240px) 1fr; gap: 40px; align-items: baseline; padding: 32px 0; border-bottom: 1px solid var(--hairline); }
+  .word-row .w { font-family:"Libre Bodoni",serif; font-size: clamp(30px, 3.4vw, 44px); color: var(--bone); line-height: 1.05; }
+  .word-row .d { font-family:"Space Grotesk",sans-serif; color: var(--parchment-dim); font-size: 16px; line-height: 1.65; max-width: 560px; }
   .word-row:hover .w { color: var(--horizon); transition: color .4s ease; }
+  @media (max-width: 720px) { .word-row { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; } }
 
   /* ——— PALETTE ——— */
   .palette { background: var(--night); }
   .palette-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 100px; align-items: end; }
   @media (max-width: 900px) { .palette-grid { grid-template-columns: 1fr; gap: 60px; } }
-  .palette h2 { font-family: "Libre Caslon Text", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
+  .palette h2 { font-family: "Libre Bodoni", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
   .palette p { font-size: 17px; color: var(--parchment-dim); max-width: 480px; }
   .swatch-stack { display: flex; flex-direction: column; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); }
   .swatch { display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; padding: 22px 28px; align-items: center; transition: transform .3s ease; }
   .swatch:hover { transform: translateX(6px); }
   .swatch .chip { width: 64px; height: 64px; border-radius: 0; }
-  .swatch .name { font-family: "Libre Caslon Text", serif; font-size: 22px; color: var(--bone); }
-  .swatch .name small { display:block; font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--stone-2); letter-spacing:.18em; margin-top: 4px; text-transform: uppercase; }
-  .swatch .hex { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--stone-2); letter-spacing: 0.1em; }
+  .swatch .name { font-family: "Libre Bodoni", serif; font-size: 22px; color: var(--bone); }
+  .swatch .name small { display:block; font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--stone-2); letter-spacing:.18em; margin-top: 4px; text-transform: uppercase; }
+  .swatch .hex { font-family: "Space Grotesk", monospace; font-size: 11px; color: var(--stone-2); letter-spacing: 0.1em; }
 
   /* ——— TYPE SPECIMEN ——— */
   .type { background: linear-gradient(180deg, var(--night) 0%, #050b14 100%); }
@@ -379,14 +388,14 @@
   @media (max-width: 900px) { .type-grid { grid-template-columns: 1fr; gap: 60px; } }
   .specimen { border-top: 1px solid var(--hairline); padding-top: 28px; }
   .specimen .meta { display:flex; justify-content: space-between; margin-bottom: 28px; }
-  .specimen .meta .l, .specimen .meta .r { font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.2em; color: var(--stone-2); text-transform:uppercase; }
+  .specimen .meta .l, .specimen .meta .r { font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.2em; color: var(--stone-2); text-transform:uppercase; }
   .specimen .glyph { font-size: clamp(120px, 18vw, 240px); line-height: 1; color: var(--bone); }
-  .specimen.serif .glyph { font-family: "Libre Caslon Text", serif; font-weight: 400; }
+  .specimen.serif .glyph { font-family: "Libre Bodoni", serif; font-weight: 400; }
   .specimen.sans .glyph { font-family: "Space Grotesk", sans-serif; font-weight: 400; }
-  .specimen .name { font-family: "Libre Caslon Text", serif; font-size: 26px; color: var(--bone); margin-top: 12px; }
+  .specimen .name { font-family: "Libre Bodoni", serif; font-size: 26px; color: var(--bone); margin-top: 12px; }
   .specimen .role { font-family: "Space Grotesk", sans-serif; font-size: 14px; color: var(--parchment-dim); margin-top: 6px; }
   .specimen .alpha { font-family: inherit; margin-top: 28px; color: var(--parchment-dim); font-size: 13px; letter-spacing: 0.04em; word-break: break-all; line-height: 1.6; }
-  .specimen.serif .alpha { font-family: "Libre Caslon Text", serif; font-size: 16px; }
+  .specimen.serif .alpha { font-family: "Libre Bodoni", serif; font-size: 16px; }
 
   /* ——— SEND A MOUNTAIN (interactive) ——— */
   .send {
@@ -405,7 +414,7 @@
   }
   .send-inner { position: relative; z-index: 1; }
   .send h2 {
-    font-family:"Libre Caslon Text", serif;
+    font-family:"Libre Bodoni", serif;
     font-size: clamp(48px, 6.6vw, 96px);
     color: var(--bone); line-height: 1.05; margin-bottom: 20px;
     text-wrap: pretty;
@@ -416,24 +425,87 @@
 
   /* ——— DELIVERABLES (expanded chapter) ——— */
   .deliv { background: var(--night); }
-  .deliv h2 { font-family: "Libre Caslon Text", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
+  .deliv h2 { font-family: "Libre Bodoni", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
   .deliv .desc { font-size: 17px; color: var(--parchment-dim); max-width: 620px; margin-bottom: 100px; line-height:1.7;}
   .deliv-item { padding: 7rem 0; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
   @media (max-width: 900px) { .deliv-item { grid-template-columns: 1fr; gap: 40px; padding: 5rem 0; } }
   .deliv-item.flip { grid-template-columns: 1.2fr 1fr; }
   @media (max-width: 900px) { .deliv-item.flip { grid-template-columns: 1fr; } }
-  .deliv-meta .num { font-family:"JetBrains Mono",monospace; color: var(--horizon); font-size: 11px; letter-spacing:.22em; margin-bottom: 18px; }
-  .deliv-meta h3 { font-family:"Libre Caslon Text",serif; font-size: clamp(30px, 3.6vw, 48px); color: var(--bone); line-height: 1.1; margin-bottom: 22px; }
+  .deliv-meta .num { font-family:"Space Grotesk",monospace; color: var(--horizon); font-size: 11px; letter-spacing:.22em; margin-bottom: 18px; }
+  .deliv-meta h3 { font-family:"Libre Bodoni",serif; font-size: clamp(30px, 3.6vw, 48px); color: var(--bone); line-height: 1.1; margin-bottom: 22px; }
   .deliv-meta p { font-family:"Space Grotesk",sans-serif; color: var(--parchment-dim); font-size: 16px; line-height: 1.7; max-width: 460px; margin-bottom: 20px; }
   .deliv-meta .specs { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 1fr 1fr; gap: 18px 32px; }
-  .deliv-meta .specs .l { font-family:"JetBrains Mono",monospace; font-size: 9.5px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-bottom: 4px; }
+  .deliv-meta .specs .full { grid-column: 1 / -1; }
+  .deliv-meta .specs .full .v { font-size: 14px; line-height: 1.6; color: var(--parchment); max-width: 540px; }
+  .deliv-meta h3 .sub {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-style: normal; font-weight: 400;
+    font-size: 14px; letter-spacing: 0.16em;
+    text-transform: lowercase;
+    color: var(--parchment-dim);
+    margin-top: 14px;
+  }
+  .deliv-meta .specs .l { font-family:"Space Grotesk",monospace; font-size: 9.5px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-bottom: 4px; }
   .deliv-meta .specs .v { font-family:"Space Grotesk",sans-serif; font-size: 13px; color: var(--bone); }
+
+  /* Live tally — counters that roll on update */
+  .tally {
+    margin-top: clamp(60px, 8vw, 120px);
+    padding: clamp(48px, 6vw, 80px) 0 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .tally-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 56px);
+  }
+  .tally-head h3 {
+    font-family: "Libre Bodoni", serif; font-style: italic;
+    font-size: clamp(28px, 3.6vw, 44px); color: var(--bone); line-height: 1.05;
+    max-width: 640px;
+  }
+  .tally-head .live {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--horizon); display: flex; align-items: center; gap: 10px;
+  }
+  .tally-head .live::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--horizon); display: inline-block;
+    box-shadow: 0 0 12px rgba(212,154,74,0.7);
+    animation: tally-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes tally-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  .tally-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(28px, 3vw, 48px);
+  }
+  @media (max-width: 720px) { .tally-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .tally-stat .num {
+    font-family: "Libre Bodoni", serif;
+    font-size: clamp(56px, 9vw, 124px);
+    line-height: 1; color: var(--bone);
+    transition: transform 0.34s cubic-bezier(.16,.84,.32,1), opacity 0.34s ease;
+    will-change: transform, opacity;
+  }
+  .tally-stat .lbl {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--stone-2); margin-top: 18px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tally-stat .num { transition: opacity 0.2s ease; }
+  }
 
   /* visual frames per item */
   .vis { background: #060d18; border: 1px solid var(--hairline); position:relative; overflow: hidden; }
-  .vis-cap { display:flex; justify-content:space-between; margin-top: 14px; font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.22em; text-transform:uppercase; color: var(--stone-2); }
+  .vis-cap { display:flex; justify-content:space-between; margin-top: 14px; font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.22em; text-transform:uppercase; color: var(--stone-2); }
 
-  /* Field guide — open book spread */
+  /* Printed book mockup */
+  .book.is-mockup { aspect-ratio: 4/3; background: #050a13; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .book.is-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Field guide — open book spread (legacy CSS, retained for any future use) */
   .book {
     aspect-ratio: 16/10;
     background: #06101c;
@@ -456,17 +528,28 @@
   .book-page { padding: 36px 38px; display:flex; flex-direction:column; }
   .book-page.left { background-image: url('../images/projects/mnta/mt-whitney.jpg'); background-size: cover; background-position: center; position: relative; padding: 0; }
   .book-page.left::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 60%, rgba(7,16,28,.5)); }
-  .book-page.left .folio { position:absolute; bottom: 18px; left: 22px; right: 22px; display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing:.22em; color: var(--bone); text-transform: uppercase; z-index: 1; }
-  .book-page.right .ch { font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing:.24em; color: #8a7a52; text-transform:uppercase; }
-  .book-page.right .h { font-family:"Libre Caslon Text",serif; font-size: 28px; line-height: 1.1; color: #2a1f0e; margin-top: 14px; max-width: 240px; }
-  .book-page.right .body { font-family:"Libre Caslon Text",serif; font-size: 11.5px; color: #4a3a20; line-height: 1.55; margin-top: 18px; column-count: 1; }
+  .book-page.left .folio { position:absolute; bottom: 18px; left: 22px; right: 22px; display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.22em; color: var(--bone); text-transform: uppercase; z-index: 1; }
+  .book-page.right .ch { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.24em; color: #8a7a52; text-transform:uppercase; }
+  .book-page.right .h { font-family:"Libre Bodoni",serif; font-size: 28px; line-height: 1.1; color: #2a1f0e; margin-top: 14px; max-width: 240px; }
+  .book-page.right .body { font-family:"Libre Bodoni",serif; font-size: 11.5px; color: #4a3a20; line-height: 1.55; margin-top: 18px; column-count: 1; }
   .book-page.right .body .drop { font-size: 36px; float: left; line-height: 0.85; padding: 6px 8px 0 0; color: #8a5a1a; font-weight: 700; }
-  .book-page.right .figure { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.15); display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 8.5px; color: #8a7a52; letter-spacing:.18em; text-transform:uppercase; }
+  .book-page.right .figure { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.15); display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 8.5px; color: #8a7a52; letter-spacing:.18em; text-transform:uppercase; }
 
   /* Candle */
   .candle-frame { aspect-ratio: 4/5; background: linear-gradient(180deg, #0a121f, #050a12); position: relative; display:flex; align-items:flex-end; justify-content:center; padding: 60px 40px 50px; overflow:hidden; }
   .candle-frame::before { content:""; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 30%, rgba(212,154,74,0.14), transparent 55%); }
   .candle-frame::after { content:""; position:absolute; left:0; right:0; bottom: 0; height: 30%; background: linear-gradient(180deg, transparent, rgba(0,0,0,.6)); }
+  .candle-frame.is-mockup { padding: 32px; align-items: center; justify-content: center; background: #000; }
+  .candle-frame.is-mockup::before, .candle-frame.is-mockup::after { display: none; }
+  .candle-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    width: 100%; height: 100%; align-items: center;
+  }
+  .candle-pair img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  @media (max-width: 720px) {
+    .candle-frame.is-mockup { padding: 20px; }
+    .candle-pair { gap: 10px; }
+  }
   .candle {
     position: relative;
     width: 56%;
@@ -478,20 +561,20 @@
     padding: 30px 20px 28px;
     color: var(--bone);
   }
-  .candle .lbl-top { font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing:.32em; color: var(--parchment-dim); text-transform: uppercase; }
+  .candle .lbl-top { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.32em; color: var(--parchment-dim); text-transform: uppercase; }
   .candle .lbl-mid { text-align: center; }
-  .candle .lbl-mid .place { font-family:"Libre Caslon Text",serif; font-style: italic; font-size: 22px; color: var(--bone); line-height: 1.15; }
-  .candle .lbl-mid .when { font-family:"JetBrains Mono",monospace; font-size: 8.5px; letter-spacing:.22em; color: var(--horizon); margin-top: 8px; text-transform:uppercase; }
-  .candle .lbl-bot { font-family:"JetBrains Mono",monospace; font-size: 8px; letter-spacing:.24em; color: var(--stone-2); text-transform: uppercase; border-top: 1px solid rgba(232,223,200,0.14); padding-top: 12px; width: 100%; text-align: center; }
+  .candle .lbl-mid .place { font-family:"Libre Bodoni",serif; font-style: italic; font-size: 22px; color: var(--bone); line-height: 1.15; }
+  .candle .lbl-mid .when { font-family:"Space Grotesk",monospace; font-size: 8.5px; letter-spacing:.22em; color: var(--horizon); margin-top: 8px; text-transform:uppercase; }
+  .candle .lbl-bot { font-family:"Space Grotesk",monospace; font-size: 8px; letter-spacing:.24em; color: var(--stone-2); text-transform: uppercase; border-top: 1px solid rgba(232,223,200,0.14); padding-top: 12px; width: 100%; text-align: center; }
   .candle .ridge { position: absolute; left:14px; right:14px; top: 38%; height: 18px; opacity: .4; }
 
   /* Posters */
   .posters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   @media (max-width: 720px) { .posters { grid-template-columns: 1fr 1fr; } }
   .poster { aspect-ratio: 2/3; background: var(--shadow); position: relative; overflow: hidden; padding: 22px; display:flex; flex-direction: column; justify-content:space-between; }
-  .poster .pnum { font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing:.22em; color: var(--parchment-dim); text-transform: uppercase; }
-  .poster .ph { font-family:"Libre Caslon Text",serif; font-style: italic; font-size: clamp(20px, 2.4vw, 30px); line-height: 1.05; color: var(--bone); }
-  .poster .pf { display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 8.5px; letter-spacing:.22em; color: var(--parchment-dim); text-transform:uppercase; }
+  .poster .pnum { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.22em; color: var(--parchment-dim); text-transform: uppercase; }
+  .poster .ph { font-family:"Libre Bodoni",serif; font-style: italic; font-size: clamp(20px, 2.4vw, 30px); line-height: 1.05; color: var(--bone); }
+  .poster .pf { display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 8.5px; letter-spacing:.22em; color: var(--parchment-dim); text-transform:uppercase; }
   .poster.p1 { background: #07101c; }
   .poster.p1 .ph { color: var(--horizon); }
   .poster.p2 { background-image: url('../images/projects/mnta/mt-whitney.jpg'); background-size: cover; background-position: center; }
@@ -501,46 +584,57 @@
   .poster.p3 .ph { color: #20180c; }
   .poster.p3 .pnum, .poster.p3 .pf { color: #6a5a3a; }
 
+  /* Real-world poster mockups · skip the typographic overlay, show the photo */
+  .poster.is-mockup { padding: 0; aspect-ratio: 2/3; background: #050a13; }
+  .poster.is-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
   /* Wayfinding */
-  .wayfind { aspect-ratio: 16/10; background: linear-gradient(180deg, #0a1320 0%, #050a12 100%); position: relative; padding: 50px; display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
-  .wf-tile { background: #06101c; border: 1px solid var(--hairline); position: relative; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
-  .wf-tile .lbl { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; text-transform: uppercase; }
-  .wf-tile .h { font-family:"Libre Caslon Text",serif; font-size: 22px; color: var(--bone); line-height: 1.1; }
-  .wf-tile .arrow { font-family:"Libre Caslon Text",serif; font-size: 38px; color: var(--bone); }
-  .wf-tile.banner { grid-column: 1 / -1; min-height: 100px; flex-direction: row; align-items: center; justify-content: space-between; padding: 28px 36px; background: var(--parchment); }
-  .wf-tile.banner .h { color: #20180c; font-style: italic; font-size: 28px; }
-  .wf-tile.banner .lbl { color: #6a5a3a; }
+  .wayfind { background: linear-gradient(180deg, #0a1320 0%, #050a12 100%); position: relative; padding: 24px; display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .wf-img { aspect-ratio: 4/3; overflow: hidden; background: #06101c; border: 1px solid var(--hairline); position: relative; }
+  .wf-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 720px) { .wayfind { grid-template-columns: 1fr; } }
 
   /* Quiet Room */
   .qroom { aspect-ratio: 16/10; background: #02060c; position: relative; overflow: hidden; }
   .qroom .floor { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(20,28,42,0.6) 70%, rgba(7,16,28,1) 100%); }
-  .qroom .wall-img { position: absolute; left: 14%; right: 14%; top: 12%; bottom: 32%; background-image: url('../images/projects/mnta/mt-whitney.jpg'); background-size: cover; background-position: center; box-shadow: 0 0 60px rgba(170,197,216,0.15), inset 0 0 80px rgba(0,0,0,0.4); border: 1px solid rgba(232,223,200,0.1); filter: brightness(0.7) saturate(0.7); }
-  .qroom .wall-img::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 30%); }
+  .qroom .wall-img {
+    position: absolute; left: 14%; right: 14%; top: 12%; bottom: 32%;
+    background: #000; overflow: hidden;
+    box-shadow: 0 0 60px rgba(170,197,216,0.15), inset 0 0 80px rgba(0,0,0,0.4);
+    border: 1px solid rgba(232,223,200,0.1);
+  }
+  .qroom .wall-img video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: brightness(0.78) saturate(0.85);
+  }
+  .qroom .wall-img::after { content:""; position:absolute; inset:0; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 30%); z-index: 1; }
   .qroom .bench { position: absolute; left: 36%; right: 36%; bottom: 16%; height: 3%; background: #1a2535; border: 1px solid rgba(232,223,200,0.15); }
   .qroom .bench::before, .qroom .bench::after { content:""; position:absolute; bottom: -180%; width: 4%; height: 180%; background: #1a2535; }
   .qroom .bench::before { left: 6%; } .qroom .bench::after { right: 6%; }
-  .qroom .wm { position: absolute; left: 50%; top: 6%; transform: translateX(-50%); font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--parchment-dim); letter-spacing:.32em; }
+  .qroom .wm { position: absolute; left: 50%; top: 6%; transform: translateX(-50%); font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--parchment-dim); letter-spacing:.32em; }
   .qroom .ground-shadow { position: absolute; left: 30%; right: 30%; bottom: 13%; height: 4%; background: radial-gradient(ellipse at center, rgba(0,0,0,0.6), transparent 70%); }
   .qroom .light-pool { position: absolute; left: 50%; top: 50%; width: 50%; height: 36%; transform: translate(-50%, -10%); background: radial-gradient(ellipse at center, rgba(212,154,74,0.07), transparent 70%); pointer-events: none; }
 
   /* Hospital kit */
   .kit { aspect-ratio: 4/3; background: #0a1320; position: relative; padding: 50px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+  .kit.is-mockup { padding: 0; display: block; background: #050a13; overflow: hidden; }
+  .kit.is-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .kit-slipcase { background: linear-gradient(160deg, #0e1822, #1a2535); border: 1px solid var(--hairline); padding: 28px; display:flex; flex-direction:column; justify-content: space-between; box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); position: relative; }
   .kit-slipcase .top { display:flex; justify-content:space-between; }
-  .kit-slipcase .wm { font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.32em; color: var(--bone); }
-  .kit-slipcase .ttl { font-family:"Libre Caslon Text",serif; font-style: italic; font-size: 28px; color: var(--bone); line-height: 1.1; max-width: 300px; }
-  .kit-slipcase .for { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; text-transform: uppercase; margin-top: auto; }
+  .kit-slipcase .wm { font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.32em; color: var(--bone); }
+  .kit-slipcase .ttl { font-family:"Libre Bodoni",serif; font-style: italic; font-size: 28px; color: var(--bone); line-height: 1.1; max-width: 300px; }
+  .kit-slipcase .for { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; text-transform: uppercase; margin-top: auto; }
   .kit-stack { display: flex; flex-direction: column; gap: 12px; }
   .kit-card { flex:1; background: #07101c; border: 1px solid var(--hairline); padding: 16px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-  .kit-card .ix { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; }
-  .kit-card .n { font-family:"Libre Caslon Text",serif; font-size: 16px; color: var(--bone); line-height: 1.15; }
+  .kit-card .ix { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; }
+  .kit-card .n { font-family:"Libre Bodoni",serif; font-size: 16px; color: var(--bone); line-height: 1.15; }
   .kit-card .d { font-family:"Space Grotesk",sans-serif; font-size: 11.5px; color: var(--parchment-dim); }
 
   /* Brand film storyboard */
   .film { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .filmcell { aspect-ratio: 16/9; background: #06101c; border: 1px solid var(--hairline); position: relative; overflow: hidden; }
-  .filmcell .tc { position: absolute; top: 8px; left: 10px; font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; z-index: 2; }
-  .filmcell .lbl { position: absolute; bottom: 8px; left: 10px; right: 10px; font-family:"JetBrains Mono",monospace; font-size: 8.5px; color: var(--parchment-dim); letter-spacing:.18em; text-transform: uppercase; z-index: 2; }
+  .filmcell .tc { position: absolute; top: 8px; left: 10px; font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; z-index: 2; }
+  .filmcell .lbl { position: absolute; bottom: 8px; left: 10px; right: 10px; font-family:"Space Grotesk",monospace; font-size: 8.5px; color: var(--parchment-dim); letter-spacing:.18em; text-transform: uppercase; z-index: 2; }
   .filmcell.f1 { background-image: url('../images/projects/mnta/mt-whitney.jpg'); background-size: cover; background-position: center; }
   .filmcell.f1::after { content:""; position:absolute; inset:0; background: rgba(7,16,28,.7); }
   .filmcell.f2 { background-image: url('../images/projects/mnta/mt-whitney.jpg'); background-size: cover; background-position: 30% center; }
@@ -552,45 +646,45 @@
   .filmcell.f5 { background: #000; display:flex; align-items:center; justify-content:center; }
   .filmcell.f5 .wmark { font-family:"Space Grotesk",sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 0.2em; color: var(--bone); }
   .filmcell.f6 { background: #000; display:flex; align-items:center; justify-content:center; }
-  .filmcell.f6 .line { font-family:"Libre Caslon Text",serif; font-style: italic; font-size: 16px; color: var(--bone); text-align: center; padding: 0 14px; }
+  .filmcell.f6 .line { font-family:"Libre Bodoni",serif; font-style: italic; font-size: 16px; color: var(--bone); text-align: center; padding: 0 14px; }
   .filmcell.f7 { background: linear-gradient(180deg, #0a1320, #05080e); }
-  .filmcell.f7 .line { font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--horizon); letter-spacing: 0.32em; position: absolute; left: 0; right: 0; bottom: 50%; text-align: center; transform: translateY(50%); }
+  .filmcell.f7 .line { font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--horizon); letter-spacing: 0.32em; position: absolute; left: 0; right: 0; bottom: 50%; text-align: center; transform: translateY(50%); }
   .filmcell.f8 { background: #000; }
 
   /* Annual report */
   .annual { background: #0a1320; padding: 60px; aspect-ratio: 5/3; }
   .annual-cover { background: var(--parchment); color: #20180c; padding: 50px 56px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 30px 80px -30px rgba(0,0,0,.7); position: relative; }
-  .annual-cover .top { display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing: 0.22em; color: #6a5a3a; text-transform: uppercase; }
-  .annual-cover .h { font-family:"Libre Caslon Text",serif; font-style: italic; font-size: clamp(30px, 4.4vw, 64px); line-height: 1.0; color: #20180c; max-width: 80%; }
+  .annual-cover .top { display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing: 0.22em; color: #6a5a3a; text-transform: uppercase; }
+  .annual-cover .h { font-family:"Libre Bodoni",serif; font-style: italic; font-size: clamp(30px, 4.4vw, 64px); line-height: 1.0; color: #20180c; max-width: 80%; }
   .annual-cover .h em { color: #8a5a1a; font-style: italic; }
   .annual-cover .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-top: 28px; border-top: 1px solid rgba(0,0,0,.18); }
-  .annual-cover .stats .l { font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing: 0.22em; color: #6a5a3a; text-transform: uppercase; margin-bottom: 8px; }
-  .annual-cover .stats .v { font-family:"Libre Caslon Text",serif; font-size: 32px; color: #20180c; line-height: 1; }
-  .annual-cover .stats .v small { display:block; font-family:"Libre Caslon Text",serif; font-style: italic; font-size: 12px; color: #6a5a3a; margin-top: 6px; line-height: 1.4; font-weight: 400; }
+  .annual-cover .stats .l { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing: 0.22em; color: #6a5a3a; text-transform: uppercase; margin-bottom: 8px; }
+  .annual-cover .stats .v { font-family:"Libre Bodoni",serif; font-size: 32px; color: #20180c; line-height: 1; }
+  .annual-cover .stats .v small { display:block; font-family:"Libre Bodoni",serif; font-style: italic; font-size: 12px; color: #6a5a3a; margin-top: 6px; line-height: 1.4; font-weight: 400; }
 
   /* ——— PRINT (legacy, kept for the new opening pamphlet+tickets pair) ——— */
   .print { background: var(--night); }
-  .print h2 { font-family: "Libre Caslon Text", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
+  .print h2 { font-family: "Libre Bodoni", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
   .print p { font-size: 17px; color: var(--parchment-dim); max-width: 560px; margin-bottom: 80px; line-height:1.7;}
   .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   @media (max-width: 900px) { .print-grid { grid-template-columns: 1fr; } }
   .print-frame { background: #000; border: 1px solid var(--hairline); position:relative; overflow: hidden; }
   .print-frame img { display:block; width:100%; height: 100%; object-fit: cover; }
-  .print-frame .cap { position:absolute; bottom: 14px; left: 18px; right: 18px; display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.2em; color: var(--parchment-dim); text-transform:uppercase; }
+  .print-frame .cap { position:absolute; bottom: 14px; left: 18px; right: 18px; display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.2em; color: var(--parchment-dim); text-transform:uppercase; }
   .print-frame.foldout { aspect-ratio: 16/10; }
-  .print-frame.tickets { aspect-ratio: 16/10; background: #fff; }
-  .print-frame.tickets img { object-fit: contain; padding: 32px; }
-  .print-frame.tickets .cap { color: var(--stone); }
+  .print-frame.tickets { aspect-ratio: 16/10; background: transparent; border: 0; }
+  .print-frame.tickets img { object-fit: contain; padding: 0; }
+  .print-frame.tickets .cap { color: var(--parchment-dim); }
 
   /* ——— PLATFORM (UI mockups) ——— */
   .platform { background: linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%); }
   .desktop-hero { margin: 32px 0 96px; position: relative; }
   .desktop-hero img { width: 100%; height: auto; display: block; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.6)); }
-  .desktop-hero .desktop-cap { display:flex; justify-content: space-between; margin-top: 18px; font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--stone-2); letter-spacing:.22em; text-transform: uppercase; }
+  .desktop-hero .desktop-cap { display:flex; justify-content: space-between; margin-top: 18px; font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--stone-2); letter-spacing:.22em; text-transform: uppercase; }
   .desktop-hero .desktop-cap strong { color: var(--bone); font-weight: 400; letter-spacing:.16em; }
-  .phones-intro { font-family:"JetBrains Mono",monospace; font-size: 10.5px; letter-spacing: .22em; color: var(--horizon); text-transform: uppercase; margin: 20px 0 36px; display:flex; align-items:center; gap: 14px; }
+  .phones-intro { font-family:"Space Grotesk",monospace; font-size: 10.5px; letter-spacing: .22em; color: var(--horizon); text-transform: uppercase; margin: 20px 0 36px; display:flex; align-items:center; gap: 14px; }
   .phones-intro::after { content:""; flex:1; height:1px; background: var(--hairline); }
-  .platform h2 { font-family: "Libre Caslon Text", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
+  .platform h2 { font-family: "Libre Bodoni", serif; font-size: clamp(40px, 5vw, 72px); color: var(--bone); margin-bottom: 24px; }
   .platform .desc { max-width: 600px; font-size: 17px; color: var(--parchment-dim); margin-bottom: 80px; line-height:1.7;}
   .phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; align-items: end; }
   @media (max-width: 900px) { .phones { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; } }
@@ -611,23 +705,23 @@
     position:relative;
     display:flex; flex-direction: column;
   }
-  .phone-cap { font-family:"JetBrains Mono",monospace; font-size: 10px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-top: 24px; display:flex; justify-content:space-between; }
+  .phone-cap { font-family:"Space Grotesk",monospace; font-size: 10px; letter-spacing:.2em; text-transform:uppercase; color: var(--stone-2); margin-top: 24px; display:flex; justify-content:space-between; }
   .phone-cap .ix { color: var(--horizon); }
 
   /* phone status bar */
-  .status { display:flex; justify-content: space-between; padding: 14px 24px 6px; font-family:"JetBrains Mono",monospace; font-size: 10px; color: var(--bone); letter-spacing:.06em; }
+  .status { display:flex; justify-content: space-between; padding: 14px 24px 6px; font-family:"Space Grotesk",monospace; font-size: 10px; color: var(--bone); letter-spacing:.06em; }
 
   /* Phone 1: Library */
   .lib-hero { aspect-ratio: 1/1; background-image: url("../images/projects/mnta/mt-whitney.jpg"); background-size: cover; background-position: center; position: relative; }
   .lib-hero::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 40%, rgba(7,16,28,.95)); }
-  .lib-hero .wm { position:absolute; top: 16px; left: 16px; font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--bone); letter-spacing:.2em; }
-  .lib-hero .ttl { position:absolute; bottom: 16px; left: 18px; right: 18px; font-family:"Libre Caslon Text",serif; font-size: 22px; color: var(--bone); line-height: 1.1; }
+  .lib-hero .wm { position:absolute; top: 16px; left: 16px; font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--bone); letter-spacing:.2em; }
+  .lib-hero .ttl { position:absolute; bottom: 16px; left: 18px; right: 18px; font-family:"Libre Bodoni",serif; font-size: 22px; color: var(--bone); line-height: 1.1; }
   .lib-list { padding: 18px; display:flex; flex-direction: column; gap: 14px; flex: 1; overflow:hidden; }
   .lib-row { display:flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline); }
   .lib-row .pic { width: 44px; height: 44px; background: var(--shadow); border-radius: 4px; flex:none; background-size: cover; background-position: center; }
-  .lib-row .lbl { font-family:"Libre Caslon Text",serif; font-size: 14px; color: var(--bone); line-height:1.15; }
-  .lib-row .sub { font-family:"JetBrains Mono",monospace; font-size: 8.5px; color: var(--stone-2); letter-spacing:.16em; text-transform:uppercase; margin-top:3px; }
-  .lib-row .dur { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--parchment-dim); margin-left: auto; letter-spacing:.1em; }
+  .lib-row .lbl { font-family:"Libre Bodoni",serif; font-size: 14px; color: var(--bone); line-height:1.15; }
+  .lib-row .sub { font-family:"Space Grotesk",monospace; font-size: 8.5px; color: var(--stone-2); letter-spacing:.16em; text-transform:uppercase; margin-top:3px; }
+  .lib-row .dur { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--parchment-dim); margin-left: auto; letter-spacing:.1em; }
 
   /* Phone 2: Now Playing — immersion */
   .np {
@@ -640,31 +734,31 @@
   .np > * { position: relative; }
   .np .top { padding: 16px 18px; display:flex; justify-content: space-between; }
   .np .ttl { padding: 0 18px; margin-top: auto; }
-  .np .ttl .where { font-family:"JetBrains Mono",monospace; font-size: 9px; letter-spacing:.22em; color: var(--horizon); text-transform:uppercase; }
-  .np .ttl .h { font-family:"Libre Caslon Text",serif; font-size: 28px; color: var(--bone); margin-top: 8px; line-height: 1.1; }
-  .np .ttl .meta { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--parchment-dim); letter-spacing:.16em; margin-top: 10px; text-transform:uppercase; }
+  .np .ttl .where { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.22em; color: var(--horizon); text-transform:uppercase; }
+  .np .ttl .h { font-family:"Libre Bodoni",serif; font-size: 28px; color: var(--bone); margin-top: 8px; line-height: 1.1; }
+  .np .ttl .meta { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--parchment-dim); letter-spacing:.16em; margin-top: 10px; text-transform:uppercase; }
   .np .controls { padding: 24px 18px 28px; }
   .np .scrub { height: 1px; background: rgba(232,223,200,.25); position: relative; margin-bottom: 8px; cursor: pointer; }
   .np .scrub .np-scrub-fill { position:absolute; left:0; top:0; bottom:0; width: 0%; background: var(--bone); }
   .np .scrub .np-scrub-fill::after { content:""; position:absolute; right: 0; top:50%; width:6px; height:6px; background: var(--bone); border-radius:50%; transform:translate(50%,-50%); }
-  .np .times { display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--parchment-dim); letter-spacing:.1em; }
+  .np .times { display:flex; justify-content:space-between; font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--parchment-dim); letter-spacing:.1em; }
   .np .btns { display:flex; justify-content:center; gap: 28px; margin-top: 22px; align-items: center; color: var(--bone); }
   .np .btns .play { width: 44px; height: 44px; border: 1px solid var(--bone); border-radius: 50%; display:flex; align-items:center; justify-content:center; cursor: pointer; user-select:none; }
 
   /* Phone 3: Send a mountain mobile */
   .sendp { padding: 0; display:flex; flex-direction:column; flex:1; }
   .sendp .head { padding: 12px 18px 14px; border-bottom: 1px solid var(--hairline); display:flex; justify-content: space-between; }
-  .sendp .head .t { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; text-transform:uppercase; }
+  .sendp .head .t { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--horizon); letter-spacing:.22em; text-transform:uppercase; }
   .sendp .head .x { color: var(--stone-2); font-size: 11px; }
   .sendp .body-area { padding: 22px 18px; display:flex; flex-direction:column; gap: 18px; flex:1; }
-  .sendp .field .l { font-family:"JetBrains Mono",monospace; font-size: 9px; color: var(--stone-2); letter-spacing:.18em; text-transform:uppercase; margin-bottom: 6px; }
-  .sendp .field .v { font-family:"Libre Caslon Text",serif; font-size: 16px; color: var(--bone); padding-bottom: 8px; border-bottom: 1px solid var(--hairline); }
+  .sendp .field .l { font-family:"Space Grotesk",monospace; font-size: 9px; color: var(--stone-2); letter-spacing:.18em; text-transform:uppercase; margin-bottom: 6px; }
+  .sendp .field .v { font-family:"Libre Bodoni",serif; font-size: 16px; color: var(--bone); padding-bottom: 8px; border-bottom: 1px solid var(--hairline); }
   .sendp .field .v.dim { color: var(--stone-2); font-style: italic; }
   .sendp .preview { margin-top: auto; padding: 14px; border: 1px solid var(--hairline); }
   .sendp .preview .pic { aspect-ratio: 16/9; background-image: url("../images/projects/mnta/mt-whitney.jpg"); background-size:cover; background-position:center; filter: grayscale(.3) brightness(.7); margin-bottom: 12px; }
-  .sendp .preview .from { font-family:"JetBrains Mono",monospace; font-size: 8px; color: var(--stone-2); letter-spacing:.18em; text-transform:uppercase; }
-  .sendp .preview .msg { font-family:"Libre Caslon Text",serif; font-style:italic; color: var(--parchment); font-size: 13px; margin-top: 6px; line-height: 1.4; }
-  .sendp .submit { margin: 18px; padding: 14px; background: var(--bone); color: var(--night); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; text-align:center; }
+  .sendp .preview .from { font-family:"Space Grotesk",monospace; font-size: 8px; color: var(--stone-2); letter-spacing:.18em; text-transform:uppercase; }
+  .sendp .preview .msg { font-family:"Libre Bodoni",serif; font-style:italic; color: var(--parchment); font-size: 13px; margin-top: 6px; line-height: 1.4; }
+  .sendp .submit { margin: 18px; padding: 14px; background: var(--bone); color: var(--night); font-family: "Space Grotesk", monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; text-align:center; }
 
   /* ——— OUTRO ——— */
   .outro {
@@ -685,9 +779,9 @@
   }
   .outro::after { content:""; position: absolute; inset:0; background: radial-gradient(ellipse at center, rgba(7,16,28,0) 0%, rgba(7,12,24,0.55) 70%, rgba(2,5,12,0.85) 100%); }
   .outro-inner { position:relative; z-index: 1; padding: 0 24px; }
-  .outro .lbl { font-family:"JetBrains Mono",monospace; font-size: 11px; color: var(--horizon); letter-spacing:.4em; text-transform:uppercase; margin-bottom: 36px; }
+  .outro .lbl { font-family:"Space Grotesk",monospace; font-size: 11px; color: var(--horizon); letter-spacing:.4em; text-transform:uppercase; margin-bottom: 36px; }
   .outro .h {
-    font-family: "Libre Caslon Text", serif; font-style: italic; font-weight: 400;
+    font-family: "Libre Bodoni", serif; font-style: italic; font-weight: 400;
     font-size: clamp(40px, 7vw, 108px);
     color: var(--bone);
     line-height: 1.05;
@@ -702,7 +796,7 @@
     border-top: 1px solid var(--hairline);
     background: #050a12;
     display:flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px;
-    font-family:"JetBrains Mono",monospace; font-size: 10.5px; letter-spacing:.18em; color: var(--stone-2); text-transform: uppercase;
+    font-family:"Space Grotesk",monospace; font-size: 10.5px; letter-spacing:.18em; color: var(--stone-2); text-transform: uppercase;
   }
   @media (max-width: 720px) { footer { padding: 60px 32px 40px; } }
   footer a { color: var(--parchment-dim); text-decoration: none; }
@@ -718,7 +812,7 @@
     border-bottom: 1px solid var(--hairline);
     padding: 12px 40px;
     display: flex; justify-content: space-between; align-items: center;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Space Grotesk", monospace;
   }
   .site-nav-logo { display: block; line-height: 0; filter: invert(1) brightness(1.05); }
   .site-nav-logo img { height: 16px; width: auto; display: block; }
@@ -735,7 +829,7 @@
     padding: 28px 40px;
     display: flex; justify-content: space-between; align-items: center;
     gap: 16px; flex-wrap: wrap;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Space Grotesk", monospace;
   }
   .site-footer a {
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -807,7 +901,6 @@
 <!-- BRIEF -->
 <section class="brief sec-pad" id="brief">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">01</span><span class="ttl">The Project</span><span class="rule"></span></div>
     <div class="brief-grid">
       <div class="reveal">
         <h2 class="display">An environment, not an app.</h2>
@@ -834,7 +927,6 @@
 <!-- PROBLEM -->
 <section class="problem sec-pad" id="problem">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">02</span><span class="ttl">The Problem</span><span class="rule"></span></div>
     <p class="problem-quote reveal">The outdoor industry rarely speaks to everyone. It sells gear, goals, and lifestyle.</p>
 
     <div class="problem-meta">
@@ -861,7 +953,6 @@
     <img class="inside-mtn" src="../images/projects/mnta/mt-shasta.png" alt="" />
     <div class="inside-fg-fade"></div>
     <div class="stage inside-content">
-      <div class="sec-num reveal"><span class="ix">03</span><span class="ttl">Inside the mountain</span><span class="rule"></span></div>
       <div class="inside-grid">
         <h2 class="reveal display inside-h">A place you can <em>walk through</em>, without ever leaving the room.</h2>
         <div class="inside-cols reveal delay-1">
@@ -887,7 +978,6 @@
 <!-- IDENTITY -->
 <section class="identity sec-pad" id="identity">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">04</span><span class="ttl">Identity</span><span class="rule"></span></div>
     <div class="identity-grid">
       <div class="logo-plate reveal">
         <div class="ident-corners"><span class="tl"></span><span class="br"></span></div>
@@ -902,10 +992,10 @@
         <h3>A wordmark drawn from facets, not photographs.</h3>
         <p>Mountains are made of facets — planes of light, of shadow, of weather. The MNTA mark abstracts that geometry into a triangulated peak set, sitting on a single horizon line. The four letters carry the four words of the brand. Nothing else is needed.</p>
         <div class="word-rows">
-          <div class="word-row"><span class="ix">M / 01</span><span class="w">Mountain</span><span class="d">The form, the silhouette, the weight a horizon gives a day.</span></div>
-          <div class="word-row"><span class="ix">N / 02</span><span class="w">Nature</span><span class="d">Light, weather, sound — the body of a place beyond its peak.</span></div>
-          <div class="word-row"><span class="ix">T / 03</span><span class="w">Travel</span><span class="d">Movement of feeling more than feet. Distance crossed inside.</span></div>
-          <div class="word-row"><span class="ix">A / 04</span><span class="w">Access</span><span class="d">The promise. That a range is for everyone who has ever loved one.</span></div>
+          <div class="word-row"><span class="w">Mountain</span><span class="d">The form, the silhouette, the weight a horizon gives a day.</span></div>
+          <div class="word-row"><span class="w">Nature</span><span class="d">Light, weather, sound — the body of a place beyond its peak.</span></div>
+          <div class="word-row"><span class="w">Travel</span><span class="d">Movement of feeling more than feet. Distance crossed inside.</span></div>
+          <div class="word-row"><span class="w">Access</span><span class="d">The promise. That a range is for everyone who has ever loved one.</span></div>
         </div>
       </div>
     </div>
@@ -915,11 +1005,10 @@
 <!-- PALETTE -->
 <section class="palette sec-pad" id="palette">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">05</span><span class="ttl">Color</span><span class="rule"></span></div>
     <div class="palette-grid">
       <div class="reveal">
         <h2 class="display">Cold tones, warm horizon.</h2>
-        <p class="body">The palette is borrowed from one specific evening — a long ridge, the last light slipping behind it. Deep blues, mountain shadow, stone, and a single warm horizon glow. Parchment carries the type. The system is almost monochromatic by intent, so that when warmth appears it means something.</p>
+        <p class="body">The palette comes from one specific evening: a long ridge line, the last bit of light dropping behind it. Deep blues, mountain shadow, stone, and one warm strip at the horizon. Parchment holds the type. The system stays mostly monochromatic on purpose, so when warmth shows up, it has weight.</p>
       </div>
       <div class="swatch-stack reveal delay-1">
         <div class="swatch" style="background:#07101c;"><div class="chip" style="background:#07101c; outline: 1px solid var(--hairline);"></div><div class="name">Night<small>Background, void, ground</small></div><div class="hex">#07101C</div></div>
@@ -936,20 +1025,19 @@
 <!-- TYPE -->
 <section class="type sec-pad" id="type">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">06</span><span class="ttl">Typography</span><span class="rule"></span></div>
     <div class="type-grid">
       <div class="specimen serif reveal">
-        <div class="meta"><span class="l">Display / editorial</span><span class="r">Aa — 01</span></div>
+        <div class="meta"><span class="l">Display / editorial</span></div>
         <div class="glyph">M</div>
-        <div class="name">Libre Caslon Text</div>
+        <div class="name">Libre Bodoni</div>
         <div class="role">Titles, quotes, the slow voice of the page.</div>
         <div class="alpha">A mountain is a place a body can stand and a feeling a body can carry — and sometimes only one of those is possible.</div>
       </div>
       <div class="specimen sans reveal delay-1">
-        <div class="meta"><span class="l">UI / body / signage</span><span class="r">Aa — 02</span></div>
+        <div class="meta"><span class="l">UI / body / signage</span></div>
         <div class="glyph">N</div>
-        <div class="name">Space Grotesk &nbsp;·&nbsp; JetBrains Mono</div>
-        <div class="role">Interface, body copy, mono labels for ticket and metadata.</div>
+        <div class="name">Space Grotesk</div>
+        <div class="role">Interface, body copy, signage, ticket and metadata labels.</div>
         <div class="alpha">UI · 14 / 17 · MONO 11 / 0.18em · LABELS UPPERCASE</div>
       </div>
     </div>
@@ -959,7 +1047,6 @@
 <!-- SEND A MOUNTAIN -->
 <section class="send sec-pad" id="send">
   <div class="stage send-inner">
-    <div class="sec-num reveal"><span class="ix">07</span><span class="ttl">Interactive — Send Someone a Mountain</span><span class="rule"></span></div>
     <h2 class="reveal">Choose a mountain. <em>Send it to someone.</em></h2>
     <p class="desc reveal delay-1">A live feature inside MNTA. You pick a peak, write a quiet line, and a postcard is delivered — by email, by text, by paper. It is small, but for the person who receives it, sometimes a mountain is enough.</p>
     <div id="send-app" class="reveal delay-2"></div>
@@ -969,7 +1056,6 @@
 <!-- DELIVERABLES -->
 <section class="deliv sec-pad" id="print">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">08</span><span class="ttl">Deliverables</span><span class="rule"></span></div>
     <h2 class="reveal display">Things you can hold, walk through, and keep.</h2>
     <p class="desc reveal delay-1">A brand is only as real as the objects, rooms, and films it produces. The MNTA system extends from the page into the hand, the wall, and the room — a quiet kit of artifacts for the places this work actually belongs.</p>
 
@@ -985,12 +1071,11 @@
       </div>
     </div>
 
-    <!-- 01 Field guide book -->
+    <!-- 01 The Mountains book -->
     <div class="deliv-item reveal">
       <div class="deliv-meta">
-        <div class="num">01 — Editorial</div>
-        <h3>The Field Guide.<br/>One range per chapter.</h3>
-        <p>A perfect-bound, 64-page companion to the platform. Each chapter holds a single mountain: a full-bleed photograph, a quiet essay, an annotated illustration of the flora and fauna, and the names of its weather. The physical object MNTA hands to a hospital, a hospice, a school library.</p>
+        <h3>The Mountains.<br/>One range per chapter.</h3>
+        <p>A perfect-bound, 64-page printed book. Each chapter holds a single mountain: a full-bleed photograph, a quiet essay, an annotated illustration of the flora and fauna, and the names of its weather. The physical object MNTA hands to a hospital, a hospice, a school library.</p>
         <div class="specs">
           <div><div class="l">Format</div><div class="v">6 × 9 in, perfect-bound</div></div>
           <div><div class="l">Extent</div><div class="v">64 pp, parchment 100gsm</div></div>
@@ -999,43 +1084,25 @@
         </div>
       </div>
       <div>
-        <div class="vis book">
-          <div class="book-spread">
-            <div class="book-page left">
-              <div class="folio"><span>Vol. I — Sierra Nevada</span><span>p. 014</span></div>
-            </div>
-            <div class="book-page right">
-              <div class="ch">Chapter Two — Mt. Whitney</div>
-              <div class="h">A long ridge. The last light slipping behind it.</div>
-              <div class="body">
-                <span class="drop">T</span>he eastern face of Whitney holds the day longer than any rock in California. By the time the valley below has gone to shadow, the granite is still warm. Subalpine fir lean into the saddle. A Clark’s nutcracker calls once and is gone. The mountain does not require you. It does not refuse you. It is simply here, in the way mountains are.
-              </div>
-              <div class="figure"><span>Fig. 2.1 — east face, dusk</span><span>p. 015</span></div>
-            </div>
-          </div>
+        <div class="vis book is-mockup">
+          <img src="../images/projects/mnta/mnta-book1.png" alt="The Mountains — printed book, Vol. I"/>
         </div>
-        <div class="vis-cap"><span>Spread — chapter opener</span><span>Vol. I · pp. 014–015</span></div>
+        <div class="vis-cap"><span>Object — printed book</span><span>The Mountains · Vol. I</span></div>
       </div>
     </div>
 
     <!-- 02 Candle -->
     <div class="deliv-item flip reveal">
       <div>
-        <div class="vis candle-frame">
-          <div class="candle">
-            <div class="lbl-top">MNTA · No. 02</div>
-            <svg class="ridge" viewBox="0 0 200 18" fill="none" stroke="#aac5d8" stroke-width="1" stroke-linejoin="miter"><path d="M0 16 L40 6 L60 12 L100 2 L130 12 L150 8 L200 16 Z" fill="rgba(170,197,216,0.05)"/></svg>
-            <div class="lbl-mid">
-              <div class="place">Mt. Whitney,<br/>at dusk.</div>
-              <div class="when">Sierra Nevada · 14,505 ft</div>
-            </div>
-            <div class="lbl-bot">Pine · Stone · Cold air · 60 hr</div>
+        <div class="vis candle-frame is-mockup">
+          <div class="candle-pair">
+            <img src="../images/projects/mnta/mtwhitneycandle.png" alt="MNTA candle · Mt. Whitney, at dusk"/>
+            <img src="../images/projects/mnta/candle2.png" alt="MNTA candle · series mockup"/>
           </div>
         </div>
         <div class="vis-cap"><span>Object — candle</span><span>Glass vessel · 8 oz</span></div>
       </div>
       <div class="deliv-meta">
-        <div class="num">02 — Object</div>
         <h3>The smell of a specific evening.</h3>
         <p>A candle, packaged like print. Each scent is sourced from a single place at a single hour — not generic “forest” or “mountain air,” but the literal needles, soils, and stone of one named ridge. The label reads like a chapter heading. The vessel sits dark on a shelf until lit.</p>
         <div class="specs">
@@ -1050,35 +1117,21 @@
     <!-- 03 Posters -->
     <div class="deliv-item reveal">
       <div class="deliv-meta">
-        <div class="num">03 — Outdoor</div>
-        <h3>Posters for transit, clinic, and street.</h3>
-        <p>A series of large-format posters built around three lines of voice. Built to be readable from the other side of a hospital lobby or a metro platform — a single image, a single line, the wordmark. Nothing else is needed.</p>
-        <div class="specs">
-          <div><div class="l">Format</div><div class="v">24 × 36 in</div></div>
-          <div><div class="l">Process</div><div class="v">Offset, uncoated stock</div></div>
-          <div><div class="l">Sites</div><div class="v">Transit, clinic, gallery</div></div>
-          <div><div class="l">Set</div><div class="v">Three, expandable</div></div>
-        </div>
+        <h3>POSTERS<span class="sub">transit, clinic, street</span></h3>
+        <p>A series of large-format posters built around three lines of voice. Built to be readable from the other side of a hospital lobby or a metro platform, a single image, a single line, the wordmark. Nothing else is needed.</p>
       </div>
       <div>
         <div class="posters">
-          <div class="poster p1">
-            <div class="pnum">No. 01</div>
-            <div class="ph">The mountain<br/>is yours.</div>
-            <div class="pf"><span>MNTA</span><span>2026</span></div>
+          <div class="poster is-mockup">
+            <img src="../images/projects/mnta/poster-mnta.png" alt="MNTA poster · This mountain is yours."/>
           </div>
-          <div class="poster p2">
-            <div class="pnum">No. 02</div>
-            <div class="ph">Stand here<br/>a minute.</div>
-            <div class="pf"><span>MNTA</span><span>2026</span></div>
+          <div class="poster is-mockup">
+            <img src="../images/projects/mnta/poster-busstop.png" alt="MNTA poster on a bus stop lightbox"/>
           </div>
-          <div class="poster p3">
-            <div class="pnum">No. 03</div>
-            <div class="ph">A range,<br/>for everyone<br/>who has ever<br/>loved one.</div>
-            <div class="pf"><span>MNTA</span><span>2026</span></div>
+          <div class="poster is-mockup">
+            <img src="../images/projects/mnta/poster-airport.png" alt="MNTA poster wheatpasted at an airport gate"/>
           </div>
         </div>
-        <div class="vis-cap"><span>Outdoor — poster series</span><span>Three of —</span></div>
       </div>
     </div>
 
@@ -1086,52 +1139,30 @@
     <div class="deliv-item flip reveal">
       <div>
         <div class="vis wayfind">
-          <div class="wf-tile banner">
-            <div class="lbl">Wing A — Quiet Room</div>
-            <div class="h">A range, indoors.</div>
-          </div>
-          <div class="wf-tile">
-            <div class="lbl">01 — Library</div>
-            <div><div class="h">Choose a mountain.</div></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="wf-tile">
-            <div class="lbl">02 — Quiet Room</div>
-            <div><div class="h">Sit a while.</div></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="wf-tile">
-            <div class="lbl">03 — Send</div>
-            <div><div class="h">Send one to someone.</div></div>
-            <div class="arrow">→</div>
-          </div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallbanners.png" alt="MNTA wall banners — hospital install"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallvinyl.png" alt="MNTA wall vinyl graphics"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallsign.png" alt="MNTA wall / door sign"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-floordecals.png" alt="MNTA floor decals"/></div>
         </div>
         <div class="vis-cap"><span>Environmental — wayfinding</span><span>Hospital install · system</span></div>
       </div>
       <div class="deliv-meta">
-        <div class="num">04 — Environmental</div>
-        <h3>Wayfinding for a hospital install.</h3>
-        <p>A site-specific signage system: floor decals, wall banners, vinyls, and door signs, drawn from the same typographic system as the platform. Designed for a children’s hospital atrium, a memory-care wing, or a gallery — anywhere a person might have time, but not access.</p>
-        <div class="specs">
-          <div><div class="l">Substrates</div><div class="v">Vinyl, fabric, decal</div></div>
-          <div><div class="l">Typography</div><div class="v">Caslon + Mono pair</div></div>
-          <div><div class="l">Pilot site</div><div class="v">Pediatric oncology wing</div></div>
-          <div><div class="l">Sign types</div><div class="v">7</div></div>
-        </div>
+        <h3>Hospital Wayfinding System</h3>
+        <p>A site-specific signage system drawn from the same typographic language as the MNTA platform.</p>
+        <p>The system includes floor decals, wall banners, vinyl graphics, door signs, and directional markers. Each piece helps guide visitors toward the Quiet Room without making the experience feel clinical or over-explained.</p>
+        <p>Designed for children’s hospital atriums, memory-care wings, hospice environments, and gallery settings — anywhere a person may need stillness, but not have access to the mountain itself.</p>
       </div>
     </div>
 
     <!-- 05 Quiet Room -->
     <div class="deliv-item reveal">
       <div class="deliv-meta">
-        <div class="num">05 — Experiential</div>
-        <h3>The Quiet Room.<br/>A 10′ × 10′ mountain, indoors.</h3>
-        <p>A pop-up installation. One projected mountain loop, one bench, two pairs of headphones, one printed line on the wall. Deployable in lobbies, libraries, and conferences. The room is the deliverable; everything else falls away.</p>
+        <h3>The Quiet Room<br/>A 10′ × 10′ mountain, indoors.</h3>
+        <p>A pop-up installation built from one projected mountain loop, one bench, two pairs of headphones, and one printed line on the wall.</p>
+        <p>It is quiet, temporary, and self-contained. The room becomes the deliverable. Everything else falls away.</p>
         <div class="specs">
           <div><div class="l">Footprint</div><div class="v">10′ × 10′</div></div>
-          <div><div class="l">Hardware</div><div class="v">4K short-throw, ambient audio</div></div>
-          <div><div class="l">Capacity</div><div class="v">Two, at a time</div></div>
-          <div><div class="l">Dwell</div><div class="v">Average ~11 minutes</div></div>
+          <div class="full"><div class="l">Use cases</div><div class="v">Hospital lobbies, children’s hospital atriums, memory-care wings, libraries, conferences, galleries, and waiting spaces.</div></div>
         </div>
       </div>
       <div>
@@ -1139,7 +1170,9 @@
           <div class="floor"></div>
           <div class="light-pool"></div>
           <div class="wm">MNTA · QUIET ROOM</div>
-          <div class="wall-img"></div>
+          <div class="wall-img">
+            <video src="../images/projects/mnta/mountainmovie.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Projected mountain loop"></video>
+          </div>
           <div class="ground-shadow"></div>
           <div class="bench"></div>
         </div>
@@ -1150,92 +1183,40 @@
     <!-- 06 Hospital partnership kit -->
     <div class="deliv-item flip reveal">
       <div>
-        <div class="vis kit">
-          <div class="kit-slipcase">
-            <div class="top">
-              <span class="wm">MNTA</span>
-              <span class="wm" style="color:var(--horizon)">No. 06</span>
-            </div>
-            <div class="ttl">A kit for a quiet wing.</div>
-            <div class="for">For — Pediatric oncology, hospice, memory care</div>
-          </div>
-          <div class="kit-stack">
-            <div class="kit-card"><div class="ix">i.</div><div class="n">Field Guide — Vol. I</div><div class="d">Companion book, 64pp.</div></div>
-            <div class="kit-card"><div class="ix">ii.</div><div class="n">Tablet stand &amp; headphone hooks</div><div class="d">For at-bed viewing.</div></div>
-            <div class="kit-card"><div class="ix">iii.</div><div class="n">Wall card for staff</div><div class="d">How the program works.</div></div>
-            <div class="kit-card"><div class="ix">iv.</div><div class="n">Postcards × 25</div><div class="d">For sending mountains.</div></div>
-          </div>
+        <div class="vis kit is-mockup">
+          <img src="../images/projects/mnta/mnta-hospitalkit.png" alt="MNTA hospital partnership kit · slipcase + components"/>
         </div>
         <div class="vis-cap"><span>System — partnership kit</span><span>Slipcase · mailable</span></div>
       </div>
       <div class="deliv-meta">
-        <div class="num">06 — System</div>
-        <h3>The hospital partnership kit.</h3>
-        <p>A single charcoal slipcase shipped to a partnering ward. Inside: the field guide, a tablet stand and headphone hooks for at-bed use, a printed wall card for staff explaining how the program works, and a stack of postcards. The kit makes MNTA usable by a wing that has not heard of MNTA yet.</p>
+        <h3>Hospital Partnership Kit</h3>
+        <p>A single charcoal slipcase shipped to a partnering ward.</p>
+        <p>Inside: The Mountains book, a tablet stand, headphone hooks for at-bed viewing, a printed staff card explaining how the program works, and a stack of postcards.</p>
+        <p>The kit gives a hospital wing everything it needs to use MNTA without prior setup, training, or familiarity with the platform.</p>
         <div class="specs">
-          <div><div class="l">Format</div><div class="v">Charcoal slipcase</div></div>
-          <div><div class="l">Contains</div><div class="v">4 components</div></div>
-          <div><div class="l">Pilot</div><div class="v">3 wards, year one</div></div>
-          <div><div class="l">Cost</div><div class="v">Underwritten, free</div></div>
+          <div class="full"><div class="l">Purpose</div><div class="v">To make MNTA immediately usable in pediatric oncology, hospice, memory care, and other spaces where patients may have time, but not access.</div></div>
         </div>
       </div>
     </div>
 
-    <!-- 07 Brand film -->
-    <div class="deliv-item reveal">
-      <div class="deliv-meta">
-        <div class="num">07 — Motion</div>
-        <h3>30 seconds.<br/>The opening title.</h3>
-        <p>A short brand film that loops on the platform home page and runs as a title sequence at the head of any installation or event. Eight beats: cold horizon, slow push toward a ridge, a single voice-over line, the wordmark, the four words, hold on black.</p>
-        <div class="specs">
-          <div><div class="l">Length</div><div class="v">0:30</div></div>
-          <div><div class="l">Aspect</div><div class="v">16:9 · 9:16 cuts</div></div>
-          <div><div class="l">Sound</div><div class="v">Field recording + VO</div></div>
-          <div><div class="l">Beats</div><div class="v">8 frames, below</div></div>
-        </div>
+    <!-- Live tally · counters that update while the page is open -->
+    <div class="tally reveal">
+      <div class="tally-head">
+        <h3>A year of <em>standing very still.</em></h3>
+        <span class="live">Live</span>
       </div>
-      <div>
-        <div class="film">
-          <div class="filmcell f1"><span class="tc">00:00</span><span class="lbl">Cold horizon, hold</span></div>
-          <div class="filmcell f2"><span class="tc">00:05</span><span class="lbl">Slow push, ridge enters</span></div>
-          <div class="filmcell f3"><span class="tc">00:10</span><span class="lbl">Light reaches the rock</span></div>
-          <div class="filmcell f6"><span class="tc">00:13</span><span class="lbl">VO line, in italic</span><span class="line">“The mountain is yours.”</span></div>
-          <div class="filmcell f4"><span class="tc">00:18</span><span class="lbl">Wordmark draws on</span>
-            <svg viewBox="0 0 200 80" fill="none" stroke="#f5f1e8" stroke-width="1.6"><path d="M14 68 L52 18 L72 44 L100 8 L128 44 L148 22 L186 68 Z"/><path d="M14 68 L186 68"/></svg>
-          </div>
-          <div class="filmcell f5"><span class="tc">00:22</span><span class="lbl">Four-word lockup</span><span class="wmark">M N T A</span></div>
-          <div class="filmcell f7"><span class="tc">00:26</span><span class="lbl">Tagline, hold</span><span class="line">MOUNTAINS · NATURE · TRAVEL · ACCESS</span></div>
-          <div class="filmcell f8"><span class="tc">00:30 —</span><span class="lbl">Black</span></div>
+      <div class="tally-grid">
+        <div class="tally-stat">
+          <div class="num" id="tally-mountains">4,302</div>
+          <div class="lbl">Mountains browsed</div>
         </div>
-        <div class="vis-cap"><span>Motion — storyboard</span><span>8 beats · 0:00–0:30</span></div>
-      </div>
-    </div>
-
-    <!-- 08 Annual report of stillness -->
-    <div class="deliv-item flip reveal">
-      <div>
-        <div class="vis annual">
-          <div class="annual-cover">
-            <div class="top"><span>MNTA — Annual Report</span><span>2026 · No. 01</span></div>
-            <div class="h">A year of <em>standing very still.</em></div>
-            <div class="stats">
-              <div><div class="l">Stood at the saddle</div><div class="v">4,302 <small>people, at Mt. Whitney</small></div></div>
-              <div><div class="l">Average dwell</div><div class="v">11:24 <small>minutes per visit</small></div></div>
-              <div><div class="l">Mountains sent</div><div class="v">1,118 <small>between strangers, friends, kin</small></div></div>
-            </div>
-          </div>
+        <div class="tally-stat">
+          <div class="num" id="tally-minutes">11:24</div>
+          <div class="lbl">Average minutes per visit</div>
         </div>
-        <div class="vis-cap"><span>Editorial — annual report</span><span>Cover · stitched, 24pp</span></div>
-      </div>
-      <div class="deliv-meta">
-        <div class="num">08 — Conceptual</div>
-        <h3>The Annual Report of Stillness.</h3>
-        <p>A small printed pamphlet, sent each year, that inverts the corporate annual report. It does not measure growth, conversion, or session length in the usual sense. It measures how long people stayed, how often they returned, and how many mountains were sent between strangers. Numbers as a love letter.</p>
-        <div class="specs">
-          <div><div class="l">Format</div><div class="v">7 × 10 in, saddle-stitched</div></div>
-          <div><div class="l">Extent</div><div class="v">24 pp, parchment</div></div>
-          <div><div class="l">Cadence</div><div class="v">Annual</div></div>
-          <div><div class="l">Distribution</div><div class="v">By post, to all members</div></div>
+        <div class="tally-stat">
+          <div class="num" id="tally-sent">1,118</div>
+          <div class="lbl">Mountains sent</div>
         </div>
       </div>
     </div>
@@ -1246,7 +1227,6 @@
 <!-- PLATFORM -->
 <section class="platform sec-pad" id="platform">
   <div class="stage">
-    <div class="sec-num reveal"><span class="ix">09</span><span class="ttl">Platform</span><span class="rule"></span></div>
     <h2 class="reveal display">The platform itself.</h2>
     <p class="desc reveal delay-1">A small app. A library of mountains, an immersive viewer, and the Send a Mountain compose screen. The chrome stays out of the way; the photograph and the silence do the work.</p>
 
@@ -1277,7 +1257,7 @@
             </div>
           </div>
         </div>
-        <div class="phone-cap"><span class="ix">— 01</span><span>Library</span></div>
+        <div class="phone-cap"><span>Library</span></div>
       </div>
 
       <div class="reveal delay-1">
@@ -1304,7 +1284,7 @@
             </div>
           </div>
         </div>
-        <div class="phone-cap"><span class="ix">— 02</span><span>Now playing</span></div>
+        <div class="phone-cap"><span>Now playing</span></div>
       </div>
 
       <div class="reveal delay-2">
@@ -1327,7 +1307,7 @@
             </div>
           </div>
         </div>
-        <div class="phone-cap"><span class="ix">— 03</span><span>Send compose</span></div>
+        <div class="phone-cap"><span>Send compose</span></div>
       </div>
     </div>
   </div>
@@ -1364,6 +1344,71 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Live tally · ticks irregularly while the page is open
+  (function() {
+    const elM  = document.getElementById('tally-mountains');
+    const elMn = document.getElementById('tally-minutes');
+    const elS  = document.getElementById('tally-sent');
+    if (!elM || !elMn || !elS) return;
+
+    let mountains = 4302;
+    let dwellSec  = 11 * 60 + 24; // 11:24
+    let sent      = 1118;
+
+    const fmtNum = n => n.toLocaleString('en-US');
+    const fmtTime = sec => {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    };
+
+    function roll(el, text) {
+      el.style.transform = 'translateY(-18px)';
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = text;
+        el.style.transition = 'none';
+        el.style.transform = 'translateY(18px)';
+        el.style.opacity = '0';
+        // force reflow then animate back into place
+        void el.offsetHeight;
+        el.style.transition = '';
+        el.style.transform = '';
+        el.style.opacity = '';
+      }, 340);
+    }
+
+    function tick() {
+      const r = Math.random();
+      if (r < 0.55) {
+        mountains += Math.random() < 0.75 ? 1 : 2;
+        roll(elM, fmtNum(mountains));
+      } else if (r < 0.85) {
+        // dwell drifts within a believable band
+        dwellSec += Math.round((Math.random() - 0.42) * 6);
+        dwellSec = Math.max(8 * 60, Math.min(15 * 60, dwellSec));
+        roll(elMn, fmtTime(dwellSec));
+      } else {
+        sent += 1;
+        roll(elS, fmtNum(sent));
+      }
+      const nextDelay = 1800 + Math.random() * 4200;
+      setTimeout(tick, nextDelay);
+    }
+
+    // pause when tab is hidden so we don't burn cycles
+    let resumeTimer = null;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (resumeTimer) clearTimeout(resumeTimer);
+      } else {
+        resumeTimer = setTimeout(tick, 1500);
+      }
+    });
+
+    setTimeout(tick, 2200);
+  })();
 
   // Now Playing audio wiring
   (function(){
