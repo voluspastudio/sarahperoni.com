@@ -841,6 +841,13 @@
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--parchment-dim); opacity: 0.6;
   }
+  .site-footer .sf-center {
+    display: flex; gap: 22px; align-items: center;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .site-footer .sf-link {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
   @media (max-width: 720px) {
     .site-nav { padding: 12px 20px; }
     .site-footer { padding: 24px 20px; }
@@ -1140,8 +1147,6 @@
       <div>
         <div class="vis wayfind">
           <div class="wf-img"><img src="../images/projects/mnta/mnta-wallbanners.png" alt="MNTA wall banners — hospital install"/></div>
-          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallvinyl.png" alt="MNTA wall vinyl graphics"/></div>
-          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallsign.png" alt="MNTA wall / door sign"/></div>
           <div class="wf-img"><img src="../images/projects/mnta/mnta-floordecals.png" alt="MNTA floor decals"/></div>
         </div>
         <div class="vis-cap"><span>Environmental — wayfinding</span><span>Hospital install · system</span></div>
@@ -1451,7 +1456,10 @@
 <!-- SITE FOOTER — project nav -->
 <footer class="site-footer">
   <a href="low-battery-press.html">← Previous ridge</a>
-  <span class="sf-mark">Sarah Peroni · vantage 01 / 04</span>
+  <div class="sf-center">
+    <a href="#top" class="sf-link">↑ Return to top</a>
+    <a href="../" class="sf-link">↩ Return home</a>
+  </div>
   <a href="last-bite.html">Next ridge →</a>
 </footer>
 </body>

@@ -39,6 +39,7 @@
     --pad: clamp(20px, 4vw, 64px);
   }
 
+  html { scroll-behavior: smooth; }
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0;
@@ -117,10 +118,13 @@
   .cover-corner-r { right: var(--pad); }
 
   .cover-grid {
-    display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px;
-    align-items: center; margin-top: 24px;
+    display: flex; align-items: center; gap: 28px;
+    margin-top: 24px; flex-wrap: nowrap;
   }
-  .cover-left { position: relative; }
+  .cover-left { position: relative; flex: 1 1 auto; min-width: 0; }
+  @media (max-width: 720px) {
+    .cover-grid { flex-direction: column; align-items: stretch; gap: 32px; }
+  }
 
   .vault-tag {
     display: inline-block;
@@ -133,14 +137,14 @@
   .wordmark {
     font-family: var(--display);
     font-size: clamp(120px, 19vw, 280px);
-    line-height: 0.85; color: var(--ink);
+    line-height: 0.7; color: var(--ink);
     margin: 16px 0 0; transform: rotate(-2deg);
     position: relative; text-shadow: 1px 0 0 rgba(0,0,0,0.06);
   }
   .wordmark .sub {
-    display: block; font-size: 0.42em; color: var(--stamp-red);
-    transform: rotate(2.5deg) translateX(36%);
-    letter-spacing: -0.01em; margin-top: -0.25em;
+    display: block; font-size: 0.46em; color: var(--stamp-red);
+    transform: rotate(2.5deg) translateX(4%);
+    letter-spacing: -0.01em; margin-top: -0.18em;
     position: relative;
   }
   .wordmark .sub::after {
@@ -154,16 +158,16 @@
   .cover-tagline {
     margin-top: 24px;
     font-family: var(--retro); font-weight: 800;
-    font-size: clamp(22px, 2.6vw, 36px); line-height: 1.05;
+    font-size: clamp(22px, 2.6vw, 42px); line-height: 1.05;
     text-transform: uppercase; letter-spacing: 0.02em;
-    color: var(--ink); max-width: 560px;
+    color: var(--ink); max-width: clamp(420px, 48vw, 720px);
   }
   .cover-tagline em { font-style: normal; color: var(--stamp-red); }
 
   .cover-blurb {
     margin-top: 24px;
-    font-family: var(--type); font-size: 14px; line-height: 1.65;
-    color: var(--ink-soft); max-width: 460px;
+    font-family: var(--type); font-size: clamp(13px, 1.05vw, 16px); line-height: 1.65;
+    color: var(--ink-soft); max-width: clamp(380px, 42vw, 620px);
   }
 
   .cover-meta-row {
@@ -183,7 +187,76 @@
     letter-spacing: 0.06em; text-transform: uppercase;
   }
 
-  .cover-right { position: relative; min-height: 460px; }
+  .cover-right {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: flex-start;
+    perspective: 1200px;
+  }
+
+  /* Live-photo · rotating restaurant images with depth + parallax */
+  .cover-photos {
+    position: relative;
+    width: 260px;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--ink), 0 22px 44px rgba(0,0,0,0.22);
+    transform: rotate(-1.5deg);
+    background: var(--ink);
+    --px: 0; --py: 0;
+  }
+  @media (max-width: 1100px) { .cover-photos { width: 220px; } }
+  @media (max-width: 900px)  { .cover-photos { width: 190px; } }
+  @media (max-width: 720px) {
+    .cover-right { justify-content: center; }
+    .cover-photos { width: 280px; transform: rotate(-1.5deg); }
+  }
+  .cp-stage {
+    position: absolute; inset: 0;
+    transform: translate3d(calc(var(--px) * 1px), calc(var(--py) * 1px), 0);
+    transition: transform 0.45s cubic-bezier(.2,.7,.2,1);
+    will-change: transform;
+  }
+  .cp-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.6s ease;
+    filter: contrast(1.05) saturate(0.92);
+    animation: cp-pan 9s ease-in-out infinite alternate;
+    animation-play-state: paused;
+    transform: scale(1.1);
+  }
+  .cp-img.active {
+    opacity: 1;
+    animation-play-state: running;
+  }
+  @keyframes cp-pan {
+    0%   { transform: scale(1.1)  translate3d(0%, 0%, 0); }
+    50%  { transform: scale(1.13) translate3d(-1%, 1.5%, 0); }
+    100% { transform: scale(1.16) translate3d(1.5%, -1%, 0); }
+  }
+  /* Subtle film grain over the live photo */
+  .cp-grain {
+    position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background-image:
+      radial-gradient(rgba(232,223,193,0.05) 1px, transparent 1px),
+      radial-gradient(rgba(26,28,18,0.05) 1px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+  }
+  /* Inner frame highlight to read like a printed-edge polaroid */
+  .cp-frame {
+    position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    box-shadow: inset 0 0 0 1px rgba(232,223,193,0.18), inset 0 -60px 80px rgba(0,0,0,0.35);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-img { animation: none; transform: scale(1.05); transition: opacity 0.4s ease; }
+    .cp-stage { transition: none; }
+  }
 
   .roundel { position: relative; width: 320px; height: 320px; margin: 0 auto; }
   .roundel svg { width: 100%; height: 100%; display: block; }
@@ -310,6 +383,7 @@
     padding: 72px var(--pad);
     border-bottom: 4px double var(--ink);
     position: relative;
+    overflow: hidden;
   }
   .product-sheet::before {
     content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 4px;
@@ -330,12 +404,16 @@
   .ps-head h2 em { color: var(--stamp-red); font-style: normal; }
 
   .ps-grid {
-    display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start;
+    display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 40px; align-items: start;
+  }
+  @media (max-width: 720px) {
+    .ps-grid { grid-template-columns: 1fr; gap: 28px; }
   }
   .ps-image {
     position: relative;
     background: var(--paper); border: 2px solid var(--ink);
-    aspect-ratio: 5/4; overflow: hidden;
+    aspect-ratio: 4/5; overflow: hidden;
+    max-width: 320px;
     box-shadow: 6px 6px 0 var(--ink);
   }
   .ps-image::before {
@@ -368,6 +446,20 @@
     margin: 0 0 12px; line-height: 1.05;
   }
   .ps-copy h3 em { color: var(--stamp-red); font-style: normal; }
+  .ps-role {
+    margin: 22px 0 24px;
+    padding: 14px 0;
+    border-top: 1px dashed var(--ink-soft);
+    border-bottom: 1px dashed var(--ink-soft);
+    display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap;
+  }
+  .ps-role .l {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .ps-role .v {
+    font-family: var(--type); font-size: 14px; line-height: 1.5; color: var(--ink);
+  }
   .ps-copy p {
     font-family: var(--type); font-size: 14px; line-height: 1.7;
     color: var(--ink-soft); margin: 0 0 16px;
@@ -431,9 +523,10 @@
     padding: 72px var(--pad);
     border-bottom: 4px double var(--ink);
     position: relative;
+    overflow: hidden;
   }
   .rations-head {
-    display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: end;
+    display: flex; flex-direction: column; gap: 18px; align-items: flex-start;
     padding-bottom: 24px; border-bottom: 2px solid var(--ink); margin-bottom: 32px;
   }
   .rations-head h2 {
@@ -442,8 +535,8 @@
   }
   .rations-head h2 em { color: var(--stamp-red); font-style: normal; }
   .rations-head .meta {
-    font-family: var(--type); font-size: 12px; line-height: 1.55; color: var(--ink-soft);
-    max-width: 320px;
+    font-family: var(--type); font-size: 14px; line-height: 1.6; color: var(--ink-soft);
+    max-width: 760px;
   }
   .rations-head .meta strong {
     font-family: var(--retro); font-weight: 800; font-size: 16px; text-transform: uppercase;
@@ -458,6 +551,42 @@
   }
   .rations-head .legend .key { background: var(--vault-blue); color: var(--paper); padding: 3px 8px; text-align: center; min-width: 32px; }
   .rations-head .legend .key-label { align-self: center; }
+
+  /* Manifest block · slots between Deliverables head and the tin grid */
+  .manifest-block {
+    display: grid; grid-template-columns: auto 1fr auto;
+    gap: 32px; align-items: center;
+    padding: 18px 22px; margin-bottom: 32px;
+    background: var(--paper-warm);
+    border: 1px dashed var(--ink-soft);
+  }
+  .manifest-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--ink-soft);
+    border-right: 1px solid var(--ink-soft); padding-right: 24px;
+    white-space: nowrap;
+  }
+  .manifest-meta {
+    font-family: var(--type); font-size: 13px; line-height: 1.55; color: var(--ink-soft);
+    max-width: 520px;
+  }
+  .manifest-meta strong {
+    font-family: var(--retro); font-weight: 800; font-size: 16px; text-transform: uppercase;
+    color: var(--ink); display: block; margin-bottom: 6px; letter-spacing: 0.04em;
+  }
+  .manifest-legend {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-soft); line-height: 1.8;
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 8px;
+    align-content: center;
+  }
+  .manifest-legend .key { background: var(--vault-blue); color: var(--paper); padding: 3px 8px; text-align: center; min-width: 32px; }
+  .manifest-legend .key-label { align-self: center; }
+  @media (max-width: 880px) {
+    .manifest-block { grid-template-columns: 1fr; gap: 16px; }
+    .manifest-label { border-right: 0; border-bottom: 1px solid var(--ink-soft); padding-right: 0; padding-bottom: 12px; }
+    .manifest-legend { justify-content: start; }
+  }
 
   .rations-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
@@ -709,16 +838,22 @@
     color: var(--ink-soft);
   }
   .artefacts-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    display: flex; flex-direction: column; gap: 32px;
   }
   .artefact-card {
     background: var(--paper-warm);
     border: 2px solid var(--ink);
     box-shadow: 6px 6px 0 var(--ink);
-    display: flex; flex-direction: column; overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: stretch;
+    overflow: hidden;
   }
   .artefact-card:nth-child(2n) { transform: rotate(-0.3deg); }
   .artefact-card:nth-child(3n) { transform: rotate(0.3deg); }
+  @media (max-width: 720px) {
+    .artefact-card { grid-template-columns: 1fr; }
+  }
   .artefact-card .header-strip {
     background: var(--vault-blue); color: var(--paper);
     padding: 8px 14px;
@@ -727,9 +862,14 @@
     font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
   }
   .artefact-card .image-area {
-    position: relative; height: 260px;
+    position: relative;
+    aspect-ratio: 4/3;
     background: var(--paper); overflow: hidden;
-    border-bottom: 1px dashed var(--ink-soft);
+    border-right: 1px dashed var(--ink-soft);
+    cursor: zoom-in;
+  }
+  @media (max-width: 720px) {
+    .artefact-card .image-area { border-right: 0; border-bottom: 1px dashed var(--ink-soft); aspect-ratio: 4/3; }
   }
   .artefact-card .image-area::before {
     content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -739,8 +879,59 @@
   .artefact-card .image-area img {
     width: 100%; height: 100%; object-fit: cover;
     filter: contrast(1.05) saturate(0.85) sepia(0.06);
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.5s cubic-bezier(.16,.84,.32,1), filter 0.5s ease;
   }
-  .artefact-card .image-area.contain img { object-fit: contain; padding: 16px; }
+  /* All artifacts now use cover for uniform in-card size; lightbox shows full image */
+  .artefact-card .image-area.contain img { object-fit: cover; padding: 0; }
+  .artefact-card .image-area:hover img {
+    transform: scale(1.18);
+    filter: contrast(1.08) saturate(0.95) sepia(0.04);
+  }
+  .artefact-card .image-area::after {
+    content: '⤢';
+    position: absolute; right: 10px; top: 10px;
+    font-family: var(--retro); font-weight: 800; font-size: 16px;
+    color: var(--paper); background: var(--ink);
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .artefact-card .image-area:hover::after { opacity: 0.85; }
+
+  /* Lightbox · full-image magnified view on click */
+  .artifact-lightbox {
+    position: fixed; inset: 0; z-index: 9998;
+    background: rgba(8, 8, 8, 0.92);
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+    cursor: zoom-out;
+  }
+  .artifact-lightbox.open { opacity: 1; visibility: visible; transition-delay: 0s; }
+  .artifact-lightbox img {
+    max-width: 90vw; max-height: 88vh; object-fit: contain;
+    border: 2px solid var(--paper);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    background: var(--paper);
+    transform: scale(0.96);
+    transition: transform 0.4s cubic-bezier(.16,.84,.32,1);
+  }
+  .artifact-lightbox.open img { transform: scale(1); }
+  .artifact-lightbox .close {
+    position: absolute; top: 24px; right: 28px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--paper); background: transparent;
+    border: 1px solid var(--paper); padding: 8px 14px;
+    text-transform: uppercase; cursor: pointer;
+  }
+  .artifact-lightbox .close:hover { background: var(--paper); color: var(--ink); }
 
   /* INLINE ARTEFACT MOCKUPS */
   /* Survival Manual: open spread */
@@ -1277,28 +1468,29 @@
     transform: rotate(2deg); pointer-events: none;
   }
   .artefact-card .body {
-    padding: 16px 16px 14px; flex: 1;
-    display: flex; flex-direction: column; gap: 10px;
+    padding: 28px 28px 26px; flex: 1;
+    display: flex; flex-direction: column; gap: 16px;
+    justify-content: center;
   }
   .artefact-card h3 {
-    font-family: var(--retro); font-weight: 800; font-size: 26px;
+    font-family: var(--retro); font-weight: 800; font-size: clamp(28px, 3vw, 40px);
     text-transform: uppercase; letter-spacing: 0.02em; line-height: 0.95;
     margin: 0; color: var(--ink);
   }
   .artefact-card h3 em { color: var(--stamp-red); font-style: normal; }
   .artefact-card .desc {
-    font-family: var(--type); font-size: 12px; line-height: 1.55; color: var(--ink-soft);
+    font-family: var(--type); font-size: 14px; line-height: 1.6; color: var(--ink-soft);
     margin: 0;
   }
   .artefact-card .specs {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    border-top: 1px dashed var(--ink-soft); padding-top: 10px;
-    font-family: var(--type); font-size: 11px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+    border-top: 1px dashed var(--ink-soft); padding-top: 14px;
+    font-family: var(--type); font-size: 12px;
   }
   .artefact-card .specs span { color: var(--ink); }
   .artefact-card .specs span strong {
-    font-family: var(--retro); font-weight: 800; font-size: 13px; letter-spacing: 0.04em;
-    text-transform: uppercase; margin-right: 4px;
+    font-family: var(--retro); font-weight: 800; font-size: 14px; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-right: 6px;
   }
   .artefact-card .footer-strip {
     display: grid; grid-template-columns: 1fr auto;
@@ -1334,9 +1526,10 @@
     padding: 72px var(--pad);
     border-bottom: 4px double var(--ink);
     position: relative;
+    overflow: hidden;
   }
   .bs-head {
-    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+    display: flex; flex-direction: column; gap: 18px; align-items: flex-start;
     padding-bottom: 24px; border-bottom: 2px solid var(--ink); margin-bottom: 40px;
   }
   .bs-head h2 {
@@ -1345,8 +1538,9 @@
   }
   .bs-head h2 em { color: var(--stamp-red); font-style: normal; }
   .bs-head .meta {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink-soft); text-align: right;
+    font-family: var(--type); font-size: 14px; line-height: 1.6;
+    color: var(--ink-soft); text-align: left; max-width: 760px;
+    text-transform: none; letter-spacing: normal;
   }
 
   .bs-grid {
@@ -1404,16 +1598,27 @@
 
   /* palette tile */
   .bs-palette .swatches {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;
     border: 1px solid var(--ink);
+    width: 100%;
   }
   .bs-palette .sw {
-    aspect-ratio: 1 / 1.2; padding: 8px 6px;
+    aspect-ratio: 1; padding: 8px 6px;
     display: flex; flex-direction: column; justify-content: space-between;
-    font-family: var(--mono); font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: var(--mono); font-size: clamp(7px, 0.7vw, 9px);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    min-width: 0; overflow: hidden;
   }
-  .bs-palette .sw .name { font-family: var(--retro); font-weight: 800; font-size: 11px; line-height: 1; }
-  .bs-palette .sw .hex { opacity: 0.85; }
+  .bs-palette .sw .name {
+    font-family: var(--retro); font-weight: 800;
+    font-size: clamp(9px, 0.95vw, 12px); line-height: 1;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .bs-palette .sw .hex { opacity: 0.85; font-size: clamp(7px, 0.7vw, 9px); }
+  @media (max-width: 1024px) {
+    .bs-palette .swatches { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .bs-palette .sw { padding: 6px 4px; }
+  }
 
   /* type tile */
   .bs-type .specimens { display: flex; flex-direction: column; gap: 10px; }
@@ -1466,7 +1671,13 @@
     padding: 80px var(--pad);
     border-bottom: 4px double var(--ink);
     position: relative;
+    overflow: hidden;
   }
+  /* Industrial-mark color overrides for the dark digital section */
+  .digital .industrial-mark { color: var(--paper); opacity: 0.10; }
+  .digital .industrial-mark.mustard { color: var(--mustard); opacity: 0.30; }
+  .digital .industrial-mark.stamp-red { color: var(--stamp-red); opacity: 0.40; }
+  .digital .industrial-mark.vault-blue { color: var(--mustard); opacity: 0.18; }
   .digital::before {
     content: ''; position: absolute; inset: 0; pointer-events: none;
     background-image:
@@ -1490,6 +1701,77 @@
     margin-bottom: 56px;
   }
   .dg-row.flip { grid-template-columns: 1fr 1.6fr; }
+
+  /* Rooms gallery · 4-up of website pages, each its own chamber */
+  .dg-rooms { margin-bottom: 56px; }
+  .dg-rooms-head {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 32px; align-items: end;
+    border-bottom: 2px solid rgba(232,223,193,0.35);
+    padding-bottom: 18px; margin-bottom: 24px;
+  }
+  .dg-rooms-head .ix {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    color: var(--mustard); text-transform: uppercase;
+  }
+  .dg-rooms-head h3 {
+    font-family: var(--retro); font-weight: 800;
+    font-size: clamp(28px, 3.6vw, 44px); color: var(--paper);
+    margin: 6px 0 0; line-height: 1.0;
+  }
+  .dg-rooms-head h3 em { color: var(--mustard); font-style: italic; }
+  .dg-rooms-head p {
+    font-family: var(--type); font-size: 13px; line-height: 1.55;
+    color: rgba(232,223,193,0.75); max-width: 360px; margin: 0;
+  }
+
+  .rooms-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  }
+  .room-card {
+    background: var(--paper); color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
+    overflow: hidden;
+    transform: rotate(-0.3deg);
+  }
+  .room-card:nth-child(2) { transform: rotate(0.4deg); }
+  .room-card:nth-child(3) { transform: rotate(-0.5deg); }
+  .room-card:nth-child(4) { transform: rotate(0.2deg); }
+  .room-chrome {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; background: var(--vault-blue);
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+    color: var(--paper); text-transform: uppercase;
+    border-bottom: 2px solid var(--ink);
+  }
+  .room-chrome .room-tag { color: var(--mustard); }
+  .room-photo {
+    aspect-ratio: 4/3; background-size: cover; background-position: center;
+    border-bottom: 2px solid var(--ink); position: relative;
+  }
+  .room-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.18));
+    pointer-events: none;
+  }
+  .room-foot {
+    padding: 12px 14px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+    font-family: var(--type); font-size: 11px; line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .room-foot span:first-child {
+    font-family: var(--retro); font-weight: 800; font-size: 14px;
+    color: var(--ink); text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  @media (max-width: 880px) {
+    .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+    .dg-rooms-head { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .rooms-grid { grid-template-columns: 1fr; }
+  }
 
   .browser {
     background: var(--paper); color: var(--ink);
@@ -2158,6 +2440,188 @@
     transform: rotate(8deg); box-shadow: 3px 3px 0 var(--ink);
   }
 
+  /* Industrial mark · decorative stamps scattered into section corners */
+  .industrial-mark {
+    position: absolute;
+    width: 64px; height: 64px;
+    color: var(--ink);
+    opacity: 0.16;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .industrial-mark svg { width: 100%; height: 100%; display: block; }
+  .industrial-mark.stamp-red { color: var(--stamp-red); opacity: 0.26; }
+  .industrial-mark.vault-blue { color: var(--vault-blue); opacity: 0.22; }
+  .industrial-mark.mustard { color: var(--mustard); opacity: 0.32; }
+  .industrial-mark.tl { top: 32px; left: 32px; transform: rotate(-12deg); }
+  .industrial-mark.tr { top: 32px; right: 32px; transform: rotate(8deg); }
+  .industrial-mark.bl { bottom: 32px; left: 32px; transform: rotate(-6deg); }
+  .industrial-mark.br { bottom: 32px; right: 32px; transform: rotate(14deg); }
+  .industrial-mark.lg { width: 96px; height: 96px; }
+  .industrial-mark.sm { width: 40px; height: 40px; }
+  @media (max-width: 720px) {
+    .industrial-mark { width: 40px; height: 40px; }
+    .industrial-mark.lg { width: 60px; height: 60px; }
+    .industrial-mark.tl, .industrial-mark.bl { left: 16px; }
+    .industrial-mark.tr, .industrial-mark.br { right: 16px; }
+  }
+
+  /* ============================================================
+     INTRO OVERLAY · fast-forwards 100 years on first load
+     ============================================================ */
+  body.intro-active { overflow: hidden; }
+  .intro-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #050505;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    color: var(--paper);
+    transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+  }
+  .intro-overlay.gone {
+    opacity: 0; visibility: hidden; pointer-events: none;
+  }
+  .intro-overlay::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(232,223,193,0.04) 1px, transparent 1px),
+      radial-gradient(circle at 20% 30%, rgba(194,54,42,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(31,58,110,0.18) 0%, transparent 55%);
+    background-size: 4px 4px, 100% 100%, 100% 100%;
+    pointer-events: none;
+  }
+  .intro-overlay::after {
+    content: 'TRANSMISSION ▪ FILE 07.29 ▪ UNIT 7 ▪ AUTHORIZED';
+    position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em;
+    color: rgba(232,223,193,0.4);
+    white-space: nowrap;
+  }
+  .intro-date {
+    font-family: var(--retro); font-weight: 800;
+    font-size: clamp(48px, 10vw, 156px);
+    letter-spacing: 0.02em; text-transform: uppercase;
+    line-height: 1.0; text-align: center;
+    position: relative; z-index: 1;
+  }
+  .intro-date .year { color: var(--stamp-red); }
+  .intro-date .month, .intro-date .day { color: var(--paper); }
+  .intro-sub {
+    margin-top: 40px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(232,223,193,0.6);
+    position: relative; z-index: 1;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .intro-sub::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--stamp-red); display: inline-block;
+    box-shadow: 0 0 12px var(--stamp-red);
+    animation: intro-pulse 0.6s ease-in-out infinite;
+  }
+  @keyframes intro-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* Hero typewriter · letters write on after intro
+     Use generous negative insets on the open state so the rotated
+     Permanent Marker glyphs and the slashed bar don't get clipped. */
+  .cover .wordmark .last-line,
+  .cover .wordmark .sub {
+    display: inline-block;
+    clip-path: inset(-30% 100% -30% -10%);
+    transition: clip-path 0.9s cubic-bezier(.4,0,.2,1);
+  }
+  .cover.write-on .wordmark .last-line {
+    clip-path: inset(-30% -20% -30% -10%);
+    transition-delay: 0s;
+  }
+  .cover.write-on .wordmark .sub {
+    clip-path: inset(-40% -40% -40% -10%);
+    transition-delay: 0.6s;
+  }
+  .cover .cover-tagline,
+  .cover .cover-blurb,
+  .cover .cover-photos {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.16,.84,.32,1);
+  }
+  .cover.write-on .cover-tagline { opacity: 1; transform: none; transition-delay: 1.4s; }
+  .cover.write-on .cover-blurb { opacity: 1; transform: none; transition-delay: 1.7s; }
+  .cover.write-on .cover-photos { opacity: 1; transform: rotate(-1.5deg); transition-delay: 2.0s; }
+  @media (prefers-reduced-motion: reduce) {
+    .cover .wordmark .last-line, .cover .wordmark .sub { clip-path: inset(0 0 0 0); transition: none; }
+    .cover .cover-tagline, .cover .cover-blurb, .cover .cover-photos {
+      opacity: 1; transform: none; transition: none;
+    }
+  }
+
+  /* ============================================================
+     SECTION — PROJECT SNAPSHOT (between hero and brief)
+     ============================================================ */
+  .snapshot {
+    background: var(--paper);
+    padding: clamp(48px, 6vw, 80px) var(--pad);
+    border-bottom: 4px double var(--ink);
+  }
+  .snapshot-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+  .snapshot-h {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 32px;
+  }
+  .snapshot-h .left {
+    font-family: var(--retro); font-weight: 800; font-size: clamp(20px, 2.4vw, 28px);
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink);
+  }
+  .snapshot-h .right {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .snapshot-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .snapshot-cell {
+    border-left: 1px solid var(--ink-soft); padding-left: 18px;
+  }
+  .snapshot-cell .l {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px;
+  }
+  .snapshot-cell .v {
+    font-family: var(--type); font-size: 14px; line-height: 1.45; color: var(--ink);
+  }
+  @media (max-width: 880px) { .snapshot-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .snapshot-grid { grid-template-columns: 1fr; } .snapshot-cell { border-left: 0; border-top: 1px solid var(--ink-soft); padding-left: 0; padding-top: 14px; } }
+
+  /* ============================================================
+     SECTION — OUTCOME (closing summary, before quote)
+     ============================================================ */
+  .outcome {
+    background: var(--paper);
+    padding: clamp(64px, 9vw, 120px) var(--pad);
+    border-bottom: 1px dashed var(--ink-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .outcome-inner {
+    max-width: 880px; margin: 0 auto;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: clamp(36px, 5vw, 56px) 0;
+  }
+  .outcome-body {
+    font-family: var(--type);
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.55;
+    color: var(--ink);
+    text-align: left;
+  }
+
   /* ============================================================
      SECTION 08 — MANIFESTO (full-width)
      ============================================================ */
@@ -2298,9 +2762,26 @@
     letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--ink-soft);
   }
+  .site-footer .sf-center {
+    display: flex; gap: 22px; align-items: center;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .site-footer .sf-link {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
 </style>
 </head>
-<body>
+<body class="intro-active">
+
+<!-- INTRO OVERLAY · 100-year fast-forward on first load -->
+<div class="intro-overlay" id="intro-overlay" aria-hidden="true">
+  <div class="intro-date">
+    <span class="month" id="intro-month">JAN</span> <span class="day" id="intro-day">01</span>, <span class="year" id="intro-year">2026</span>
+  </div>
+  <div class="intro-sub">
+    <span id="intro-status">Loading transmission</span>
+  </div>
+</div>
 
 <!-- SITE NAV — portfolio wrapper -->
 <nav class="site-nav">
@@ -2323,7 +2804,21 @@
 <!-- ============================================================
      COVER
      ============================================================ -->
-<section class="cover">
+<section class="cover" id="top">
+  <div class="industrial-mark tl stamp-red lg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 32 8 L 58 52 L 6 52 Z"/>
+      <line x1="32" y1="22" x2="32" y2="38" stroke-width="4"/>
+      <circle cx="32" cy="46" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="industrial-mark br vault-blue" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3">
+      <rect x="16" y="22" width="32" height="34" rx="2"/>
+      <line x1="16" y1="30" x2="48" y2="30"/>
+      <rect x="22" y="14" width="20" height="8" rx="1"/>
+    </svg>
+  </div>
   <span class="cover-corner-l">
 </span>
   <span class="cover-corner-r">
@@ -2332,41 +2827,27 @@
   <div class="cover-grid">
     <div class="cover-left">
       <h1 class="wordmark">
-        Last
+        <span class="last-line">Last</span>
         <span class="sub">Bite!</span>
       </h1>
       <p class="cover-tagline"><em>eat like it matters</em></p>
-      <p class="cover-blurb">Last Bite is a post-apocalyptic immersive dining concept where food is fuel. Set inside Unit 7, a preservation vault in what used to be Los Angeles, the restaurant serves organic, protein rich survival cuisine in sealed reusable tins.</p>
+      <p class="cover-blurb">Last Bite is an immersive restaurant identity system where food is fuel, flavor is resistance, and every container comes back. Set inside Unit 7, a preservation vault beneath what used to be Los Angeles, the concept serves organic, protein-rich survival cuisine in sealed reusable tins.</p>
 
       <div class="cover-meta-row">
       </div>
     </div>
 
     <div class="cover-right">
-      <div class="patron-card">
-        <div class="pc-header">
-          <div class="pc-title">
-</div>
-          <div class="pc-id">CARD ▪ 0712 / D+821</div>
+      <div class="cover-photos" id="cover-photos" aria-label="Live photos from Unit 7">
+        <div class="cp-stage">
+          <img class="cp-img active" src="../images/projects/last-bite/lastbite-entrance.png" alt="Unit 7 — entrance"/>
+          <img class="cp-img" src="../images/projects/last-bite/lastbite-dininghall.png" alt="Unit 7 — dining hall"/>
+          <img class="cp-img" src="../images/projects/last-bite/lastbite-hallway.png" alt="Unit 7 — hallway"/>
+          <img class="cp-img" src="../images/projects/last-bite/lastbite-hydrationbar.png" alt="Unit 7 — hydration bar"/>
+          <img class="cp-img" src="../images/projects/last-bite/lastbite-picklingstation.png" alt="Unit 7 — pickling station"/>
         </div>
-        <div class="pc-prompt">You survived <em>5</em> meals.</div>
-        <div class="pc-sub">Sixth ration on the house.</div>
-        <div class="punch-row">
-          <div class="punch done">07A</div>
-          <div class="punch done">12B</div>
-          <div class="punch done">01C</div>
-          <div class="punch done">T-2</div>
-          <div class="punch done">07A</div>
-          <div class="punch next">06</div>
-        </div>
-        <div class="pc-footer">
-          <span>Five returned. Sixth on us.</span>
-          <span class="pc-stamp">CLEARED ▪ NEXT LIGHT</span>
-        </div>
-      </div>
-      <div class="caution-box cb-cover">
-        Deliverables<br/>
-        Inside!
+        <div class="cp-grain"></div>
+        <div class="cp-frame"></div>
       </div>
     </div>
   </div>
@@ -2376,21 +2857,35 @@
      SECTION 02 — THE BRIEF
      ============================================================ -->
 <section class="product-sheet">
+  <div class="industrial-mark tr mustard lg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 36 6 L 14 36 L 30 36 L 26 58 L 50 26 L 34 26 Z" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="industrial-mark bl vault-blue sm" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3">
+      <rect x="16" y="22" width="32" height="34" rx="2"/>
+      <line x1="16" y1="30" x2="48" y2="30"/>
+      <rect x="22" y="14" width="20" height="8" rx="1"/>
+    </svg>
+  </div>
   <div class="ps-head">
     <h2>The <em>Brief.</em></h2>
   </div>
 
   <div class="ps-grid">
     <div class="ps-image">
-      <img src="../images/projects/last-bite/lastbite-seats.png" alt="The Mess — Unit 7"/>
-      <span class="label">FIG. A — UNIT 7</span>
-      <span class="arrow">↗ shelter — 47m below</span>
+      <img src="../images/projects/last-bite/lastbite-entrance.png" alt="Unit 7 — entrance"/>
     </div>
 
     <div class="ps-copy">
-      <h3>Sustainability is boring when you market it like a <em>lecture</em>.</h3>
-      <p>Last Bite repackages it as an experience.
-Climate resilient produce, low energy protein curing, zero waste service. </p>
+      <h3>Sustainability is boring when marketed like a <em>lecture</em>.</h3>
+      <p>Last Bite turns sustainability into a service ritual. Climate-resilient produce, low-energy protein curing, reusable tins, and zero-waste service are translated into an immersive dining system that feels more like survival infrastructure than a wellness brand.</p>
+
+      <div class="ps-role">
+        <span class="l">Role</span>
+        <span class="v">Brand identity · packaging · ux/ui · spatial system · copywriting</span>
+      </div>
 
       <ul class="ps-features">
         <li>Immersive dining</li>
@@ -2431,13 +2926,36 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
      SECTION 03 — DELIVERABLES MANIFEST (packaging-led)
      ============================================================ -->
 <section class="rations">
+  <div class="industrial-mark tr stamp-red" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 32 8 L 58 52 L 6 52 Z"/>
+      <line x1="32" y1="22" x2="32" y2="38" stroke-width="4"/>
+      <circle cx="32" cy="46" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="industrial-mark bl vault-blue lg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3">
+      <rect x="16" y="22" width="32" height="34" rx="2"/>
+      <line x1="16" y1="30" x2="48" y2="30"/>
+      <rect x="22" y="14" width="20" height="8" rx="1"/>
+    </svg>
+  </div>
+  <!-- DELIVERABLES — eight ration tins -->
   <div class="rations-head">
-    <h2>The <em>Manifest.</em></h2>
+    <h2>The <em>Deliverables.</em></h2>
     <div class="meta">
-      <strong style="color: rgb(189, 54, 42);">Eat like it matters.</strong>
-      4 fuels to choose from. Dine in, pick up, and choose your most important fuel.
+      Eight ration tins. Each vessel is a single-portion meal sealed at issue and returned at meal end.
     </div>
-    <div class="legend">
+  </div>
+
+  <!-- MANIFEST · explains the fuel/legend system that drives the tins below -->
+  <div class="manifest-block">
+    <span class="manifest-label">The Manifest</span>
+    <div class="manifest-meta">
+      <strong style="color: rgb(189, 54, 42);">Eat like it matters.</strong>
+      Choose your fuel: energy, protein, emergency, or hydration. Dine in, pick up, return your tin, and move by next light.
+    </div>
+    <div class="manifest-legend">
       <span class="key" style="background: var(--mustard); color: var(--ink);">EN</span><span class="key-label">ENERGY</span>
       <span class="key" style="background: var(--moss);">PR</span><span class="key-label">PROTEIN</span>
       <span class="key" style="background: var(--stamp-red);">EM</span><span class="key-label">EMERGENCY</span>
@@ -2445,62 +2963,52 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
     </div>
   </div>
 
-  <!-- TIN GRID -->
   <div class="tin-grid" id="tin-grid"></div>
 
-  <!-- PRINTED ARTEFACTS -->
-  <div class="artefacts-head">
-    <h3>Printed <em>artifacts.</em></h3>
-    <span class="ah-meta">D-04 → D-06 ▪ Three artifacts ▪ Print + spatial</span>
+  <!-- PRINTED ARTIFACTS -->
+  <div class="rations-head" style="margin-top: clamp(48px, 6vw, 80px);">
+    <h2>Printed <em>Artifacts.</em></h2>
+    <div class="meta">Three printed pieces that move the brand off the screen and into the room. A floor plan, a street poster, and a service poster.</div>
   </div>
   <div class="artefacts-grid">
     <article class="artefact-card">
-      <div class="header-strip"><span>D-04</span><span>FLOOR PLAN</span></div>
       <div class="image-area contain" style="background: var(--paper-deep);">
-        <img src="../images/projects/last-bite/lastbite-floorplan.png" alt="Unit 7 floor plan — the six-step service path"/>
-        <span class="stamp-mark">04</span>
+        <img src="../images/projects/last-bite/lastbite-floorplan.png" alt="Unit 7 floor plan"/>
       </div>
       <div class="body">
         <h3>Floor <em>Plan.</em></h3>
-        <p class="desc">The room as a service diagram. Six numbered stations, patron flow in red, staff flow in navy, back-of-house in stripe — same vocabulary as the front-wall poster, drawn to scale.</p>
+        <p class="desc">A service diagram for conceptualization. This piece shows how the brand moves from graphic identity into spatial behavior.</p>
         <div class="specs">
-          <span><strong>Scale</strong>1/8" = 1'-0"</span>
-          <span><strong>Format</strong>Print</span>
+          <span><strong>Format</strong>11 × 17 in</span>
+          <span><strong>Stock</strong>Blueprint</span>
         </div>
       </div>
-      <div class="footer-strip"><span>FILE 07.29 ▪ SEALED</span><span class="price">D-04</span></div>
     </article>
     <article class="artefact-card">
-      <div class="header-strip"><span>D-05</span><span>STREET POSTER</span></div>
       <div class="image-area contain" style="background: var(--ink);">
-        <img src="../images/projects/last-bite/lastbite-poster2.png" alt="Eat By Next Light — outdoor pole-wheatpaste poster"/>
-        <span class="stamp-mark">05</span>
+        <img src="../images/projects/last-bite/lastbite-poster2.png" alt="Eat By Next Light — street poster"/>
       </div>
       <div class="body">
         <h3>Street <em>Poster.</em></h3>
-        <p class="desc">Wheatpasted on poles, walls, and barricades above ground. <em>Eat by next light.</em> No address. No QR. If you find it, you follow the routine.</p>
+        <p class="desc">Pasted on poles, walls, and barricades above ground. No QR codes or addresses. The poster uses scarcity and mystery as the campaign strategy, making the restaurant feel discovered rather than advertised.</p>
         <div class="specs">
-          <span><strong>Format</strong>24 × 36 in</span>
-          <span><strong>Stock</strong>Wheatpaste</span>
+          <span><strong>Format</strong>8.5 × 11 in</span>
+          <span><strong>Stock</strong>Newsprint</span>
         </div>
       </div>
-      <div class="footer-strip"><span>FILE 07.29 ▪ SEALED</span><span class="price">D-05</span></div>
     </article>
     <article class="artefact-card">
-      <div class="header-strip"><span>D-06</span><span>SERVICE POSTER</span></div>
       <div class="image-area contain" style="background: var(--paper-deep);">
-        <img src="../images/projects/last-bite/poster-the-steps.png" alt="The Steps — front-wall poster, Unit 7"/>
-        <span class="stamp-mark">06</span>
+        <img src="../images/projects/last-bite/poster-the-steps.png" alt="Service poster · the steps"/>
       </div>
       <div class="body">
         <h3>Service <em>Poster.</em></h3>
-        <p class="desc">The instructions taped to the front wall of the restaurant. Six numbered steps from walk-up to next-light return — read once, eat by next light.</p>
+        <p class="desc">The instructions taped to the front wall of the restaurant. Six numbered steps from walk-up to next-light return. The system keeps the experience theatrical without sacrificing wayfinding.</p>
         <div class="specs">
-          <span><strong>Steps</strong>6</span>
-          <span><strong>Format</strong>24 × 36 in</span>
+          <span><strong>Format</strong>8.5 × 11 in</span>
+          <span><strong>Stock</strong>Cardstock, laminated</span>
         </div>
       </div>
-      <div class="footer-strip"><span>FILE 07.29 ▪ SEALED</span><span class="price">D-06</span></div>
     </article>
   </div>
 </section>
@@ -2509,10 +3017,16 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
      SECTION 04 — BRAND SYSTEM SHOWCASE
      ============================================================ -->
 <section class="brand-showcase">
+  <div class="industrial-mark tr mustard lg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 36 6 L 14 36 L 30 36 L 26 58 L 50 26 L 34 26 Z" fill="currentColor"/>
+    </svg>
+  </div>
   <div class="bs-head">
     <h2>The <em>Brand System.</em></h2>
     <div class="meta">
-</div>
+      The visual system borrows from ration labels, field manuals, warning signs, and stamped inventory records to make the restaurant feel functional, not decorative.
+    </div>
   </div>
 
   <div class="bs-grid">
@@ -2523,13 +3037,13 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
       <div class="lockup">
         <div class="word">Last <span class="sub">Bite!</span></div>
       </div>
-      <p>Permanent Marker, hand-set, rotated -2°. The "Bite!" subscript runs over a slashed red bar — a riff on RadAway's drug-label crossbar. Bitten on the right edge of the B (sawtooth chomp, three teeth) so the mark reads as something a body has touched, not something a logo machine produced.</p>
+      <p>The slashed red bar references emergency labeling, medical packaging, and fictional survival supplies.</p>
     </div>
 
     <!-- PALETTE -->
     <div class="bs-tile bs-palette">
       <span class="corner">02 / PALETTE</span>
-      <h4>Five <em>colours.</em></h4>
+      <h4>Five <em>colors.</em></h4>
       <div class="swatches">
         <div class="sw" style="background: #e8dfc1; color: #1a1c12;">
           <span class="name">PAPER</span>
@@ -2552,7 +3066,7 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
           <span class="hex">#1A1C12</span>
         </div>
       </div>
-      <p>Aged paper as ground; vault navy as primary; stamp red for warnings, prices and brush ink; mustard for utility and loyalty; ink as type. No gradients. No surface variation beyond paper grain.</p>
+      <p>A restrained palette built from utility, warning, and printed matter. Vault navy anchors the system across headers, panels, and service surfaces. Bone paper keeps the layout tactile and readable without feeling vintage or decorative. Stamp red marks urgency, pricing, seals, and hand-applied gestures. Utility mustard is used for wayfinding, loyalty, and operational cues. Black ink carries the typography, rules, and printed instructions.</p>
     </div>
 
     <!-- TYPE -->
@@ -2631,8 +3145,20 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
      SECTION 05 — DIGITAL FEATURE (website + app)
      ============================================================ -->
 <section class="digital">
+  <div class="industrial-mark tl vault-blue lg" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 32 8 C 32 8 16 28 16 40 A 16 16 0 0 0 48 40 C 48 28 32 8 32 8 Z"/>
+    </svg>
+  </div>
+  <div class="industrial-mark br stamp-red sm" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+      <path d="M 32 8 L 58 52 L 6 52 Z"/>
+      <line x1="32" y1="22" x2="32" y2="38" stroke-width="4"/>
+      <circle cx="32" cy="46" r="2.5" fill="currentColor"/>
+    </svg>
+  </div>
   <div class="dg-head">
-    <h2>The <em>Interface.</em></h2>
+    <h2>The <em>Digital System.</em></h2>
     <p>Website and app allow customers to keep track of their credits, their returnables, drop locations, and new releases.</p>
   </div>
 
@@ -2654,18 +3180,18 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
           <div class="wh-mark">Last <span>Bite!</span></div>
           <div class="wh-links">
             <a class="active">THE VAULT</a>
-            <a>THE MESS</a>
-            <a>PICKLING BAR</a>
-            <a>HYDRATION</a>
+            <a>DINING HALL</a>
+            <a>PICKLING STATION</a>
+            <a>HYDRATION BAR</a>
             <a>RESERVE</a>
           </div>
           <span class="wh-cta">RESERVE A TIN</span>
         </div>
         <div class="wh-stage">
-          <div class="wh-photo" style="background-image: url('../images/projects/last-bite/lastbite-seats.png');">
+          <div class="wh-photo" style="background-image: url('../images/projects/last-bite/lastbite-entrance.png');">
             <div class="wh-corner-tl">▪ THE VAULT ▪ SHELTER —47M</div>
             <div class="wh-stamp">UNIT<br/>7</div>
-            <div class="wh-photo-foot">RECORDED ▪ 2147.04.25 ▪ MESS HALL</div>
+            <div class="wh-photo-foot">RECORDED ▪ 2147.04.25 ▪ ENTRANCE</div>
           </div>
           <div class="wh-copy">
             <span class="wh-kicker">▪ DOOMSDAY COMFORT ▪ SEALED ▪ RETURNED</span>
@@ -2686,9 +3212,15 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
     </div>
     <div class="dg-copy">
       <span class="ix">WEBSITE</span>
-      <h3>The vault, <em>on screen.</em></h3>
-      <p>A cool gray hero image places the viewer inside Unit 7, using stone tables, preservation shelves, red tube lights, and misted daylight.</p>
+      <h3><em>Enter</em> Unit 7.</h3>
+      <p>A straight-on entrance image introduces Unit 7 before the dining experience begins. The heavy industrial doorway, charcoal concrete walls, dark navy framing, warm interior light, and restrained utility markings make the restaurant feel hidden but intentionally designed.</p>
+      <p>The website starts with access rather than food. From there, users move into the manifest, reservation flow, and service rules.</p>
       <ul>
+        <li>Entrance-first hero image</li>
+        <li>Heavy vault doorway with warm interior spill</li>
+        <li>Muted mustard floor markings and restrained red labels</li>
+        <li>Hidden hospitality atmosphere, not theme-park set design</li>
+        <li>Manifest, reservation, and service rules built into the scroll</li>
         <li>Hand-stamped masthead with rotating batch number</li>
       </ul>
     </div>
@@ -2698,13 +3230,15 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
   <div class="dg-row flip">
     <div class="dg-copy">
       <span class="ix">WEBSITE / MANIFEST</span>
-      <h3>Ration as <em>label slips.</em></h3>
+      <h3>Menu as <em>Manifest.</em></h3>
       <p>The manifest page turns menu items into ration cards. Each card borrows from the packaging system: vault-navy headers, stamped ration codes, dashed rules, typewritten descriptions, and red price tags. The grid feels printed and operational, like a service record pulled from the vault.</p>
+      <p>Ration codes connect each menu item to its vessel, batch number, and service record. Vessel size, calories, and price are shown like inventory data, making the menu feel functional without losing the restaurant experience.</p>
       <ul>
-        <li>Ration codes connect menu items to packaging, batch numbers, and service records.</li>
-        <li>Vessel size, calories, and price are shown like inventory data.</li>
-        <li>Dashed rules, stamped marks, and paper grain keep the system print-based.</li>
-        <li>Stamp-code permalinks (07A, 12B, 01C, T-2…)</li>
+        <li>Ration cards replace standard menu tiles</li>
+        <li>Codes connect menu items to vessels, batches, and service records</li>
+        <li>Vessel size, calories, and price appear as inventory data</li>
+        <li>Dashed rules, stamped marks, and paper grain keep the system tactile</li>
+        <li>Persistent stamp codes: 07A, 12B, 01C, T-2</li>
       </ul>
     </div>
     <div class="browser">
@@ -2754,17 +3288,57 @@ Climate resilient produce, low energy protein curing, zero waste service. </p>
     </div>
   </div>
 
+  <!-- WEBSITE — ROOMS GALLERY -->
+  <div class="dg-rooms">
+    <div class="dg-rooms-head">
+      <div>
+        <span class="ix">WEBSITE / ZONES</span>
+        <h3><em>Service</em> Zones.</h3>
+      </div>
+      <p>The website divides the restaurant into four clear areas: Ration Hall, Pickling Bar, Hydration, and Reserve. Each section acts like a posted notice inside the vault, helping users understand how the restaurant works before they arrive.</p>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <div class="room-chrome">
+          <span class="room-url">lastbite.unit7 / ration-hall</span>
+          <span class="room-tag">02</span>
+        </div>
+        <div class="room-photo" style="background-image: url('../images/projects/last-bite/lastbite-dininghall.png');"></div>
+        <div class="room-foot"><span>Ration Hall</span><span>introduces the communal dining space</span></div>
+      </div>
+      <div class="room-card">
+        <div class="room-chrome">
+          <span class="room-url">lastbite.unit7 / pickling</span>
+          <span class="room-tag">03</span>
+        </div>
+        <div class="room-photo" style="background-image: url('../images/projects/last-bite/lastbite-picklingstation.png');"></div>
+        <div class="room-foot"><span>Pickling Bar</span><span>preserved sides &amp; fermented ingredients</span></div>
+      </div>
+      <div class="room-card">
+        <div class="room-chrome">
+          <span class="room-url">lastbite.unit7 / hydration</span>
+          <span class="room-tag">04</span>
+        </div>
+        <div class="room-photo" style="background-image: url('../images/projects/last-bite/lastbite-hydrationbar.png');"></div>
+        <div class="room-foot"><span>Hydration</span><span>tonics, broth, tea, mineral drinks</span></div>
+      </div>
+      <div class="room-card">
+        <div class="room-chrome">
+          <span class="room-url">lastbite.unit7 / reserve</span>
+          <span class="room-tag">05</span>
+        </div>
+        <div class="room-photo" style="background-image: url('../images/projects/last-bite/lastbite-tray.png');"></div>
+        <div class="room-foot"><span>Reserve</span><span>service rules &amp; walk-up access</span></div>
+      </div>
+    </div>
+  </div>
+
   <!-- APP -->
   <div class="dg-row app">
     <div class="dg-copy">
       <span class="ix">MOBILE APP</span>
       <h3>The <em>Manifest</em>, in your pocket.</h3>
-      <p>The mobile app works like a personal vault terminal, not a delivery app. Patrons use it to view today’s rations, track returned vessels, check patron credit, and manage loyalty marks.
-
-
-
-
-The interface translates the printed system into mobile: typewritten text, stamped codes, mustard labels, navy panels, red marks, and paper grain.</p>
+      <p>The mobile app works like a personal vault terminal, not a delivery app. Patrons use it to view today’s rations, track returned vessels, check patron credit, and manage loyalty marks. The app extends the physical return system into a digital behavior loop. The interface translates the printed system into mobile: typewritten text, stamped codes, mustard labels, navy panels, red marks, and paper grain.</p>
       <p>
 </p>
       <ul>
@@ -2856,20 +3430,202 @@ The interface translates the printed system into mobile: typewritten text, stamp
 <!-- ============================================================
      SECTION 06 — MANIFESTO
      ============================================================ -->
+<!-- ============================================================
+     SECTION — OUTCOME
+     ============================================================ -->
+<section class="outcome">
+  <div class="industrial-mark tr vault-blue" aria-hidden="true">
+    <svg viewBox="0 0 64 64" stroke="currentColor" fill="none" stroke-width="3">
+      <rect x="16" y="22" width="32" height="34" rx="2"/>
+      <line x1="16" y1="30" x2="48" y2="30"/>
+      <rect x="22" y="14" width="20" height="8" rx="1"/>
+    </svg>
+  </div>
+  <div class="outcome-inner">
+    <p class="outcome-body">Last Bite demonstrates how a restaurant brand can move beyond logo, menu, and packaging into a complete service environment. The project uses world-building to make sustainability more memorable, turning reusable containers, food categories, loyalty, signage, and digital tracking into one connected experience.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION — CLOSING QUOTE
+     ============================================================ -->
 <section class="manifesto">
   <div class="mf-quote">
-    <span class="kicker">NO DROIDS ALLOWED</span>
+    <span class="kicker">no return, no credit</span>
     <h2>Built for the end of the world. <em>preserved for the start of the next one.</em></h2>
     <div class="who">
       <div>
         <strong></strong><br/>
-        
+
       </div>
     </div>
   </div>
 </section>
 
 <script>
+/* intro · fast-forward 100 years, then write on the hero */
+(function() {
+  const overlay = document.getElementById('intro-overlay');
+  const yearEl  = document.getElementById('intro-year');
+  const monthEl = document.getElementById('intro-month');
+  const dayEl   = document.getElementById('intro-day');
+  const cover   = document.querySelector('.cover');
+  if (!overlay || !yearEl || !cover) {
+    if (cover) cover.classList.add('write-on');
+    document.body.classList.remove('intro-active');
+    return;
+  }
+
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const now = new Date();
+  const startYear = now.getFullYear();
+  const endYear = startYear + 100;
+  const startMonth = now.getMonth();
+  const startDay = now.getDate();
+
+  // initial paint
+  yearEl.textContent  = startYear;
+  monthEl.textContent = months[startMonth];
+  dayEl.textContent   = String(startDay).padStart(2, '0');
+
+  // hold for a beat, then start the fast-forward
+  setTimeout(() => {
+    let curYear = startYear;
+    const totalDuration = 2400;       // ms to span 100 years
+    const ticks = endYear - startYear;
+    const interval = totalDuration / ticks;
+    let ramp = 0;
+
+    const ticker = setInterval(() => {
+      curYear++;
+      ramp++;
+      yearEl.textContent  = curYear;
+      // ease month/day cycling — calmer at the end so the final read is clean
+      const cycle = ramp < ticks - 8;
+      if (cycle) {
+        monthEl.textContent = months[Math.floor(Math.random() * 12)];
+        dayEl.textContent   = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+      } else {
+        monthEl.textContent = 'JAN';
+        dayEl.textContent   = '01';
+      }
+
+      if (curYear >= endYear) {
+        clearInterval(ticker);
+        yearEl.textContent  = endYear;
+        monthEl.textContent = 'JAN';
+        dayEl.textContent   = '01';
+        // brief hold on the final date, then fade
+        setTimeout(() => {
+          overlay.classList.add('gone');
+          document.body.classList.remove('intro-active');
+          // start hero write-on as overlay fades
+          cover.classList.add('write-on');
+        }, 700);
+      }
+    }, interval);
+  }, 500);
+})();
+
+/* artifact lightbox · click any printed artifact to magnify */
+(function() {
+  const lb = document.getElementById('artifact-lightbox');
+  if (!lb) return;
+  const img = lb.querySelector('img');
+  const close = lb.querySelector('.close');
+  document.querySelectorAll('.artefact-card .image-area').forEach(area => {
+    area.addEventListener('click', () => {
+      const src = area.querySelector('img');
+      if (!src) return;
+      img.src = src.src;
+      img.alt = src.alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function dismiss() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb || e.target === close || e.target.tagName === 'IMG') {
+      // image click also closes — easier dismissal
+      if (e.target.tagName === 'IMG') return; // let user keep viewing on click of image
+      dismiss();
+    }
+  });
+  close.addEventListener('click', dismiss);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) dismiss();
+  });
+})();
+
+/* hero live-photo · crossfade through restaurant rooms with mouse parallax */
+(function() {
+  const stage = document.getElementById('cover-photos');
+  if (!stage) return;
+  const imgs = stage.querySelectorAll('.cp-img');
+  if (!imgs.length) return;
+
+  let i = 0;
+  let cycleTimer = null;
+  function advance() {
+    imgs[i].classList.remove('active');
+    i = (i + 1) % imgs.length;
+    imgs[i].classList.add('active');
+  }
+  function startCycle() {
+    if (cycleTimer) return;
+    cycleTimer = setInterval(advance, 5500);
+  }
+  function stopCycle() {
+    clearInterval(cycleTimer); cycleTimer = null;
+  }
+  startCycle();
+
+  // pause when offscreen
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) startCycle(); else stopCycle(); });
+  }, { threshold: 0.1 });
+  io.observe(stage);
+
+  // mouse parallax — gives the photo a Live Photo style depth on hover
+  let raf = null;
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  function tick() {
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+    stage.style.setProperty('--px', currentX.toFixed(2));
+    stage.style.setProperty('--py', currentY.toFixed(2));
+    if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+      raf = requestAnimationFrame(tick);
+    } else { raf = null; }
+  }
+  function setTarget(x, y) {
+    targetX = x; targetY = y;
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  stage.addEventListener('mousemove', (e) => {
+    const r = stage.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 18;   // up to 18px shift
+    const y = ((e.clientY - r.top) / r.height - 0.5) * 18;
+    setTarget(-x, -y);  // invert for parallax feel
+  });
+  stage.addEventListener('mouseleave', () => setTarget(0, 0));
+
+  // device tilt for mobile (gyro)
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      if (e.gamma == null || e.beta == null) return;
+      const x = Math.max(-1, Math.min(1, e.gamma / 30)) * 12;
+      const y = Math.max(-1, Math.min(1, (e.beta - 30) / 30)) * 12;
+      setTarget(-x, -y);
+    });
+  }
+})();
+
 /* barcode bars */
 function buildBars(target, count = 36) {
   const el = document.getElementById(target);
@@ -2991,9 +3747,18 @@ const TINS = [
 <!-- SITE FOOTER — project nav -->
 <footer class="site-footer">
   <a href="mnta.html">← PREV PROJECT</a>
-  <span class="sf-mark">SARAH PERONI ▪ CASE FILE 02 / 04</span>
+  <div class="sf-center">
+    <a href="#top" class="sf-link">↑ Return to top</a>
+    <a href="../" class="sf-link">↩ Return home</a>
+  </div>
   <a href="deadwax.html">NEXT PROJECT →</a>
 </footer>
+
+<!-- Lightbox for printed artifact magnification -->
+<div class="artifact-lightbox" id="artifact-lightbox" role="dialog" aria-hidden="true" aria-label="Artifact preview">
+  <button class="close" type="button" aria-label="Close preview">CLOSE ✕</button>
+  <img alt="" />
+</div>
 
 </body>
 </html>

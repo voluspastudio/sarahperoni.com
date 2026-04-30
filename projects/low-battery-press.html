@@ -863,6 +863,13 @@ body::after {
   font-family: var(--pixel); font-size: 16px; letter-spacing: 0.18em;
   color: var(--lav-3); text-transform: uppercase;
 }
+.site-footer .sf-center {
+  display: flex; gap: 22px; align-items: center;
+  flex-wrap: wrap; justify-content: center;
+}
+.site-footer .sf-link {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+}
 
 @media (max-width: 600px) {
   .site-nav, .site-footer { padding: 14px 20px; }
@@ -1171,7 +1178,10 @@ body::after {
 <!-- SITE FOOTER · mixtape -->
 <footer class="site-footer">
   <a href="deadwax.html">← previous track</a>
-  <span class="sf-mark">★ track 03 / 04 ✦ side a</span>
+  <div class="sf-center">
+    <a href="#top" class="sf-link">↑ Return to top</a>
+    <a href="../" class="sf-link">↩ Return home</a>
+  </div>
   <a href="mnta.html">next track →</a>
 </footer>
 

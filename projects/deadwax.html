@@ -116,6 +116,17 @@ a { color: inherit; text-decoration: none; }
   color: var(--green-bright); transition: color 0.3s;
 }
 .project-footer a:hover { color: var(--cream); }
+.project-footer .pf-center {
+  display: flex; gap: 22px; align-items: center;
+  flex-wrap: wrap; justify-content: center;
+}
+.project-footer .pf-link {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--warm-gray); text-decoration: none;
+  transition: color 0.3s;
+}
+.project-footer .pf-link:hover { color: var(--cream); }
 
 @media (max-width: 600px) {
   .project-hero { padding: 6rem 1.25rem 2rem; }
@@ -161,6 +172,10 @@ a { color: inherit; text-decoration: none; }
 
 <footer class="project-footer">
   <a href="last-bite.html">← PREV PROJECT</a>
+  <div class="pf-center">
+    <a href="#top" class="pf-link">↑ Return to top</a>
+    <a href="../" class="pf-link">↩ Return home</a>
+  </div>
   <a href="low-battery-press.html">NEXT PROJECT →</a>
 </footer>
 
