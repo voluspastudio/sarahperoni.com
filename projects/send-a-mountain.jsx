@@ -5,19 +5,16 @@
 const { useState, useMemo, useEffect } = React;
 
 const MOUNTAINS = [
-  { id: 'whitney',  name: 'Mt. Whitney',     where: 'Sierra Nevada · 14,505 ft', mood: 'first light',     bg: '../images/projects/mnta/mt-whitney.jpg' },
-  { id: 'cascade',  name: 'Cascade Ridge',   where: 'Pacific Northwest',         mood: 'in fog',          bg: null, gradient: 'linear-gradient(160deg,#0a1320 0%,#1a2535 50%,#5a6677 100%)' },
-  { id: 'dolomiti', name: 'Dolomiti',        where: 'Italian Alps',              mood: 'at last light',   bg: null, gradient: 'linear-gradient(160deg,#0a1320 0%,#2a3a52 45%,#aac5d8 100%)' },
-  { id: 'atlas',    name: 'Atlas',           where: 'North Africa',              mood: 'at sundown',      bg: null, gradient: 'linear-gradient(160deg,#0a1320 0%,#3a2a1e 50%,#d49a4a 100%)' },
-  { id: 'tongariro',name: 'Tongariro',       where: 'Aotearoa · New Zealand',    mood: 'after rain',      bg: null, gradient: 'linear-gradient(160deg,#0a1320 0%,#1f3030 55%,#637a6e 100%)' },
-  { id: 'fuji',     name: 'Fuji',            where: 'Honshū · Japan',            mood: 'in winter',       bg: null, gradient: 'linear-gradient(160deg,#0a1320 0%,#2c364a 50%,#cdd5dd 100%)' },
+  { id: 'whitney', name: 'Mt. Whitney', where: 'Sierra Nevada · 14,505 ft', mood: 'first light', bg: '../images/projects/mnta/mt-whitney.jpg' },
+  { id: 'shasta',  name: 'Mt. Shasta',  where: 'Cascade Range · 14,179 ft', mood: 'at dusk',     bg: '../images/projects/mnta/mtshasta.jpeg' },
+  { id: 'lassen',  name: 'Lassen Peak', where: 'Cascade Range · 10,457 ft', mood: 'in summer',   bg: '../images/projects/mnta/lassenpeak.png' },
 ];
 
 const PROMPTS = [
-  'For the morning we never made it to.',
-  'Thinking of you. Stand here a minute.',
-  'You taught me to look up.',
-  'Found this one for you.',
+  'Saw this and thought of you.',
+  'Take a minute. It is beautiful here.',
+  'Sending you the view.',
+  'A little quiet, just for you.',
 ];
 
 const css = {
@@ -188,7 +185,7 @@ function SendAMountain() {
         <div style={css.q}>Write a quiet line.</div>
         <div style={css.field}>
           <div style={css.fieldL}>To — a name, a word</div>
-          <input style={css.input} placeholder="Mom" value={recipient} onChange={e => setRecipient(e.target.value)} />
+          <input style={css.input} placeholder="Sister" value={recipient} onChange={e => setRecipient(e.target.value)} />
         </div>
         <div style={css.field}>
           <div style={css.fieldL}>A line, only if you want one</div>

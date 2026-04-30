@@ -230,6 +230,290 @@
   .sec-num .ttl { font-family:"Space Grotesk",monospace; color: var(--stone-2); font-size: 11px; letter-spacing:.24em; text-transform:uppercase; }
   .sec-num .rule { flex: 1; height: 1px; background: var(--hairline); }
 
+  /* Hiking Trail · vertical guide line drawn down the page as user scrolls */
+  .page-trail {
+    position: absolute;
+    top: 100vh;                         /* start after the hero */
+    left: 50%; transform: translateX(-50%);
+    width: 2px;
+    /* height set by JS based on document height */
+    z-index: 4; pointer-events: none;
+    --trail-pct: 0;
+  }
+  .page-trail-line {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(180deg,
+      rgba(245,241,232,0.18) 0 4px,
+      transparent 4px 10px);
+  }
+  .page-trail-progress {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: calc(var(--trail-pct) * 1%);
+    background: linear-gradient(180deg,
+      rgba(245,241,232,0.95) 0%,
+      rgba(245,241,232,0.85) 70%,
+      rgba(212,154,74,0.6) 100%);
+    box-shadow: 0 0 14px rgba(245,241,232,0.35);
+    transition: height 0.16s linear;
+    pointer-events: none;
+  }
+  .page-trail-head {
+    position: absolute; top: calc(var(--trail-pct) * 1%);
+    left: 50%; transform: translate(-50%, -50%);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--horizon);
+    box-shadow:
+      0 0 0 3px rgba(212,154,74,0.18),
+      0 0 18px rgba(212,154,74,0.55);
+    transition: top 0.16s linear;
+    pointer-events: none;
+  }
+
+  /* Per-section markers — flex-laid branch + dot + label */
+  .trail-stop { position: relative; }
+  .trail-marker {
+    position: absolute;
+    top: clamp(56px, 7vw, 100px);
+    display: flex; align-items: center;
+    z-index: 6; pointer-events: none;
+  }
+  .trail-stop[data-trail-side="right"] .trail-marker {
+    left: 50%; flex-direction: row;
+  }
+  .trail-stop[data-trail-side="left"] .trail-marker {
+    right: 50%; flex-direction: row-reverse;
+  }
+
+  .trail-marker .trail-branch {
+    width: 0; height: 1px;
+    background: rgba(245,241,232,0.75);
+    flex: 0 0 auto;
+    transition: width 0.7s cubic-bezier(.16,.84,.32,1);
+  }
+  .trail-marker .trail-dot {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--horizon);
+    flex: 0 0 auto; margin: 0 4px;
+    transform: scale(0);
+    box-shadow:
+      0 0 0 3px rgba(212,154,74,0.22),
+      0 0 14px rgba(212,154,74,0.55);
+    transition: transform 0.4s cubic-bezier(.16,.84,.32,1) 0.4s;
+  }
+  .trail-marker .trail-label {
+    font-family: "Space Grotesk", sans-serif; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--bone); white-space: nowrap;
+    padding: 0 8px;
+    opacity: 0;
+    transition: opacity 0.45s ease 0.7s;
+  }
+
+  .trail-stop.trail-active .trail-branch { width: clamp(60px, 8vw, 110px); }
+  .trail-stop.trail-active .trail-dot    { transform: scale(1); }
+  .trail-stop.trail-active .trail-label  { opacity: 1; }
+
+  @media (max-width: 720px) {
+    .page-trail { display: none; }
+    .trail-marker { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-trail-progress, .page-trail-head { transition: none; }
+    .trail-marker .trail-branch, .trail-marker .trail-dot, .trail-marker .trail-label { transition: none; }
+  }
+
+  /* Ecology Layer · flora + fauna callouts */
+  .ecology-layer {
+    margin-top: clamp(80px, 10vw, 140px);
+    padding-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--hairline);
+  }
+  .ecology-head {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: clamp(32px, 5vw, 80px); align-items: start;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  @media (max-width: 880px) { .ecology-head { grid-template-columns: 1fr; } }
+  .ecology-h {
+    font-family: "Libre Bodoni", serif; font-style: italic;
+    font-size: clamp(40px, 5vw, 76px); line-height: 1.0;
+    color: var(--bone); margin: 0;
+  }
+  .ecology-sub {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(15px, 1.2vw, 17px); line-height: 1.7;
+    color: var(--parchment-dim); margin: 0 0 24px;
+  }
+
+  .ecology-detail {
+    margin: clamp(40px, 5vw, 64px) 0;
+  }
+  .eco-stage {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    background: #06101c;
+  }
+  .eco-bg {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: contrast(1.05) saturate(0.78) brightness(0.85);
+  }
+  .eco-callout {
+    position: absolute;
+    display: flex; align-items: center; gap: 8px;
+    pointer-events: auto; cursor: pointer;
+    background: transparent; border: 0; padding: 4px;
+    color: inherit;
+    transition: filter 0.3s ease;
+  }
+  .eco-callout:hover { filter: brightness(1.15); }
+  .eco-callout:hover .eco-dot {
+    box-shadow: 0 0 0 6px rgba(212,154,74,0.18), 0 0 28px rgba(212,154,74,0.85);
+  }
+  .eco-callout .eco-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--horizon);
+    box-shadow: 0 0 0 2px rgba(212,154,74,0.25), 0 0 16px rgba(212,154,74,0.5);
+    flex: 0 0 auto; animation: eco-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes eco-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(212,154,74,0.25), 0 0 16px rgba(212,154,74,0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(212,154,74,0.10), 0 0 24px rgba(212,154,74,0.7); }
+  }
+  .eco-callout .eco-line {
+    width: 32px; height: 1px; background: rgba(232,223,200,0.7);
+    flex: 0 0 auto;
+  }
+  .eco-callout .eco-label {
+    font-family: "Space Grotesk", sans-serif; font-size: 11px;
+    line-height: 1.3; color: var(--bone);
+    background: rgba(7,16,28,0.78); backdrop-filter: blur(6px);
+    padding: 6px 10px; border: 1px solid var(--hairline);
+    letter-spacing: 0.08em;
+  }
+  .eco-callout .eco-label em {
+    display: block; font-family: "Libre Bodoni", serif;
+    font-style: italic; font-size: 13px; color: var(--horizon);
+    margin-bottom: 2px;
+  }
+  /* mirror callouts that anchor on the right side */
+  .eco-callout[style*="right"] { flex-direction: row-reverse; }
+
+  .eco-cap {
+    display: flex; justify-content: space-between;
+    margin-top: 14px;
+    font-family: "Space Grotesk", monospace;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--stone-2);
+  }
+
+  /* Hover preview · fades in inside the eco-stage when a callout is hovered */
+  .eco-preview {
+    position: absolute; top: 16px; right: 16px;
+    width: clamp(180px, 18vw, 240px);
+    background: rgba(5, 10, 19, 0.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--hairline);
+    padding: 10px;
+    z-index: 5;
+    opacity: 0; visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.16,.84,.32,1), visibility 0s linear 0.4s;
+    pointer-events: none;
+  }
+  .eco-preview.show {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.16,.84,.32,1);
+  }
+  .eco-preview-media {
+    position: relative; aspect-ratio: 4/5;
+    background: #050a13; overflow: hidden; margin-bottom: 10px;
+  }
+  .eco-preview-media img,
+  .eco-preview-media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; display: none;
+    filter: contrast(1.05) saturate(0.9);
+  }
+  .eco-preview-info { font-family: "Space Grotesk", sans-serif; }
+  .eco-preview-name {
+    font-family: "Libre Bodoni", serif; font-style: italic;
+    font-size: 16px; color: var(--horizon); line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .eco-preview-latin {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--parchment-dim);
+  }
+  @media (max-width: 720px) {
+    .eco-preview { top: 8px; right: 8px; width: 150px; padding: 8px; }
+    .eco-preview-name { font-size: 13px; }
+  }
+
+  /* Candle · sensorial extension with horizontal marquee */
+  .candle-section {
+    background: linear-gradient(180deg, #060c16 0%, #050a13 100%);
+    position: relative; overflow: hidden;
+    border-top: 1px solid var(--hairline);
+  }
+  .candle-stage {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: clamp(40px, 6vw, 80px); align-items: center;
+  }
+  @media (max-width: 880px) {
+    .candle-stage { grid-template-columns: 1fr; gap: 48px; }
+  }
+  .candle-copy h2 { font-size: clamp(36px, 5vw, 64px); color: var(--bone); line-height: 1.05; }
+  .candle-copy h2 em { color: var(--horizon); font-style: italic; }
+  .candle-copy .desc { font-size: clamp(15px, 1.2vw, 17px); color: var(--parchment-dim); margin-top: 24px; max-width: 520px; line-height: 1.7; }
+  .candle-marquee {
+    position: relative; height: clamp(280px, 36vw, 460px);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+  .candle-marquee-track {
+    display: flex; gap: clamp(20px, 3vw, 48px); height: 100%;
+    animation: candle-scroll 26s linear infinite;
+    width: max-content;
+  }
+  .candle-marquee-track img {
+    height: 100%; width: auto; flex: 0 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  }
+  @keyframes candle-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .candle-marquee-track { animation: none; }
+  }
+
+  .reflection-body {
+    margin-top: clamp(28px, 4vw, 48px);
+    max-width: 720px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(15px, 1.2vw, 18px); line-height: 1.7;
+    color: var(--parchment-dim);
+  }
+  .reflection-body p + p { margin-top: 18px; }
+
+  /* Brand System bullet list */
+  .brand-list {
+    list-style: none; padding: 0; margin: 28px 0 0;
+    display: flex; flex-direction: column; gap: 10px;
+    font-family: "Space Grotesk", sans-serif; font-size: 15px;
+    color: var(--parchment-dim); line-height: 1.6;
+  }
+  .brand-list li { padding-left: 22px; position: relative; }
+  .brand-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.7em;
+    width: 12px; height: 1px; background: var(--horizon);
+  }
+
   /* reveal-on-scroll · roll into view */
   .reveal {
     opacity: 0; transform: translateY(72px);
@@ -570,7 +854,8 @@
 
   /* Posters */
   .posters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  @media (max-width: 720px) { .posters { grid-template-columns: 1fr 1fr; } }
+  .posters.posters-duo { grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .posters, .posters.posters-duo { grid-template-columns: 1fr; } }
   .poster { aspect-ratio: 2/3; background: var(--shadow); position: relative; overflow: hidden; padding: 22px; display:flex; flex-direction: column; justify-content:space-between; }
   .poster .pnum { font-family:"Space Grotesk",monospace; font-size: 9px; letter-spacing:.22em; color: var(--parchment-dim); text-transform: uppercase; }
   .poster .ph { font-family:"Libre Bodoni",serif; font-style: italic; font-size: clamp(20px, 2.4vw, 30px); line-height: 1.05; color: var(--bone); }
@@ -585,8 +870,8 @@
   .poster.p3 .pnum, .poster.p3 .pf { color: #6a5a3a; }
 
   /* Real-world poster mockups · skip the typographic overlay, show the photo */
-  .poster.is-mockup { padding: 0; aspect-ratio: 2/3; background: #050a13; }
-  .poster.is-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .poster.is-mockup { padding: 0; aspect-ratio: 4/3; background: #050a13; }
+  .poster.is-mockup img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
   /* Wayfinding */
   .wayfind { background: linear-gradient(180deg, #0a1320 0%, #050a12 100%); position: relative; padding: 24px; display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -869,12 +1154,13 @@
     </a>
   </div>
   <div class="right">
-    <a href="#brief">Brief</a>
-    <a href="#problem">Problem</a>
-    <a href="#identity">Identity</a>
-    <a href="#send">Interactive</a>
-    <a href="#print">Deliverables</a>
-    <a href="#platform">Platform</a>
+    <a href="#overview">Overview</a>
+    <a href="#brand">Brand</a>
+    <a href="#experience">Experience</a>
+    <a href="#print">Print</a>
+    <a href="#spatial">Spatial</a>
+    <a href="#kit">Kit</a>
+    <a href="#outcome">Outcome</a>
   </div>
 </div>
 
@@ -905,21 +1191,30 @@
   </div>
 </section>
 
+<!-- HIKING TRAIL · vertical line that draws as user scrolls past sections -->
+<div class="page-trail" id="page-trail" aria-hidden="true">
+  <div class="page-trail-line"></div>
+  <div class="page-trail-progress"></div>
+  <div class="page-trail-head"></div>
+</div>
+
 <!-- BRIEF -->
-<section class="brief sec-pad" id="brief">
+<!-- 01 OVERVIEW -->
+<section class="brief sec-pad trail-stop" id="overview" data-trail="01" data-trail-side="right" data-trail-label="Overview">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">01 · Overview</span></span>
   <div class="stage">
     <div class="brief-grid">
       <div class="reveal">
-        <h2 class="display">An environment, not an app.</h2>
+        <h2 class="display">A mountain experience for people who <em>cannot reach</em> the mountain.</h2>
       </div>
       <div class="reveal delay-1">
-        <p class="body" style="margin-bottom: 24px;">MNTA is an experiential brand and digital platform for people who cannot physically reach a mountain — because of disability, chronic illness, or simply because no range is within reach of their life.</p>
-        <p class="body">It is not a hiking app. It is not adventure media. It is a quiet, cinematic place you can move through — the mountain itself, the trees and birds and weather around it, the stillness of standing there. Designed so the mountain can come to the person, when the person cannot go to the mountain.</p>
+        <p class="body" style="margin-bottom: 24px;">MNTA is an experiential brand and digital platform that brings mountain environments to people who may not be able to access them physically because of disability, chronic illness, caregiving, location, or circumstance.</p>
+        <p class="body">The project is not a hiking app or outdoor lifestyle brand. It is designed as a slow, cinematic environment where users can move through a mountain, learn its weather and ecology, listen to its soundscape, and send a piece of that place to someone else.</p>
 
         <div class="pull">
           <div>
-            <div class="stat-l">Discipline</div>
-            <div class="stat-v">Brand identity, UX/UI, interactive, print, environmental.</div>
+            <div class="stat-l">Disciplines</div>
+            <div class="stat-v">Brand identity, UX/UI, interactive design, print, environmental design.</div>
           </div>
           <div>
             <div class="stat-l">Acronym</div>
@@ -931,59 +1226,10 @@
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem sec-pad" id="problem">
-  <div class="stage">
-    <p class="problem-quote reveal">The outdoor industry rarely speaks to everyone. It sells gear, goals, and lifestyle.</p>
-
-    <div class="problem-meta">
-      <div class="reveal">
-        <div class="h">Who it is for</div>
-        <div class="b">Anyone whose life keeps them from the high places they love.</div>
-      </div>
-      <div class="reveal delay-1">
-        <div class="h">A different kind of voice</div>
-        <div class="b">MNTA does not speak the language of athletes or conquest. It is built like a slow film, an exhibit, closer to a museum.</div>
-      </div>
-      <div class="reveal delay-2">
-        <div class="h">What it actually is</div>
-        <div class="b">A place you walk through. You move around a mountain, learn its weather, its trees, the birds nesting in it. You sit at the ridge at dusk. You read the names of the flora at your feet. You send a piece of it to someone you love. And you can return, as often as you need to.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INSIDE THE MOUNTAIN — environmental layered shot -->
-<section class="inside" id="inside">
-  <div class="inside-stage">
-    <div class="inside-bg-glow"></div>
-    <img class="inside-mtn" src="../images/projects/mnta/mt-shasta.png" alt="" />
-    <div class="inside-fg-fade"></div>
-    <div class="stage inside-content">
-      <div class="inside-grid">
-        <h2 class="reveal display inside-h">A place you can <em>walk through</em>, without ever leaving the room.</h2>
-        <div class="inside-cols reveal delay-1">
-          <div>
-            <div class="k">01 — Stand somewhere</div>
-            <div class="v">Pick a vantage point. The base, the treeline, the saddle, the summit. Each one is its own loop of light, weather, and sound.</div>
-          </div>
-          <div>
-            <div class="k">02 — Learn what is around you</div>
-            <div class="v">Move your cursor across the slope. The trees, birds, and stone respond by name. Subalpine fir. Clark’s nutcracker. Granite.</div>
-          </div>
-          <div>
-            <div class="k">03 — Sit a while</div>
-            <div class="v">No timer. No upsell. Stay as long as the day asks of you. The wind keeps moving whether you are watching or not.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="inside-caption"><span>Mt. Shasta · 14,179 ft</span><span>Layered render · figure / atmosphere / horizon</span></div>
-  </div>
-</section>
-
 <!-- IDENTITY -->
-<section class="identity sec-pad" id="identity">
+<!-- 02 BRAND SYSTEM -->
+<section class="identity sec-pad trail-stop" id="brand" data-trail="02" data-trail-side="left">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">02 · Brand</span></span>
   <div class="stage">
     <div class="identity-grid">
       <div class="logo-plate reveal">
@@ -996,21 +1242,23 @@
         <div class="wm-text">M N T A</div>
       </div>
       <div class="meaning reveal delay-1">
-        <h3>A wordmark drawn from facets, not photographs.</h3>
-        <p>Mountains are made of facets — planes of light, of shadow, of weather. The MNTA mark abstracts that geometry into a triangulated peak set, sitting on a single horizon line. The four letters carry the four words of the brand. Nothing else is needed.</p>
-        <div class="word-rows">
-          <div class="word-row"><span class="w">Mountain</span><span class="d">The form, the silhouette, the weight a horizon gives a day.</span></div>
-          <div class="word-row"><span class="w">Nature</span><span class="d">Light, weather, sound — the body of a place beyond its peak.</span></div>
-          <div class="word-row"><span class="w">Travel</span><span class="d">Movement of feeling more than feet. Distance crossed inside.</span></div>
-          <div class="word-row"><span class="w">Access</span><span class="d">The promise. That a range is for everyone who has ever loved one.</span></div>
-        </div>
+        <h3>A mark built from <em>facets.</em></h3>
+        <p>The MNTA identity is based on the geometry of mountains: planes of light, shadow, weather, and horizon. The wordmark abstracts that structure into a faceted peak system, while the visual language stays quiet, spacious, and restrained.</p>
+        <p>The palette is built from dusk, stone, shadow, ice, parchment, and a single warm horizon accent. Most of the system remains cool and atmospheric so moments of warmth feel intentional.</p>
+        <ul class="brand-list">
+          <li>Faceted mark inspired by mountain geometry</li>
+          <li>Cool atmospheric palette with one warm horizon accent</li>
+          <li>Editorial typography for quiet, reflective copy</li>
+          <li>Minimal interface elements so the environment remains central</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PALETTE -->
-<section class="palette sec-pad" id="palette">
+<section class="palette sec-pad trail-stop" id="palette" data-trail="03" data-trail-side="right">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">03 · Color Palette</span></span>
   <div class="stage">
     <div class="palette-grid">
       <div class="reveal">
@@ -1030,7 +1278,8 @@
 </section>
 
 <!-- TYPE -->
-<section class="type sec-pad" id="type">
+<section class="type sec-pad trail-stop" id="type" data-trail="04" data-trail-side="left">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">04 · Fonts</span></span>
   <div class="stage">
     <div class="type-grid">
       <div class="specimen serif reveal">
@@ -1052,193 +1301,25 @@
 </section>
 
 <!-- SEND A MOUNTAIN -->
-<section class="send sec-pad" id="send">
-  <div class="stage send-inner">
-    <h2 class="reveal">Choose a mountain. <em>Send it to someone.</em></h2>
-    <p class="desc reveal delay-1">A live feature inside MNTA. You pick a peak, write a quiet line, and a postcard is delivered — by email, by text, by paper. It is small, but for the person who receives it, sometimes a mountain is enough.</p>
-    <div id="send-app" class="reveal delay-2"></div>
-  </div>
-</section>
-
-<!-- DELIVERABLES -->
-<section class="deliv sec-pad" id="print">
+<!-- 03 EXPERIENCE PLATFORM -->
+<section class="platform sec-pad trail-stop" id="experience" data-trail="05" data-trail-side="right">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">05 · Experience</span></span>
   <div class="stage">
-    <h2 class="reveal display">Things you can hold, walk through, and keep.</h2>
-    <p class="desc reveal delay-1">A brand is only as real as the objects, rooms, and films it produces. The MNTA system extends from the page into the hand, the wall, and the room — a quiet kit of artifacts for the places this work actually belongs.</p>
-
-    <!-- Pamphlet + tickets opener -->
-    <div class="print-grid">
-      <div class="print-frame foldout reveal">
-        <img src="../images/projects/mnta/mnta-print-foldout.jpg" alt="MNTA foldout pamphlet" />
-        <div class="cap"><span>00 — Foldout pamphlet</span><span>4 panels · parchment 110gsm</span></div>
-      </div>
-      <div class="print-frame tickets reveal delay-1">
-        <img src="../images/projects/mnta/mnta-tickets.png" alt="MNTA handout card set" />
-        <div class="cap" style="color:#5a6677"><span>00 — Handout card set</span><span>4×9 in</span></div>
-      </div>
-    </div>
-
-    <!-- 01 The Mountains book -->
-    <div class="deliv-item reveal">
-      <div class="deliv-meta">
-        <h3>The Mountains.<br/>One range per chapter.</h3>
-        <p>A perfect-bound, 64-page printed book. Each chapter holds a single mountain: a full-bleed photograph, a quiet essay, an annotated illustration of the flora and fauna, and the names of its weather. The physical object MNTA hands to a hospital, a hospice, a school library.</p>
-        <div class="specs">
-          <div><div class="l">Format</div><div class="v">6 × 9 in, perfect-bound</div></div>
-          <div><div class="l">Extent</div><div class="v">64 pp, parchment 100gsm</div></div>
-          <div><div class="l">Process</div><div class="v">Offset, two-color + spot</div></div>
-          <div><div class="l">Edition</div><div class="v">Vol. I — Sierra Nevada</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="vis book is-mockup">
-          <img src="../images/projects/mnta/mnta-book1.png" alt="The Mountains — printed book, Vol. I"/>
-        </div>
-        <div class="vis-cap"><span>Object — printed book</span><span>The Mountains · Vol. I</span></div>
-      </div>
-    </div>
-
-    <!-- 02 Candle -->
-    <div class="deliv-item flip reveal">
-      <div>
-        <div class="vis candle-frame is-mockup">
-          <div class="candle-pair">
-            <img src="../images/projects/mnta/mtwhitneycandle.png" alt="MNTA candle · Mt. Whitney, at dusk"/>
-            <img src="../images/projects/mnta/candle2.png" alt="MNTA candle · series mockup"/>
-          </div>
-        </div>
-        <div class="vis-cap"><span>Object — candle</span><span>Glass vessel · 8 oz</span></div>
-      </div>
-      <div class="deliv-meta">
-        <h3>The smell of a specific evening.</h3>
-        <p>A candle, packaged like print. Each scent is sourced from a single place at a single hour — not generic “forest” or “mountain air,” but the literal needles, soils, and stone of one named ridge. The label reads like a chapter heading. The vessel sits dark on a shelf until lit.</p>
-        <div class="specs">
-          <div><div class="l">Vessel</div><div class="v">Smoked glass, 8 oz</div></div>
-          <div><div class="l">Burn</div><div class="v">~60 hours</div></div>
-          <div><div class="l">Series</div><div class="v">Six places, six hours</div></div>
-          <div><div class="l">Wax</div><div class="v">Coconut + apricot</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 03 Posters -->
-    <div class="deliv-item reveal">
-      <div class="deliv-meta">
-        <h3>POSTERS<span class="sub">transit, clinic, street</span></h3>
-        <p>A series of large-format posters built around three lines of voice. Built to be readable from the other side of a hospital lobby or a metro platform, a single image, a single line, the wordmark. Nothing else is needed.</p>
-      </div>
-      <div>
-        <div class="posters">
-          <div class="poster is-mockup">
-            <img src="../images/projects/mnta/poster-mnta.png" alt="MNTA poster · This mountain is yours."/>
-          </div>
-          <div class="poster is-mockup">
-            <img src="../images/projects/mnta/poster-busstop.png" alt="MNTA poster on a bus stop lightbox"/>
-          </div>
-          <div class="poster is-mockup">
-            <img src="../images/projects/mnta/poster-airport.png" alt="MNTA poster wheatpasted at an airport gate"/>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 04 Wayfinding -->
-    <div class="deliv-item flip reveal">
-      <div>
-        <div class="vis wayfind">
-          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallbanners.png" alt="MNTA wall banners — hospital install"/></div>
-          <div class="wf-img"><img src="../images/projects/mnta/mnta-floordecals.png" alt="MNTA floor decals"/></div>
-        </div>
-        <div class="vis-cap"><span>Environmental — wayfinding</span><span>Hospital install · system</span></div>
-      </div>
-      <div class="deliv-meta">
-        <h3>Hospital Wayfinding System</h3>
-        <p>A site-specific signage system drawn from the same typographic language as the MNTA platform.</p>
-        <p>The system includes floor decals, wall banners, vinyl graphics, door signs, and directional markers. Each piece helps guide visitors toward the Quiet Room without making the experience feel clinical or over-explained.</p>
-        <p>Designed for children’s hospital atriums, memory-care wings, hospice environments, and gallery settings — anywhere a person may need stillness, but not have access to the mountain itself.</p>
-      </div>
-    </div>
-
-    <!-- 05 Quiet Room -->
-    <div class="deliv-item reveal">
-      <div class="deliv-meta">
-        <h3>The Quiet Room<br/>A 10′ × 10′ mountain, indoors.</h3>
-        <p>A pop-up installation built from one projected mountain loop, one bench, two pairs of headphones, and one printed line on the wall.</p>
-        <p>It is quiet, temporary, and self-contained. The room becomes the deliverable. Everything else falls away.</p>
-        <div class="specs">
-          <div><div class="l">Footprint</div><div class="v">10′ × 10′</div></div>
-          <div class="full"><div class="l">Use cases</div><div class="v">Hospital lobbies, children’s hospital atriums, memory-care wings, libraries, conferences, galleries, and waiting spaces.</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="vis qroom">
-          <div class="floor"></div>
-          <div class="light-pool"></div>
-          <div class="wm">MNTA · QUIET ROOM</div>
-          <div class="wall-img">
-            <video src="../images/projects/mnta/mountainmovie.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Projected mountain loop"></video>
-          </div>
-          <div class="ground-shadow"></div>
-          <div class="bench"></div>
-        </div>
-        <div class="vis-cap"><span>Experiential — Quiet Room</span><span>Render · install concept</span></div>
-      </div>
-    </div>
-
-    <!-- 06 Hospital partnership kit -->
-    <div class="deliv-item flip reveal">
-      <div>
-        <div class="vis kit is-mockup">
-          <img src="../images/projects/mnta/mnta-hospitalkit.png" alt="MNTA hospital partnership kit · slipcase + components"/>
-        </div>
-        <div class="vis-cap"><span>System — partnership kit</span><span>Slipcase · mailable</span></div>
-      </div>
-      <div class="deliv-meta">
-        <h3>Hospital Partnership Kit</h3>
-        <p>A single charcoal slipcase shipped to a partnering ward.</p>
-        <p>Inside: The Mountains book, a tablet stand, headphone hooks for at-bed viewing, a printed staff card explaining how the program works, and a stack of postcards.</p>
-        <p>The kit gives a hospital wing everything it needs to use MNTA without prior setup, training, or familiarity with the platform.</p>
-        <div class="specs">
-          <div class="full"><div class="l">Purpose</div><div class="v">To make MNTA immediately usable in pediatric oncology, hospice, memory care, and other spaces where patients may have time, but not access.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live tally · counters that update while the page is open -->
-    <div class="tally reveal">
-      <div class="tally-head">
-        <h3>A year of <em>standing very still.</em></h3>
-        <span class="live">Live</span>
-      </div>
-      <div class="tally-grid">
-        <div class="tally-stat">
-          <div class="num" id="tally-mountains">4,302</div>
-          <div class="lbl">Mountains browsed</div>
-        </div>
-        <div class="tally-stat">
-          <div class="num" id="tally-minutes">11:24</div>
-          <div class="lbl">Average minutes per visit</div>
-        </div>
-        <div class="tally-stat">
-          <div class="num" id="tally-sent">1,118</div>
-          <div class="lbl">Mountains sent</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PLATFORM -->
-<section class="platform sec-pad" id="platform">
-  <div class="stage">
-    <h2 class="reveal display">The platform itself.</h2>
-    <p class="desc reveal delay-1">A small app. A library of mountains, an immersive viewer, and the Send a Mountain compose screen. The chrome stays out of the way; the photograph and the silence do the work.</p>
+    <h2 class="reveal display">The mountain becomes the <em>interface.</em></h2>
+    <p class="desc reveal delay-1">The digital platform lets users choose a mountain and move through it slowly. Instead of optimizing for speed, goals, or performance, the interface supports observation: vantage points, weather, flora, fauna, sound, and stillness.</p>
+    <p class="desc reveal delay-2">Users can explore a mountain from different positions, hover across the landscape to identify natural details, listen to ambient field recordings, or send a selected mountain to someone else as a digital or printed postcard.</p>
+    <ul class="brand-list reveal delay-2">
+      <li>Mountain library organized by range, mood, and time of day</li>
+      <li>Interactive viewer with vantage points, sound, weather, and ecology</li>
+      <li>Hover states reveal flora, fauna, stone, and environmental details</li>
+      <li>“Send a Mountain” feature turns the experience into a shareable message</li>
+      <li>UI stays minimal so the landscape remains the focus</li>
+    </ul>
 
     <div class="desktop-hero reveal">
       <img src="../images/projects/mnta/desktop-mockup.png" alt="MNTA desktop platform — Mt. Whitney overview" />
       <div class="desktop-cap">
-        <span><strong>Desktop — Overview</strong>&nbsp;&nbsp;Mt. Whitney · interactive map mode</span>
+        <span><strong>Desktop · Overview</strong>&nbsp;&nbsp;Mt. Whitney · interactive map mode</span>
         <span>00 / In context</span>
       </div>
     </div>
@@ -1299,13 +1380,13 @@
             <div class="sendp">
               <div class="head"><span class="t">Send a mountain</span><span class="x">×</span></div>
               <div class="body-area">
-                <div class="field"><div class="l">To</div><div class="v">Mom</div></div>
+                <div class="field"><div class="l">To</div><div class="v">Sister</div></div>
                 <div class="field"><div class="l">Mountain</div><div class="v">Mt. Whitney, dawn</div></div>
-                <div class="field"><div class="l">A line, only if you want one</div><div class="v dim">For the morning we never made it to.</div></div>
+                <div class="field"><div class="l">A line, only if you want one</div><div class="v dim">Saw this and thought of you.</div></div>
                 <div class="preview">
                   <div class="pic"></div>
                   <div class="from">From — yours</div>
-                  <div class="msg">For the morning we never made it to.</div>
+                  <div class="msg">Saw this and thought of you.</div>
                 </div>
               </div>
               <div class="submit">Send the mountain →</div>
@@ -1315,26 +1396,327 @@
         <div class="phone-cap"><span>Send compose</span></div>
       </div>
     </div>
+
+    <!-- ECOLOGY LAYER · flora / fauna / weather callouts -->
+    <div class="ecology-layer reveal">
+      <div class="ecology-head">
+        <h3 class="ecology-h">Ecology Layer.</h3>
+        <p class="ecology-sub">MNTA uses ecology callouts to make each mountain feel specific. Instead of describing the landscape in broad scenic language, the interface identifies plants, animals, weather patterns, and terrain details that help users understand what makes each environment different.</p>
+        <ul class="brand-list">
+          <li>Flora and fauna callouts tied to each mountain</li>
+          <li>Short descriptions written for non-hikers and visual learners</li>
+          <li>Weather, terrain, and habitat details layered into the viewer</li>
+          <li>Designed to make the mountain feel observable, not just decorative</li>
+        </ul>
+      </div>
+
+      <!-- Mountain detail screen · hover any dot to preview the species -->
+      <div class="ecology-detail">
+        <div class="eco-stage">
+          <img class="eco-bg" src="../images/projects/mnta/mt-whitney.jpg" alt="Mt. Whitney detail with ecology callouts"/>
+
+          <button class="eco-callout" type="button"
+                  data-name="Peregrine Falcon" data-latin="Falco peregrinus"
+                  data-type="video" data-src="../images/projects/mnta/ecology images/video-peregrinefalcon.mp4"
+                  style="top: 14%; right: 14%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>Peregrine Falcon</em></span>
+          </button>
+
+          <button class="eco-callout" type="button"
+                  data-name="Snow Plant" data-latin="Sarcodes sanguinea · conifer duff"
+                  data-type="image" data-src="../images/projects/mnta/ecology images/image-snowplant.jpeg"
+                  style="top: 26%; left: 12%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>Snow Plant</em></span>
+          </button>
+
+          <button class="eco-callout" type="button"
+                  data-name="American Pika" data-latin="Ochotona princeps"
+                  data-type="video" data-src="../images/projects/mnta/ecology images/video-pika.mp4"
+                  style="top: 50%; left: 18%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>American Pika</em></span>
+          </button>
+
+          <button class="eco-callout" type="button"
+                  data-name="Mule Deer" data-latin="Odocoileus hemionus"
+                  data-type="video" data-src="../images/projects/mnta/ecology images/video-muledeer.mp4"
+                  style="top: 54%; right: 16%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>Mule Deer</em></span>
+          </button>
+
+          <button class="eco-callout" type="button"
+                  data-name="Yellow-bellied Marmot" data-latin="Marmota flaviventris"
+                  data-type="video" data-src="../images/projects/mnta/ecology images/video-marmot.mp4"
+                  style="bottom: 16%; left: 38%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>Marmot</em></span>
+          </button>
+
+          <button class="eco-callout" type="button"
+                  data-name="Alpine Buckwheat" data-latin="Eriogonum ovalifolium · subalpine slope"
+                  data-type="image" data-src="../images/projects/mnta/ecology images/image-alpinebuckwheat.jpg"
+                  style="bottom: 14%; right: 22%;">
+            <span class="eco-dot"></span><span class="eco-line"></span>
+            <span class="eco-label"><em>Alpine Buckwheat</em></span>
+          </button>
+
+          <!-- Hover preview · fades in with the species image / video -->
+          <div class="eco-preview" id="eco-preview" aria-hidden="true">
+            <div class="eco-preview-media">
+              <img class="eco-preview-img" alt="" />
+              <video class="eco-preview-video" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="eco-preview-info">
+              <div class="eco-preview-name"></div>
+              <div class="eco-preview-latin"></div>
+            </div>
+          </div>
+        </div>
+        <div class="eco-cap"><span>Mountain Detail · Mt. Whitney</span><span>Hover any dot to identify · plants · animals · terrain</span></div>
+      </div>
+    </div>
+
+    <!-- Send-a-mountain interactive (live React component) -->
+    <div class="send-interactive reveal">
+      <h3 class="send-h">Choose a mountain. <em>Send it to someone.</em></h3>
+      <p class="send-sub">A live feature inside MNTA. Pick a peak, write a quiet line, and a postcard is delivered.</p>
+      <div id="send-app"></div>
+    </div>
   </div>
 </section>
+
+<!-- DELIVERABLES -->
+<!-- 04 PRINT SYSTEM -->
+<section class="deliv sec-pad trail-stop" id="print" data-trail="06" data-trail-side="left">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">06 · Print</span></span>
+  <div class="stage">
+    <h2 class="reveal display">The mountains <em>in print.</em></h2>
+    <p class="desc reveal delay-1">The print system gives MNTA a physical presence beyond the screen. Books, pamphlets, cards, postcards, and posters translate the platform into objects that can be held, mailed, displayed, or left behind in hospitals, libraries, galleries, and waiting spaces.</p>
+    <p class="desc reveal delay-2">The materials are designed to feel calm and durable rather than promotional.</p>
+    <ul class="brand-list reveal delay-2">
+      <li>The Mountains: 64-page printed book organized by range and chapter</li>
+      <li>Foldout pamphlet introduces the MNTA experience in four panels</li>
+      <li>Handout card set explains key mountains, sounds, and access points</li>
+      <li>Posters use a single image and line of copy for quiet public visibility</li>
+      <li>Postcards support the “Send a Mountain” feature offline</li>
+    </ul>
+
+    <!-- Pamphlet + tickets -->
+    <div class="print-grid">
+      <div class="print-frame foldout reveal">
+        <img src="../images/projects/mnta/mnta-print-foldout.jpg" alt="MNTA foldout pamphlet" />
+        <div class="cap"><span>Foldout pamphlet</span><span>4 panels · parchment 110gsm</span></div>
+      </div>
+      <div class="print-frame tickets reveal delay-1">
+        <img src="../images/projects/mnta/mnta-tickets.png" alt="MNTA handout card set" />
+        <div class="cap" style="color:#5a6677"><span>Handout card set</span><span>4×9 in</span></div>
+      </div>
+    </div>
+
+    <!-- The Mountains book -->
+    <div class="deliv-item reveal">
+      <div class="deliv-meta">
+        <h3>The Mountains.<br/>One range per chapter.</h3>
+        <p>A perfect-bound, 64-page printed book. Each chapter holds a single mountain: a full-bleed photograph, a quiet essay, an annotated illustration of the flora and fauna, and the names of its weather. The physical object MNTA hands to a hospital, a hospice, a school library.</p>
+        <div class="specs">
+          <div><div class="l">Format</div><div class="v">6 × 9 in, perfect-bound</div></div>
+          <div><div class="l">Extent</div><div class="v">64 pp, parchment 100gsm</div></div>
+          <div><div class="l">Process</div><div class="v">Offset, two-color + spot</div></div>
+          <div><div class="l">Edition</div><div class="v">Vol. I — Sierra Nevada</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="vis book is-mockup">
+          <img src="../images/projects/mnta/mnta-book1.png" alt="The Mountains — printed book, Vol. I"/>
+        </div>
+        <div class="vis-cap"><span>Object — printed book</span><span>The Mountains · Vol. I</span></div>
+      </div>
+    </div>
+
+    <!-- Posters -->
+    <div class="deliv-item flip reveal">
+      <div>
+        <div class="posters posters-duo">
+          <div class="poster is-mockup">
+            <img src="../images/projects/mnta/poster-busstop.png" alt="MNTA poster on a bus stop lightbox"/>
+          </div>
+          <div class="poster is-mockup">
+            <img src="../images/projects/mnta/poster-airport.png" alt="MNTA poster wheatpasted at an airport gate"/>
+          </div>
+        </div>
+      </div>
+      <div class="deliv-meta">
+        <h3>POSTERS<span class="sub">transit, clinic, street</span></h3>
+        <p>A series of large-format posters built around three lines of voice. Built to be readable from the other side of a hospital lobby or a metro platform, a single image, a single line, the wordmark. Nothing else is needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CANDLE · sensorial extension -->
+<section class="candle-section sec-pad trail-stop" id="candle" data-trail="07" data-trail-side="right">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">07 · Candle</span></span>
+  <div class="stage candle-stage">
+    <div class="candle-copy">
+      <h2 class="reveal display">The smell of a <em>specific evening.</em></h2>
+      <p class="desc reveal delay-1">A candle, packaged like print. Each scent is sourced from a single place at a single hour — the literal needles, soils, and stone of one named ridge. The label reads like a chapter heading. The vessel sits dark on a shelf until lit.</p>
+      <ul class="brand-list reveal delay-2">
+        <li>One scent per named place</li>
+        <li>Sourced from real materials, not generic notes</li>
+        <li>Smoked glass vessel, ~60-hour burn</li>
+        <li>Six places, six hours — one series</li>
+      </ul>
+    </div>
+    <div class="candle-marquee reveal" aria-hidden="true">
+      <div class="candle-marquee-track">
+        <img src="../images/projects/mnta/candle1.png" alt=""/>
+        <img src="../images/projects/mnta/candle2.png" alt=""/>
+        <img src="../images/projects/mnta/candle1.png" alt=""/>
+        <img src="../images/projects/mnta/candle2.png" alt=""/>
+        <img src="../images/projects/mnta/candle1.png" alt=""/>
+        <img src="../images/projects/mnta/candle2.png" alt=""/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SPATIAL SYSTEM -->
+<section class="deliv sec-pad trail-stop" id="spatial" data-trail="08" data-trail-side="left">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">08 · Spatial</span></span>
+  <div class="stage">
+    <h2 class="reveal display">A quiet route through the <em>building.</em></h2>
+    <p class="desc reveal delay-1">The spatial system brings MNTA into hospitals, hospice environments, memory-care wings, libraries, and galleries. Floor decals, door signs, wall banners, and vinyl graphics guide visitors toward the Quiet Room without making the experience feel clinical or over-explained.</p>
+    <p class="desc reveal delay-2">The goal is to make the path feel calm, clear, and intentional.</p>
+    <ul class="brand-list reveal delay-2">
+      <li>Floor decals guide visitors toward the Quiet Room</li>
+      <li>Wall banners create atmosphere without overwhelming the space</li>
+      <li>Door signs identify the experience with quiet visual language</li>
+      <li>Directional graphics support access in hospitals and public environments</li>
+      <li>System works for temporary installs, care spaces, and gallery settings</li>
+    </ul>
+
+    <!-- Wayfinding -->
+    <div class="deliv-item flip reveal">
+      <div>
+        <div class="vis wayfind">
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallbanners.png" alt="MNTA wall banners — hospital install"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallvinyl.png" alt="MNTA wall vinyl graphics"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-wallsign.png" alt="MNTA wall / door sign"/></div>
+          <div class="wf-img"><img src="../images/projects/mnta/mnta-floordecals.png" alt="MNTA floor decals"/></div>
+        </div>
+        <div class="vis-cap"><span>Environmental — wayfinding</span><span>Hospital install · system</span></div>
+      </div>
+      <div class="deliv-meta">
+        <h3>Hospital Wayfinding System</h3>
+        <p>A site-specific signage system drawn from the same typographic language as the MNTA platform. The system includes floor decals, wall banners, vinyl graphics, door signs, and directional markers.</p>
+        <p>Designed for children’s hospital atriums, memory-care wings, hospice environments, and gallery settings.</p>
+      </div>
+    </div>
+
+    <!-- Quiet Room -->
+    <div class="deliv-item reveal">
+      <div class="deliv-meta">
+        <h3>The Quiet Room.<br/>A 10 × 10 mountain, indoors.</h3>
+        <p>The Quiet Room is a temporary installation built from one projected mountain loop, one bench, two pairs of headphones, and one line of printed text. It gives people a place to sit with the mountain without requiring travel, physical effort, or a long explanation.</p>
+        <ul class="brand-list" style="margin-top: 18px;">
+          <li>10 × 10 foot pop-up installation</li>
+          <li>Projected mountain loop with ambient sound</li>
+          <li>Bench and headphones for seated viewing</li>
+          <li>Designed for hospital lobbies, memory-care wings, libraries, and galleries</li>
+          <li>Self-contained setup with minimal staffing needs</li>
+        </ul>
+      </div>
+      <div>
+        <div class="vis qroom">
+          <div class="floor"></div>
+          <div class="light-pool"></div>
+          <div class="wm">MNTA · QUIET ROOM</div>
+          <div class="wall-img">
+            <video src="../images/projects/mnta/mountainmovie.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Projected mountain loop"></video>
+          </div>
+          <div class="ground-shadow"></div>
+          <div class="bench"></div>
+        </div>
+        <div class="vis-cap"><span>Experiential — Quiet Room</span><span>Render · install concept</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PARTNERSHIP KIT -->
+<section class="deliv sec-pad trail-stop" id="kit" data-trail="09" data-trail-side="right">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">09 · Kit</span></span>
+  <div class="stage">
+    <h2 class="reveal display">Everything a care space needs to <em>use MNTA.</em></h2>
+    <p class="desc reveal delay-1">The partnership kit is a mailable system for hospitals and care environments. A single charcoal slipcase contains the printed book, tablet stand, headphone hooks, staff instruction card, and postcard stack.</p>
+    <p class="desc reveal delay-2">The kit makes MNTA usable without requiring a team to understand the full brand first.</p>
+    <ul class="brand-list reveal delay-2">
+      <li>Charcoal slipcase for storage and transport</li>
+      <li>Printed book and postcard stack</li>
+      <li>Tablet stand for at-bed viewing</li>
+      <li>Headphone hooks for patient rooms or shared spaces</li>
+      <li>Staff card explains setup and use in plain language</li>
+    </ul>
+
+    <div class="deliv-item flip reveal">
+      <div>
+        <div class="vis kit is-mockup">
+          <img src="../images/projects/mnta/mnta-hospitalkit.png" alt="MNTA hospital partnership kit · slipcase + components"/>
+        </div>
+        <div class="vis-cap"><span>System — partnership kit</span><span>Slipcase · mailable</span></div>
+      </div>
+      <div class="deliv-meta">
+        <h3>Hospital Partnership Kit</h3>
+        <p>A single charcoal slipcase shipped to a partnering ward.</p>
+        <p>Inside: The Mountains book, a tablet stand, headphone hooks for at-bed viewing, a printed staff card explaining how the program works, and a stack of postcards.</p>
+        <div class="specs">
+          <div class="full"><div class="l">Purpose</div><div class="v">To make MNTA immediately usable in pediatric oncology, hospice, memory care, and other spaces where patients may have time, but not access.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- OUTRO -->
-<section class="outro" id="outro">
+<!-- 07 REFLECTION / OUTCOME -->
+<section class="outro trail-stop" id="outcome" data-trail="10" data-trail-side="left">
+  <span class="trail-marker"><span class="trail-branch"></span><span class="trail-dot"></span><span class="trail-label">10 · Outcome</span></span>
   <div class="outro-inner">
-    <div class="lbl reveal">— Closing</div>
+    <div class="lbl reveal">— Reflection</div>
     <h2 class="h reveal delay-1">The mountain is yours<span class="period">.</span></h2>
+    <div class="reflection-body reveal delay-2">
+      <p>MNTA reframes access to nature as an experience system. It combines brand identity, interface design, print, and environmental installation to make mountain environments available to people whose bodies, locations, or circumstances keep them away from the trail.</p>
+      <p>It is less about reaching the summit and more about making the feeling of being there available.</p>
+    </div>
+
+    <!-- Live tally · counters that update while the page is open -->
+    <div class="tally reveal delay-3">
+      <div class="tally-head">
+        <h3>A year of <em>standing very still.</em></h3>
+        <span class="live">Live</span>
+      </div>
+      <div class="tally-grid">
+        <div class="tally-stat">
+          <div class="num" id="tally-mountains">4,302</div>
+          <div class="lbl">Mountains browsed</div>
+        </div>
+        <div class="tally-stat">
+          <div class="num" id="tally-minutes">11:24</div>
+          <div class="lbl">Average minutes per visit</div>
+        </div>
+        <div class="tally-stat">
+          <div class="num" id="tally-sent">1,118</div>
+          <div class="lbl">Mountains sent</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer>
-  <div class="l">
-    <strong>MNTA — Capstone, 2026</strong>
-    Mountains · Nature · Travel · Access
-  </div>
-  <div class="r" style="text-align:right">
-    <a href="#hero">↑ Return to ridge</a>
-  </div>
-</footer>
 
 <!-- ——— scripts ——— -->
 <script>
@@ -1349,6 +1731,110 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Ecology callouts · hover any dot to fade in a preview of the species
+  (function() {
+    const stage = document.querySelector('.eco-stage');
+    if (!stage) return;
+    const preview = document.getElementById('eco-preview');
+    if (!preview) return;
+    const previewImg   = preview.querySelector('.eco-preview-img');
+    const previewVid   = preview.querySelector('.eco-preview-video');
+    const previewName  = preview.querySelector('.eco-preview-name');
+    const previewLatin = preview.querySelector('.eco-preview-latin');
+    let hideTimer = null;
+
+    function showFor(btn) {
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      const { name, latin, type, src } = btn.dataset;
+      previewName.textContent  = name  || '';
+      previewLatin.textContent = latin || '';
+      if (type === 'video') {
+        previewImg.style.display = 'none';
+        previewVid.style.display = 'block';
+        if (previewVid.getAttribute('src') !== src) previewVid.src = src;
+        const playPromise = previewVid.play();
+        if (playPromise && playPromise.catch) playPromise.catch(() => {});
+      } else {
+        previewVid.pause();
+        previewVid.style.display = 'none';
+        previewImg.style.display = 'block';
+        if (previewImg.getAttribute('src') !== src) previewImg.src = src;
+      }
+      preview.classList.add('show');
+      preview.setAttribute('aria-hidden', 'false');
+    }
+    function hide() {
+      hideTimer = setTimeout(() => {
+        preview.classList.remove('show');
+        preview.setAttribute('aria-hidden', 'true');
+        previewVid.pause();
+      }, 80);
+    }
+
+    stage.querySelectorAll('.eco-callout').forEach(btn => {
+      btn.addEventListener('mouseenter', () => showFor(btn));
+      btn.addEventListener('focus',      () => showFor(btn));
+      btn.addEventListener('mouseleave', hide);
+      btn.addEventListener('blur',       hide);
+    });
+  })();
+
+  // Hiking trail · scroll-driven progress + per-section marker reveals
+  (function() {
+    const trail = document.getElementById('page-trail');
+    if (!trail) return;
+    const stops = document.querySelectorAll('.trail-stop');
+
+    function sizeTrail() {
+      const docH = document.documentElement.scrollHeight;
+      // trail starts at top: 100vh, runs to ~60px before document end
+      const start = window.innerHeight;
+      const end = docH - 80;
+      const height = Math.max(0, end - start);
+      trail.style.height = height + 'px';
+    }
+    function updateProgress() {
+      const trailRect = trail.getBoundingClientRect();
+      const trailTop = trailRect.top + window.scrollY;
+      const trailH = trail.offsetHeight || 1;
+      const focus = window.scrollY + window.innerHeight * 0.55;
+      let pct = ((focus - trailTop) / trailH) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      trail.style.setProperty('--trail-pct', pct.toFixed(2));
+    }
+    sizeTrail();
+    updateProgress();
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateProgress(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', () => { sizeTrail(); updateProgress(); });
+    // Re-size after images / videos load (page height shifts)
+    window.addEventListener('load', () => { sizeTrail(); updateProgress(); });
+
+    // Activate trail markers as each section enters the viewport
+    const tio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('trail-active');
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -120px 0px" });
+    stops.forEach(s => tio.observe(s));
+
+    // Scroll fallback · ensure markers also fire if any section is already scrolled past
+    function syncStopsToScroll() {
+      const fold = window.scrollY + window.innerHeight - 120;
+      stops.forEach(s => {
+        const top = s.getBoundingClientRect().top + window.scrollY;
+        if (top < fold) s.classList.add('trail-active');
+      });
+    }
+    syncStopsToScroll();
+    window.addEventListener('scroll', () => requestAnimationFrame(syncStopsToScroll), { passive: true });
+  })();
 
   // Live tally · ticks irregularly while the page is open
   (function() {
