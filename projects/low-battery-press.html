@@ -2082,6 +2082,344 @@ ul { list-style: none; }
 }
 
 /* ============================================================
+   PANEL MOCKUPS · overview preview, desktop system preview,
+   mood-post mock, music memory grid
+   ============================================================ */
+
+/* overview-deliverables-bar reuses the bs-block-bar look but lives inside
+   panels rather than the side menu */
+.overview-deliverables-bar {
+  display: inline-block;
+  margin: 18px 0 12px;
+  padding: 4px 12px;
+  background: var(--deep-plum);
+  color: var(--signal-green);
+  border: 2px solid var(--deep-plum);
+  font-family: var(--pixel); font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+/* OVERVIEW PREVIEW · mini hero desktop tile */
+.overview-preview {
+  margin: 22px 0 28px;
+}
+.overview-preview .op-frame {
+  background: var(--screen-blue);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 6px 6px 0 var(--deep-plum);
+}
+.overview-preview .op-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--chrome-gray);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
+  padding: 5px 10px;
+  font-family: var(--pixel); font-size: 13px;
+  letter-spacing: 0.06em;
+}
+.overview-preview .op-dots { display: flex; gap: 4px; }
+.overview-preview .op-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--low-battery-red);
+  border: 1px solid var(--deep-plum);
+}
+.overview-preview .op-dots span:nth-child(2) { background: var(--sunny-yellow); }
+.overview-preview .op-dots span:nth-child(3) { background: var(--signal-green); }
+.overview-preview .op-url { flex: 1; }
+.overview-preview .op-meta { font-family: var(--ui); font-size: 12px; }
+.overview-preview .op-stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 14px 10px;
+  padding: 24px;
+  min-height: 260px;
+}
+.overview-preview .op-icon {
+  background: transparent; border: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer;
+  font-family: var(--ui); font-size: 11px; color: var(--cloud-white);
+  text-shadow: 1px 1px 0 var(--deep-plum);
+}
+.overview-preview .op-icon img {
+  width: 44px; height: 44px;
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.35));
+  image-rendering: pixelated;
+}
+.overview-preview .op-icon:hover img { transform: translateY(-2px); }
+
+/* DESKTOP SYSTEM PREVIEW · full mock with menubar / icons / window / taskbar */
+.desk-preview {
+  margin: 22px 0 28px;
+}
+.dp-frame {
+  background: var(--screen-blue);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 6px 6px 0 var(--deep-plum);
+  overflow: hidden;
+}
+.dp-menubar {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--chrome-gray);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
+  padding: 5px 12px;
+  font-family: var(--pixel); font-size: 14px;
+}
+.dp-menubar .dp-logo {
+  background: var(--deep-plum); color: var(--signal-green);
+  padding: 1px 8px; font-weight: 700;
+  font-family: var(--ui); font-size: 12px;
+}
+.dp-menubar .dp-menus { flex: 1; }
+.dp-menubar .dp-meta { font-family: var(--ui); font-size: 12px; }
+.dp-stage {
+  position: relative;
+  min-height: 380px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.dp-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 14px 10px;
+}
+.dp-icon {
+  background: transparent; border: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer;
+  font-family: var(--ui); font-size: 10.5px; color: var(--cloud-white);
+  text-shadow: 1px 1px 0 var(--deep-plum);
+}
+.dp-icon img {
+  width: 38px; height: 38px;
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.35));
+  image-rendering: pixelated;
+}
+.dp-window {
+  width: clamp(260px, 70%, 380px);
+  background: var(--soft-lilac);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 4px 4px 0 var(--deep-plum);
+  align-self: start;
+  justify-self: end;
+  margin-top: -180px;
+  position: relative;
+}
+.dp-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--pixel-lavender);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
+  padding: 4px 8px;
+  font-family: var(--ui); font-size: 12px; font-weight: 600;
+}
+.dp-tt-icon {
+  width: 12px; height: 12px;
+  background: var(--signal-green);
+  border: 1px solid var(--deep-plum);
+}
+.dp-titlebar > span:nth-child(2) { flex: 1; }
+.dp-tt-ctrls { font-family: var(--ui); font-size: 12px; letter-spacing: 0.18em; }
+.dp-window-body {
+  padding: 14px;
+  font-family: var(--body); font-size: 13px;
+  color: var(--deep-plum);
+}
+.dp-prompt {
+  font-family: var(--pixel); font-size: 16px;
+  margin-bottom: 8px;
+}
+.dp-entry {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  padding: 10px 12px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.dp-mood-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.dp-mo {
+  width: 26px; height: 26px;
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  display: grid; place-items: center;
+  font-size: 14px;
+}
+.dp-taskbar {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--chrome-gray);
+  border-top: 2px solid var(--deep-plum);
+  padding: 4px 10px;
+  font-family: var(--ui); font-size: 11px;
+  color: var(--deep-plum);
+}
+.dp-start {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  padding: 1px 8px;
+  font-weight: 700;
+}
+.dp-task {
+  background: var(--pixel-lavender);
+  border: 1.5px solid var(--deep-plum);
+  padding: 1px 8px;
+}
+.dp-task.active { background: var(--signal-green); }
+.dp-task-meta { margin-left: auto; font-family: var(--pixel); font-size: 13px; }
+@media (max-width: 720px) {
+  .dp-window { width: auto; justify-self: stretch; margin-top: 0; }
+  .dp-stage { gap: 14px; padding: 16px; }
+}
+
+/* MOOD POST MOCKUP · used inside the mood-objects panel */
+.mood-post-mock {
+  margin: 22px auto 0;
+  max-width: 480px;
+  background: var(--soft-lilac);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 6px 6px 0 var(--deep-plum);
+}
+.mp-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--pixel-lavender);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
+  padding: 4px 10px;
+  font-family: var(--ui); font-size: 12px; font-weight: 600;
+}
+.mp-icon {
+  width: 12px; height: 12px;
+  background: var(--signal-green);
+  border: 1px solid var(--deep-plum);
+}
+.mp-titlebar > span:nth-child(2) { flex: 1; }
+.mp-ctrls { font-family: var(--ui); letter-spacing: 0.16em; }
+.mp-body {
+  padding: 14px;
+  font-family: var(--body); font-size: 13px;
+  color: var(--deep-plum);
+}
+.mp-entry {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  padding: 12px 14px;
+  line-height: 1.7;
+}
+.mp-mood-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin: 14px 0 10px;
+  padding: 8px;
+  background: var(--cloud-white);
+  border: 2px dashed var(--deep-plum);
+}
+.mp-mo {
+  width: 30px; height: 30px;
+  background: var(--cloud-white);
+  border: 1.5px solid var(--deep-plum);
+  cursor: pointer;
+  display: grid; place-items: center;
+  padding: 2px;
+  transition: transform 0.1s, background 0.15s;
+}
+.mp-mo:hover { background: var(--soft-circuit-green); transform: translateY(-2px); }
+.mp-mo img { width: 100%; height: 100%; image-rendering: pixelated; }
+.mp-meta {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--deep-plum-mid);
+  letter-spacing: 0.04em;
+  border-top: 1px dashed var(--deep-plum);
+  padding-top: 8px;
+}
+
+/* MUSIC MEMORY GRID · now-playing window + entry + archive card */
+.music-memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin: 22px 0 0;
+}
+.mm-now,
+.mm-entry {
+  background: var(--soft-lilac);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 4px 4px 0 var(--deep-plum);
+}
+.mm-now-body {
+  padding: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.mm-cd {
+  width: 64px; height: 64px;
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  display: grid; place-items: center;
+  flex: 0 0 auto;
+}
+.mm-cd img {
+  width: 44px; height: 44px;
+  image-rendering: pixelated;
+  animation: mm-spin 6s linear infinite;
+}
+@keyframes mm-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.mm-track-block {
+  flex: 1;
+  font-family: var(--body); font-size: 12px; color: var(--deep-plum);
+}
+.mm-status {
+  display: inline-block;
+  font-family: var(--pixel); font-size: 13px;
+  background: var(--signal-green);
+  color: var(--deep-plum);
+  border: 1.5px solid var(--deep-plum);
+  padding: 0 6px;
+  margin-bottom: 6px;
+}
+.mm-track {
+  font-family: var(--display); font-size: 18px;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.mm-artist {
+  font-family: var(--ui); font-size: 12px;
+  margin-bottom: 8px;
+}
+.mm-progress {
+  height: 7px;
+  background: var(--chrome-gray);
+  border: 1.5px solid var(--deep-plum);
+  position: relative;
+}
+.mm-progress span {
+  display: block;
+  width: 35%;
+  height: 100%;
+  background: var(--signal-green);
+}
+.mm-times {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 12px;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.mm-attached {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 12px;
+  padding: 6px 8px;
+  background: var(--soft-circuit-green);
+  border: 1.5px solid var(--deep-plum);
+  font-family: var(--ui); font-size: 12px;
+}
+.mm-attached img { width: 18px; height: 18px; image-rendering: pixelated; }
+.mm-archive-card {
+  align-self: stretch;
+}
+
+/* ============================================================
    9 · CTA · final
    ============================================================ */
 .cta-section {
@@ -2640,7 +2978,7 @@ ul { list-style: none; }
 </section>
 
 <!-- ============================================================
-     ICON NAV · sections as desktop shortcut cards
+     ICON NAV · 7 system categories as desktop shortcut cards
      ============================================================ -->
 <section class="icon-nav" aria-label="Section navigation">
   <div class="icon-nav-bar">
@@ -2648,35 +2986,31 @@ ul { list-style: none; }
     <span class="inb-meta">click any icon to open the section</span>
   </div>
   <div class="icon-nav-grid">
-    <button class="icon-nav-card" data-page="about" aria-label="Open about">
+    <button class="icon-nav-card" data-page="overview" aria-label="Open overview">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
-      <span class="inc-label">about.html</span>
+      <span class="inc-label">overview.html</span>
     </button>
-    <button class="icon-nav-card" data-page="tools" aria-label="Open tools">
+    <button class="icon-nav-card" data-page="desktop-system" aria-label="Open desktop system">
+      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
+      <span class="inc-label">desktop.os</span>
+    </button>
+    <button class="icon-nav-card" data-page="core-tools" aria-label="Open core tools">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
       <span class="inc-label">tools/</span>
     </button>
-    <button class="icon-nav-card" data-page="video" aria-label="Open video log">
-      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
-      <span class="inc-label">video.cam</span>
-    </button>
-    <button class="icon-nav-card" data-page="mood" aria-label="Open mood meter">
+    <button class="icon-nav-card" data-page="mood-objects" aria-label="Open mood objects">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
       <span class="inc-label">mood.app</span>
     </button>
-    <button class="icon-nav-card" data-window="music" aria-label="Open music memory">
+    <button class="icon-nav-card" data-page="music-memory" aria-label="Open music memory">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/>
       <span class="inc-label">music.log</span>
     </button>
-    <button class="icon-nav-card" data-page="archive" aria-label="Open archive">
+    <button class="icon-nav-card" data-page="print-archive" aria-label="Open print archive">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
       <span class="inc-label">archive/</span>
     </button>
-    <button class="icon-nav-card" data-page="dump" aria-label="Open monthly dump">
-      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/>
-      <span class="inc-label">dump.zip</span>
-    </button>
-    <button class="icon-nav-card" data-page="brand" aria-label="Open brand system">
+    <button class="icon-nav-card" data-page="brand-system" aria-label="Open brand system">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
       <span class="inc-label">brand.cfg</span>
     </button>
@@ -2698,16 +3032,15 @@ ul { list-style: none; }
     <!-- LEFT MENU -->
     <aside class="bs-menu">
       <div class="bs-block bs-block-menu">
-        <div class="bs-block-bar">~ menu</div>
+        <div class="bs-block-bar">~ system</div>
         <div class="bs-block-body">
-          <button class="bs-item active" data-page="about">▸ home</button>
-          <button class="bs-item" data-page="tools">▸ tools</button>
-          <button class="bs-item" data-page="video">▸ video log</button>
-          <button class="bs-item" data-page="mood">▸ mood meter</button>
-          <button class="bs-item" data-page="archive">▸ archive</button>
-          <button class="bs-item" data-page="dump">▸ monthly dump</button>
-          <button class="bs-item" data-page="brand">▸ brand</button>
-          <button class="bs-item" data-page="start">▸ start log</button>
+          <button class="bs-item active" data-page="overview">▸ 01 · Overview</button>
+          <button class="bs-item" data-page="desktop-system">▸ 02 · Desktop System</button>
+          <button class="bs-item" data-page="core-tools">▸ 03 · Core Tools</button>
+          <button class="bs-item" data-page="mood-objects">▸ 04 · Mood Objects</button>
+          <button class="bs-item" data-page="music-memory">▸ 05 · Music Memory</button>
+          <button class="bs-item" data-page="print-archive">▸ 06 · Print Archive</button>
+          <button class="bs-item" data-page="brand-system">▸ 07 · Brand System</button>
         </div>
       </div>
 
@@ -2715,117 +3048,78 @@ ul { list-style: none; }
 
     <!-- MAIN CONTENT (each section becomes a panel) -->
     <main class="bs-main" id="bs-main">
-      <div class="bs-main-tab" id="bs-main-tab">▸ about.html</div>
+      <div class="bs-main-tab" id="bs-main-tab">▸ overview.html</div>
 
 <!-- ============================================================
-     2 · WHAT IT IS
+     01 · OVERVIEW
      ============================================================ -->
-<section class="section panel active" id="about" data-panel="about">
+<section class="section panel active" id="overview" data-panel="overview">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
       <span class="os-icon"></span>
-      <span class="os-num">02</span>
-      <span class="os-name">▸ what_is_this.exe</span>
+      <span class="os-num">01</span>
+      <span class="os-name">▸ overview.html</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
         <button class="os-btn close" aria-label="Close">×</button>
       </div>
     </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
+    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">02 · what it is</span>
-    <h2>A journal disguised<br/>as a <em>desktop.</em></h2>
-    <p class="lead">Low Battery Press turns journaling into a small personal operating system.</p>
+    <span class="section-label">01 · overview</span>
+    <h2>Low Battery <em>Press.</em></h2>
+    <p class="lead">A desktop diary for low-signal days.</p>
+
+    <!-- mini hero desktop preview · sits inside the overview panel -->
+    <figure class="overview-preview" aria-label="Hero desktop mockup preview">
+      <div class="op-frame">
+        <div class="op-bar">
+          <span class="op-dots"><span></span><span></span><span></span></span>
+          <span class="op-url">▸ lbp.os / desktop.preview</span>
+          <span class="op-meta">battery: 42% · saved</span>
+        </div>
+        <div class="op-stage">
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/><span>Journal.exe</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/><span>Video Log</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
+          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
+        </div>
+      </div>
+    </figure>
+
     <div class="body">
-      <p>Instead of one blank page, users get a desktop of tools for different kinds of emotional documentation: typed entries, webcam check-ins, loose notes, drawings, mood symbols, and saved fragments.</p>
+      <p>Low Battery Press is a journaling system for people who are too tired to journal traditionally. The project reimagines journaling as a soft 90s-inspired desktop where users can type, talk, draw, save fragments, log music, and print emotional records later.</p>
+      <p>Instead of one blank page, the system gives users a personal desktop of tools. Each window captures a different kind of entry, from full journal posts to webcam check-ins, mood objects, songs, and printed archive pieces.</p>
     </div>
+
+    <div class="bs-block-bar overview-deliverables-bar">~ deliverables</div>
     <ul class="bullet-list">
-      <li>Built for low-energy journaling</li>
-      <li>Uses familiar desktop metaphors: files, folders, windows, icons, and archives</li>
-      <li>Supports typing, speaking, drawing, and camera-based reflection</li>
-      <li>Turns entries into analog-style logs, receipts, cards, and zines</li>
+      <li>Brand identity</li>
+      <li>Desktop interface</li>
+      <li>Journaling tools</li>
+      <li>Mood interaction system</li>
+      <li>Music log</li>
+      <li>Print archive</li>
+      <li>Icon system</li>
     </ul>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     3 · DESKTOP DIARY SYSTEM · tools
+     02 · DESKTOP SYSTEM
      ============================================================ -->
-<section class="section lavender panel" id="tools" data-panel="tools">
+<section class="section lavender panel" id="desktop-system" data-panel="desktop-system">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--sticker-pink);"></span>
-      <span class="os-num">03</span>
-      <span class="os-name">▸ tools_folder/</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
-      </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">03 · the system</span>
-    <h2>Open a window.<br/><span class="pink">Dump</span> the feeling.</h2>
-    <p class="lead">A small desktop of tools, each tuned for a different kind of low-effort entry.</p>
-
-    <div class="tools-grid">
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot"></span><span>Journal.exe</span></div>
-        <h3>Type the words.</h3>
-        <p>A typed journal window for traditional entries, short fragments, or generated prompts.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot" style="background:var(--battery-red);"></span><span>Video Log</span></div>
-        <h3>Talk for thirty seconds.</h3>
-        <p>A webcam confessional. Tone, pauses, and repeated words become a tiny written log.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot"></span><span>Notes.txt</span></div>
-        <h3>Loose thoughts.</h3>
-        <p>A low-pressure place for thoughts that are too small for a full entry.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Draw Pad</span></div>
-        <h3>Scribble it out.</h3>
-        <p>A simple sketch space for symbols, scribbles, mood marks, and rough visual thoughts.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Paint</span></div>
-        <h3>Make a mess.</h3>
-        <p>A playful expressive tool inspired by early desktop paint apps.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot"></span><span>Mood Meter</span></div>
-        <h3>Signal, not score.</h3>
-        <p>A battery-style emotional status tool. Battery levels and signal states instead of clinical labels.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot" style="background:var(--chrome);"></span><span>Archive</span></div>
-        <h3>The folder.</h3>
-        <p>Where every saved log, note, drawing, and generated output lives.</p>
-      </article>
-      <article class="tool-card">
-        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Print Dump</span></div>
-        <h3>Print the mess.</h3>
-        <p>Exports your entries into receipts, sticker sheets, mood cards, or a tiny monthly zine.</p>
-      </article>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     4 · VIDEO LOG · webcam confessional
-     ============================================================ -->
-<section class="section panel" id="video" data-panel="video">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--battery-red);"></span>
-      <span class="os-num">04</span>
-      <span class="os-name">▸ video_log.cam · REC</span>
+      <span class="os-icon" style="background: var(--screen-blue);"></span>
+      <span class="os-num">02</span>
+      <span class="os-name">▸ desktop_system.os</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
@@ -2834,49 +3128,138 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">04 · video log</span>
-    <h2>Talk for thirty seconds.<br/>Get a <em>log</em> back.</h2>
-    <p class="lead">For thoughts too tired to become paragraphs.</p>
+    <span class="section-label">02 · desktop system</span>
+    <h2>The Desktop<br/>as <em>Journal.</em></h2>
+    <p class="lead">The interface metaphor: a soft personal computer instead of a blank page.</p>
 
-    <div class="video-log-grid">
-      <div class="video-log-mock">
-        <div class="webcam">
-          <div class="rec">REC · 00:22</div>
-          <div class="face"></div>
-          <div class="ts">LBP.CAM · 9:41</div>
+    <!-- full desktop screen preview · menubar / icons / window / taskbar -->
+    <figure class="desk-preview" aria-label="Full desktop preview with icons, open window, and taskbar">
+      <div class="dp-frame">
+        <div class="dp-menubar">
+          <span class="dp-logo">⚡ LBP</span>
+          <span class="dp-menus">File · Edit · View · Mood · Help</span>
+          <span class="dp-meta">battery: 42% · 9:41 · tue · may 14</span>
         </div>
-        <div class="video-log-output">
-          <div class="meta"><span>battery: 22%</span><span>05·14·26</span></div>
-          today was mostly static.<br/>
-          i said i was fine, but my face did not agree.<br/>
-          <strong>saved anyway.</strong>
+        <div class="dp-stage">
+          <div class="dp-icons">
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/><span>Journal.exe</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/><span>Video Log</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
+            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
+          </div>
+          <div class="dp-window">
+            <div class="dp-titlebar">
+              <span class="dp-tt-icon"></span>
+              <span>▸ Journal.exe · untitled.txt</span>
+              <span class="dp-tt-ctrls">_ □ ×</span>
+            </div>
+            <div class="dp-window-body">
+              <p class="dp-prompt">what is left of today?</p>
+              <p class="dp-entry">today felt like buffering.<br/>i said i was fine,<br/>but my face did not agree.<br/><strong>saved anyway.</strong></p>
+              <div class="dp-mood-row">
+                <span class="dp-mo">☁</span>
+                <span class="dp-mo">♡</span>
+                <span class="dp-mo">★</span>
+                <span class="dp-mo">⚡</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dp-taskbar">
+          <span class="dp-start">⚡ LBP</span>
+          <span class="dp-task active">Journal.exe</span>
+          <span class="dp-task">Music Memory</span>
+          <span class="dp-task-meta">USR · drained · online</span>
         </div>
       </div>
-      <div>
-        <div class="body">
-          <p>The Video Log lets users speak directly to the journal. It captures the rough shape of the moment: face, voice, pauses, energy, and repeated words. The result is a short entry that feels like the user wrote it, without requiring them to sit with a blank page.</p>
-        </div>
-        <ul class="bullet-list">
-          <li>Short title, three-line entry</li>
-          <li>Battery level, mood symbols, optional kaomoji</li>
-          <li>Save to Archive</li>
-          <li>Print as a receipt strip or monthly zine page</li>
-        </ul>
+    </figure>
+
+    <div class="body">
+      <p>The main interface is built like an old personal computer desktop. Icons act as entry points into different journaling tools: Journal.exe, Video Log, Notes.txt, Draw Pad, Mood Meter, Music Memory, Archive, and Print Dump.</p>
+      <p>The desktop format makes the experience feel personal and low-pressure. Users do not have to start with a perfect entry. They can open a window, drop in a thought, attach a mood, save a song, or print the log later.</p>
+    </div>
+
+    <div class="bs-block-bar overview-deliverables-bar">~ system notes</div>
+    <ul class="bullet-list">
+      <li>Icons function as the primary navigation</li>
+      <li>Windows separate different types of emotional input</li>
+      <li>File names, folders, popups, and status bars create the 90s desktop logic</li>
+      <li>The interface feels playful without becoming a game</li>
+    </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 · CORE TOOLS
+     ============================================================ -->
+<section class="section panel" id="core-tools" data-panel="core-tools">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--soft-circuit-green);"></span>
+      <span class="os-num">03</span>
+      <span class="os-name">▸ core_tools/</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
       </div>
+    </div>
+    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
+    <div class="os-body">
+    <span class="section-label">03 · core tools</span>
+    <h2>Tools for different<br/>kinds of <em>entries.</em></h2>
+    <p class="lead">Low Battery Press does not assume every thought becomes a paragraph.</p>
+
+    <!-- core tools window grid · each tool as its own mini app window -->
+    <div class="tools-grid">
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot"></span><span>Journal.exe</span></div>
+        <h3>Type the words.</h3>
+        <p>A writing window for typed entries and prompts. The cursor blinks. The save button glows.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--low-battery-red);"></span><span>Video Log</span></div>
+        <h3>Talk for thirty seconds.</h3>
+        <p>A webcam-style check-in for talking through the moment. Pauses, repeated words, and tone become a tiny written log.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--sunny-yellow);"></span><span>Notes.txt</span></div>
+        <h3>Loose thoughts.</h3>
+        <p>A place for fragments, lists, and unfinished thoughts. Nothing has to become a full entry.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Draw Pad</span></div>
+        <h3>Scribble it out.</h3>
+        <p>A small sketch space for marks, symbols, and rough feelings. Save the drawing as an icon or a cursor.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--screen-blue);"></span><span>Paint</span></div>
+        <h3>Make a mess.</h3>
+        <p>A playful visual tool inspired by early desktop paint programs. Pencils, brushes, fills, and chunky pixels.</p>
+      </article>
+    </div>
+
+    <div class="body" style="margin-top: 24px;">
+      <p>The goal is to lower the barrier to documenting a moment without making the user perform a polished version of themselves.</p>
     </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     5 · MOOD METER
+     04 · MOOD OBJECTS
      ============================================================ -->
-<section class="section blue mood-section panel" id="mood" data-panel="mood">
+<section class="section blue mood-section panel" id="mood-objects" data-panel="mood-objects">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
-      <span class="os-icon"></span>
-      <span class="os-num">05</span>
-      <span class="os-name">▸ mood_meter.app</span>
+      <span class="os-icon" style="background: var(--sticker-pink);"></span>
+      <span class="os-num">04</span>
+      <span class="os-name">▸ mood_objects.app</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
@@ -2885,37 +3268,149 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/pink cloud.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">05 · mood meter</span>
-    <h2>Mood as <em>signal,</em><br/>not score.</h2>
-    <p class="lead">Low Battery Press avoids clinical mood ranking. Feelings are translated into signal states, battery levels, and tiny interface symbols.</p>
+    <span class="section-label">04 · mood objects</span>
+    <h2>Emoji as<br/><em>interface.</em></h2>
+    <p class="lead">Mood objects are small pixel icons attached to each post. Interactive, not static.</p>
 
-    <div class="signal-grid">
-      <div class="mood-state dim"><span class="pct">12%</span> low signal</div>
-      <div class="mood-state warn"><span class="pct">22%</span> buffering</div>
-      <div class="mood-state alert"><span class="pct">04%</span> offline</div>
-      <div class="mood-state"><span class="pct">38%</span> reconnected</div>
-      <div class="mood-state dim"><span class="pct">19%</span> static</div>
-      <div class="mood-state alert"><span class="pct">08%</span> drained</div>
-      <div class="mood-state good"><span class="pct">82%</span> wired</div>
-      <div class="mood-state"><span class="pct">25%</span> numb</div>
-      <div class="mood-state warn"><span class="pct">54%</span> soft</div>
-      <div class="mood-state good"><span class="pct">91%</span> feral</div>
-      <div class="mood-state dim"><span class="pct">31%</span> glitching</div>
-      <div class="mood-state good"><span class="pct">64%</span> almost okay</div>
+    <!-- post window with emoji row -->
+    <figure class="mood-post-mock" aria-label="Sample post with mood objects">
+      <div class="mp-titlebar">
+        <span class="mp-icon"></span>
+        <span>▸ Journal.exe · post_0042.txt</span>
+        <span class="mp-ctrls">_ □ ×</span>
+      </div>
+      <div class="mp-body">
+        <p class="mp-entry">today felt like buffering.<br/>i said i was fine, but my face did not agree.<br/><strong>saved anyway.</strong></p>
+        <div class="mp-mood-row">
+          <button class="mp-mo" data-react="cloud" title="low signal"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></button>
+          <button class="mp-mo" data-react="heart" title="soft"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></button>
+          <button class="mp-mo" data-react="star"  title="tiny win"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></button>
+          <button class="mp-mo" data-react="rainbow" title="reconnected"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></button>
+          <button class="mp-mo" data-react="music" title="song logged"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></button>
+          <button class="mp-mo" data-react="cat"   title="404 / glitch"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></button>
+        </div>
+        <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
+      </div>
+    </figure>
+
+    <div class="body" style="margin-top: 24px;">
+      <p>Users can add mood objects manually, or the system can suggest them based on the entry. When tapped, each object creates a small reaction inside the window: tears fall from sad icons, suns or sparkles drop from happy ones, hearts float upward, and error icons create a brief glitch.</p>
     </div>
+
+    <div class="bs-block-bar overview-deliverables-bar">~ object behaviors</div>
+    <ul class="bullet-list">
+      <li>Sad icons release pixel tears</li>
+      <li>Happy icons release suns or sparkles</li>
+      <li>Heart icons float upward</li>
+      <li>Error icons briefly glitch the post</li>
+      <li>Music icons connect the entry to a song</li>
+      <li>Each object becomes part of the printed archive</li>
+    </ul>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     6 · ANALOG ARCHIVE
+     05 · MUSIC MEMORY
      ============================================================ -->
-<section class="section panel" id="archive" data-panel="archive">
+<section class="section panel" id="music-memory" data-panel="music-memory">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon"></span>
+      <span class="os-num">05</span>
+      <span class="os-name">▸ music_memory.log</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/>
+    <div class="os-body">
+    <span class="section-label">05 · music memory</span>
+    <h2>The song stays<br/>with the <em>entry.</em></h2>
+    <p class="lead">A timestamp for the emotional state. Music as context, not decoration.</p>
+
+    <div class="music-memory-grid">
+      <!-- now-playing window -->
+      <div class="mm-now">
+        <div class="mp-titlebar">
+          <span class="mp-icon" style="background: var(--signal-green);"></span>
+          <span>▸ now_playing.cd</span>
+          <span class="mp-ctrls">_ □ ×</span>
+        </div>
+        <div class="mm-now-body">
+          <div class="mm-cd"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></div>
+          <div class="mm-track-block">
+            <div class="mm-status">▸ connected</div>
+            <div class="mm-track">Fade Into You</div>
+            <div class="mm-artist">Mazzy Star · 1993</div>
+            <div class="mm-progress"><span></span></div>
+            <div class="mm-times"><span>1:42</span><span>4:55</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- entry with attached song -->
+      <div class="mm-entry">
+        <div class="mp-titlebar">
+          <span class="mp-icon"></span>
+          <span>▸ post_0042 · song attached</span>
+          <span class="mp-ctrls">_ □ ×</span>
+        </div>
+        <div class="mp-body">
+          <p class="mp-entry">today felt like buffering.<br/><strong>saved anyway.</strong></p>
+          <div class="mm-attached">
+            <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/>
+            <span>Fade Into You · Mazzy Star</span>
+          </div>
+          <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
+        </div>
+      </div>
+
+      <!-- archive card -->
+      <article class="archive-item mood-card mm-archive-card">
+        <div class="a-head"><span>SONG + ENTRY</span><span>05·14</span></div>
+        <div class="a-body">
+          <strong>Fade Into You</strong><br/>
+          Mazzy Star<br/>
+          ─────────────<br/>
+          battery 22%<br/>
+          mood: soft<br/>
+          ─────────────<br/>
+          <small style="font-family: var(--ui); font-size: 11px;">archived to drive/songs/</small>
+        </div>
+      </article>
+    </div>
+
+    <div class="body" style="margin-top: 24px;">
+      <p>This feature turns music into context rather than decoration. A post can hold the entry, mood objects, battery level, and the song that was playing when it was saved.</p>
+    </div>
+
+    <div class="bs-block-bar overview-deliverables-bar">~ music memory includes</div>
+    <ul class="bullet-list">
+      <li>Now-playing status</li>
+      <li>Song and artist field</li>
+      <li>Timestamp</li>
+      <li>Battery level</li>
+      <li>Mood objects attached to the entry</li>
+      <li>Archive record for later printing</li>
+    </ul>
+
+    <p class="body" style="margin-top: 24px;">The result is a private memory receipt: what you felt, what you wrote, and what was playing when it happened.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     06 · PRINT ARCHIVE
+     ============================================================ -->
+<section class="section lavender panel" id="print-archive" data-panel="print-archive">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
       <span class="os-icon" style="background: var(--cloud-white);"></span>
       <span class="os-num">06</span>
-      <span class="os-name">▸ analog_archive/</span>
+      <span class="os-name">▸ print_archive/</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
@@ -2924,12 +3419,9 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">06 · analog archive</span>
-    <h2>Your feelings,<br/>saved as <em>files.</em></h2>
-    <p class="lead">The system does not stop at the screen. Entries can become physical artifacts.</p>
-    <div class="body">
-      <p>Receipt strips, tiny zine pages, sticker sheets, mood cards, and monthly dumps. Talk. Type. Print the damage.</p>
-    </div>
+    <span class="section-label">06 · print archive</span>
+    <h2>From desktop<br/>to <em>paper.</em></h2>
+    <p class="lead">The system does not end on screen. Entries become small paper records.</p>
 
     <div class="archive-grid">
       <article class="archive-item receipt">
@@ -2941,6 +3433,14 @@ ul { list-style: none; }
           fine. mostly.<br/>
           ─────────────<br/>
           saved anyway.
+        </div>
+      </article>
+      <article class="archive-item mood-card">
+        <div class="a-head"><span>MOOD CARD</span><span>05·14</span></div>
+        <div class="a-body">
+          <div class="pct">42%</div>
+          buffering<br/>
+          <small style="font-family: var(--ui); font-size: 11px; opacity: 0.85;">battery soft · cloud + heart logged</small>
         </div>
       </article>
       <article class="archive-item sticker-sheet">
@@ -2956,54 +3456,20 @@ ul { list-style: none; }
           <span class="a-sticker">⚡ low</span>
         </div>
       </article>
-      <article class="archive-item mood-card">
-        <div class="a-head"><span>MOOD CARD</span><span>05·14</span></div>
-        <div class="a-body">
-          <div class="pct">42%</div>
-          buffering<br/>
-          <small style="font-family: var(--ui); font-size: 11px; opacity: 0.85;">today felt like buffering.</small>
-        </div>
-      </article>
       <article class="archive-item crash">
-        <div class="a-head"><span>CRASH REPORT</span><span>!</span></div>
+        <div class="a-head"><span>EMOTION REPORT</span><span>!</span></div>
         <div class="a-body">
-          <span class="err">! ERR · 0042</span>
-          system overload.<br/>
-          unsaved progress.<br/>
+          <span class="err">grid · range 04—91%</span>
+          most: soft, static<br/>
+          least: feral<br/>
           ─────────────<br/>
           recovery: rest.
         </div>
       </article>
     </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============================================================
-     7 · MONTHLY DUMP
-     ============================================================ -->
-<section class="section lavender panel" id="dump" data-panel="dump">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--sticker-pink);"></span>
-      <span class="os-num">07</span>
-      <span class="os-name">▸ monthly_dump.zip</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
-      </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">07 · monthly dump</span>
-    <h2>Your month, <em>printed</em><br/>badly on purpose.</h2>
-    <p class="lead">At the end of the month, Low Battery Press compiles entries into a small printable zine.</p>
-    <div class="body">
-      <p>It gathers repeated words, low-battery days, drawings, voice fragments, screenshots, and saved notes into one imperfect personal archive.</p>
-    </div>
-
-    <div class="dump-mock">
+    <!-- monthly dump zine preview -->
+    <div class="dump-mock" style="margin-top: 28px;">
       <div class="zine-page">
         <div class="z-title">may<br/>dump.</div>
         <div class="z-stat"><span>most repeated word</span><span class="v">tired</span></div>
@@ -3025,16 +3491,17 @@ ul { list-style: none; }
         </div>
       </div>
       <div>
+        <div class="body">
+          <p>The print archive gives the digital journal a physical afterlife. Instead of disappearing into a feed, entries become small paper records that can be collected, clipped, folded, or saved.</p>
+        </div>
+        <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 18px;">~ print outputs</div>
         <ul class="bullet-list">
-          <li>Most repeated words</li>
-          <li>Lowest battery day</li>
-          <li>Best saved line</li>
-          <li>Things survived</li>
-          <li>Thoughts avoided</li>
-          <li>Mood symbol sheet</li>
-          <li>Tiny printable zine layout</li>
+          <li>Receipt Log: one entry printed as a narrow strip</li>
+          <li>Mood Card: a compact card with battery level, mood objects, and entry text</li>
+          <li>Sticker Sheet: icons generated from repeated emotions</li>
+          <li>Monthly Dump: a zine-style recap of saved entries, songs, and mood patterns</li>
+          <li>Emotion Report: a printed grid of the user's emotional range over time</li>
         </ul>
-        <p class="body" style="margin-top: 24px;">Low effort in. Tiny archive out.</p>
       </div>
     </div>
     </div>
@@ -3042,13 +3509,13 @@ ul { list-style: none; }
 </section>
 
 <!-- ============================================================
-     8 · BRAND SYSTEM · palette + type
+     07 · BRAND SYSTEM
      ============================================================ -->
-<section class="section panel" id="brand" data-panel="brand">
+<section class="section panel" id="brand-system" data-panel="brand-system">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--monitor-blue);"></span>
-      <span class="os-num">08</span>
+      <span class="os-icon" style="background: var(--screen-blue);"></span>
+      <span class="os-num">07</span>
       <span class="os-name">▸ brand_system.cfg</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
@@ -3058,53 +3525,68 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">08 · brand system</span>
-    <h2>Internet Girl,<br/>Low <em>Signal.</em></h2>
-    <p class="lead">90s desktop interfaces, stickered cyberdecks, computer paper, pixel buttons, folder icons, and analog print textures.</p>
+    <span class="section-label">07 · brand system</span>
+    <h2>Low <em>Signal</em><br/>Desktop.</h2>
+    <p class="lead">90s desktop interfaces, soft cyberdeck hardware, pixel icons, computer paper, and analog print textures.</p>
     <div class="body">
-      <p>Playful without becoming sugary. Nostalgic without becoming costume. Emotional without feeling clinical.</p>
+      <p>The palette is playful without becoming all pink, and the UI is nostalgic without becoming a costume.</p>
     </div>
 
     <div class="palette-grid">
-      <div class="swatch" style="background: #8FA8D8;">
-        <span class="sw-name">Monitor<br/>Blue</span>
-        <span class="sw-use">main desktop, large panels</span>
-        <span class="sw-hex">#8FA8D8</span>
+      <div class="swatch" style="background: #6FA8FF;">
+        <span class="sw-name">Screen<br/>Blue</span>
+        <span class="sw-use">main desktop, page background, large interface areas</span>
+        <span class="sw-hex">#6FA8FF</span>
       </div>
-      <div class="swatch" style="background: #C8B9D8;">
-        <span class="sw-name">Window<br/>Lavender</span>
-        <span class="sw-use">app windows, folders, soft surfaces</span>
-        <span class="sw-hex">#C8B9D8</span>
+      <div class="swatch" style="background: #B99CFF;">
+        <span class="sw-name">Pixel<br/>Lavender</span>
+        <span class="sw-use">window title bars, panels, folders, section blocks</span>
+        <span class="sw-hex">#B99CFF</span>
+      </div>
+      <div class="swatch" style="background: #E7D8FF;">
+        <span class="sw-name">Soft<br/>Lilac</span>
+        <span class="sw-use">lighter window bodies, secondary panels, soft backgrounds</span>
+        <span class="sw-hex">#E7D8FF</span>
       </div>
       <div class="swatch" style="background: #F7F5FF;">
         <span class="sw-name">Cloud<br/>White</span>
-        <span class="sw-use">journal areas, text fields, popups, cards, window interiors</span>
+        <span class="sw-use">journal fields, popups, text boxes, content areas</span>
         <span class="sw-hex">#F7F5FF</span>
       </div>
       <div class="swatch dark" style="background: #261B3D;">
         <span class="sw-name">Deep<br/>Plum</span>
-        <span class="sw-use">text, borders, shadows, outlines</span>
+        <span class="sw-use">type, borders, outlines, shadows, dividers</span>
         <span class="sw-hex">#261B3D</span>
       </div>
-      <div class="swatch" style="background: #B9E86C;">
+      <div class="swatch" style="background: #A8FF6A;">
         <span class="sw-name">Signal<br/>Green</span>
-        <span class="sw-use">active states, cursor, online marks</span>
-        <span class="sw-hex">#B9E86C</span>
+        <span class="sw-use">active states, battery, online, save confirmations</span>
+        <span class="sw-hex">#A8FF6A</span>
       </div>
-      <div class="swatch" style="background: #F2A6C8;">
+      <div class="swatch" style="background: #D8FFB0;">
+        <span class="sw-name">Soft Circuit<br/>Green</span>
+        <span class="sw-use">lighter hover backgrounds, stickers, soft selected states</span>
+        <span class="sw-hex">#D8FFB0</span>
+      </div>
+      <div class="swatch" style="background: #FF85C8;">
         <span class="sw-name">Sticker<br/>Pink</span>
-        <span class="sw-use">tabs, stickers, charms, accents</span>
-        <span class="sw-hex">#F2A6C8</span>
+        <span class="sw-use">playful accents, tabs, icons, small highlights</span>
+        <span class="sw-hex">#FF85C8</span>
       </div>
-      <div class="swatch dark" style="background: #D94B4B;">
+      <div class="swatch" style="background: #FFD85C;">
+        <span class="sw-name">Sunny Pixel<br/>Yellow</span>
+        <span class="sw-use">happy mood objects, sun reactions, highlights</span>
+        <span class="sw-hex">#FFD85C</span>
+      </div>
+      <div class="swatch dark" style="background: #FF4D5E;">
         <span class="sw-name">Low<br/>Battery Red</span>
-        <span class="sw-use">alerts, warnings, depleted moods</span>
-        <span class="sw-hex">#D94B4B</span>
+        <span class="sw-use">alerts, warnings, error states, depleted</span>
+        <span class="sw-hex">#FF4D5E</span>
       </div>
-      <div class="swatch" style="background: #B9B8C4;">
+      <div class="swatch" style="background: #B8BBCB;">
         <span class="sw-name">Chrome<br/>Gray</span>
-        <span class="sw-use">device casing, menu bars, hardware</span>
-        <span class="sw-hex">#B9B8C4</span>
+        <span class="sw-use">menu bars, inactive buttons, window controls</span>
+        <span class="sw-hex">#B8BBCB</span>
       </div>
     </div>
 
@@ -3130,44 +3612,14 @@ ul { list-style: none; }
         <div class="name">Space Mono · diary-quiet body</div>
       </div>
     </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============================================================
-     9 · CTA
-     ============================================================ -->
-<section class="section cta-section panel" id="start" data-panel="start">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon"></span>
-      <span class="os-num">09</span>
-      <span class="os-name">▸ start_log.run</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
-      </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">09 · final</span>
-    <h2>Start a log<br/>before the feeling<br/><em>disappears.</em></h2>
-    <p class="lead">Battery low. Archive still open.</p>
-    <div class="cta-buttons">
-      <a href="#desktop" class="cta-btn">
-        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
-        <span>Open the Desktop</span>
-      </a>
-      <button class="cta-btn" data-page="archive">
-        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
-        <span>View the Archive</span>
-      </button>
-      <button class="cta-btn" data-page="dump">
-        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/>
-        <span>Print a Dump</span>
-      </button>
-    </div>
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ system rules</div>
+    <ul class="bullet-list">
+      <li>Icons are part of the interface, not decoration</li>
+      <li>Windows organize emotional input</li>
+      <li>Print pieces extend the digital experience</li>
+      <li>The brand should feel nostalgic, personal, and usable</li>
+    </ul>
     </div>
   </div>
 </section>
