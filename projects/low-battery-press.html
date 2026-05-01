@@ -2012,8 +2012,8 @@ ul { list-style: none; }
         </div>
 
         <div class="paint-sizes" id="paint-sizes">
-          <button class="ps-size active" data-size="1"><span style="height:1px;"></span></button>
-          <button class="ps-size" data-size="3"><span style="height:3px;"></span></button>
+          <button class="ps-size" data-size="1"><span style="height:1px;"></span></button>
+          <button class="ps-size active" data-size="3"><span style="height:3px;"></span></button>
           <button class="ps-size" data-size="6"><span style="height:6px;"></span></button>
           <button class="ps-size" data-size="10"><span style="height:10px;"></span></button>
         </div>
@@ -2879,7 +2879,7 @@ ul { list-style: none; }
   const status = document.getElementById('paint-status');
 
   let tool = 'pencil';
-  let size = 1;
+  let size = 3;
   let fg = '#2B2038';
   let bg = '#ffffff';
   let drawing = false;
@@ -2993,6 +2993,7 @@ ul { list-style: none; }
   function start(e) {
     const p = pos(e);
     e.preventDefault();
+    setStatus('drawing · ' + tool + ' @ ' + p.x + ',' + p.y);
     if (tool === 'fill')  { floodFill(p.x, p.y, fg); setStatus('filled ' + fg); return; }
     if (tool === 'picker'){ pick(p.x, p.y); return; }
 
@@ -3004,7 +3005,7 @@ ul { list-style: none; }
       const stroke = tool === 'eraser' ? bg : fg;
       ctx.fillStyle = stroke;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, Math.max(0.5, size / 2), 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, Math.max(1, size / 2), 0, Math.PI * 2);
       ctx.fill();
     } else {
       /* shape tools · save state for live preview */
