@@ -6,1184 +6,3500 @@
 <title>Low Battery Press · Sarah Peroni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Pixelify+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   LOW BATTERY PRESS · case file
-   teen bedroom, 1999. iridescent. lived-in. real.
+   LOW BATTERY PRESS · desktop diary system
+   Internet Girl, Low Signal · soft 90s cyberdeck
    ============================================================ */
 
 :root {
-  --pearl:        #f1e9f4;
-  --pearl-warm:   #f6e9ee;
-  --pearl-cool:   #e8e6f7;
-  --pearl-deep:   #d4c8e2;
+  /* PALETTE · Internet Girl, Low Signal */
+  --monitor-blue:    #8FA8D8;
+  --monitor-blue-d:  #6c87b8;
+  --window-lavender: #C8B9D8;
+  --window-lavender-d: #a895bf;
+  --paper:           #F4E8CC;
+  --paper-warm:      #ebdda9;
+  --plum:            #2B2038;
+  --plum-mid:        #4a3a5e;
+  --signal-green:    #B9E86C;
+  --signal-green-d:  #8cc444;
+  --sticker-pink:    #F2A6C8;
+  --battery-red:     #D94B4B;
+  --chrome:          #B9B8C4;
+  --chrome-d:        #9594a0;
 
-  --lav-1:        #ddccf5;
-  --lav-2:        #c0a8e8;
-  --lav-3:        #8a6dd6;
-  --lav-4:        #5a3fa0;
+  /* TYPE */
+  --display: 'Bowlby One', 'Impact', sans-serif;
+  --pixel:   'VT323', 'Courier New', monospace;
+  --ui:      'Pixelify Sans', 'VT323', monospace;
+  --body:    'Space Mono', 'Courier New', monospace;
 
-  --plum:         #2a1e3f;
-  --plum-soft:    #3d2e58;
-  --plum-mid:     #6a5586;
-
-  --chrome-hi:    #ffffff;
-  --chrome-mid:   #c8c4d4;
-  --chrome-lo:    #6c6580;
-
-  --hot:          #e64aa8;
-  --hot-soft:     #f5b0d8;
-
-  --mint:         #c2e8d4;
-  --peach:        #f7d4c0;
-  --sky:          #c8d8f2;
-
-  --glass:        rgba(255,255,255,0.45);
-  --glass-edge:   rgba(255,255,255,0.85);
-  --hairline:     rgba(90,63,160,0.18);
-
-  --display:      'Anton', 'Helvetica Neue', sans-serif;
-  --chunk:        'Bowlby One', 'Impact', sans-serif;
-  --body:         'Space Mono', 'Courier New', monospace;
-  --pixel:        'VT323', 'Courier New', monospace;
-  --serif:        'DM Serif Display', Georgia, serif;
-
-  --pad: clamp(20px, 4vw, 64px);
+  --pad: clamp(20px, 4vw, 56px);
 }
 
+html { scroll-behavior: smooth; }
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0;
-  background: var(--pearl);
   color: var(--plum);
   font-family: var(--body);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-::selection { background: var(--lav-3); color: var(--pearl); }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-h1, h2, h3, h4, h5, p { margin: 0; }
-
-/* ============================================================
-   IRIDESCENT BACKGROUND · pearl wash, subtle holographic streaks
-   ============================================================ */
-body::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -2;
+/* Desktop wallpaper · soft 90s pastel sky behind everything */
+body {
   background:
-    radial-gradient(ellipse at 12% 8%, rgba(247,212,192,0.55) 0%, transparent 40%),
-    radial-gradient(ellipse at 88% 14%, rgba(194,232,212,0.50) 0%, transparent 38%),
-    radial-gradient(ellipse at 22% 78%, rgba(200,216,242,0.55) 0%, transparent 42%),
-    radial-gradient(ellipse at 82% 86%, rgba(221,204,245,0.65) 0%, transparent 44%),
-    radial-gradient(ellipse at 50% 50%, rgba(245,233,240,0.6) 0%, transparent 60%),
-    linear-gradient(135deg, var(--pearl-cool) 0%, var(--pearl) 40%, var(--pearl-warm) 100%);
+    radial-gradient(ellipse at 8% 12%, rgba(242,166,200,0.18) 0%, transparent 28%),
+    radial-gradient(ellipse at 92% 18%, rgba(185,232,108,0.15) 0%, transparent 26%),
+    radial-gradient(ellipse at 18% 80%, rgba(200,185,216,0.30) 0%, transparent 32%),
+    radial-gradient(ellipse at 86% 90%, rgba(143,168,216,0.28) 0%, transparent 30%),
+    linear-gradient(180deg, #d6dff0 0%, #c8d5ec 50%, #c8b9d8 100%);
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(43,32,56,0.04) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(43,32,56,0.04) 0 1px, transparent 1px 28px);
 }
 body::after {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background-image:
-    repeating-linear-gradient(118deg,
-      rgba(255,255,255,0.0) 0px, rgba(255,255,255,0.0) 80px,
-      rgba(255,255,255,0.10) 81px, rgba(255,255,255,0.0) 86px,
-      rgba(255,255,255,0.0) 200px, rgba(247,212,192,0.10) 201px,
-      rgba(255,255,255,0.0) 206px),
-    radial-gradient(circle at 30% 20%, rgba(194,232,212,0.20) 0%, transparent 8%),
-    radial-gradient(circle at 70% 60%, rgba(245,176,216,0.15) 0%, transparent 6%);
-  opacity: 0.85;
-  mix-blend-mode: screen;
+    radial-gradient(rgba(255,255,255,0.45) 1.2px, transparent 1.6px),
+    radial-gradient(rgba(242,166,200,0.45) 1px, transparent 1.4px),
+    radial-gradient(rgba(185,232,108,0.45) 1px, transparent 1.4px);
+  background-size: 220px 220px, 380px 380px, 290px 290px;
+  background-position: 0 0, 100px 50px, 200px 200px;
+  opacity: 0.6;
 }
-
-/* ============================================================
-   SHARED PRIMITIVES
-   ============================================================ */
-.section { position: relative; padding: clamp(80px, 10vw, 140px) var(--pad); }
-.section-inner { max-width: 1240px; margin: 0 auto; position: relative; }
-
-.label {
-  font-family: var(--pixel);
-  font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--lav-3);
-}
-.kicker {
-  font-family: var(--body); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--plum-mid);
-}
-.serif-em { font-family: var(--serif); font-style: italic; font-weight: 400; }
-
-/* glass chip · frosted glass charm */
-.chip {
-  display: inline-flex; align-items: center; gap: 8px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(221,204,245,0.4) 60%, rgba(255,255,255,0.6) 100%);
-  border: 1px solid var(--glass-edge);
-  border-radius: 999px;
-  padding: 8px 16px 7px;
-  font-family: var(--body); font-size: 12px;
-  color: var(--plum);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    inset 0 -1px 0 rgba(110,80,170,0.12),
-    0 4px 16px rgba(110,80,170,0.10);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.chip .heart { color: var(--hot); }
-
-/* hairline divider */
-.rule { height: 1px; background: var(--hairline); width: 100%; }
+::selection { background: var(--signal-green); color: var(--plum); }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, h4, h5, p, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
 
 /* ============================================================
    SITE NAV · portfolio chrome
    ============================================================ */
 .site-nav {
   position: relative; z-index: 200;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.9);
-  box-shadow: 0 1px 0 rgba(110,80,170,0.10);
+  background: var(--plum); color: var(--paper);
+  border-bottom: 2px solid var(--plum);
   padding: 12px var(--pad);
   display: flex; justify-content: space-between; align-items: center;
-  font-family: var(--body);
+  font-family: var(--pixel);
 }
-.site-nav-logo { display: block; line-height: 0; }
-.site-nav-logo img { height: 16px; width: auto; display: block; opacity: 0.85; }
+.site-nav-logo img { height: 16px; width: auto; display: block; filter: invert(1) brightness(1.2); }
 .site-nav-back {
-  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--plum-soft); text-decoration: none;
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--paper);
   transition: color 0.2s;
 }
-.site-nav-back:hover { color: var(--lav-3); }
+.site-nav-back:hover { color: var(--signal-green); }
 
 /* ============================================================
-   1. THE DESK · hero
+   1 · DESKTOP HERO · interactive 90s OS
    ============================================================ */
-.desk {
+.desktop {
   position: relative;
-  padding: clamp(60px, 8vw, 100px) var(--pad) clamp(80px, 10vw, 140px);
-  min-height: 92vh;
-  display: flex; flex-direction: column; justify-content: center;
-}
-.desk-inner {
-  width: 100%; max-width: 1240px; margin: 0 auto;
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 96px);
-  align-items: center; position: relative;
-}
-
-/* corner timestamps · tiny system chrome */
-.desk-stamps {
-  width: 100%; max-width: 1240px; margin: 0 auto clamp(28px, 4vw, 48px);
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.2em;
-  color: var(--plum-mid); text-transform: uppercase;
-  flex-wrap: wrap; gap: 12px;
-}
-.desk-stamps .blink { color: var(--hot); }
-
-.desk-mark .label { display: inline-block; margin-bottom: 18px; }
-
-.wordmark {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(70px, 11.5vw, 168px);
-  line-height: 0.85;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  margin: 0;
-  background: linear-gradient(
-    180deg,
-    #f8f4ff 0%,
-    #d8d2e4 22%,
-    #ffffff 38%,
-    #b6abc8 56%,
-    #f5eef8 70%,
-    #8678a0 88%,
-    #d8d2e4 100%
-  );
-  -webkit-background-clip: text;
-          background-clip: text;
-  color: transparent;
-  filter: drop-shadow(2px 3px 0 rgba(90,63,160,0.18))
-          drop-shadow(0 0 24px rgba(221,204,245,0.55));
-  -webkit-text-stroke: 1px rgba(90,63,160,0.22);
-}
-.wordmark .battery {
-  display: inline-block;
-  width: 0.9em; height: 0.45em;
-  border: 0.07em solid var(--plum);
-  border-radius: 0.06em;
-  position: relative;
-  margin: 0 0.05em 0.1em 0.04em;
-  vertical-align: middle;
-  background: linear-gradient(90deg, var(--lav-2) 0%, var(--lav-2) 28%, transparent 28.1%);
-  -webkit-text-stroke: 0;
-  filter: none;
-}
-.wordmark .battery::after {
-  content: ''; position: absolute;
-  right: -0.13em; top: 50%; transform: translateY(-50%);
-  width: 0.08em; height: 0.22em;
-  background: var(--plum);
-  border-radius: 0 0.04em 0.04em 0;
-}
-
-.desk-tag {
-  font-family: var(--body); font-size: clamp(15px, 1.6vw, 19px);
-  font-weight: 400; line-height: 1.55;
-  color: var(--plum); margin-top: clamp(20px, 2.4vw, 30px);
-  max-width: 460px;
-}
-.desk-tag .em { color: var(--lav-4); }
-
-.desk-blurb {
-  font-family: var(--body); font-size: 13px; line-height: 1.7;
-  color: var(--plum-mid); margin-top: 18px; max-width: 460px;
-}
-
-.desk-meta {
-  margin-top: clamp(28px, 3vw, 40px);
-  display: flex; gap: 10px; flex-wrap: wrap;
-}
-
-.desk-right {
-  position: relative; min-height: 460px;
-  display: flex; align-items: center; justify-content: center;
-}
-.desk-charm {
-  position: absolute; top: -10px; right: 0;
-  width: clamp(160px, 17vw, 240px); transform: rotate(8deg);
-  filter: drop-shadow(8px 14px 24px rgba(110,80,170,0.30));
-  z-index: 3;
-}
-.desk-phone {
-  width: clamp(220px, 26vw, 360px);
-  filter: drop-shadow(0 30px 60px rgba(110,80,170,0.30))
-          drop-shadow(0 0 60px rgba(245,208,232,0.4));
-  transform: rotate(-3deg);
-  position: relative; z-index: 2;
-}
-.desk-stickers {
-  position: absolute; pointer-events: none;
-  font-family: var(--pixel); font-size: 24px;
-  color: var(--lav-3);
-}
-.desk-stickers.s1 { top: 12%; left: 4%; transform: rotate(-12deg); font-size: 28px; color: var(--hot); }
-.desk-stickers.s2 { bottom: 8%; left: 8%; transform: rotate(8deg); }
-.desk-stickers.s3 { bottom: 18%; right: -2%; transform: rotate(-6deg); color: var(--lav-4); }
-
-@media (max-width: 880px) {
-  .desk-inner { grid-template-columns: 1fr; gap: 56px; }
-  .desk-right { min-height: 380px; }
-  .desk-charm { right: 4%; width: 140px; }
-}
-
-/* ============================================================
-   2. THE NOTE · brief
-   ============================================================ */
-.note { padding-top: clamp(40px, 6vw, 80px); }
-.note-inner {
-  max-width: 980px; margin: 0 auto; position: relative;
-}
-.note-stamp {
-  display: inline-block;
-  font-family: var(--pixel); font-size: 18px; letter-spacing: 0.18em;
-  color: var(--hot); text-transform: uppercase;
-  background: rgba(255,255,255,0.6); padding: 4px 12px;
-  border: 1px dashed var(--hot); border-radius: 4px;
-  transform: rotate(-1.5deg);
-  margin-bottom: 28px;
-}
-.note-paper {
+  min-height: clamp(640px, 92vh, 920px);
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.65) 100%);
-  border: 1px solid rgba(255,255,255,0.95);
-  border-radius: 6px;
-  padding: clamp(36px, 5vw, 64px) clamp(28px, 4vw, 56px);
-  position: relative;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.8) inset,
-    0 30px 60px rgba(110,80,170,0.10),
-    0 4px 0 rgba(255,255,255,0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+    radial-gradient(ellipse at 50% 35%, #a8bfe5 0%, var(--monitor-blue) 60%, var(--monitor-blue-d) 100%);
+  border-bottom: 4px solid var(--plum);
+  overflow: hidden;
 }
-/* lined-paper rules */
-.note-paper::before {
-  content: ''; position: absolute; inset: 28px 0 28px 0;
-  background-image: linear-gradient(rgba(160,140,196,0.08) 1px, transparent 1px);
-  background-size: 100% 32px; pointer-events: none;
-}
-.note-paper::after {
-  /* red margin line */
-  content: ''; position: absolute; left: clamp(48px,5.5vw,72px); top: 16px; bottom: 16px;
-  width: 1px; background: var(--hot-soft); opacity: 0.55;
-}
-/* tape on corners */
-.tape {
-  position: absolute; width: 84px; height: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(221,204,245,0.55) 100%);
-  border: 1px solid rgba(255,255,255,0.85);
-  box-shadow: 0 2px 6px rgba(110,80,170,0.10);
-}
-.tape.tl { top: -10px; left: 30px; transform: rotate(-6deg); }
-.tape.tr { top: -10px; right: 30px; transform: rotate(7deg); }
-
-.note-h {
-  font-family: var(--chunk);
-  font-size: clamp(28px, 3.6vw, 44px);
-  line-height: 1.05; color: var(--plum);
-  margin-bottom: 22px; position: relative;
-}
-.note-h em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
-.note-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3.5vw, 56px);
-  position: relative; margin-top: 12px;
-}
-.note-block .h {
-  font-family: var(--pixel); font-size: 20px; letter-spacing: 0.16em;
-  color: var(--lav-3); text-transform: uppercase; margin-bottom: 10px;
-}
-.note-block p {
-  font-family: var(--body); font-size: 14px; line-height: 1.75;
-  color: var(--plum-soft);
-}
-.note-block p + p { margin-top: 12px; }
-.note-sign {
-  margin-top: clamp(36px, 4vw, 52px);
-  display: flex; justify-content: space-between; align-items: flex-end;
-  font-family: var(--body); font-size: 12px; color: var(--plum-mid);
-}
-.note-sign .sig {
-  font-family: var(--serif); font-style: italic; font-size: 32px;
-  color: var(--lav-4); transform: rotate(-3deg);
-}
-@media (max-width: 720px) { .note-grid { grid-template-columns: 1fr; } }
-
-/* ============================================================
-   3. THE CHARM · brand voice
-   ============================================================ */
-.charm-section {
+/* CRT scanlines + grain */
+.desktop::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 30;
   background:
-    radial-gradient(ellipse at 70% 40%, rgba(221,204,245,0.55) 0%, transparent 60%),
-    radial-gradient(ellipse at 20% 80%, rgba(245,208,232,0.40) 0%, transparent 55%);
+    repeating-linear-gradient(180deg, rgba(43,32,56,0.04) 0 2px, transparent 2px 4px);
+  opacity: 0.55;
 }
-.charm-inner {
-  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 96px);
-  align-items: center;
-}
-.charm-vis { position: relative; min-height: 480px; display: flex; align-items: center; justify-content: center; }
-.charm-vis img {
-  width: clamp(260px, 32vw, 440px);
-  filter: drop-shadow(0 30px 60px rgba(110,80,170,0.30))
-          drop-shadow(0 0 80px rgba(245,208,232,0.45));
-  transform: rotate(-6deg);
-}
-.charm-copy .label { display: inline-block; margin-bottom: 22px; }
-.charm-copy h2 {
-  font-family: var(--chunk);
-  font-size: clamp(36px, 4.4vw, 60px);
-  line-height: 1.0; color: var(--plum);
-}
-.charm-copy h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
-.charm-copy .sub {
-  font-family: var(--body); font-size: 14px; line-height: 1.75;
-  color: var(--plum-soft); margin-top: 22px; max-width: 560px;
-}
-.charm-tags {
-  margin-top: clamp(28px, 3vw, 40px);
-  display: flex; flex-wrap: wrap; gap: 10px 12px;
-}
-.charm-tags .chip { font-size: 13px; padding: 9px 18px 8px; }
-.charm-tags .chip strong { font-weight: 700; color: var(--lav-4); }
-
-@media (max-width: 880px) {
-  .charm-inner { grid-template-columns: 1fr; }
-  .charm-vis { min-height: 320px; }
-}
-
-/* ============================================================
-   4. THE CLOSET · visual system
-   ============================================================ */
-.closet-head {
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
-  flex-wrap: wrap; margin-bottom: clamp(40px, 5vw, 64px);
-}
-.closet-head h2 {
-  font-family: var(--chunk); font-size: clamp(32px, 4vw, 52px); line-height: 1.0;
-  color: var(--plum); max-width: 560px;
-}
-.closet-head h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
-.closet-head p {
-  font-family: var(--body); font-size: 13px; line-height: 1.7;
-  color: var(--plum-soft); max-width: 380px;
-}
-
-.closet-grid {
-  display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;
-}
-.closet-tile {
-  background: rgba(255,255,255,0.45);
-  border: 1px solid rgba(255,255,255,0.85);
-  border-radius: 24px;
-  padding: clamp(28px, 3vw, 40px);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.95),
-    0 30px 60px rgba(110,80,170,0.10);
-  position: relative;
-}
-.closet-tile .corner {
-  position: absolute; top: 16px; right: 20px;
-  font-family: var(--pixel); font-size: 14px;
-  letter-spacing: 0.18em; color: var(--lav-3); text-transform: uppercase;
-}
-.closet-tile h3 {
-  font-family: var(--chunk); font-size: 22px; color: var(--plum);
-  margin-bottom: 6px;
-}
-.closet-tile h3 em { font-family: var(--serif); font-style: italic; color: var(--lav-4); font-weight: 400; }
-.closet-tile p {
-  font-family: var(--body); font-size: 12.5px; line-height: 1.7;
-  color: var(--plum-soft); max-width: 460px; margin-bottom: 24px;
-}
-
-/* palette · pearl bead string */
-.palette-tile { grid-column: 1 / 2; grid-row: 1; }
-.bead-string {
-  display: flex; flex-wrap: wrap;
-  gap: 28px 22px;
-  margin-top: 18px;
-  justify-content: flex-start;
-}
-.bead-item {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  flex: 0 0 auto; width: 76px;
-}
-.bead {
-  width: 72px; height: 72px; border-radius: 999px; position: relative;
-  box-shadow:
-    inset 4px 6px 8px rgba(255,255,255,0.85),
-    inset -6px -8px 14px rgba(110,80,170,0.30),
-    0 12px 24px rgba(110,80,170,0.18);
-  flex-shrink: 0;
-}
-.bead-item .name {
-  font-family: var(--pixel); font-size: 14px; color: var(--plum);
-  letter-spacing: 0.14em; text-transform: uppercase;
-  line-height: 1; white-space: nowrap;
-}
-.bead-item .hex {
-  font-family: var(--body); font-size: 10px; color: var(--lav-3);
-  letter-spacing: 0.12em; line-height: 1; white-space: nowrap;
-}
-@media (max-width: 520px) {
-  .bead-string { gap: 22px 16px; }
-  .bead-item { width: 64px; }
-  .bead { width: 60px; height: 60px; }
-}
-.bead.pearl   { background: radial-gradient(circle at 30% 30%, #ffffff, #f1e9f4 50%, #d4c8e2); }
-.bead.lav     { background: radial-gradient(circle at 30% 30%, #f0e3ff, #c0a8e8 50%, #8a6dd6); }
-.bead.deep    { background: radial-gradient(circle at 30% 30%, #b09cd4, #6a55a8 50%, #3d2e58); }
-.bead.hot     { background: radial-gradient(circle at 30% 30%, #ffe0f0, #f5b0d8 50%, #e64aa8); }
-.bead.mint    { background: radial-gradient(circle at 30% 30%, #e0f5ea, #c2e8d4 50%, #88c5a8); }
-.bead.peach   { background: radial-gradient(circle at 30% 30%, #fff0e8, #f7d4c0 50%, #d8a888); }
-.bead.chrome  { background: linear-gradient(135deg, #ffffff 0%, #c8c4d4 50%, #6c6580 100%); }
-
-/* type · chrome decals */
-.type-tile { grid-column: 2 / 3; grid-row: 1; }
-.type-stack { display: flex; flex-direction: column; gap: 22px; margin-top: 12px; }
-.type-line { display: flex; align-items: flex-start; gap: 14px; }
-.type-line .ttl {
-  font-family: var(--pixel); font-size: 14px; color: var(--lav-3);
-  letter-spacing: 0.12em; text-transform: uppercase;
-  min-width: 78px; flex-shrink: 0; padding-top: 6px;
-}
-.type-spec { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
-.type-spec .v { color: var(--plum); }
-.type-spec .font-name {
-  font-family: var(--pixel); font-size: 14px;
-  color: var(--lav-3); letter-spacing: 0.16em; text-transform: uppercase;
-}
-.type-line { flex-wrap: wrap; }
-.type-display {
-  font-family: var(--display); font-style: italic;
-  font-size: 36px; line-height: 1; text-transform: uppercase;
-  background: linear-gradient(180deg, #f8f4ff 0%, #c8c0e0 30%, #ffffff 50%, #8678a0 80%, #d8d2e4 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  -webkit-text-stroke: 1px rgba(90,63,160,0.25);
-}
-.type-chunk { font-family: var(--chunk); font-size: 22px; color: var(--plum); }
-.type-body  { font-family: var(--body); font-size: 14px; color: var(--plum); }
-.type-pixel { font-family: var(--pixel); font-size: 22px; color: var(--lav-3); letter-spacing: 0.06em; }
-
-/* texture grid */
-.tex-tile { grid-column: 1 / -1; }
-.tex-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
-  margin-top: 12px;
-}
-.tex {
-  aspect-ratio: 1.25/1; border-radius: 16px; position: relative; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.85);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 24px rgba(110,80,170,0.10);
-}
-.tex .lbl {
-  position: absolute; left: 12px; bottom: 10px;
-  font-family: var(--pixel); font-size: 14px; letter-spacing: 0.14em;
-  color: var(--plum); text-transform: uppercase;
-  background: rgba(255,255,255,0.75); padding: 2px 8px; border-radius: 4px;
-}
-.tex.glass {
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(221,204,245,0.55) 60%, rgba(255,255,255,0.5) 100%);
-  backdrop-filter: blur(10px);
-}
-.tex.pearl {
-  background:
-    radial-gradient(ellipse at 30% 25%, #ffffff 0%, #f1e9f4 35%, #d4c8e2 80%);
-}
-.tex.holo {
-  background:
-    linear-gradient(115deg,
-      #f7d4c0 0%, #f5b0d8 18%, #ddccf5 36%, #c2e8d4 54%, #c8d8f2 72%, #f5b0d8 90%, #f7d4c0 100%);
-}
-.tex.fur {
-  background-color: #b69bdc;
+.desktop::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 31;
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.75) 0%, transparent 22%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.65) 0%, transparent 18%),
-    radial-gradient(circle at 50% 50%, rgba(70,40,110,0.55) 0%, transparent 16%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.55) 0%, transparent 20%),
-    radial-gradient(circle at 50% 50%, rgba(50,28,90,0.50) 0%, transparent 14%),
-    radial-gradient(ellipse 60% 80% at 50% 40%, rgba(255,255,255,0.18), transparent 70%),
-    linear-gradient(180deg, #c8b0ec 0%, #9272c8 100%);
-  background-size:
-    3px 5px, 4px 7px, 3px 6px, 5px 8px, 4px 6px,
-    100% 100%, 100% 100%;
-  background-position:
-    0 0, 1px 2px, 2px 1px, 1px 3px, 3px 2px,
-    0 0, 0 0;
-  filter: blur(0.4px) contrast(1.05);
-}
-.tex.knit {
-  background-color: #b69bdc;
-  background-image:
-    radial-gradient(ellipse 4px 2.5px at 50% 30%, rgba(255,255,255,0.55), transparent 70%),
-    radial-gradient(ellipse 4px 2.5px at 50% 70%, rgba(60,38,100,0.45), transparent 70%),
-    radial-gradient(ellipse 2px 4px at 25% 50%, rgba(255,255,255,0.30), transparent 70%),
-    radial-gradient(ellipse 2px 4px at 75% 50%, rgba(60,38,100,0.30), transparent 70%),
-    repeating-linear-gradient(45deg,
-      rgba(255,255,255,0.18) 0 1.5px,
-      transparent 1.5px 6px,
-      rgba(60,38,100,0.18) 6px 7.5px,
-      transparent 7.5px 12px),
-    repeating-linear-gradient(-45deg,
-      rgba(255,255,255,0.14) 0 1.5px,
-      transparent 1.5px 6px,
-      rgba(60,38,100,0.14) 6px 7.5px,
-      transparent 7.5px 12px),
-    linear-gradient(180deg, #c8b0ec 0%, #9272c8 100%);
-  background-size:
-    16px 14px, 16px 14px, 16px 14px, 16px 14px,
-    100% 100%, 100% 100%, 100% 100%;
-  filter: contrast(1.1);
+    radial-gradient(rgba(43,32,56,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.4;
 }
 
-/* iconography strip */
-.icons-tile { grid-column: 1 / -1; }
-.icons {
-  display: flex; flex-wrap: wrap; gap: 14px;
-  margin-top: 12px;
+/* MENU BAR · top */
+.menu-bar {
+  position: relative; z-index: 25;
+  background: var(--chrome);
+  border-bottom: 2px solid var(--plum);
+  padding: 6px 14px;
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--pixel); font-size: 16px;
+  color: var(--plum);
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 0 rgba(43,32,56,0.18);
 }
-.icons .icon {
-  width: 64px; height: 64px; border-radius: 16px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(221,204,245,0.5) 60%, rgba(255,255,255,0.6) 100%);
-  border: 1px solid rgba(255,255,255,0.9);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 8px 18px rgba(110,80,170,0.12);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--pixel); font-size: 28px; color: var(--lav-4);
-  backdrop-filter: blur(8px);
-}
-
-@media (max-width: 880px) {
-  .closet-grid { grid-template-columns: 1fr; }
-  .palette-tile, .type-tile { grid-column: 1 / -1; grid-row: auto; }
-  .tex-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 520px) {
-  .tex-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* ============================================================
-   5. THE STACK · mockups
-   ============================================================ */
-.stack-section {
-  background:
-    radial-gradient(ellipse at 80% 20%, rgba(245,208,232,0.40) 0%, transparent 55%),
-    radial-gradient(ellipse at 10% 70%, rgba(200,216,242,0.45) 0%, transparent 55%);
-}
-.stack-head {
-  text-align: center; margin-bottom: clamp(48px, 6vw, 80px);
-}
-.stack-head .label { display: inline-block; margin-bottom: 18px; }
-.stack-head h2 {
-  font-family: var(--chunk); font-size: clamp(36px, 5vw, 60px);
-  line-height: 1.0; color: var(--plum); max-width: 760px; margin: 0 auto;
-}
-.stack-head h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
-.stack-head p {
-  font-family: var(--body); font-size: 13px; line-height: 1.7;
-  color: var(--plum-soft); max-width: 560px; margin: 18px auto 0;
-}
-
-.stack-row {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(24px, 3vw, 40px);
-  align-items: end; margin-bottom: clamp(60px, 8vw, 100px);
-}
-.stack-row.solo { grid-template-columns: 1fr; max-width: 720px; margin-left: auto; margin-right: auto; }
-.stack-row.duo  { grid-template-columns: 1fr 1fr; }
-
-.shot {
-  position: relative;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.95);
-  border-radius: 18px;
-  padding: 18px 18px 14px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.95),
-    0 30px 60px rgba(110,80,170,0.18),
-    0 6px 0 rgba(255,255,255,0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.shot.tilt-l { transform: rotate(-2deg); }
-.shot.tilt-r { transform: rotate(2.5deg); }
-.shot.tilt-c { transform: rotate(-1deg); }
-.shot img { width: 100%; display: block; border-radius: 10px; }
-.shot .cap {
-  margin-top: 12px;
-  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.12em;
-  color: var(--plum); text-transform: uppercase;
-  display: flex; justify-content: space-between; gap: 10px;
-}
-.shot .cap span:last-child { color: var(--lav-3); }
-
-/* tablet wide row */
-.stack-tablet {
-  position: relative; padding: 22px 22px 16px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.95);
-  border-radius: 22px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 40px 80px rgba(110,80,170,0.20);
-  backdrop-filter: blur(10px);
-  transform: rotate(-0.6deg);
-}
-.stack-tablet img { width: 100%; border-radius: 12px; }
-.stack-tablet .cap {
-  margin-top: 14px;
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.14em;
-  color: var(--plum); text-transform: uppercase;
-}
-.stack-tablet .cap .price {
-  font-family: var(--body); font-size: 11px; color: var(--lav-3);
-  letter-spacing: 0.18em;
-}
-
-@media (max-width: 880px) {
-  .stack-row, .stack-row.duo { grid-template-columns: 1fr; }
-  .shot.tilt-l, .shot.tilt-r, .shot.tilt-c { transform: none; }
-}
-
-/* ============================================================
-   6. THE LIBRARY · interaction notes
-   ============================================================ */
-.library-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-.library-copy .label { display: inline-block; margin-bottom: 22px; }
-.library-copy h2 {
-  font-family: var(--chunk); font-size: clamp(32px, 4vw, 52px); line-height: 1.0; color: var(--plum);
-}
-.library-copy h2 em { color: var(--lav-4); font-style: italic; font-family: var(--serif); font-weight: 400; }
-.library-copy p {
-  font-family: var(--body); font-size: 14px; line-height: 1.75;
-  color: var(--plum-soft); margin-top: 22px; max-width: 520px;
-}
-
-.flow-list {
-  margin-top: clamp(28px, 3vw, 36px);
-  display: flex; flex-direction: column; gap: 14px;
-}
-.flow {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: rgba(255,255,255,0.45);
-  border: 1px solid rgba(255,255,255,0.85);
-  border-radius: 16px;
-  padding: 14px 18px;
-  backdrop-filter: blur(8px);
-}
-.flow .ix {
-  font-family: var(--pixel); font-size: 18px; color: var(--lav-4);
-  background: var(--pearl-cool); border: 1px solid var(--hairline);
-  width: 30px; height: 30px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.flow .body {
-  font-family: var(--body); font-size: 13px; line-height: 1.65; color: var(--plum);
-}
-.flow .body strong { color: var(--lav-4); font-weight: 700; }
-
-/* polaroid grid · past entries */
-.polaroids {
-  position: relative; min-height: 540px;
-}
-.poloroid-stage {
-  position: relative; width: 100%; height: 540px;
-}
-.poloroid {
-  position: absolute;
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.95);
-  padding: 14px 14px 28px;
-  box-shadow: 0 18px 40px rgba(110,80,170,0.20);
-  backdrop-filter: blur(6px);
-  width: 220px;
-  font-family: var(--pixel); font-size: 14px; color: var(--plum-mid);
+.menu-bar .menu-logo {
+  font-family: var(--ui); font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 2px 10px;
+  background: var(--plum); color: var(--paper);
+  border: 2px solid var(--plum);
   letter-spacing: 0.04em;
 }
-.poloroid .face {
-  height: 200px; border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--body); font-size: 11px; line-height: 1.6;
-  color: var(--plum); padding: 16px; text-align: center;
+.menu-bar .menu-logo .bolt { color: var(--signal-green); }
+.menu-bar nav { display: flex; gap: 14px; }
+.menu-bar nav a {
+  font-family: var(--ui); font-size: 13px;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
 }
-.poloroid .face .em { color: var(--lav-4); font-family: var(--serif); font-style: italic; font-size: 18px; display: block; margin-top: 6px; }
-.poloroid .stamp {
-  display: flex; justify-content: space-between; margin-top: 10px;
-  font-size: 13px;
+.menu-bar nav a:hover { background: var(--paper); border-color: var(--plum); }
+.menu-bar .spacer { flex: 1; }
+.menu-bar .meta { display: flex; align-items: center; gap: 14px; }
+
+/* battery */
+.battery {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--ui); font-size: 13px;
 }
-.poloroid .mood { color: var(--hot); }
-
-.poloroid.p1 { top: 0; left: 4%; transform: rotate(-5deg);
-  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85)); }
-.poloroid.p1 .face { background: linear-gradient(135deg, var(--peach), var(--hot-soft)); }
-
-.poloroid.p2 { top: 30px; right: 6%; transform: rotate(6deg); width: 220px; }
-.poloroid.p2 .face { background: linear-gradient(135deg, var(--mint), var(--sky)); }
-
-.poloroid.p3 { bottom: 30px; left: 10%; transform: rotate(3deg); }
-.poloroid.p3 .face { background: linear-gradient(135deg, var(--lav-1), var(--pearl-warm)); }
-
-.poloroid.p4 { bottom: 0; right: 2%; transform: rotate(-7deg); width: 200px; }
-.poloroid.p4 .face { background: linear-gradient(135deg, var(--sky), var(--lav-1)); }
-
-@media (max-width: 880px) {
-  .library-inner { grid-template-columns: 1fr; }
-  .poloroid-stage { height: 460px; }
-  .poloroid { width: 180px; }
-  .poloroid .face { height: 160px; }
-}
-
-/* ============================================================
-   7. OUTRO · sign off
-   ============================================================ */
-.outro { text-align: center; padding-bottom: clamp(60px, 8vw, 100px); }
-.outro .mark {
-  font-family: var(--display); font-style: italic;
-  font-size: clamp(72px, 12vw, 180px); line-height: 0.85;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  background: linear-gradient(
-    180deg,
-    #f8f4ff 0%,
-    #d8d2e4 22%,
-    #ffffff 38%,
-    #b6abc8 56%,
-    #f5eef8 70%,
-    #8678a0 88%,
-    #d8d2e4 100%
-  );
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  -webkit-text-stroke: 1px rgba(90,63,160,0.22);
-  filter: drop-shadow(2px 3px 0 rgba(90,63,160,0.18))
-          drop-shadow(0 0 24px rgba(221,204,245,0.55));
-  margin: 0 auto 18px;
-}
-.outro .mark .battery {
-  display: inline-block;
-  width: 0.9em; height: 0.45em;
-  border: 0.07em solid var(--plum);
-  border-radius: 0.06em;
+.battery-icon {
   position: relative;
-  margin: 0 0.05em 0.1em 0.04em;
-  vertical-align: middle;
-  background: linear-gradient(90deg, var(--lav-2) 0%, var(--lav-2) 28%, transparent 28.1%);
-  -webkit-text-stroke: 0;
-  filter: none;
+  width: 32px; height: 14px;
+  border: 2px solid var(--plum);
+  background: var(--paper);
+  padding: 1px;
 }
-.outro .mark .battery::after {
+.battery-icon::after {
   content: ''; position: absolute;
-  right: -0.13em; top: 50%; transform: translateY(-50%);
-  width: 0.08em; height: 0.22em;
+  right: -4px; top: 3px;
+  width: 2px; height: 6px;
   background: var(--plum);
-  border-radius: 0 0.04em 0.04em 0;
 }
-.outro .charm-out {
-  margin: 28px auto 0;
-  width: 130px;
-  filter: drop-shadow(0 14px 28px rgba(110,80,170,0.25));
+.battery-fill {
+  height: 100%; width: 42%;
+  background: var(--signal-green);
+  transition: width 0.6s ease, background 0.4s ease;
+}
+.battery.low .battery-fill { background: var(--battery-red); }
+
+/* signal */
+.signal {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--ui); font-size: 13px;
+}
+.signal-bars {
+  display: inline-flex; align-items: flex-end; gap: 1px; height: 12px;
+}
+.signal-bars span {
+  width: 3px; background: var(--plum);
+}
+.signal-bars span:nth-child(1) { height: 30%; }
+.signal-bars span:nth-child(2) { height: 60%; }
+.signal-bars span:nth-child(3) { height: 90%; opacity: 0.25; }
+.signal-bars span:nth-child(4) { height: 100%; opacity: 0.18; }
+
+.clock {
+  font-family: var(--pixel); font-size: 16px;
+  background: var(--paper); padding: 1px 8px;
+  border: 1px solid var(--plum);
+}
+.clock .blink { color: var(--battery-red); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* DESKTOP STAGE */
+.desktop-stage {
+  position: relative; z-index: 5;
+  padding: clamp(30px, 5vw, 70px) clamp(28px, 5vw, 80px);
+  min-height: calc(100% - 50px);
 }
 
-/* ============================================================
-   SITE FOOTER · project nav
-   ============================================================ */
-.site-footer {
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid rgba(255,255,255,0.9);
-  padding: 28px var(--pad);
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px; flex-wrap: wrap;
+/* HERO COPY · floats over wallpaper, top-left */
+.desktop-hero-copy {
+  position: relative; z-index: 4;
+  max-width: 540px;
+  background: rgba(244,232,204,0.92);
+  border: 2px solid var(--plum);
+  box-shadow: 6px 6px 0 var(--plum);
+  padding: 20px 22px 22px;
+  margin-bottom: 36px;
   font-family: var(--body);
 }
-.site-footer a {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--plum-soft); text-decoration: none;
-  transition: color 0.2s;
+.desktop-hero-copy .tag {
+  display: inline-block;
+  font-family: var(--pixel); font-size: 14px; letter-spacing: 0.18em;
+  background: var(--plum); color: var(--signal-green);
+  padding: 2px 10px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
-.site-footer a:hover { color: var(--hot); }
-.site-footer .sf-mark {
-  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.18em;
-  color: var(--lav-3); text-transform: uppercase;
+.desktop-hero-copy h1 {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 78px);
+  line-height: 0.92;
+  color: var(--plum);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
 }
-.site-footer .sf-center {
-  display: flex; gap: 22px; align-items: center;
-  flex-wrap: wrap; justify-content: center;
+.desktop-hero-copy h1 em {
+  font-style: normal;
+  background: var(--signal-green);
+  padding: 0 6px;
 }
-.site-footer .sf-link {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+.desktop-hero-copy .lead {
+  font-family: var(--pixel); font-size: 22px; line-height: 1.25;
+  color: var(--plum); margin-bottom: 14px;
+}
+.desktop-hero-copy .blurb {
+  font-family: var(--body); font-size: 13px; line-height: 1.7;
+  color: var(--plum-mid);
 }
 
-@media (max-width: 600px) {
-  .site-nav, .site-footer { padding: 14px 20px; }
-  .desk-stamp { display: none; }
+/* DESKTOP ICONS */
+.desktop-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 24px 18px;
+  max-width: 720px;
+}
+.icon {
+  background: transparent; border: 0; padding: 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+.icon:hover { transform: translateY(-2px); }
+.icon:focus-visible { outline: 2px dashed var(--plum); outline-offset: 4px; }
+.icon-art {
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+}
+.icon-art img {
+  max-width: 100%; max-height: 100%; image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0 rgba(43,32,56,0.18));
+}
+.icon-art svg { width: 56px; height: 56px; }
+.icon-label {
+  font-family: var(--ui); font-size: 13px; font-weight: 500;
+  color: var(--plum);
+  background: rgba(244,232,204,0.7);
+  padding: 1px 6px;
+  border: 1px solid transparent;
+  letter-spacing: 0.02em;
+}
+.icon:hover .icon-label,
+.icon:focus-visible .icon-label {
+  background: var(--plum); color: var(--paper); border-color: var(--plum);
+}
+
+/* STICKERS · scattered desktop accents */
+.sticker {
+  position: absolute; pointer-events: none; z-index: 3;
+  font-family: var(--ui); font-weight: 700;
+  text-transform: uppercase;
+  background: var(--sticker-pink); color: var(--plum);
+  border: 2px solid var(--plum);
+  padding: 2px 8px; font-size: 11px; letter-spacing: 0.08em;
+  box-shadow: 3px 3px 0 var(--plum);
+}
+.sticker.s1 { top: 14%; right: 8%; transform: rotate(6deg); background: var(--signal-green); }
+.sticker.s2 { bottom: 22%; right: 22%; transform: rotate(-5deg); background: var(--paper); }
+.sticker.s3 { top: 36%; right: 14%; transform: rotate(2deg); }
+.sticker.s4 { bottom: 14%; right: 6%; transform: rotate(-8deg); background: var(--window-lavender); }
+
+/* WINDOWS */
+.window {
+  position: absolute;
+  background: var(--window-lavender);
+  border: 2px solid var(--plum);
+  box-shadow: 6px 6px 0 var(--plum);
+  min-width: 280px; max-width: 460px;
+  z-index: 10;
+  font-family: var(--body);
+  display: none;
+  user-select: text;
+}
+.window.open {
+  display: block;
+  animation: window-pop 0.22s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes window-pop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.window-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px;
+  background: var(--plum); color: var(--paper);
+  font-family: var(--ui); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: grab;
+  user-select: none;
+}
+.window-titlebar:active { cursor: grabbing; }
+.window-titlebar .ttl { flex: 1; }
+.window-titlebar .ttl-icon {
+  width: 14px; height: 14px;
+  background: var(--signal-green);
+  border: 1px solid var(--paper);
+  display: inline-block;
+}
+.window-controls { display: flex; gap: 4px; }
+.win-btn {
+  width: 18px; height: 16px;
+  background: var(--chrome); color: var(--plum);
+  border: 1px solid var(--plum);
+  font-family: var(--ui); font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-d);
+}
+.win-btn.close { background: var(--battery-red); color: var(--paper); }
+.win-btn:hover { filter: brightness(1.08); }
+.win-btn:active { box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff; }
+.window-content {
+  padding: 14px 14px 14px;
+  font-size: 13px; color: var(--plum);
+  background: var(--window-lavender);
+}
+.window-content .prompt {
+  font-family: var(--pixel); font-size: 18px; color: var(--plum); margin-bottom: 8px;
+}
+.window-content textarea {
+  width: 100%; min-height: 110px; resize: vertical;
+  background: var(--paper); color: var(--plum);
+  border: 2px solid var(--plum);
+  padding: 10px 12px;
+  font-family: var(--body); font-size: 13px; line-height: 1.55;
+}
+.window-content textarea:focus { outline: 2px solid var(--signal-green); outline-offset: 1px; }
+.window-content .actions {
+  display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+}
+.window-content .btn {
+  font-family: var(--ui); font-size: 12px; font-weight: 600;
+  padding: 5px 12px;
+  background: var(--paper); color: var(--plum);
+  border: 2px solid var(--plum); cursor: pointer;
+  box-shadow: 2px 2px 0 var(--plum);
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.window-content .btn:hover { background: var(--signal-green); }
+.window-content .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--plum); }
+.window-content .btn.primary { background: var(--signal-green); }
+.window-content .btn.danger { background: var(--battery-red); color: var(--paper); }
+.window-content .status {
+  font-family: var(--pixel); font-size: 14px; color: var(--plum-mid); flex: 1;
+}
+.window-foot {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px;
+  padding-top: 10px; border-top: 1px dashed var(--plum-mid);
+}
+
+/* Specific window flavor */
+#win-journal { width: 380px; top: 90px; left: 380px; }
+#win-video   { width: 320px; top: 130px; left: 720px; }
+#win-mood    { width: 300px; top: 320px; left: 320px; }
+#win-archive { width: 360px; top: 290px; left: 660px; }
+#win-print   { width: 340px; top: 200px; left: 1020px; }
+#win-draw    { width: 380px; top: 360px; left: 980px; }
+#win-paint   { width: 460px; top: 60px;  left: 220px; }
+
+@media (max-width: 1100px) {
+  #win-journal, #win-video, #win-mood, #win-archive, #win-print, #win-draw, #win-paint {
+    left: auto !important; right: auto !important;
+    top: 90px !important;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+/* PAINT · Windows-95 style */
+.paint-content { padding: 6px 8px 10px; background: var(--chrome); }
+.paint-bar {
+  background: var(--chrome); color: var(--plum);
+  border-bottom: 1px solid var(--chrome-d);
+  padding: 2px 6px;
+  font-family: var(--ui); font-size: 11px;
+  letter-spacing: 0.04em;
+  margin: -6px -8px 6px;
+}
+.paint-stage {
+  display: grid; grid-template-columns: auto 1fr; gap: 6px;
+  align-items: start;
+  background: var(--chrome);
+}
+.paint-tools {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+  background: var(--chrome);
+  padding: 4px;
+  border: 2px solid var(--chrome-d);
+  box-shadow: inset 1px 1px 0 #fff;
+}
+.pt-btn {
+  width: 28px; height: 28px;
+  background: var(--chrome); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  font-family: var(--ui); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-d);
+}
+.pt-btn:hover { background: #d4d3df; }
+.pt-btn.active {
+  background: var(--paper);
+  box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff;
+}
+#paint-canvas {
+  width: 100%; max-width: 380px; height: 260px;
+  background: #ffffff;
+  border: 2px inset var(--chrome-d);
+  box-shadow: inset 1px 1px 0 var(--chrome-d), 1px 1px 0 #fff;
+  cursor: crosshair;
+  touch-action: none;
+  display: block;
+}
+.paint-sizes {
+  display: flex; gap: 4px; margin-top: 6px;
+  padding: 4px 6px;
+  background: var(--chrome); border: 2px solid var(--chrome-d);
+  box-shadow: inset 1px 1px 0 #fff;
+  align-items: center;
+}
+.ps-size {
+  width: 36px; height: 22px;
+  background: var(--paper); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  cursor: pointer; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.ps-size.active {
+  background: #d4d3df;
+  box-shadow: inset 1px 1px 0 var(--chrome-d);
+}
+.ps-size span {
+  display: inline-block; width: 60%;
+  background: var(--plum);
+  border-radius: 2px;
+}
+.paint-palette {
+  display: grid; grid-template-columns: 56px 1fr; gap: 6px;
+  margin-top: 6px;
+  padding: 4px;
+  background: var(--chrome); border: 2px solid var(--chrome-d);
+  box-shadow: inset 1px 1px 0 #fff;
+  align-items: center;
+}
+.pp-current {
+  position: relative;
+  width: 48px; height: 36px;
+}
+.pp-fg, .pp-bg {
+  position: absolute;
+  width: 26px; height: 26px;
+  border: 2px solid var(--plum);
+  box-shadow: 1px 1px 0 var(--chrome-d);
+}
+.pp-fg { top: 0; left: 0; z-index: 2; }
+.pp-bg { bottom: 0; right: 0; z-index: 1; }
+.pp-grid {
+  display: grid; grid-template-columns: repeat(15, 1fr); gap: 1px;
+}
+.pp-sw {
+  height: 16px;
+  border: 1px solid var(--plum);
+  cursor: pointer; padding: 0;
+}
+.pp-sw:hover { transform: scale(1.2); position: relative; z-index: 2; }
+.pp-sw.active {
+  outline: 2px solid var(--signal-green);
+  outline-offset: -1px;
+}
+
+/* DRAW PAD */
+.drawpad { display: flex; flex-direction: column; gap: 8px; }
+.drawpad-toolbar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 6px 8px;
+  background: var(--paper);
+  border: 1.5px solid var(--plum);
+  font-family: var(--ui); font-size: 11px;
+}
+.drawpad-toolbar .dp-tools,
+.drawpad-toolbar .dp-colors,
+.drawpad-toolbar .dp-sizes { display: flex; gap: 4px; }
+.dp-tool, .dp-size {
+  width: 26px; height: 26px;
+  background: var(--chrome); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  font-family: var(--ui); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-d);
+}
+.dp-tool.active, .dp-size.active {
+  background: var(--signal-green);
+  box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff;
+}
+.dp-size { padding: 0; }
+.dp-size span {
+  display: inline-block; border-radius: 50%;
+  background: var(--plum);
+}
+.dp-colors { padding: 0 6px; border-left: 1px dashed var(--plum-mid); border-right: 1px dashed var(--plum-mid); }
+.dp-color {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--plum);
+  cursor: pointer; padding: 0;
+  box-shadow: 1px 1px 0 var(--plum);
+  transition: transform 0.1s ease;
+}
+.dp-color.active {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--plum), 0 0 0 2px var(--signal-green);
+}
+.dp-color:hover { transform: translate(-1px, -1px); }
+#dp-canvas {
+  width: 100%; max-width: 360px; height: 220px;
+  background: #fff;
+  border: 2px solid var(--plum);
+  cursor: crosshair;
+  touch-action: none;
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* Video Log fake webcam */
+.webcam {
+  position: relative;
+  aspect-ratio: 4/3;
+  background:
+    radial-gradient(ellipse at 35% 35%, #5a4f70 0%, #3a3149 60%, #1f1830 100%);
+  border: 2px solid var(--plum);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.webcam::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px);
+}
+.webcam .rec {
+  position: absolute; top: 8px; left: 10px;
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--battery-red); display: flex; align-items: center; gap: 6px;
+  background: rgba(43,32,56,0.6); padding: 1px 6px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.webcam .rec::before { content: '●'; animation: blink 1.4s steps(2) infinite; }
+.webcam .face {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 50%; height: 60%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(244,232,204,0.18) 0%, rgba(244,232,204,0.04) 60%, transparent 80%);
+  filter: blur(0.5px);
+}
+.webcam .ts {
+  position: absolute; bottom: 6px; right: 8px;
+  font-family: var(--pixel); font-size: 12px;
+  color: var(--paper); opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+.video-log-output {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  padding: 12px;
+  font-family: var(--pixel); font-size: 16px; color: var(--plum); line-height: 1.4;
+  margin-top: 10px;
+}
+.video-log-output .meta {
+  font-family: var(--ui); font-size: 11px; color: var(--plum-mid);
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;
+  display: flex; justify-content: space-between;
+}
+.video-log-output strong {
+  font-family: var(--ui); font-weight: 700; color: var(--plum);
+}
+
+/* Mood meter */
+.mood-meter .gauge {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.mood-meter .battery-icon {
+  width: 80px; height: 28px;
+}
+.mood-meter .pct {
+  font-family: var(--display); font-size: 28px; color: var(--plum);
+}
+.mood-meter .signal-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--pixel); font-size: 16px;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  background: var(--paper); border: 1px solid var(--plum);
+}
+.mood-list {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+}
+.mood-list .mood {
+  font-family: var(--ui); font-size: 12px; font-weight: 600;
+  padding: 6px; border: 1.5px solid var(--plum);
+  background: var(--paper); color: var(--plum);
+  text-align: center; cursor: pointer;
+  transition: background 0.15s ease;
+  text-transform: lowercase;
+}
+.mood-list .mood:hover { background: var(--sticker-pink); }
+.mood-list .mood.active { background: var(--signal-green); }
+
+/* Archive */
+.archive-list {
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  padding: 8px;
+}
+.archive-row {
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 10px; align-items: center;
+  padding: 5px 8px;
+  font-family: var(--pixel); font-size: 16px;
+  color: var(--plum);
+  cursor: pointer;
+}
+.archive-row:hover, .archive-row:focus-visible { background: var(--signal-green); outline: none; }
+.archive-row .file-icon {
+  width: 16px; height: 18px;
+  background: var(--paper); border: 1.5px solid var(--plum);
+  position: relative;
+}
+.archive-row .file-icon::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 5px; height: 5px;
+  background: var(--paper);
+  border-left: 1.5px solid var(--plum);
+  border-bottom: 1.5px solid var(--plum);
+}
+.archive-row .name { letter-spacing: 0.02em; }
+.archive-row .size {
+  font-family: var(--ui); font-size: 10px;
+  color: var(--plum-mid); letter-spacing: 0.12em;
+}
+
+/* Print Dump */
+.print-options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;
+}
+.print-options label {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--ui); font-size: 12px;
+  padding: 5px 8px;
+  background: var(--paper); border: 1.5px solid var(--plum); cursor: pointer;
+}
+.print-options label:hover { background: var(--sticker-pink); }
+.print-options input[type="radio"] { accent-color: var(--plum); }
+.print-preview {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  padding: 14px 14px;
+  min-height: 140px;
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--plum); line-height: 1.4;
+  position: relative;
+}
+.print-preview::before {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: 0; height: 3px;
+  background:
+    repeating-linear-gradient(90deg, var(--plum) 0 4px, transparent 4px 8px);
+}
+
+/* TASKBAR (bottom) */
+.taskbar {
+  position: relative; z-index: 22;
+  background: var(--chrome);
+  border-top: 2px solid var(--plum);
+  padding: 4px 8px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--ui); font-size: 12px;
+  box-shadow: 0 -2px 0 rgba(43,32,56,0.18);
+}
+.taskbar-start {
+  display: flex; align-items: center; gap: 6px;
+  font-weight: 700;
+  background: var(--paper); color: var(--plum);
+  border: 2px solid var(--plum);
+  padding: 2px 10px;
+  letter-spacing: 0.04em;
+}
+.taskbar-start .bolt { color: var(--signal-green-d); }
+.taskbar-tasks { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
+.task {
+  font-family: var(--ui); font-size: 11px;
+  padding: 3px 10px;
+  background: var(--window-lavender); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+.task:hover { background: var(--paper); }
+.task.active { background: var(--signal-green); }
+.taskbar-meta {
+  font-family: var(--pixel); font-size: 14px; color: var(--plum);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 880px) {
+  .desktop { min-height: auto; }
+  .desktop-hero-copy { padding: 18px; max-width: none; }
+  .desktop-stage { padding: 24px; }
+  .desktop-icons { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+  .icon-art { width: 50px; height: 50px; }
+  .window {
+    position: static !important;
+    margin: 18px auto !important;
+    width: calc(100% - 32px) !important;
+    max-width: 100%;
+  }
+  .menu-bar nav { display: none; }
+  .menu-bar .meta { gap: 8px; flex-wrap: wrap; }
+  .clock { display: none; }
+  .sticker { display: none; }
+  .taskbar { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   MOOD OBJECTS · tap to scatter tiny stickers across the window
+   ============================================================ */
+.mood-objects {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; margin-top: 12px;
+  padding: 8px 10px;
+  background: var(--paper);
+  border: 1.5px solid var(--plum);
+}
+.mood-objects .mo-label {
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--plum-mid); margin-right: 4px;
+  letter-spacing: 0.06em;
+}
+.mood-objects .mo {
+  background: transparent; border: 1.5px solid transparent;
+  padding: 3px 5px; cursor: pointer;
+  font-size: 18px; line-height: 1;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.mood-objects .mo:hover {
+  background: var(--sticker-pink);
+  border-color: var(--plum);
+  transform: scale(1.15) rotate(-4deg);
+}
+.mood-objects .mo:active { transform: scale(0.95); }
+
+/* particles · spawn inside window-content on tap */
+.window-content { position: relative; overflow: hidden; }
+.mood-particle {
+  position: absolute;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 99;
+  user-select: none;
+  will-change: transform, opacity;
+}
+.mood-particle.fall { animation: mp-fall 2.2s cubic-bezier(.4,0,.7,1) forwards; }
+.mood-particle.rise { animation: mp-rise 2.2s cubic-bezier(.2,.7,.4,1) forwards; }
+.mood-particle.scatter { animation: mp-scatter 1.6s cubic-bezier(.3,0,.7,1) forwards; }
+@keyframes mp-fall {
+  0%   { transform: translateY(-12px) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateY(220px) rotate(28deg); opacity: 0; }
+}
+@keyframes mp-rise {
+  0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-160px) scale(1.1); opacity: 0; }
+}
+@keyframes mp-scatter {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate(var(--dx, 60px), var(--dy, 80px)) rotate(180deg); opacity: 0; }
+}
+
+/* glitch flicker · static mood */
+.window.flicker { animation: win-flicker 0.7s steps(8, end) 1; }
+@keyframes win-flicker {
+  0%, 100% { transform: translate(0); filter: none; }
+  10% { transform: translate(-3px, 1px); filter: hue-rotate(20deg) contrast(1.15); }
+  20% { transform: translate(3px, -1px); filter: invert(0.05); }
+  30% { transform: translate(-2px, 2px); }
+  50% { transform: translate(4px, -2px); filter: hue-rotate(-15deg); }
+  70% { transform: translate(-1px, 3px); }
+  90% { transform: translate(2px, -1px); filter: contrast(1.1); }
+}
+
+/* ============================================================
+   MUSIC MEMORY · "playing while saved" widget inside Journal
+   ============================================================ */
+.music-memory {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--plum); color: var(--paper);
+  border: 1.5px solid var(--plum);
+  position: relative;
+}
+.music-memory::before {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: 0; height: 3px;
+  background: repeating-linear-gradient(90deg,
+    var(--signal-green) 0 4px, transparent 4px 8px);
+}
+.music-memory .mm-label {
+  display: block;
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--signal-green);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.music-memory .mm-row {
+  display: grid; grid-template-columns: 32px 1fr auto;
+  gap: 10px; align-items: center;
+}
+.music-memory .mm-art {
+  width: 32px; height: 32px;
+  background:
+    radial-gradient(circle at 50% 50%, var(--paper) 0%, var(--paper) 14%, var(--sticker-pink) 14.5%, var(--sticker-pink) 28%, var(--paper-warm) 28.5%, var(--paper-warm) 100%);
+  border: 1.5px solid var(--paper);
+  position: relative;
+}
+.music-memory .mm-art::after {
+  content: ''; position: absolute; inset: 38%;
+  background: var(--plum); border-radius: 50%;
+}
+.music-memory .mm-text {
+  font-family: var(--body); display: flex; flex-direction: column;
+  min-width: 0;
+}
+.music-memory .mm-text strong {
+  font-family: var(--ui); font-weight: 700; font-size: 13px;
+  color: var(--paper); letter-spacing: 0.02em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.music-memory .mm-text span {
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--paper); opacity: 0.78;
+}
+.music-memory .mm-meta {
+  font-family: var(--pixel); font-size: 12px;
+  color: var(--signal-green);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   EMOTION PRINTOUT · structured printable summary
+   ============================================================ */
+.print-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.print-row .print-row-l {
+  font-family: var(--pixel); font-size: 13px; color: var(--plum-mid);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  width: 70px; flex-shrink: 0;
+}
+.print-row .print-row-r {
+  display: flex; flex-wrap: wrap; gap: 4px; flex: 1;
+}
+.tf {
+  font-family: var(--ui); font-size: 11px; font-weight: 600;
+  padding: 3px 8px;
+  background: var(--paper); color: var(--plum);
+  border: 1.5px solid var(--plum); cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.tf:hover { background: var(--sticker-pink); }
+.tf.active { background: var(--signal-green); }
+
+.emotion-printout { font-family: var(--pixel); padding: 12px 14px; }
+.emotion-printout .ep-head {
+  display: flex; justify-content: space-between;
+  font-family: var(--ui); font-size: 11px; font-weight: 700;
+  color: var(--plum); letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--plum-mid);
+  padding-bottom: 6px; margin-bottom: 8px;
+}
+.emotion-printout .ep-row {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--plum); padding: 2px 0;
+  border-bottom: 1px dotted rgba(43,32,56,0.15);
+  letter-spacing: 0.04em;
+}
+.emotion-printout .ep-row .ep-emojis { font-size: 16px; letter-spacing: 0; }
+.emotion-printout .ep-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  background: var(--window-lavender);
+  border: 1px dashed var(--plum-mid);
+  margin: 8px -14px;
+  padding: 10px 14px;
+}
+.emotion-printout .ep-grid span {
+  text-align: center; font-size: 16px;
+  background: var(--paper);
+  border: 1px solid var(--plum);
+  padding: 3px 0;
+}
+.emotion-printout .ep-weather {
+  text-align: center;
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--plum-mid);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--plum-mid);
+}
+.emotion-printout .ep-weather em { color: var(--plum); font-style: italic; }
+
+/* ============================================================
+   BROWSER INTERFACE · sections become panels swapped via left menu
+   ============================================================ */
+.lbp-browser {
+  position: relative; z-index: 2;
+  margin: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 36px);
+  background: var(--monitor-blue);
+  border: 2px solid var(--plum);
+  box-shadow: 10px 10px 0 var(--plum);
+}
+.browser-bar {
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(180deg, var(--plum) 0%, var(--plum-mid) 100%);
+  color: var(--paper);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--plum);
+  font-family: var(--ui); font-size: 13px;
+}
+.bb-dots { display: flex; gap: 5px; }
+.bb-dots span {
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1.5px solid var(--paper);
+}
+.bb-dots span:nth-child(1) { background: var(--battery-red); }
+.bb-dots span:nth-child(2) { background: var(--paper-warm); }
+.bb-dots span:nth-child(3) { background: var(--signal-green); }
+.bb-url {
+  flex: 1; max-width: 460px;
+  background: var(--paper); color: var(--plum);
+  padding: 3px 12px;
+  font-family: var(--pixel); font-size: 14px;
+  border: 1px solid var(--plum);
+  letter-spacing: 0.04em;
+}
+.bb-url span { color: var(--battery-red); }
+.bb-spacer { flex: 1; }
+.bb-meta {
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--signal-green);
+  letter-spacing: 0.06em;
+}
+
+.browser-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  min-height: 720px;
+  background:
+    radial-gradient(ellipse at 30% 10%, rgba(242,166,200,0.25) 0%, transparent 35%),
+    radial-gradient(ellipse at 80% 90%, rgba(185,232,108,0.20) 0%, transparent 35%),
+    var(--monitor-blue);
+}
+
+/* LEFT MENU */
+.bs-menu {
+  padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 16px;
+  border-right: 2px solid var(--plum);
+}
+.bs-block {
+  background: var(--window-lavender);
+  border: 2px solid var(--plum);
+  box-shadow: 3px 3px 0 var(--plum);
+}
+.bs-block-bar {
+  background: var(--plum); color: var(--signal-green);
+  padding: 4px 10px;
+  font-family: var(--pixel); font-size: 14px;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--plum);
+}
+.bs-block-body {
+  padding: 8px 6px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.bs-item {
+  background: transparent; border: 0; color: var(--plum);
+  font-family: var(--ui); font-size: 14px; font-weight: 600;
+  text-align: left; padding: 5px 10px;
+  cursor: pointer; letter-spacing: 0.03em;
+  border: 2px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.bs-item:hover { background: var(--sticker-pink); border-color: var(--plum); }
+.bs-item.active {
+  background: var(--signal-green); color: var(--plum);
+  border-color: var(--plum);
+  box-shadow: inset 1px 1px 0 var(--paper);
+}
+
+.bs-status-body { gap: 4px; padding: 10px; background: var(--paper); }
+.bs-status-row {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--plum-mid);
+  letter-spacing: 0.04em;
+}
+.bs-status-row strong {
+  font-family: var(--ui); font-weight: 700;
+  color: var(--plum);
+}
+
+.bs-cta-btn {
+  font-family: var(--display); font-size: 16px;
+  background: var(--sticker-pink); color: var(--plum);
+  border: 2px solid var(--plum);
+  box-shadow: 3px 3px 0 var(--plum);
+  padding: 10px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.06s ease, background 0.2s ease;
+}
+.bs-cta-btn:hover { background: var(--signal-green); }
+.bs-cta-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--plum); }
+
+/* MAIN CONTENT FRAME */
+.bs-main {
+  position: relative;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.bs-main-tab {
+  position: sticky; top: 0; z-index: 4;
+  background: var(--plum); color: var(--paper);
+  padding: 5px 12px;
+  font-family: var(--pixel); font-size: 14px;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--plum);
+}
+
+/* RIGHT SIDEBAR · widgets */
+.bs-side {
+  padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  border-left: 2px solid var(--plum);
+  background:
+    repeating-linear-gradient(45deg, rgba(242,166,200,0.08) 0 8px, transparent 8px 16px),
+    var(--window-lavender);
+}
+.bs-stats-body {
+  padding: 12px; background: var(--paper);
+  gap: 6px;
+}
+.bs-stat-row {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 14px;
+  color: var(--plum-mid); padding: 2px 0;
+  border-bottom: 1px dashed rgba(43,32,56,0.15);
+  letter-spacing: 0.04em;
+}
+.bs-stat-row:last-child { border-bottom: 0; }
+.bs-stat-row strong {
+  font-family: var(--ui); font-weight: 700; color: var(--plum);
+}
+
+.bs-block-now .bs-block-body { padding: 12px; background: var(--paper); }
+.bs-now-title {
+  font-family: var(--ui); font-weight: 600; font-size: 13px; color: var(--plum);
+  margin-bottom: 8px;
+}
+.bs-now-progress {
+  height: 8px; background: var(--chrome);
+  border: 1.5px solid var(--plum);
+  margin-bottom: 6px;
+}
+.bs-now-fill {
+  height: 100%; width: 30%;
+  background: var(--sticker-pink);
+  animation: now-progress 90s linear infinite;
+}
+@keyframes now-progress { from { width: 30%; } to { width: 95%; } }
+.bs-now-times {
+  display: flex; justify-content: space-between;
+  font-family: var(--pixel); font-size: 13px; color: var(--plum-mid);
+  margin-bottom: 6px;
+}
+.bs-now-controls {
+  text-align: center; font-family: var(--pixel); font-size: 16px;
+  color: var(--plum); letter-spacing: 0.18em; cursor: pointer;
+}
+
+.bs-clickme-body {
+  padding: 14px; background: var(--signal-green);
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.bs-clickme {
+  font-family: var(--display); font-size: 13px;
+  background: var(--plum); color: var(--paper);
+  border: 2px solid var(--plum);
+  box-shadow: 3px 3px 0 var(--paper-warm);
+  padding: 10px 14px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  cursor: pointer; width: 100%;
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+  animation: clickme-bob 2.4s ease-in-out infinite;
+}
+.bs-clickme:hover { background: var(--sticker-pink); color: var(--plum); }
+.bs-clickme:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--paper-warm); }
+@keyframes clickme-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.bs-clickme-tip {
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--plum); margin: 0; text-align: center;
+}
+
+.bs-side-stickers {
+  display: flex; flex-wrap: wrap; gap: 5px; padding: 12px; background: var(--paper);
+}
+.bs-side-sticker {
+  font-family: var(--ui); font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border: 1.5px solid var(--plum);
+  background: var(--sticker-pink); color: var(--plum);
+  letter-spacing: 0.04em;
+  transform: rotate(-2deg);
+}
+.bs-side-sticker:nth-child(2n) { background: var(--signal-green); transform: rotate(2deg); }
+.bs-side-sticker:nth-child(3n) { background: var(--paper-warm); transform: rotate(-3deg); }
+.bs-side-sticker:nth-child(5n) { background: var(--monitor-blue); color: var(--paper); transform: rotate(3deg); }
+
+/* BROWSER FOOT */
+.browser-foot {
+  display: flex; justify-content: space-between;
+  background: var(--plum); color: var(--paper);
+  padding: 8px 14px;
+  font-family: var(--pixel); font-size: 14px;
+  letter-spacing: 0.06em;
+  border-top: 2px solid var(--plum);
+}
+
+@media (max-width: 980px) {
+  .browser-grid { grid-template-columns: 1fr; }
+  .bs-menu, .bs-side { border: 0; }
+  .bs-menu { border-bottom: 2px solid var(--plum); }
+  .bs-side { border-top: 2px solid var(--plum); }
+  .bs-block { box-shadow: none; }
+}
+
+/* ============================================================
+   PANELS · each "section" inside the browser
+   ============================================================ */
+.section {
+  padding: clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
+  position: relative; z-index: 2;
+}
+.section.panel { display: none; }
+.section.panel.active { display: block; animation: panel-pop 0.32s cubic-bezier(.34,1.56,.64,1); }
+@keyframes panel-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.section-inner {
+  max-width: 880px; margin: 0 auto;
+  background: var(--window-lavender);
+  border: 2px solid var(--plum);
+  box-shadow: 6px 6px 0 var(--plum);
+  position: relative;
+  transform-origin: 50% 0;
+  transition: transform 0.32s cubic-bezier(.34,1.56,.64,1);
+}
+.section-inner.dragging { transition: none; cursor: grabbing; }
+.section-inner.collapsed .os-body { display: none; }
+.section-inner.collapsed { box-shadow: 3px 3px 0 var(--plum); }
+
+/* OS title bar */
+.os-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px;
+  background: linear-gradient(180deg, var(--plum) 0%, var(--plum-mid) 100%);
+  color: var(--paper);
+  border-bottom: 2px solid var(--plum);
+  font-family: var(--ui); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: grab;
+  user-select: none;
+}
+.os-titlebar:active { cursor: grabbing; }
+.os-titlebar .os-icon {
+  width: 14px; height: 14px;
+  background: var(--signal-green);
+  border: 1px solid var(--paper);
+  flex: 0 0 auto;
+}
+.os-titlebar .os-name { flex: 1; }
+.os-titlebar .os-num {
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--signal-green); padding-right: 6px;
+  border-right: 1px solid rgba(244,232,204,0.3);
+  letter-spacing: 0.1em;
+}
+.os-controls { display: flex; gap: 4px; }
+.os-btn {
+  width: 18px; height: 16px;
+  background: var(--chrome); color: var(--plum);
+  border: 1px solid var(--plum);
+  font-family: var(--ui); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-d);
+}
+.os-btn.close { background: var(--battery-red); color: var(--paper); }
+.os-btn:hover { filter: brightness(1.08); }
+.os-btn:active { box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff; }
+
+.os-body {
+  padding: clamp(28px, 4vw, 48px) clamp(20px, 3.5vw, 44px) clamp(28px, 4vw, 48px);
+  position: relative;
+}
+
+/* Sticker tabs · attached to corners of section windows */
+.os-sticker {
+  position: absolute;
+  font-family: var(--ui); font-weight: 700; font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--plum);
+  padding: 3px 8px;
+  border: 2px solid var(--plum);
+  background: var(--sticker-pink);
+  box-shadow: 2px 2px 0 var(--plum);
+  z-index: 3; pointer-events: none;
+  white-space: nowrap;
+}
+.os-sticker.tl { top: -10px; left: 24px; transform: rotate(-3deg); }
+.os-sticker.tr { top: -10px; right: 32px; transform: rotate(4deg); background: var(--signal-green); }
+.os-sticker.br { bottom: -10px; right: 36px; transform: rotate(-2deg); background: var(--paper); }
+.os-sticker.bl { bottom: -10px; left: 28px; transform: rotate(3deg); background: var(--monitor-blue); color: var(--paper); }
+.os-sticker.heart::before { content: '♡ '; }
+.os-sticker.star::before { content: '★ '; }
+.os-sticker.bolt::before { content: '⚡ '; }
+
+/* Section window backgrounds (color overrides) */
+.section-label {
+  font-family: var(--pixel); font-size: 18px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--plum-mid);
+  display: inline-block; padding: 2px 10px;
+  background: var(--paper); border: 1.5px solid var(--plum-mid);
+  margin-bottom: 22px;
+}
+.section h2 {
+  font-family: var(--display);
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 0.95; color: var(--plum);
+  margin-bottom: 22px; text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.section h2 em { font-style: normal; background: var(--signal-green); padding: 0 6px; }
+.section h2 .pink { background: var(--sticker-pink); padding: 0 6px; }
+.section .lead {
+  font-family: var(--pixel); font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.3; color: var(--plum);
+  margin-bottom: 28px; max-width: 700px;
+}
+.section .body {
+  font-family: var(--body); font-size: 14px; line-height: 1.75;
+  color: var(--plum); max-width: 640px;
+}
+.section .body p + p { margin-top: 18px; }
+.bullet-list {
+  margin-top: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+  font-family: var(--body); font-size: 14px; color: var(--plum);
+  list-style: none; padding: 0;
+}
+.bullet-list li {
+  position: relative; padding-left: 40px;
+  line-height: 1.6; min-height: 24px;
+}
+.bullet-list li::before {
+  content: ''; position: absolute; left: 0; top: 0;
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ui); font-size: 13px; font-weight: 700;
+  border: 2px solid var(--plum);
+  box-shadow: 2px 2px 0 var(--plum);
+  background: var(--signal-green); color: var(--plum);
+  text-align: center; line-height: 20px;
+}
+.bullet-list li:nth-child(6n+1)::before { content: '★'; background: var(--signal-green); transform: rotate(-3deg); }
+.bullet-list li:nth-child(6n+2)::before { content: '♡'; background: var(--sticker-pink); transform: rotate(2deg); }
+.bullet-list li:nth-child(6n+3)::before { content: '✦'; background: var(--paper); transform: rotate(-2deg); color: var(--plum); }
+.bullet-list li:nth-child(6n+4)::before { content: '◆'; background: var(--monitor-blue); transform: rotate(4deg); color: var(--paper); }
+.bullet-list li:nth-child(6n+5)::before { content: '⚡'; background: var(--paper-warm); transform: rotate(-4deg); }
+.bullet-list li:nth-child(6n+6)::before { content: '♪'; background: var(--window-lavender); transform: rotate(3deg); }
+
+.section.plum .bullet-list { color: var(--paper); }
+.section.plum .bullet-list li::before {
+  border-color: var(--signal-green);
+  box-shadow: 2px 2px 0 var(--signal-green);
+}
+
+/* alt section · inner bg overrides — vibrant, not beige */
+.section.lavender { background: transparent; }
+.section.lavender .section-inner { background: var(--sticker-pink); }
+.section.blue { background: transparent; }
+.section.blue .section-inner { background: var(--monitor-blue); }
+.section.plum { background: transparent; }
+.section.plum .section-inner { background: var(--plum); color: var(--paper); }
+.section.plum h2 { color: var(--paper); }
+.section.plum h2 em { color: var(--plum); }
+.section.plum .lead { color: var(--paper); }
+.section.plum .body { color: rgba(244,232,204,0.85); }
+.section.plum .section-label { background: transparent; color: var(--signal-green); border-color: var(--signal-green); }
+.section.plum .bullet-list { color: var(--paper); }
+.section.cta-section .section-inner { background: var(--signal-green); }
+
+/* Panel-specific bg accents */
+#about .section-inner { background: var(--window-lavender); }
+#tools .section-inner { background: var(--sticker-pink); }
+#video .section-inner { background: var(--monitor-blue); }
+#mood  .section-inner { background: var(--plum); color: var(--paper); }
+#mood h2 { color: var(--paper); } #mood h2 em { color: var(--plum); }
+#mood .lead { color: var(--paper); }
+#mood .body { color: rgba(244,232,204,0.85); }
+#mood .section-label { background: transparent; color: var(--signal-green); border-color: var(--signal-green); }
+#archive .section-inner { background: var(--signal-green); }
+#dump .section-inner { background: var(--sticker-pink); }
+#brand .section-inner { background: var(--window-lavender); }
+#start .section-inner { background: var(--signal-green); }
+
+/* ============================================================
+   3 · TOOLS GRID
+   ============================================================ */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+.tool-card {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  box-shadow: 4px 4px 0 var(--plum);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.tool-card .tool-head {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--plum); color: var(--paper);
+  margin: -16px -16px 8px;
+  padding: 6px 12px;
+  font-family: var(--ui); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.tool-card .tool-head .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--signal-green); }
+.tool-card h3 {
+  font-family: var(--display); font-size: 22px;
+  color: var(--plum); text-transform: uppercase; letter-spacing: 0;
+  line-height: 1; margin: 0;
+}
+.tool-card p {
+  font-family: var(--body); font-size: 12.5px; line-height: 1.6; color: var(--plum-mid);
+}
+
+/* ============================================================
+   4 · VIDEO LOG section
+   ============================================================ */
+.video-log-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: start;
+  margin-top: 32px;
+}
+@media (max-width: 880px) { .video-log-grid { grid-template-columns: 1fr; } }
+.video-log-mock {
+  background: var(--plum); padding: 14px;
+  border: 2px solid var(--plum);
+  box-shadow: 8px 8px 0 var(--plum-mid);
+}
+.video-log-mock .webcam { aspect-ratio: 16/10; margin-bottom: 12px; }
+
+/* ============================================================
+   5 · MOOD METER section · big interactive
+   ============================================================ */
+.mood-section .signal-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px; margin-top: 28px;
+}
+.mood-state {
+  font-family: var(--ui); font-size: 13px; font-weight: 600;
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  padding: 10px 12px;
+  text-align: left;
+  text-transform: lowercase; letter-spacing: 0.02em;
+  position: relative;
+}
+.mood-state .pct {
+  font-family: var(--display); font-size: 18px;
+  margin-right: 6px;
+  color: var(--plum);
+}
+.mood-state.dim { background: var(--chrome); color: var(--plum-mid); }
+.mood-state.good { background: var(--signal-green); }
+.mood-state.warn { background: var(--sticker-pink); }
+.mood-state.alert { background: var(--battery-red); color: var(--paper); }
+
+/* ============================================================
+   6 · ANALOG ARCHIVE section
+   ============================================================ */
+.archive-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin-top: 32px;
+}
+.archive-item {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  box-shadow: 4px 4px 0 var(--plum);
+  aspect-ratio: 4/5;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.archive-item .a-head {
+  background: var(--plum); color: var(--paper);
+  padding: 4px 10px;
+  font-family: var(--ui); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em;
+  display: flex; justify-content: space-between;
+}
+.archive-item .a-body {
+  flex: 1; padding: 14px;
+  font-family: var(--pixel); font-size: 16px; color: var(--plum); line-height: 1.3;
+  display: flex; flex-direction: column;
+  position: relative;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 22px, rgba(43,32,56,0.06) 22px 23px);
+}
+.archive-item.receipt .a-body {
+  font-family: var(--pixel); font-size: 14px; line-height: 1.5;
+  background: var(--paper);
+}
+.archive-item.receipt::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background:
+    repeating-linear-gradient(90deg, var(--plum) 0 3px, transparent 3px 6px);
+}
+.archive-item.sticker-sheet .a-body {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+  background: var(--window-lavender);
+}
+.archive-item.sticker-sheet .a-sticker {
+  font-family: var(--ui); font-size: 11px; font-weight: 700;
+  background: var(--sticker-pink); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  padding: 6px; text-align: center;
+  text-transform: uppercase;
+}
+.archive-item.sticker-sheet .a-sticker:nth-child(2n) { background: var(--signal-green); }
+.archive-item.mood-card .a-body { background: var(--monitor-blue); color: var(--paper); }
+.archive-item.mood-card .pct { font-family: var(--display); font-size: 32px; }
+.archive-item.crash .a-body { background: var(--battery-red); color: var(--paper); }
+.archive-item.crash .a-body .err {
+  font-family: var(--ui); font-size: 14px; font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ============================================================
+   7 · MONTHLY DUMP section
+   ============================================================ */
+.dump-mock {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-top: 32px;
+}
+@media (max-width: 720px) { .dump-mock { grid-template-columns: 1fr; } }
+.zine-page {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  box-shadow: 6px 6px 0 var(--plum);
+  padding: 20px;
+  font-family: var(--pixel); color: var(--plum);
+  font-size: 16px; line-height: 1.4;
+  position: relative;
+  aspect-ratio: 5/7;
+  display: flex; flex-direction: column;
+}
+.zine-page .z-title {
+  font-family: var(--display); font-size: clamp(22px, 3vw, 32px);
+  text-transform: uppercase; line-height: 0.9;
+  margin-bottom: 12px;
+}
+.zine-page .z-stat {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px dashed var(--plum-mid);
+  padding: 6px 0;
+}
+.zine-page .z-stat .v { font-family: var(--ui); font-weight: 700; }
+.zine-page .z-words {
+  margin-top: auto;
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.zine-page .z-word {
+  font-family: var(--ui); font-size: 11px; font-weight: 600;
+  background: var(--signal-green); color: var(--plum);
+  border: 1.5px solid var(--plum);
+  padding: 1px 6px;
+  letter-spacing: 0.02em;
+}
+.zine-page .z-word:nth-child(2n) { background: var(--sticker-pink); }
+.zine-page .z-word:nth-child(3n) { background: var(--paper-warm); }
+
+/* ============================================================
+   8 · BRAND SYSTEM · palette
+   ============================================================ */
+.palette-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px; margin-top: 32px;
+  border: 2px solid var(--plum); box-shadow: 6px 6px 0 var(--plum);
+}
+.swatch {
+  padding: 14px 14px 12px;
+  font-family: var(--ui); font-size: 12px;
+  display: flex; flex-direction: column; gap: 16px; min-height: 140px;
+  color: var(--plum); position: relative;
+}
+.swatch.dark { color: var(--paper); }
+.swatch .sw-name {
+  font-family: var(--display); font-size: 18px;
+  text-transform: uppercase; line-height: 1;
+}
+.swatch .sw-hex {
+  font-family: var(--pixel); font-size: 16px; letter-spacing: 0.06em;
+  margin-top: auto;
+}
+.swatch .sw-use {
+  font-family: var(--body); font-size: 11px; line-height: 1.5;
+  opacity: 0.8;
+}
+
+/* type specimen */
+.type-spec {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 720px) { .type-spec { grid-template-columns: 1fr; } }
+.type-card {
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  padding: 18px;
+}
+.type-card .label {
+  font-family: var(--pixel); font-size: 14px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--plum-mid);
+  margin-bottom: 8px;
+}
+.type-card .sample.display { font-family: var(--display); font-size: 36px; line-height: 0.95; }
+.type-card .sample.pixel { font-family: var(--pixel); font-size: 22px; }
+.type-card .sample.ui { font-family: var(--ui); font-size: 22px; font-weight: 700; }
+.type-card .sample.body { font-family: var(--body); font-size: 15px; line-height: 1.6; }
+.type-card .name {
+  font-family: var(--ui); font-size: 12px; color: var(--plum-mid);
+  margin-top: 10px;
+}
+
+/* ============================================================
+   9 · CTA · final
+   ============================================================ */
+.cta-section {
+  background: var(--monitor-blue);
+  border-top: 2px solid var(--plum);
+  border-bottom: 2px solid var(--plum);
+}
+.cta-buttons {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin-top: 28px;
+}
+.cta-btn {
+  font-family: var(--display); font-size: 18px;
+  background: var(--plum); color: var(--paper);
+  border: 2px solid var(--plum);
+  box-shadow: 4px 4px 0 var(--paper);
+  padding: 12px 22px;
+  text-transform: uppercase; letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.cta-btn:hover { background: var(--signal-green); color: var(--plum); }
+.cta-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--paper); }
+
+/* ============================================================
+   SITE FOOTER · portfolio nav
+   ============================================================ */
+.site-footer {
+  background: var(--plum); color: var(--paper);
+  border-top: 2px solid var(--plum);
+  padding: 22px var(--pad);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+  font-family: var(--ui); font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.site-footer a {
+  color: var(--paper); transition: color 0.2s ease;
+}
+.site-footer a:hover { color: var(--signal-green); }
+.site-footer .sf-center {
+  display: flex; gap: 22px; align-items: center; flex-wrap: wrap; justify-content: center;
 }
 </style>
 </head>
-<body>
+<body id="top">
 
-<!-- SITE NAV · portfolio wrapper -->
+<!-- SITE NAV · portfolio chrome -->
 <nav class="site-nav">
   <a href="../" class="site-nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni"></a>
   <a href="../" class="site-nav-back">← Selected work</a>
 </nav>
 
 <!-- ============================================================
-     1. THE DESK (hero)
+     1 · DESKTOP HOME
      ============================================================ -->
-<section class="desk section">
-  <div class="desk-stamps">
-    <span>file 03 / 04 ✦ ux + brand</span>
+<section class="desktop" id="desktop">
+  <div class="menu-bar">
+    <span class="menu-logo"><span class="bolt">⚡</span> LBP.OS</span>
+    <nav>
+      <a href="#about">file</a>
+      <a href="#tools">edit</a>
+      <a href="#mood">mood</a>
+      <a href="#archive">archive</a>
+      <a href="#print">print</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="meta">
+      <span class="battery" id="battery"><span class="battery-icon"><span class="battery-fill" id="battery-fill"></span></span><span id="battery-pct">42%</span></span>
+      <span class="signal"><span class="signal-bars"><span></span><span></span><span></span><span></span></span><span>LOW</span></span>
+      <span class="clock"><span id="clock-time">9:41</span> · <span id="clock-date">tue · may 14</span></span>
+    </span>
   </div>
 
-  <div class="desk-inner">
-    <div class="desk-mark">
-      <span class="label">a journal app · brand + ux case file</span>
-      <h1 class="wordmark">Low<br/>Battery<br/>Press<span class="battery"></span></h1>
+  <div class="desktop-stage">
+    <div class="sticker s1">★ saved anyway</div>
+    <div class="sticker s2">no perfect entries required</div>
+    <div class="sticker s3">drained but online</div>
+    <div class="sticker s4">log off without disappearing</div>
 
-      <p class="desk-tag">your life. your notes. <span class="em">your moments.</span></p>
-      <p class="desk-blurb">a journal app for writing anything, anytime. write a sentence, a list, a rant, a plan. low battery press organizes the rest. a journal for the days you actually want to journal.</p>
-
-      <div class="desk-meta">
-        <span class="chip">brand identity</span>
-        <span class="chip">ux / ui</span>
-        <span class="chip">product writing</span>
-        <span class="chip">native ios + ipados</span>
-      </div>
+    <div class="desktop-hero-copy">
+      <span class="tag">LBP.OS · v1.0 · running</span>
+      <h1>Low<br/><em>Battery</em><br/>Press</h1>
+      <p class="lead">A desktop diary for low-signal days.</p>
+      <p class="blurb">A soft 90s-inspired desktop diary for people who are too tired to journal traditionally. Type, talk, draw, save fragments, and print the emotional residue later.</p>
     </div>
 
-    <div class="desk-right">
-      <span class="desk-stickers s1">♡</span>
-      <span class="desk-stickers s2">★</span>
-      <span class="desk-stickers s3">✦</span>
-      <img class="desk-charm" src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm: no rules, no problem, idc"/>
-      <img class="desk-phone" src="../images/projects/lowbatterypress/lbp-phone-login.png" alt="lbp login screen"/>
+    <!-- DESKTOP ICONS -->
+    <div class="desktop-icons" id="desktop-icons">
+      <button class="icon" data-window="journal">
+        <span class="icon-art"><img src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
+        <span class="icon-label">Journal.exe</span>
+      </button>
+      <button class="icon" data-window="video">
+        <span class="icon-art"><img src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
+        <span class="icon-label">Video Log</span>
+      </button>
+      <button class="icon" data-window="notes">
+        <span class="icon-art"><img src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
+        <span class="icon-label">Notes.txt</span>
+      </button>
+      <button class="icon" data-window="draw">
+        <span class="icon-art">
+          <svg viewBox="0 0 64 64" stroke="#2B2038" fill="none" stroke-width="3" stroke-linejoin="round">
+            <rect x="8" y="12" width="48" height="40" fill="#F4E8CC"/>
+            <path d="M 14 44 L 22 28 L 30 38 L 40 22 L 50 44" stroke-width="2.5"/>
+            <circle cx="44" cy="20" r="3" fill="#D94B4B"/>
+          </svg>
+        </span>
+        <span class="icon-label">Draw Pad</span>
+      </button>
+      <button class="icon" data-window="paint">
+        <span class="icon-art"><img src="../images/projects/lowbatterypress/icons/paint.png" alt=""/></span>
+        <span class="icon-label">Paint</span>
+      </button>
+      <button class="icon" data-window="mood">
+        <span class="icon-art">
+          <svg viewBox="0 0 64 64" stroke="#2B2038" fill="none" stroke-width="3">
+            <rect x="8" y="22" width="42" height="20" fill="#F4E8CC"/>
+            <rect x="50" y="28" width="4" height="8" fill="#2B2038"/>
+            <rect x="12" y="26" width="22" height="12" fill="#B9E86C"/>
+          </svg>
+        </span>
+        <span class="icon-label">Mood Meter</span>
+      </button>
+      <button class="icon" data-window="archive">
+        <span class="icon-art"><img src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
+        <span class="icon-label">Archive</span>
+      </button>
+      <button class="icon" data-window="print">
+        <span class="icon-art">
+          <svg viewBox="0 0 64 64" stroke="#2B2038" fill="none" stroke-width="3" stroke-linejoin="round">
+            <rect x="14" y="10" width="36" height="14" fill="#F4E8CC"/>
+            <rect x="8" y="24" width="48" height="22" rx="2" fill="#B9B8C4"/>
+            <rect x="14" y="34" width="36" height="20" fill="#F4E8CC"/>
+            <line x1="20" y1="40" x2="44" y2="40"/>
+            <line x1="20" y1="46" x2="44" y2="46"/>
+            <circle cx="48" cy="30" r="2" fill="#B9E86C"/>
+          </svg>
+        </span>
+        <span class="icon-label">Print Dump</span>
+      </button>
     </div>
-  </div>
-</section>
 
-<!-- ============================================================
-     2. THE NOTE (brief)
-     ============================================================ -->
-<section class="section note">
-  <div class="note-inner">
-    <span class="note-stamp">read me ♡</span>
+    <!-- WINDOWS -->
 
-    <div class="note-paper">
-      <span class="tape tl"></span>
-      <span class="tape tr"></span>
-
-      <h2 class="note-h">the journaling apps were <em>doing too much.</em></h2>
-
-      <div class="note-grid">
-        <div class="note-block">
-          <div class="h">the problem</div>
-          <p>gen z and gen alpha are the most journaled-at generation alive. apps stack streaks, score moods, scrape data, and gamify feelings into therapy-grade output. the ones who actually want to write give up because the form keeps asking them to be <em>better</em>.</p>
-          <p>most don't want a wellness coach. they want a place to talk to themselves without performing.</p>
+    <!-- Journal.exe -->
+    <div class="window" id="win-journal" data-window="journal">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon"></span>
+        <span class="ttl">Journal.exe</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
         </div>
-        <div class="note-block">
-          <div class="h">the answer</div>
-          <p>low battery press is a journal you write into like you'd text yourself. vent, brag, daydream, plan, or just ramble. it all counts. you write the sentence. the app organizes the rest into a private library you can come back to.</p>
-          <p>journaling as <em>identity</em>, not as homework.</p>
+      </div>
+      <div class="window-content">
+        <p class="prompt">what is left of today?</p>
+        <textarea placeholder="type what you have. fragments are fine."></textarea>
+
+        <!-- Mood Objects · tap to scatter tiny stickers across the window -->
+        <div class="mood-objects" aria-label="add a mood object to your entry">
+          <span class="mo-label">mood objects ·</span>
+          <button class="mo" data-mood="sad" title="sad">😢</button>
+          <button class="mo" data-mood="happy" title="happy">☀️</button>
+          <button class="mo" data-mood="angry" title="angry">⚡</button>
+          <button class="mo" data-mood="tired" title="tired">🪫</button>
+          <button class="mo" data-mood="heart" title="heart">💕</button>
+          <button class="mo" data-mood="static" title="static">📺</button>
+        </div>
+
+        <!-- Music Memory · what was playing when this got saved -->
+        <div class="music-memory" id="music-memory">
+          <span class="mm-label">♪ playing while saved</span>
+          <div class="mm-row">
+            <span class="mm-art" aria-hidden="true"></span>
+            <div class="mm-text">
+              <strong id="mm-track">Fade Into You</strong>
+              <span id="mm-artist">Mazzy Star</span>
+            </div>
+            <span class="mm-meta">battery 18% · low</span>
+          </div>
+        </div>
+
+        <div class="window-foot">
+          <span class="status" id="journal-status">unsaved fragment · 0 chars</span>
+          <button class="btn primary">save to archive</button>
+          <button class="btn">print log</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Log -->
+    <div class="window" id="win-video" data-window="video">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon" style="background: var(--battery-red);"></span>
+        <span class="ttl">Video Log</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="webcam">
+          <div class="rec">REC</div>
+          <div class="face"></div>
+          <div class="ts">00:22 · LBP.CAM</div>
+        </div>
+        <button class="btn primary" style="width: 100%;">▶ start check-in</button>
+        <div class="video-log-output">
+          <div class="meta"><span>battery: 22%</span><span>05·14·26</span></div>
+          today was mostly static.<br/>
+          i said i was fine, but my face did not agree.<br/>
+          <strong>saved anyway.</strong>
+        </div>
+        <div class="window-foot">
+          <span class="status">log generated · 3 lines</span>
+          <button class="btn">save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mood Meter -->
+    <div class="window mood-meter" id="win-mood" data-window="mood">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon"></span>
+        <span class="ttl">Mood Meter</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="gauge">
+          <div class="battery-icon"><div class="battery-fill" id="mood-bat" style="width: 42%; background: var(--sticker-pink);"></div></div>
+          <span class="pct" id="mood-pct">42%</span>
+        </div>
+        <div class="signal-row">
+          <span>signal: <strong id="mood-signal">low</strong></span>
+          <span id="mood-state">buffering</span>
+        </div>
+        <div class="mood-list" id="mood-list">
+          <button class="mood">low signal</button>
+          <button class="mood active">buffering</button>
+          <button class="mood">offline</button>
+          <button class="mood">static</button>
+          <button class="mood">drained</button>
+          <button class="mood">wired</button>
+          <button class="mood">soft</button>
+          <button class="mood">feral</button>
+          <button class="mood">almost okay</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Archive -->
+    <div class="window" id="win-archive" data-window="archive">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon"></span>
+        <span class="ttl">Archive</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="archive-list">
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">04-18-static.txt</span>
+            <span class="size">1KB</span>
+          </div>
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">low-signal-day.log</span>
+            <span class="size">3KB</span>
+          </div>
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">almost-okay.card</span>
+            <span class="size">512B</span>
+          </div>
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">monthly-dump-zine.pdf</span>
+            <span class="size">88KB</span>
+          </div>
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">crash-report-tuesday.txt</span>
+            <span class="size">2KB</span>
+          </div>
+          <div class="archive-row" tabindex="0">
+            <span class="file-icon"></span>
+            <span class="name">drawpad-feral.png</span>
+            <span class="size">12KB</span>
+          </div>
+        </div>
+        <div class="window-foot">
+          <span class="status">6 items · 106KB total</span>
+          <button class="btn">open folder</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Dump · Emotion Printout · timeframe-selectable mini report -->
+    <div class="window" id="win-print" data-window="print">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon" style="background: var(--sticker-pink);"></span>
+        <span class="ttl">Print Dump</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="print-row">
+          <span class="print-row-l">timeframe</span>
+          <div class="print-row-r" id="print-timeframe">
+            <button class="tf active" data-tf="day">day</button>
+            <button class="tf" data-tf="week">week</button>
+            <button class="tf" data-tf="month">month</button>
+            <button class="tf" data-tf="custom">custom</button>
+          </div>
+        </div>
+        <div class="print-row">
+          <span class="print-row-l">format</span>
+          <div class="print-row-r print-options">
+            <label><input type="radio" name="print-output" value="receipt" checked/> receipt</label>
+            <label><input type="radio" name="print-output" value="sticker"/> stickers</label>
+            <label><input type="radio" name="print-output" value="card"/> card</label>
+            <label><input type="radio" name="print-output" value="zine"/> zine</label>
+          </div>
+        </div>
+
+        <div class="print-preview emotion-printout" id="print-preview">
+          <div class="ep-head">
+            <span>▸ EMOTION REPORT</span>
+            <span id="ep-tf-label">day · 05·14·26</span>
+          </div>
+          <div class="ep-row"><span>most-used emojis</span><span class="ep-emojis">😢 ☀ 💕</span></div>
+          <div class="ep-row"><span>mood objects</span><span>47</span></div>
+          <div class="ep-row"><span>range</span><span>8% → 91%</span></div>
+          <div class="ep-row"><span>battery avg</span><span>32%</span></div>
+          <div class="ep-row"><span>lowest entry</span><span>04% · static day</span></div>
+          <div class="ep-row"><span>songs logged</span><span>12</span></div>
+          <div class="ep-row"><span>most played</span><span>Mazzy Star</span></div>
+          <div class="ep-row"><span>repeated word</span><span>tired</span></div>
+          <div class="ep-grid">
+            <span>😢</span><span>😢</span><span>☀</span><span>☀</span><span>💕</span><span>💕</span>
+            <span>⚡</span><span>🪫</span><span>📺</span><span>😴</span><span>😶‍🌫️</span><span>♡</span>
+          </div>
+          <div class="ep-weather">
+            ─ emotional weather ─<br/>
+            <em>partly buffering. low signal in the afternoon. soft gusts before bed.</em>
+          </div>
+        </div>
+        <div class="window-foot">
+          <span class="status">queued · ready to print</span>
+          <button class="btn primary">generate dump</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paint · classic Windows-style paint with tools, palette, and shapes -->
+    <div class="window" id="win-paint" data-window="paint">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon" style="background: var(--paper);"></span>
+        <span class="ttl">Paint</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content paint-content">
+        <div class="paint-bar">
+          <span>File &nbsp; Edit &nbsp; View &nbsp; Image &nbsp; Colors &nbsp; Help</span>
+        </div>
+        <div class="paint-stage">
+          <div class="paint-tools" id="paint-tools">
+            <button class="pt-btn active" data-tool="pencil" title="pencil">✎</button>
+            <button class="pt-btn" data-tool="brush"     title="brush">⌬</button>
+            <button class="pt-btn" data-tool="eraser"    title="eraser">⌫</button>
+            <button class="pt-btn" data-tool="fill"      title="fill bucket">▣</button>
+            <button class="pt-btn" data-tool="line"      title="line">╱</button>
+            <button class="pt-btn" data-tool="rect"      title="rectangle">▭</button>
+            <button class="pt-btn" data-tool="ellipse"   title="ellipse">◯</button>
+            <button class="pt-btn" data-tool="picker"    title="picker">◉</button>
+          </div>
+          <canvas id="paint-canvas" width="380" height="260"></canvas>
+        </div>
+
+        <div class="paint-sizes" id="paint-sizes">
+          <button class="ps-size active" data-size="1"><span style="height:1px;"></span></button>
+          <button class="ps-size" data-size="3"><span style="height:3px;"></span></button>
+          <button class="ps-size" data-size="6"><span style="height:6px;"></span></button>
+          <button class="ps-size" data-size="10"><span style="height:10px;"></span></button>
+        </div>
+
+        <div class="paint-palette">
+          <div class="pp-current">
+            <span class="pp-fg" id="pp-fg" style="background:#2B2038;"></span>
+            <span class="pp-bg" id="pp-bg" style="background:#ffffff;"></span>
+          </div>
+          <div class="pp-grid" id="pp-grid">
+            <!-- 28 swatches: classic 16 + LBP brand -->
+            <button class="pp-sw" data-color="#000000" style="background:#000000"></button>
+            <button class="pp-sw" data-color="#7f7f7f" style="background:#7f7f7f"></button>
+            <button class="pp-sw" data-color="#880015" style="background:#880015"></button>
+            <button class="pp-sw" data-color="#ed1c24" style="background:#ed1c24"></button>
+            <button class="pp-sw" data-color="#ff7f27" style="background:#ff7f27"></button>
+            <button class="pp-sw" data-color="#fff200" style="background:#fff200"></button>
+            <button class="pp-sw" data-color="#22b14c" style="background:#22b14c"></button>
+            <button class="pp-sw" data-color="#00a2e8" style="background:#00a2e8"></button>
+            <button class="pp-sw" data-color="#3f48cc" style="background:#3f48cc"></button>
+            <button class="pp-sw" data-color="#a349a4" style="background:#a349a4"></button>
+            <button class="pp-sw" data-color="#2B2038" style="background:#2B2038"></button>
+            <button class="pp-sw" data-color="#D94B4B" style="background:#D94B4B"></button>
+            <button class="pp-sw" data-color="#F2A6C8" style="background:#F2A6C8"></button>
+            <button class="pp-sw" data-color="#B9E86C" style="background:#B9E86C"></button>
+            <button class="pp-sw" data-color="#8FA8D8" style="background:#8FA8D8"></button>
+            <!-- second row -->
+            <button class="pp-sw" data-color="#ffffff" style="background:#ffffff"></button>
+            <button class="pp-sw" data-color="#c3c3c3" style="background:#c3c3c3"></button>
+            <button class="pp-sw" data-color="#b97a57" style="background:#b97a57"></button>
+            <button class="pp-sw" data-color="#ffaec9" style="background:#ffaec9"></button>
+            <button class="pp-sw" data-color="#ffc90e" style="background:#ffc90e"></button>
+            <button class="pp-sw" data-color="#efe4b0" style="background:#efe4b0"></button>
+            <button class="pp-sw" data-color="#b5e61d" style="background:#b5e61d"></button>
+            <button class="pp-sw" data-color="#99d9ea" style="background:#99d9ea"></button>
+            <button class="pp-sw" data-color="#7092be" style="background:#7092be"></button>
+            <button class="pp-sw" data-color="#c8bfe7" style="background:#c8bfe7"></button>
+            <button class="pp-sw" data-color="#C8B9D8" style="background:#C8B9D8"></button>
+            <button class="pp-sw" data-color="#F4E8CC" style="background:#F4E8CC"></button>
+            <button class="pp-sw" data-color="#B9B8C4" style="background:#B9B8C4"></button>
+            <button class="pp-sw" data-color="#d4a82a" style="background:#d4a82a"></button>
+          </div>
+        </div>
+
+        <div class="window-foot">
+          <span class="status" id="paint-status">untitled.bmp · ready</span>
+          <button class="btn" id="paint-clear">clear</button>
+          <button class="btn primary" id="paint-save">save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Draw Pad · actual canvas you can draw on -->
+    <div class="window" id="win-draw" data-window="draw">
+      <div class="window-titlebar" data-drag>
+        <span class="ttl-icon" style="background: var(--sticker-pink);"></span>
+        <span class="ttl">Draw Pad</span>
+        <div class="window-controls">
+          <button class="win-btn min">_</button>
+          <button class="win-btn close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="window-content">
+        <div class="drawpad">
+          <div class="drawpad-toolbar">
+            <div class="dp-tools">
+              <button class="dp-tool active" data-tool="pen" title="pen">✎</button>
+              <button class="dp-tool" data-tool="erase" title="eraser">⌫</button>
+            </div>
+            <div class="dp-colors" id="dp-colors">
+              <button class="dp-color active" data-color="#2B2038" style="background:#2B2038"></button>
+              <button class="dp-color" data-color="#D94B4B" style="background:#D94B4B"></button>
+              <button class="dp-color" data-color="#F2A6C8" style="background:#F2A6C8"></button>
+              <button class="dp-color" data-color="#B9E86C" style="background:#B9E86C"></button>
+              <button class="dp-color" data-color="#8FA8D8" style="background:#8FA8D8"></button>
+              <button class="dp-color" data-color="#d4a82a" style="background:#d4a82a"></button>
+            </div>
+            <div class="dp-sizes" id="dp-sizes">
+              <button class="dp-size" data-size="2"><span style="width:4px;height:4px;"></span></button>
+              <button class="dp-size active" data-size="4"><span style="width:8px;height:8px;"></span></button>
+              <button class="dp-size" data-size="8"><span style="width:14px;height:14px;"></span></button>
+            </div>
+          </div>
+          <canvas id="dp-canvas" width="320" height="220"></canvas>
+          <div class="window-foot">
+            <span class="status" id="dp-status">untitled.png · empty</span>
+            <button class="btn" id="dp-clear">clear</button>
+            <button class="btn primary" id="dp-save">save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASKBAR -->
+  <div class="taskbar">
+    <span class="taskbar-start"><span class="bolt">⚡</span> LBP</span>
+    <div class="taskbar-tasks" id="taskbar-tasks">
+      <span class="task active">Desktop</span>
+    </div>
+    <span class="taskbar-meta">USR · drained · online</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     LBP BROWSER · menu-driven mini-site (sections 2–9 as panels)
+     ============================================================ -->
+<section class="lbp-browser" id="browser">
+  <div class="browser-bar">
+    <span class="bb-dots"><span></span><span></span><span></span></span>
+    <span class="bb-url">▸ lbp.os / <span id="bb-page">about.html</span></span>
+    <span class="bb-spacer"></span>
+    <span class="bb-meta">connection: low</span>
+  </div>
+
+  <div class="browser-grid">
+    <!-- LEFT MENU -->
+    <aside class="bs-menu">
+      <div class="bs-block bs-block-menu">
+        <div class="bs-block-bar">~ menu</div>
+        <div class="bs-block-body">
+          <button class="bs-item active" data-page="about">▸ home</button>
+          <button class="bs-item" data-page="tools">▸ tools</button>
+          <button class="bs-item" data-page="video">▸ video log</button>
+          <button class="bs-item" data-page="mood">▸ mood meter</button>
+          <button class="bs-item" data-page="archive">▸ archive</button>
+          <button class="bs-item" data-page="dump">▸ monthly dump</button>
+          <button class="bs-item" data-page="brand">▸ brand</button>
+          <button class="bs-item" data-page="start">▸ start log</button>
         </div>
       </div>
 
-      <div class="note-sign">
-        <span class="sig">love, lbp xx</span>
+      <div class="bs-block bs-block-status">
+        <div class="bs-block-bar">~ status</div>
+        <div class="bs-block-body bs-status-body">
+          <div class="bs-status-row"><span>battery</span><strong id="bs-bat">42%</strong></div>
+          <div class="bs-status-row"><span>signal</span><strong>low</strong></div>
+          <div class="bs-status-row"><span>user</span><strong>drained</strong></div>
+          <div class="bs-status-row"><span>mood</span><strong>buffering</strong></div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+
+      <button class="bs-cta-btn">★ click me</button>
+    </aside>
+
+    <!-- MAIN CONTENT (each section becomes a panel) -->
+    <main class="bs-main" id="bs-main">
+      <div class="bs-main-tab" id="bs-main-tab">▸ about.html</div>
 
 <!-- ============================================================
-     3. THE CHARM (voice)
+     2 · WHAT IT IS
      ============================================================ -->
-<section class="section charm-section">
-  <div class="section-inner charm-inner">
-    <div class="charm-vis">
-      <img src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm with no rules, no problem, idc"/>
-    </div>
-    <div class="charm-copy">
-      <span class="label">02 · the charm</span>
-      <h2><em>no rules.</em></h2>
-      <p class="sub">the brand voice lives on the charm. it talks to you the way a friend texts back at 1am: short, unbothered, on your side. every screen ships with a different charm. they read like things you'd say out loud, then forget you said. the voice is the product.</p>
-      <div class="charm-tags">
-        <span class="chip"><strong>♡</strong> no rules, just real you</span>
-        <span class="chip"><strong>✦</strong> you do you</span>
-        <span class="chip"><strong>★</strong> collect moments, not things</span>
-        <span class="chip"><strong>♡</strong> i'll take care of the rest</span>
-        <span class="chip"><strong>✦</strong> it all counts</span>
-        <span class="chip"><strong>★</strong> hey, dreamer</span>
-        <span class="chip"><strong>♡</strong> today is mine</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     4. THE CLOSET (visual system)
-     ============================================================ -->
-<section class="section">
+<section class="section panel active" id="about" data-panel="about">
   <div class="section-inner">
-    <div class="closet-head">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon"></span>
+      <span class="os-num">02</span>
+      <span class="os-name">▸ what_is_this.exe</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tl heart">soft system</span>
+    <span class="os-sticker tr star">v1.0</span>
+    <div class="os-body">
+    <span class="section-label">02 · what it is</span>
+    <h2>A journal disguised<br/>as a <em>desktop.</em></h2>
+    <p class="lead">Low Battery Press turns journaling into a small personal operating system.</p>
+    <div class="body">
+      <p>Instead of one blank page, users get a desktop of tools for different kinds of emotional documentation: typed entries, webcam check-ins, loose notes, drawings, mood symbols, and saved fragments.</p>
+    </div>
+    <ul class="bullet-list">
+      <li>Built for low-energy journaling</li>
+      <li>Uses familiar desktop metaphors: files, folders, windows, icons, and archives</li>
+      <li>Supports typing, speaking, drawing, and camera-based reflection</li>
+      <li>Turns entries into analog-style logs, receipts, cards, and zines</li>
+    </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3 · DESKTOP DIARY SYSTEM · tools
+     ============================================================ -->
+<section class="section lavender panel" id="tools" data-panel="tools">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--sticker-pink);"></span>
+      <span class="os-num">03</span>
+      <span class="os-name">▸ tools_folder/</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tl bolt">8 apps</span>
+    <span class="os-sticker br">click me</span>
+    <div class="os-body">
+    <span class="section-label">03 · the system</span>
+    <h2>Open a window.<br/><span class="pink">Dump</span> the feeling.</h2>
+    <p class="lead">A small desktop of tools, each tuned for a different kind of low-effort entry.</p>
+
+    <div class="tools-grid">
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot"></span><span>Journal.exe</span></div>
+        <h3>Type the words.</h3>
+        <p>A typed journal window for traditional entries, short fragments, or generated prompts.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--battery-red);"></span><span>Video Log</span></div>
+        <h3>Talk for thirty seconds.</h3>
+        <p>A webcam confessional. Tone, pauses, and repeated words become a tiny written log.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot"></span><span>Notes.txt</span></div>
+        <h3>Loose thoughts.</h3>
+        <p>A low-pressure place for thoughts that are too small for a full entry.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Draw Pad</span></div>
+        <h3>Scribble it out.</h3>
+        <p>A simple sketch space for symbols, scribbles, mood marks, and rough visual thoughts.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Paint</span></div>
+        <h3>Make a mess.</h3>
+        <p>A playful expressive tool inspired by early desktop paint apps.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot"></span><span>Mood Meter</span></div>
+        <h3>Signal, not score.</h3>
+        <p>A battery-style emotional status tool. Battery levels and signal states instead of clinical labels.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--chrome);"></span><span>Archive</span></div>
+        <h3>The folder.</h3>
+        <p>Where every saved log, note, drawing, and generated output lives.</p>
+      </article>
+      <article class="tool-card">
+        <div class="tool-head"><span class="dot" style="background:var(--sticker-pink);"></span><span>Print Dump</span></div>
+        <h3>Print the mess.</h3>
+        <p>Exports your entries into receipts, sticker sheets, mood cards, or a tiny monthly zine.</p>
+      </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4 · VIDEO LOG · webcam confessional
+     ============================================================ -->
+<section class="section panel" id="video" data-panel="video">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--battery-red);"></span>
+      <span class="os-num">04</span>
+      <span class="os-name">▸ video_log.cam · REC</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tr heart">soft + recorded</span>
+    <span class="os-sticker bl">30 sec only</span>
+    <div class="os-body">
+    <span class="section-label">04 · video log</span>
+    <h2>Talk for thirty seconds.<br/>Get a <em>log</em> back.</h2>
+    <p class="lead">For thoughts too tired to become paragraphs.</p>
+
+    <div class="video-log-grid">
+      <div class="video-log-mock">
+        <div class="webcam">
+          <div class="rec">REC · 00:22</div>
+          <div class="face"></div>
+          <div class="ts">LBP.CAM · 9:41</div>
+        </div>
+        <div class="video-log-output">
+          <div class="meta"><span>battery: 22%</span><span>05·14·26</span></div>
+          today was mostly static.<br/>
+          i said i was fine, but my face did not agree.<br/>
+          <strong>saved anyway.</strong>
+        </div>
+      </div>
       <div>
-        <span class="label">03 · the system</span>
-        <h2 style="margin-top:18px;">pulled from a <em>1999 bedroom.</em></h2>
+        <div class="body">
+          <p>The Video Log lets users speak directly to the journal. It captures the rough shape of the moment: face, voice, pauses, energy, and repeated words. The result is a short entry that feels like the user wrote it, without requiring them to sit with a blank page.</p>
+        </div>
+        <ul class="bullet-list">
+          <li>Short title, three-line entry</li>
+          <li>Battery level, mood symbols, optional kaomoji</li>
+          <li>Save to Archive</li>
+          <li>Print as a receipt strip or monthly zine page</li>
+        </ul>
       </div>
-      <p>pearl. holographic. fluffy. glassy. iridescent. four textures, one mood. the thing on your dresser at 14, lit by a CRT.</p>
     </div>
-
-    <div class="closet-grid">
-
-      <!-- palette -->
-      <div class="closet-tile palette-tile">
-        <span class="corner">a · color</span>
-        <h3>the <em>color palette.</em></h3>
-        <div class="bead-string">
-          <div class="bead-item"><div class="bead pearl"></div><span class="name">pearl</span><span class="hex">#F1E9F4</span></div>
-          <div class="bead-item"><div class="bead lav"></div><span class="name">lavender</span><span class="hex">#C0A8E8</span></div>
-          <div class="bead-item"><div class="bead deep"></div><span class="name">plum</span><span class="hex">#2A1E3F</span></div>
-          <div class="bead-item"><div class="bead chrome"></div><span class="name">chrome</span><span class="hex">#C8C4D4</span></div>
-          <div class="bead-item"><div class="bead hot"></div><span class="name">hot</span><span class="hex">#E64AA8</span></div>
-          <div class="bead-item"><div class="bead mint"></div><span class="name">mint</span><span class="hex">#C2E8D4</span></div>
-          <div class="bead-item"><div class="bead peach"></div><span class="name">peach</span><span class="hex">#F7D4C0</span></div>
-        </div>
-      </div>
-
-      <!-- type -->
-      <div class="closet-tile type-tile">
-        <span class="corner">b · type</span>
-        <h3>chrome decals on <em>lined paper.</em></h3>
-        <p>display in italic chrome for the magazine-cover moments. body in clean mono for the diary-quiet ones. system text in pixel font like the OS that came with the laptop.</p>
-        <div class="type-stack">
-          <div class="type-line">
-            <span class="ttl">display</span>
-            <div class="type-spec">
-              <span class="v type-display">low battery</span>
-              <span class="font-name">Anton · italic</span>
-            </div>
-          </div>
-          <div class="type-line">
-            <span class="ttl">section</span>
-            <div class="type-spec">
-              <span class="v type-chunk">today's note ♡</span>
-              <span class="font-name">Bowlby One</span>
-            </div>
-          </div>
-          <div class="type-line">
-            <span class="ttl">body</span>
-            <div class="type-spec">
-              <span class="v type-body">hey, dreamer. what's on your mind?</span>
-              <span class="font-name">Space Mono</span>
-            </div>
-          </div>
-          <div class="type-line">
-            <span class="ttl">system</span>
-            <div class="type-spec">
-              <span class="v type-pixel">★ FILE 03 / 04 ✦ TUE 9:41</span>
-              <span class="font-name">VT323</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- texture -->
-      <div class="closet-tile tex-tile">
-        <span class="corner">c · texture</span>
-        <h3>five surfaces, <em>one feeling.</em></h3>
-        <p>the entire interface is built from these five. nothing flat. nothing solid. nothing screams.</p>
-        <div class="tex-grid">
-          <div class="tex glass"><span class="lbl">glass</span></div>
-          <div class="tex pearl"><span class="lbl">pearl</span></div>
-          <div class="tex holo"><span class="lbl">holo</span></div>
-          <div class="tex fur"><span class="lbl">fur</span></div>
-          <div class="tex knit"><span class="lbl">knit</span></div>
-        </div>
-      </div>
-
-      <!-- iconography -->
-      <div class="closet-tile icons-tile">
-        <span class="corner">d · stickers</span>
-        <h3>a sticker pack <em>from the 90's.</em></h3>
-        <p>icons live as stickers. CDs, butterflies, stars, kaomoji. they tag the entry without explaining it. notebook doodles.</p>
-        <div class="icons">
-          <div class="icon">♡</div>
-          <div class="icon">★</div>
-          <div class="icon">✦</div>
-          <div class="icon">☻</div>
-          <div class="icon">☯</div>
-          <div class="icon">✿</div>
-          <div class="icon">⚡︎</div>
-          <div class="icon">◐</div>
-          <div class="icon">:)</div>
-          <div class="icon">:|</div>
-          <div class="icon">:D</div>
-          <div class="icon">-_-</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     5. THE STACK (mockups)
+     5 · MOOD METER
      ============================================================ -->
-<section class="section stack-section">
+<section class="section blue mood-section panel" id="mood" data-panel="mood">
   <div class="section-inner">
-
-    <div class="stack-head">
-      <span class="label">04 · the stack</span>
-      <h2>a journal that <em>looks like an object</em> on your dresser.</h2>
-      <p>three screens, three charms, two devices. native iOS and iPadOS. each surface earns its own moment. log in, free write, today's note, library, settings.</p>
-    </div>
-
-    <div class="stack-row">
-      <div class="shot tilt-l">
-        <img src="../images/projects/lowbatterypress/lbp-phone-login.png" alt="login screen"/>
-        <div class="cap"><span>screen 01</span><span>log in</span></div>
-      </div>
-      <div class="shot tilt-c">
-        <img src="../images/projects/lowbatterypress/lbp-phone-main.png" alt="today's note with mood selector"/>
-        <div class="cap"><span>screen 02</span><span>today's note</span></div>
-      </div>
-      <div class="shot tilt-r">
-        <img src="../images/projects/lowbatterypress/lbp-phone-freewrite.png" alt="free write screen"/>
-        <div class="cap"><span>screen 03</span><span>free write</span></div>
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon"></span>
+      <span class="os-num">05</span>
+      <span class="os-name">▸ mood_meter.app</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
       </div>
     </div>
+    <span class="os-sticker tl">battery: 42%</span>
+    <span class="os-sticker tr bolt">low signal</span>
+    <span class="os-sticker br heart">no scores</span>
+    <div class="os-body">
+    <span class="section-label">05 · mood meter</span>
+    <h2>Mood as <em>signal,</em><br/>not score.</h2>
+    <p class="lead">Low Battery Press avoids clinical mood ranking. Feelings are translated into signal states, battery levels, and tiny interface symbols.</p>
 
-    <div class="stack-tablet">
-      <img src="../images/projects/lowbatterypress/lbp-tablet.png" alt="lbp on iPad in landscape"/>
-      <div class="cap">
-        <span>★ ipad · landscape</span>
-        <span class="price">write with the apple pencil on a lined paper screen. it feels like the real thing.</span>
-      </div>
+    <div class="signal-grid">
+      <div class="mood-state dim"><span class="pct">12%</span> low signal</div>
+      <div class="mood-state warn"><span class="pct">22%</span> buffering</div>
+      <div class="mood-state alert"><span class="pct">04%</span> offline</div>
+      <div class="mood-state"><span class="pct">38%</span> reconnected</div>
+      <div class="mood-state dim"><span class="pct">19%</span> static</div>
+      <div class="mood-state alert"><span class="pct">08%</span> drained</div>
+      <div class="mood-state good"><span class="pct">82%</span> wired</div>
+      <div class="mood-state"><span class="pct">25%</span> numb</div>
+      <div class="mood-state warn"><span class="pct">54%</span> soft</div>
+      <div class="mood-state good"><span class="pct">91%</span> feral</div>
+      <div class="mood-state dim"><span class="pct">31%</span> glitching</div>
+      <div class="mood-state good"><span class="pct">64%</span> almost okay</div>
     </div>
-
+    </div>
   </div>
 </section>
 
 <!-- ============================================================
-     6. THE LIBRARY (interaction)
+     6 · ANALOG ARCHIVE
      ============================================================ -->
-<section class="section">
-  <div class="section-inner library-inner">
-
-    <div class="library-copy">
-      <span class="label">05 · the library</span>
-      <h2>write the sentence. <em>i'll take care of the rest.</em></h2>
-      <p>The writing surface stays open. Mood tagging is optional, driven by kaomoji, and never scored. AI reflects the entry back in your own voice in three lines, so when you open the library later, it still sounds like you.</p>
-
-      <div class="flow-list">
-        <div class="flow"><span class="ix">1</span><span class="body"><strong>open.</strong> you're greeted with a charm and the date.</span></div>
-        <div class="flow"><span class="ix">2</span><span class="body"><strong>write.</strong> 1000 characters. no formatting. no prompts unless you want one.</span></div>
-        <div class="flow"><span class="ix">3</span><span class="body"><strong>tag.</strong> add a kaomoji mood or a vibe sticker if it fits.</span></div>
-        <div class="flow"><span class="ix">4</span><span class="body"><strong>save.</strong> the app sends it back as a three line recap in your own voice.</span></div>
-        <div class="flow"><span class="ix">5</span><span class="body"><strong>library.</strong> everything lands in a wall of polaroids. nothing scored. nothing missing if you skipped.</span></div>
-      </div>
-    </div>
-
-    <div class="polaroids">
-      <div class="poloroid-stage">
-        <div class="poloroid p1">
-          <div class="face">today is mine.<br/>good vibes <span class="em">only.</span></div>
-          <div class="stamp"><span>05·14·26</span><span class="mood">:) good</span></div>
-        </div>
-        <div class="poloroid p2">
-          <div class="face"><span class="em">grateful for the small things<br/>and big adventures.</span></div>
-          <div class="stamp"><span>05·11·26</span><span class="mood">:D hyped</span></div>
-        </div>
-        <div class="poloroid p3">
-          <div class="face">no rules. <br/>just <span class="em">real you.</span></div>
-          <div class="stamp"><span>05·09·26</span><span class="mood">:) chill</span></div>
-        </div>
-        <div class="poloroid p4">
-          <div class="face">collect moments,<br/><span class="em">not things.</span></div>
-          <div class="stamp"><span>05·06·26</span><span class="mood">-_- tired</span></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ============================================================
-     7. OUTRO
-     ============================================================ -->
-<section class="section outro">
+<section class="section panel" id="archive" data-panel="archive">
   <div class="section-inner">
-    <h2 class="mark">Low<br/>Battery<br/>Press<span class="battery"></span></h2>
-    <img class="charm-out" src="../images/projects/lowbatterypress/lbp-keychain.png" alt="lbp pearl charm"/>
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--paper);"></span>
+      <span class="os-num">06</span>
+      <span class="os-name">▸ analog_archive/</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tl">printable</span>
+    <span class="os-sticker br star">★ archive</span>
+    <div class="os-body">
+    <span class="section-label">06 · analog archive</span>
+    <h2>Your feelings,<br/>saved as <em>files.</em></h2>
+    <p class="lead">The system does not stop at the screen. Entries can become physical artifacts.</p>
+    <div class="body">
+      <p>Receipt strips, tiny zine pages, sticker sheets, mood cards, and monthly dumps. Talk. Type. Print the damage.</p>
+    </div>
+
+    <div class="archive-grid">
+      <article class="archive-item receipt">
+        <div class="a-head"><span>RECEIPT // 05·14</span><span>22%</span></div>
+        <div class="a-body">
+          ▸ entry 04·18<br/>
+          static day.<br/>
+          ─────────────<br/>
+          fine. mostly.<br/>
+          ─────────────<br/>
+          saved anyway.
+        </div>
+      </article>
+      <article class="archive-item sticker-sheet">
+        <div class="a-head"><span>STICKERS</span><span>×8</span></div>
+        <div class="a-body">
+          <span class="a-sticker">★ saved</span>
+          <span class="a-sticker">▸ static</span>
+          <span class="a-sticker">soft</span>
+          <span class="a-sticker">drained</span>
+          <span class="a-sticker">feral</span>
+          <span class="a-sticker">offline</span>
+          <span class="a-sticker">wired</span>
+          <span class="a-sticker">⚡ low</span>
+        </div>
+      </article>
+      <article class="archive-item mood-card">
+        <div class="a-head"><span>MOOD CARD</span><span>05·14</span></div>
+        <div class="a-body">
+          <div class="pct">42%</div>
+          buffering<br/>
+          <small style="font-family: var(--ui); font-size: 11px; opacity: 0.85;">today felt like buffering.</small>
+        </div>
+      </article>
+      <article class="archive-item crash">
+        <div class="a-head"><span>CRASH REPORT</span><span>!</span></div>
+        <div class="a-body">
+          <span class="err">! ERR · 0042</span>
+          system overload.<br/>
+          unsaved progress.<br/>
+          ─────────────<br/>
+          recovery: rest.
+        </div>
+      </article>
+    </div>
+    </div>
   </div>
 </section>
 
-<!-- SITE FOOTER · mixtape -->
+<!-- ============================================================
+     7 · MONTHLY DUMP
+     ============================================================ -->
+<section class="section lavender panel" id="dump" data-panel="dump">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--sticker-pink);"></span>
+      <span class="os-num">07</span>
+      <span class="os-name">▸ monthly_dump.zip</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tr heart">stapled badly</span>
+    <span class="os-sticker bl">16pp</span>
+    <div class="os-body">
+    <span class="section-label">07 · monthly dump</span>
+    <h2>Your month, <em>printed</em><br/>badly on purpose.</h2>
+    <p class="lead">At the end of the month, Low Battery Press compiles entries into a small printable zine.</p>
+    <div class="body">
+      <p>It gathers repeated words, low-battery days, drawings, voice fragments, screenshots, and saved notes into one imperfect personal archive.</p>
+    </div>
+
+    <div class="dump-mock">
+      <div class="zine-page">
+        <div class="z-title">may<br/>dump.</div>
+        <div class="z-stat"><span>most repeated word</span><span class="v">tired</span></div>
+        <div class="z-stat"><span>lowest battery</span><span class="v">04%</span></div>
+        <div class="z-stat"><span>longest entry</span><span class="v">182 chars</span></div>
+        <div class="z-stat"><span>quietest day</span><span class="v">may 09</span></div>
+        <div class="z-stat"><span>best saved line</span><span class="v">soft anyway</span></div>
+        <div class="z-words">
+          <span class="z-word">tired</span>
+          <span class="z-word">soft</span>
+          <span class="z-word">static</span>
+          <span class="z-word">okay</span>
+          <span class="z-word">42%</span>
+          <span class="z-word">saved</span>
+          <span class="z-word">low</span>
+          <span class="z-word">again</span>
+          <span class="z-word">maybe</span>
+          <span class="z-word">enough</span>
+        </div>
+      </div>
+      <div>
+        <ul class="bullet-list">
+          <li>Most repeated words</li>
+          <li>Lowest battery day</li>
+          <li>Best saved line</li>
+          <li>Things survived</li>
+          <li>Thoughts avoided</li>
+          <li>Mood symbol sheet</li>
+          <li>Tiny printable zine layout</li>
+        </ul>
+        <p class="body" style="margin-top: 24px;">Low effort in. Tiny archive out.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8 · BRAND SYSTEM · palette + type
+     ============================================================ -->
+<section class="section panel" id="brand" data-panel="brand">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon" style="background: var(--monitor-blue);"></span>
+      <span class="os-num">08</span>
+      <span class="os-name">▸ brand_system.cfg</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tl star">8 colors</span>
+    <span class="os-sticker tr">4 fonts</span>
+    <span class="os-sticker bl heart">internet girl</span>
+    <div class="os-body">
+    <span class="section-label">08 · brand system</span>
+    <h2>Internet Girl,<br/>Low <em>Signal.</em></h2>
+    <p class="lead">90s desktop interfaces, stickered cyberdecks, computer paper, pixel buttons, folder icons, and analog print textures.</p>
+    <div class="body">
+      <p>Playful without becoming sugary. Nostalgic without becoming costume. Emotional without feeling clinical.</p>
+    </div>
+
+    <div class="palette-grid">
+      <div class="swatch" style="background: #8FA8D8;">
+        <span class="sw-name">Monitor<br/>Blue</span>
+        <span class="sw-use">main desktop, large panels</span>
+        <span class="sw-hex">#8FA8D8</span>
+      </div>
+      <div class="swatch" style="background: #C8B9D8;">
+        <span class="sw-name">Window<br/>Lavender</span>
+        <span class="sw-use">app windows, folders, soft surfaces</span>
+        <span class="sw-hex">#C8B9D8</span>
+      </div>
+      <div class="swatch" style="background: #F4E8CC;">
+        <span class="sw-name">Computer<br/>Paper</span>
+        <span class="sw-use">notes, printouts, popups, analog outputs</span>
+        <span class="sw-hex">#F4E8CC</span>
+      </div>
+      <div class="swatch dark" style="background: #2B2038;">
+        <span class="sw-name">Deep<br/>Plum</span>
+        <span class="sw-use">text, borders, shadows, outlines</span>
+        <span class="sw-hex">#2B2038</span>
+      </div>
+      <div class="swatch" style="background: #B9E86C;">
+        <span class="sw-name">Signal<br/>Green</span>
+        <span class="sw-use">active states, cursor, online marks</span>
+        <span class="sw-hex">#B9E86C</span>
+      </div>
+      <div class="swatch" style="background: #F2A6C8;">
+        <span class="sw-name">Sticker<br/>Pink</span>
+        <span class="sw-use">tabs, stickers, charms, accents</span>
+        <span class="sw-hex">#F2A6C8</span>
+      </div>
+      <div class="swatch dark" style="background: #D94B4B;">
+        <span class="sw-name">Low<br/>Battery Red</span>
+        <span class="sw-use">alerts, warnings, depleted moods</span>
+        <span class="sw-hex">#D94B4B</span>
+      </div>
+      <div class="swatch" style="background: #B9B8C4;">
+        <span class="sw-name">Chrome<br/>Gray</span>
+        <span class="sw-use">device casing, menu bars, hardware</span>
+        <span class="sw-hex">#B9B8C4</span>
+      </div>
+    </div>
+
+    <div class="type-spec">
+      <div class="type-card">
+        <div class="label">Display · headlines</div>
+        <div class="sample display">LOW BATTERY</div>
+        <div class="name">Bowlby One · the magazine-cover voice</div>
+      </div>
+      <div class="type-card">
+        <div class="label">UI · system text</div>
+        <div class="sample ui">battery: 42% · buffering</div>
+        <div class="name">Pixelify Sans · soft pixel</div>
+      </div>
+      <div class="type-card">
+        <div class="label">Pixel · OS chrome</div>
+        <div class="sample pixel">▸ LBP // 05·14 · saved anyway</div>
+        <div class="name">VT323 · the OS that came with the laptop</div>
+      </div>
+      <div class="type-card">
+        <div class="label">Body · diary copy</div>
+        <div class="sample body">today felt like buffering. i said i was fine, but my face did not agree. saved anyway.</div>
+        <div class="name">Space Mono · diary-quiet body</div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     9 · CTA
+     ============================================================ -->
+<section class="section cta-section panel" id="start" data-panel="start">
+  <div class="section-inner">
+    <div class="os-titlebar" data-drag>
+      <span class="os-icon"></span>
+      <span class="os-num">09</span>
+      <span class="os-name">▸ start_log.run</span>
+      <div class="os-controls">
+        <button class="os-btn os-min" aria-label="Collapse">_</button>
+        <button class="os-btn os-max" aria-label="Maximize">□</button>
+        <button class="os-btn close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <span class="os-sticker tr heart">click any</span>
+    <span class="os-sticker bl">no subscription</span>
+    <div class="os-body">
+    <span class="section-label">09 · final</span>
+    <h2>Start a log<br/>before the feeling<br/><em>disappears.</em></h2>
+    <p class="lead">Battery low. Archive still open.</p>
+    <div class="cta-buttons">
+      <a href="#desktop" class="cta-btn">Open the Desktop</a>
+      <button class="cta-btn" data-page="archive">View the Archive</button>
+      <button class="cta-btn" data-page="dump">Print a Dump</button>
+    </div>
+    </div>
+  </div>
+</section>
+    </main>
+
+    <!-- RIGHT SIDEBAR · widgets -->
+    <aside class="bs-side">
+      <div class="bs-block bs-block-stats">
+        <div class="bs-block-bar">~ site stats</div>
+        <div class="bs-block-body bs-stats-body">
+          <div class="bs-stat-row"><span>visitors</span><strong>1,024</strong></div>
+          <div class="bs-stat-row"><span>uptime</span><strong>5 days</strong></div>
+          <div class="bs-stat-row"><span>logs saved</span><strong>312</strong></div>
+          <div class="bs-stat-row"><span>battery</span><strong id="bs-stat-bat">42%</strong></div>
+        </div>
+      </div>
+
+      <div class="bs-block bs-block-now">
+        <div class="bs-block-bar">~ now playing</div>
+        <div class="bs-block-body">
+          <div class="bs-now-title">kitty no otonari</div>
+          <div class="bs-now-progress"><div class="bs-now-fill"></div></div>
+          <div class="bs-now-times"><span>0:42</span><span>2:18</span></div>
+          <div class="bs-now-controls">⇺ ▶ ⇻</div>
+        </div>
+      </div>
+
+      <div class="bs-block bs-block-clickme">
+        <div class="bs-block-bar">~ click me</div>
+        <div class="bs-block-body bs-clickme-body">
+          <button class="bs-clickme">★ SAVE A FRAGMENT ★</button>
+          <p class="bs-clickme-tip">no perfect entries required</p>
+        </div>
+      </div>
+
+      <div class="bs-block bs-block-stickers">
+        <div class="bs-block-bar">~ stickers</div>
+        <div class="bs-block-body bs-side-stickers">
+          <span class="bs-side-sticker">★ saved</span>
+          <span class="bs-side-sticker">soft</span>
+          <span class="bs-side-sticker">drained</span>
+          <span class="bs-side-sticker">⚡ low</span>
+          <span class="bs-side-sticker">feral</span>
+          <span class="bs-side-sticker">offline</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="browser-foot">
+    <span>lowbatterypress.os · est. 2026</span>
+    <span>about · sitemap · contact</span>
+  </div>
+</section>
+
 <footer class="site-footer">
   <a href="deadwax.html">← previous track</a>
   <div class="sf-center">
-    <a href="#top" class="sf-link">↑ Return to top</a>
-    <a href="../" class="sf-link">↩ Return home</a>
+    <a href="#top">↑ Return to top</a>
+    <a href="../">↩ Return home</a>
   </div>
   <a href="mnta.html">next track →</a>
 </footer>
 
+<script>
+/* ============================================================
+   LBP.OS · desktop diary interaction
+   ============================================================ */
+
+/* clock + date */
+(function() {
+  const t = document.getElementById('clock-time');
+  const d = document.getElementById('clock-date');
+  if (!t || !d) return;
+  const days = ['sun','mon','tue','wed','thu','fri','sat'];
+  const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  function tick() {
+    const now = new Date();
+    const h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2,'0');
+    t.textContent = h + ':' + m;
+    d.textContent = days[now.getDay()] + ' · ' + months[now.getMonth()] + ' ' + now.getDate();
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+/* battery jitter · low-signal feel */
+(function() {
+  const fill = document.getElementById('battery-fill');
+  const pct = document.getElementById('battery-pct');
+  const battery = document.getElementById('battery');
+  if (!fill || !pct || !battery) return;
+  let level = 42;
+  setInterval(() => {
+    level += Math.random() < 0.5 ? -1 : 1;
+    if (level < 8)  level = 8;
+    if (level > 64) level = 64;
+    fill.style.width = level + '%';
+    pct.textContent = level + '%';
+    battery.classList.toggle('low', level < 20);
+  }, 4200);
+})();
+
+/* WINDOW MANAGER · open/close, drag, focus */
+(function() {
+  const stage = document.querySelector('.desktop-stage');
+  if (!stage) return;
+  const icons = document.querySelectorAll('.icon');
+  const windows = document.querySelectorAll('.window');
+  const tasks = document.getElementById('taskbar-tasks');
+  let zCounter = 20;
+  const openSet = new Set();
+
+  function nameOf(id) {
+    const w = document.getElementById('win-' + id);
+    return w ? w.querySelector('.ttl').textContent : id;
+  }
+
+  function rebuildTaskbar() {
+    if (!tasks) return;
+    tasks.innerHTML = '<span class="task ' + (openSet.size ? '' : 'active') + '">Desktop</span>';
+    openSet.forEach(id => {
+      const t = document.createElement('span');
+      t.className = 'task active';
+      t.textContent = nameOf(id);
+      t.addEventListener('click', () => focusWindow(id));
+      tasks.appendChild(t);
+    });
+  }
+
+  function focusWindow(id) {
+    const w = document.getElementById('win-' + id);
+    if (!w) return;
+    zCounter += 1;
+    w.style.zIndex = zCounter;
+  }
+
+  function openWindow(id) {
+    const w = document.getElementById('win-' + id);
+    if (!w) return;
+    if (!w.classList.contains('open')) {
+      w.classList.add('open');
+      openSet.add(id);
+    }
+    focusWindow(id);
+    rebuildTaskbar();
+  }
+
+  function closeWindow(id) {
+    const w = document.getElementById('win-' + id);
+    if (!w) return;
+    w.classList.remove('open');
+    openSet.delete(id);
+    rebuildTaskbar();
+  }
+
+  /* icon clicks */
+  icons.forEach(ic => {
+    ic.addEventListener('click', () => {
+      const id = ic.dataset.window;
+      if (id) openWindow(id);
+    });
+  });
+
+  /* close buttons */
+  windows.forEach(w => {
+    const closeBtn = w.querySelector('.win-btn.close');
+    const minBtn   = w.querySelector('.win-btn.min');
+    const id = w.dataset.window;
+    if (closeBtn) closeBtn.addEventListener('click', e => { e.stopPropagation(); closeWindow(id); });
+    if (minBtn)   minBtn.addEventListener('click',   e => { e.stopPropagation(); closeWindow(id); });
+    /* clicking the window brings it forward */
+    w.addEventListener('mousedown', () => focusWindow(id));
+  });
+
+  /* draggable title bars (desktop only) */
+  function isMobile() { return window.matchMedia('(max-width: 880px)').matches; }
+  windows.forEach(w => {
+    const bar = w.querySelector('[data-drag]');
+    if (!bar) return;
+    let startX, startY, baseX, baseY, dragging = false;
+    bar.addEventListener('mousedown', (e) => {
+      if (isMobile()) return;
+      if (e.target.closest('.win-btn')) return;
+      dragging = true;
+      const rect = w.getBoundingClientRect();
+      const stageRect = stage.getBoundingClientRect();
+      baseX = rect.left - stageRect.left;
+      baseY = rect.top - stageRect.top;
+      w.style.left = baseX + 'px';
+      w.style.top  = baseY + 'px';
+      startX = e.clientX;
+      startY = e.clientY;
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      w.style.left = (baseX + dx) + 'px';
+      w.style.top  = (baseY + dy) + 'px';
+    });
+    document.addEventListener('mouseup', () => { dragging = false; });
+  });
+
+  /* open Journal by default so user sees the system in action */
+  setTimeout(() => openWindow('journal'), 280);
+  setTimeout(() => openWindow('mood'),    520);
+})();
+
+/* JOURNAL char counter */
+(function() {
+  const ta = document.querySelector('#win-journal textarea');
+  const status = document.getElementById('journal-status');
+  if (!ta || !status) return;
+  ta.addEventListener('input', () => {
+    const n = ta.value.length;
+    status.textContent = n === 0 ? 'unsaved fragment · 0 chars' : 'unsaved fragment · ' + n + ' chars';
+  });
+})();
+
+/* MOOD METER · select state, update battery level + color */
+(function() {
+  const list = document.getElementById('mood-list');
+  const bat  = document.getElementById('mood-bat');
+  const pct  = document.getElementById('mood-pct');
+  const sig  = document.getElementById('mood-signal');
+  const state= document.getElementById('mood-state');
+  if (!list) return;
+  const MAP = {
+    'low signal':   { p: 22, c: '#F2A6C8', sig: 'low' },
+    'buffering':    { p: 42, c: '#F2A6C8', sig: 'low' },
+    'offline':      { p:  4, c: '#D94B4B', sig: 'none' },
+    'static':       { p: 19, c: '#B9B8C4', sig: 'low' },
+    'drained':      { p:  8, c: '#D94B4B', sig: 'low' },
+    'wired':        { p: 82, c: '#B9E86C', sig: 'high' },
+    'soft':         { p: 54, c: '#F2A6C8', sig: 'mid' },
+    'feral':        { p: 91, c: '#B9E86C', sig: 'high' },
+    'almost okay':  { p: 64, c: '#B9E86C', sig: 'mid' }
+  };
+  list.querySelectorAll('.mood').forEach(btn => {
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.mood').forEach(m => m.classList.remove('active'));
+      btn.classList.add('active');
+      const k = btn.textContent.trim();
+      const v = MAP[k] || MAP['buffering'];
+      bat.style.width = v.p + '%';
+      bat.style.background = v.c;
+      pct.textContent = v.p + '%';
+      sig.textContent = v.sig;
+      state.textContent = k;
+    });
+  });
+})();
+
+/* PAINT · classic Windows Paint clone · pencil / brush / eraser / line / rect / ellipse / fill / picker */
+(function() {
+  const canvas = document.getElementById('paint-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const status = document.getElementById('paint-status');
+
+  let tool = 'pencil';
+  let size = 1;
+  let fg = '#2B2038';
+  let bg = '#ffffff';
+  let drawing = false;
+  let startX = 0, startY = 0;
+  let lastX = 0, lastY = 0;
+  let preCommit = null; /* ImageData snapshot before shape preview */
+
+  /* Resolve canvas to a crisp pixel buffer */
+  function fitCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(1, Math.floor(rect.width));
+    const h = Math.max(1, Math.floor(rect.height));
+    if (canvas.width !== w || canvas.height !== h) {
+      const old = canvas.width && canvas.height ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
+      canvas.width = w; canvas.height = h;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+      if (old) try { ctx.putImageData(old, 0, 0); } catch (e) {}
+    }
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  fitCanvas();
+  window.addEventListener('resize', fitCanvas);
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    const ev = (e.touches && e.touches[0]) || e;
+    return { x: Math.floor(ev.clientX - r.left), y: Math.floor(ev.clientY - r.top) };
+  }
+
+  function setStatus(msg) { if (status) status.textContent = msg; }
+
+  /* tool actions */
+  function strokeFreehand(p, stroke) {
+    ctx.beginPath();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = size;
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+  }
+
+  function drawLine(x0, y0, x1, y1, stroke) {
+    ctx.beginPath();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = size;
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+  }
+  function drawRect(x0, y0, x1, y1, stroke) {
+    ctx.beginPath();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = size;
+    ctx.strokeRect(Math.min(x0,x1), Math.min(y0,y1), Math.abs(x1-x0), Math.abs(y1-y0));
+  }
+  function drawEllipse(x0, y0, x1, y1, stroke) {
+    const cx = (x0 + x1) / 2;
+    const cy = (y0 + y1) / 2;
+    const rx = Math.abs(x1 - x0) / 2;
+    const ry = Math.abs(y1 - y0) / 2;
+    ctx.beginPath();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = size;
+    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  /* iterative flood fill */
+  function hexToRgba(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substring(0,2), 16);
+    const g = parseInt(c.substring(2,4), 16);
+    const b = parseInt(c.substring(4,6), 16);
+    return [r, g, b, 255];
+  }
+  function floodFill(x, y, fillHex) {
+    const w = canvas.width, h = canvas.height;
+    if (x < 0 || x >= w || y < 0 || y >= h) return;
+    const img = ctx.getImageData(0, 0, w, h);
+    const data = img.data;
+    const idx = (y * w + x) * 4;
+    const target = [data[idx], data[idx+1], data[idx+2], data[idx+3]];
+    const fill = hexToRgba(fillHex);
+    if (target[0] === fill[0] && target[1] === fill[1] && target[2] === fill[2] && target[3] === fill[3]) return;
+    const stack = [[x, y]];
+    const tol = 4; /* tolerate antialias drift */
+    function match(i) {
+      return Math.abs(data[i] - target[0]) <= tol
+          && Math.abs(data[i+1] - target[1]) <= tol
+          && Math.abs(data[i+2] - target[2]) <= tol
+          && Math.abs(data[i+3] - target[3]) <= tol;
+    }
+    while (stack.length) {
+      const [px, py] = stack.pop();
+      const i = (py * w + px) * 4;
+      if (!match(i)) continue;
+      data[i] = fill[0]; data[i+1] = fill[1]; data[i+2] = fill[2]; data[i+3] = fill[3];
+      if (px > 0)     stack.push([px-1, py]);
+      if (px < w - 1) stack.push([px+1, py]);
+      if (py > 0)     stack.push([px, py-1]);
+      if (py < h - 1) stack.push([px, py+1]);
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+
+  function pick(x, y) {
+    const d = ctx.getImageData(x, y, 1, 1).data;
+    const hex = '#' + ((1 << 24) + (d[0] << 16) + (d[1] << 8) + d[2]).toString(16).slice(1);
+    fg = hex;
+    document.getElementById('pp-fg').style.background = fg;
+    document.querySelectorAll('.pp-sw').forEach(b => b.classList.toggle('active', b.dataset.color.toLowerCase() === fg.toLowerCase()));
+    /* switch back to pencil after picking */
+    setTool('pencil');
+    setStatus('picked ' + fg);
+  }
+
+  function start(e) {
+    const p = pos(e);
+    e.preventDefault();
+    if (tool === 'fill')  { floodFill(p.x, p.y, fg); setStatus('filled ' + fg); return; }
+    if (tool === 'picker'){ pick(p.x, p.y); return; }
+
+    drawing = true;
+    startX = p.x; startY = p.y;
+    lastX = p.x;  lastY = p.y;
+
+    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
+      const stroke = tool === 'eraser' ? bg : fg;
+      ctx.fillStyle = stroke;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, Math.max(0.5, size / 2), 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      /* shape tools · save state for live preview */
+      preCommit = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+  }
+  function move(e) {
+    if (!drawing) return;
+    const p = pos(e);
+    e.preventDefault();
+    const stroke = tool === 'eraser' ? bg : fg;
+
+    if (tool === 'pencil' || tool === 'brush' || tool === 'eraser') {
+      strokeFreehand(p, stroke);
+    } else if (preCommit) {
+      ctx.putImageData(preCommit, 0, 0);
+      if (tool === 'line')    drawLine(startX, startY, p.x, p.y, stroke);
+      if (tool === 'rect')    drawRect(startX, startY, p.x, p.y, stroke);
+      if (tool === 'ellipse') drawEllipse(startX, startY, p.x, p.y, stroke);
+    }
+  }
+  function end() {
+    if (!drawing) return;
+    drawing = false;
+    preCommit = null;
+    setStatus('untitled.bmp · ' + tool);
+  }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove',  move,  { passive: false });
+  window.addEventListener('touchend', end);
+
+  /* tool buttons */
+  function setTool(name) {
+    tool = name;
+    document.querySelectorAll('.pt-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === name));
+    canvas.style.cursor = (name === 'fill' || name === 'picker') ? 'cell' : 'crosshair';
+  }
+  document.querySelectorAll('.pt-btn').forEach(b => {
+    b.addEventListener('click', () => setTool(b.dataset.tool));
+  });
+
+  /* size buttons */
+  document.querySelectorAll('.ps-size').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.ps-size').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      size = parseInt(b.dataset.size, 10);
+    });
+  });
+
+  /* swatches · left-click sets foreground, right-click sets background */
+  document.querySelectorAll('.pp-sw').forEach(b => {
+    b.addEventListener('click', () => {
+      fg = b.dataset.color;
+      document.querySelectorAll('.pp-sw').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById('pp-fg').style.background = fg;
+    });
+    b.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      bg = b.dataset.color;
+      document.getElementById('pp-bg').style.background = bg;
+    });
+  });
+
+  /* clear · fill with current background color */
+  const clearBtn = document.getElementById('paint-clear');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    setStatus('cleared · ' + bg);
+  });
+
+  /* save · download as png */
+  const saveBtn = document.getElementById('paint-save');
+  if (saveBtn) saveBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'lbp-paint-' + Date.now() + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    setStatus('saved · ' + link.download);
+  });
+})();
+
+/* DRAW PAD · actual drawing canvas with mouse + touch support */
+(function() {
+  const canvas = document.getElementById('dp-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const status = document.getElementById('dp-status');
+
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+  let color = '#2B2038';
+  let size = 4;
+  let tool = 'pen';
+  let strokes = 0;
+
+  /* fit drawing buffer to its rendered size for crisp lines */
+  function sizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      ctx.scale(dpr, dpr);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      try { ctx.putImageData(data, 0, 0); } catch (e) { /* size shifted, skip restore */ }
+    } else {
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+  }
+  sizeCanvas();
+  window.addEventListener('resize', sizeCanvas);
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const evt = (e.touches && e.touches[0]) || e;
+    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+  }
+  function start(e) {
+    drawing = true;
+    const p = getPos(e);
+    lastX = p.x; lastY = p.y;
+    /* dot for single click */
+    ctx.beginPath();
+    ctx.fillStyle = tool === 'erase' ? '#ffffff' : color;
+    ctx.arc(p.x, p.y, size / 2, 0, Math.PI * 2);
+    ctx.fill();
+    e.preventDefault();
+  }
+  function move(e) {
+    if (!drawing) return;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.strokeStyle = tool === 'erase' ? '#ffffff' : color;
+    ctx.lineWidth = size;
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+    e.preventDefault();
+  }
+  function end() {
+    if (!drawing) return;
+    drawing = false;
+    strokes += 1;
+    if (status) status.textContent = 'untitled.png · ' + strokes + ' stroke' + (strokes === 1 ? '' : 's');
+  }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove',  move,  { passive: false });
+  window.addEventListener('touchend', end);
+
+  /* color swatches */
+  document.querySelectorAll('.dp-color').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.dp-color').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      color = b.dataset.color;
+      tool = 'pen';
+      document.querySelectorAll('.dp-tool').forEach(x => x.classList.toggle('active', x.dataset.tool === 'pen'));
+    });
+  });
+
+  /* size buttons */
+  document.querySelectorAll('.dp-size').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.dp-size').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      size = parseInt(b.dataset.size, 10);
+    });
+  });
+
+  /* pen / erase */
+  document.querySelectorAll('.dp-tool').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.dp-tool').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      tool = b.dataset.tool;
+    });
+  });
+
+  /* clear */
+  const clearBtn = document.getElementById('dp-clear');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    const w = canvas.width, h = canvas.height;
+    /* reset transform · clear in actual pixels */
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.restore();
+    strokes = 0;
+    if (status) status.textContent = 'untitled.png · empty';
+  });
+
+  /* save · download as png */
+  const saveBtn = document.getElementById('dp-save');
+  if (saveBtn) saveBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'lbp-drawpad-' + Date.now() + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    if (status) status.textContent = 'saved · ' + link.download;
+  });
+})();
+
+/* MOOD OBJECTS · spawn tiny stickers across the window when tapped */
+(function() {
+  const SYMBOLS = {
+    sad:    { glyph: '💧', motion: 'fall',    count: 14, color: '#6c87b8' },
+    happy:  { glyph: '☀',  motion: 'fall',    count: 12, color: '#d4a82a' },
+    angry:  { glyph: '✦',  motion: 'scatter', count: 14, color: '#D94B4B' },
+    tired:  { glyph: '🪫', motion: 'fall',    count: 10, color: '#2B2038' },
+    heart:  { glyph: '♡',  motion: 'rise',    count: 14, color: '#F2A6C8' },
+    static: { glyph: '▒',  motion: 'scatter', count: 16, color: '#8FA8D8' }
+  };
+
+  function spawn(button) {
+    const mood = button.dataset.mood;
+    const cfg = SYMBOLS[mood] || SYMBOLS.sad;
+    const win = button.closest('.window');
+    const target = win ? win.querySelector('.window-content') : null;
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+
+    for (let i = 0; i < cfg.count; i++) {
+      const p = document.createElement('span');
+      p.className = 'mood-particle ' + cfg.motion;
+      p.textContent = cfg.glyph;
+      p.style.color = cfg.color;
+      p.style.fontSize = (12 + Math.random() * 12) + 'px';
+      const startX = Math.random() * (w - 20);
+      const startY = cfg.motion === 'rise'
+        ? h - 60 - Math.random() * 60
+        : Math.random() * 80;
+      p.style.left = startX + 'px';
+      p.style.top  = startY + 'px';
+      if (cfg.motion === 'scatter') {
+        p.style.setProperty('--dx', ((Math.random() - 0.5) * w * 0.8).toFixed(0) + 'px');
+        p.style.setProperty('--dy', ((Math.random() - 0.5) * h * 0.6).toFixed(0) + 'px');
+      }
+      p.style.animationDelay = (Math.random() * 0.4).toFixed(2) + 's';
+      target.appendChild(p);
+      setTimeout(() => p.remove(), 2800);
+    }
+
+    if (mood === 'static') {
+      win.classList.add('flicker');
+      setTimeout(() => win.classList.remove('flicker'), 750);
+    }
+  }
+
+  document.querySelectorAll('.mood-objects .mo').forEach(btn => {
+    btn.addEventListener('click', () => spawn(btn));
+  });
+})();
+
+/* MUSIC MEMORY · keep the journal track in sync with the right-sidebar player */
+(function() {
+  const tracks = [
+    { t: 'Fade Into You',         a: 'Mazzy Star' },
+    { t: 'Linger',                a: 'The Cranberries' },
+    { t: 'Heaven or Las Vegas',   a: 'Cocteau Twins' },
+    { t: 'Strawberry Wine',       a: 'Deana Carter' },
+    { t: 'Karma Police',          a: 'Radiohead' }
+  ];
+  let i = 0;
+  const journalT = document.getElementById('mm-track');
+  const journalA = document.getElementById('mm-artist');
+  const sidebarT = document.querySelector('.bs-now-title');
+  setInterval(() => {
+    i = (i + 1) % tracks.length;
+    if (journalT) journalT.textContent = tracks[i].t;
+    if (journalA) journalA.textContent = tracks[i].a;
+    if (sidebarT) sidebarT.textContent = tracks[i].t.toLowerCase();
+  }, 14000);
+})();
+
+/* PRINT DUMP · timeframe + format · swap preview content */
+(function() {
+  const opts = document.querySelectorAll('input[name="print-output"]');
+  const tfBtns = document.querySelectorAll('#print-timeframe .tf');
+  const preview = document.getElementById('print-preview');
+  const tfLabel = document.getElementById('ep-tf-label');
+  if (!preview) return;
+
+  const TF_LABELS = {
+    day:    'day · 05·14·26',
+    week:   'week · 05·08 → 05·14',
+    month:  'month · MAY 2026',
+    custom: 'custom range'
+  };
+  const TF_DATA = {
+    day:    { emojis: '😢 ☀ 💕', mo: 47,  range: '8% → 91%',  avg: '32%', low: '04% · static day', songs: 12,  played: 'Mazzy Star',   word: 'tired',  weather: 'partly buffering. low signal in the afternoon. soft gusts before bed.' },
+    week:   { emojis: '😢 🪫 ☀', mo: 312, range: '4% → 96%',  avg: '34%', low: '04% · monday',     songs: 88,  played: 'Cocteau Twins', word: 'soft',   weather: 'long stretch of static. tuesday cleared briefly. drained by friday.' },
+    month:  { emojis: '🪫 ☀ 💕', mo: 1148,range: '4% → 99%', avg: '38%', low: '04% · may 09',     songs: 412, played: 'Mazzy Star',   word: 'tired',  weather: 'steady soft signal. one full reconnect mid-month. ended on quiet.' },
+    custom: { emojis: '✦ ♡ 📺', mo: 22,  range: '12% → 64%', avg: '31%', low: '12% · selected',   songs: 9,   played: 'Radiohead',    word: 'maybe',  weather: 'hand-picked range. mostly buffering. one feral peak.' }
+  };
+
+  function renderEmotion(tf) {
+    const d = TF_DATA[tf] || TF_DATA.day;
+    if (tfLabel) tfLabel.textContent = TF_LABELS[tf] || TF_LABELS.day;
+    preview.innerHTML = `
+      <div class="ep-head"><span>▸ EMOTION REPORT</span><span id="ep-tf-label">${TF_LABELS[tf]}</span></div>
+      <div class="ep-row"><span>most-used emojis</span><span class="ep-emojis">${d.emojis}</span></div>
+      <div class="ep-row"><span>mood objects</span><span>${d.mo}</span></div>
+      <div class="ep-row"><span>range</span><span>${d.range}</span></div>
+      <div class="ep-row"><span>battery avg</span><span>${d.avg}</span></div>
+      <div class="ep-row"><span>lowest entry</span><span>${d.low}</span></div>
+      <div class="ep-row"><span>songs logged</span><span>${d.songs}</span></div>
+      <div class="ep-row"><span>most played</span><span>${d.played}</span></div>
+      <div class="ep-row"><span>repeated word</span><span>${d.word}</span></div>
+      <div class="ep-grid">
+        <span>😢</span><span>😢</span><span>☀</span><span>☀</span><span>💕</span><span>💕</span>
+        <span>⚡</span><span>🪫</span><span>📺</span><span>😴</span><span>😶‍🌫️</span><span>♡</span>
+      </div>
+      <div class="ep-weather">─ emotional weather ─<br/><em>${d.weather}</em></div>
+    `;
+  }
+
+  const FORMATS = {
+    receipt: null, /* default · uses the rich emotion printout content */
+    sticker: '── STICKER SHEET ──<br/>★ saved · ▸ static<br/>soft · drained · feral<br/>offline · wired · ⚡ low<br/>──────────────────<br/>peel and apply.',
+    card:    '┌─ MOOD CARD ─┐<br/>│ 42% buffering │<br/>│ today felt like │<br/>│ buffering.    │<br/>└──────────────┘',
+    zine:    '── MAY DUMP // ZINE ──<br/>most repeated: tired<br/>lowest battery: 04%<br/>best line: soft anyway<br/>──────────────────<br/>16 pages, stapled badly.'
+  };
+
+  let activeTF = 'day';
+  let activeFormat = 'receipt';
+
+  function render() {
+    if (FORMATS[activeFormat] === null) {
+      preview.classList.add('emotion-printout');
+      renderEmotion(activeTF);
+    } else {
+      preview.classList.remove('emotion-printout');
+      preview.innerHTML = FORMATS[activeFormat];
+    }
+  }
+
+  tfBtns.forEach(b => b.addEventListener('click', () => {
+    tfBtns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeTF = b.dataset.tf;
+    render();
+  }));
+  opts.forEach(o => o.addEventListener('change', () => {
+    activeFormat = o.value;
+    render();
+  }));
+  render();
+})();
+
+/* MENU BROWSER · swap panels when left-menu items click */
+(function() {
+  const items = document.querySelectorAll('[data-page]');
+  const panels = document.querySelectorAll('.panel');
+  const tab = document.getElementById('bs-main-tab');
+  const url = document.getElementById('bb-page');
+  if (!items.length || !panels.length) return;
+
+  function show(page) {
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === page));
+    document.querySelectorAll('.bs-item').forEach(i => i.classList.toggle('active', i.dataset.page === page));
+    if (tab) tab.textContent = '▸ ' + page + '.html';
+    if (url) url.textContent = page + '.html';
+    /* keep the browser visible when switching */
+    const browser = document.getElementById('browser');
+    if (browser && window.scrollY < browser.offsetTop - 80) {
+      browser.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  items.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const page = btn.dataset.page;
+      if (!page) return;
+      e.preventDefault();
+      show(page);
+    });
+  });
+})();
+
+/* SECTION WINDOWS · drag, collapse, close · windows inside panels still play */
+(function() {
+  const sections = document.querySelectorAll('.section .section-inner');
+  if (!sections.length) return;
+
+  function isMobile() { return window.matchMedia('(max-width: 880px)').matches; }
+
+  sections.forEach(card => {
+    const bar = card.querySelector('.os-titlebar');
+    if (!bar) return;
+
+    /* Minimize · collapse to title bar */
+    const minBtn = card.querySelector('.os-btn.os-min');
+    if (minBtn) minBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      card.classList.toggle('collapsed');
+    });
+
+    /* Maximize · jiggle effect (no real maximize on a flow page) */
+    const maxBtn = card.querySelector('.os-btn.os-max');
+    if (maxBtn) maxBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      card.style.transform = 'scale(1.02) rotate(-0.5deg)';
+      setTimeout(() => { card.style.transform = ''; }, 220);
+    });
+
+    /* Close · fold-up animation, then a "saved" toast that brings it back */
+    const closeBtn = card.querySelector('.os-btn.close');
+    if (closeBtn) closeBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      card.style.transform = 'scale(0.92) rotate(-2deg)';
+      card.style.opacity = '0.4';
+      setTimeout(() => {
+        card.style.transform = '';
+        card.style.opacity = '';
+        card.classList.add('collapsed');
+      }, 320);
+    });
+
+    /* Drag · grab the title bar to nudge the window around the page */
+    let dragging = false, startX = 0, startY = 0, baseX = 0, baseY = 0;
+    bar.addEventListener('mousedown', (e) => {
+      if (isMobile()) return;
+      if (e.target.closest('.os-btn')) return;
+      dragging = true;
+      const m = (card.style.transform || '').match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
+      baseX = m ? parseFloat(m[1]) : 0;
+      baseY = m ? parseFloat(m[2]) : 0;
+      startX = e.clientX; startY = e.clientY;
+      card.classList.add('dragging');
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      card.style.transform = `translate(${baseX + dx}px, ${baseY + dy}px)`;
+    });
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      card.classList.remove('dragging');
+    });
+
+    /* Double-click title bar · snap back to original position */
+    bar.addEventListener('dblclick', (e) => {
+      if (e.target.closest('.os-btn')) return;
+      card.style.transform = '';
+    });
+  });
+})();
+
+/* reveal-on-scroll for non-panel elements only · panels are managed by the menu */
+(function() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.lbp-browser').forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(24px)';
+    s.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(.16,.84,.32,1)';
+    obs.observe(s);
+  });
+})();
+</script>
 </body>
 </html>

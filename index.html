@@ -1308,15 +1308,31 @@ function updateHUD(face) {
 }
 
 // ——— Ticker click navigation ———
+// First click on a ticker rotates the cube to that face;
+// clicking the already-active ticker (or clicking again) navigates to the project.
+const FACE_URLS = [
+  'projects/mnta.html',
+  'projects/last-bite.html',
+  'projects/deadwax.html',
+  'projects/low-battery-press.html',
+];
 tickerItems.forEach(item => {
   item.addEventListener('click', () => {
     const faceIdx = parseInt(item.dataset.face);
+    if (item.classList.contains('active')) {
+      // Already in front · go to the project
+      window.location.href = FACE_URLS[faceIdx];
+      return;
+    }
     state.autoRotateActive = false;
     clearTimeout(state.autoRotateTimeout);
     hideAllInfo();
     snapToFace(faceIdx);
     state.autoRotateTimeout = setTimeout(() => { state.autoRotateActive = true; }, 4000);
   });
+  // Style cue · active ticker becomes a "go" link
+  item.style.cursor = 'pointer';
+  item.title = 'Click to view · click again on the active number to open';
 });
 
 // ——— Pointer events (mouse + touch) ———
@@ -1377,6 +1393,18 @@ document.querySelectorAll('a.cube-face').forEach(face => {
       e.preventDefault();
     }
   });
+});
+
+// Cube body fallback · clicking on edges or hidden side faces sends you
+// to whichever project is currently rotated into the front position.
+cubeViewport.addEventListener('click', e => {
+  if (state.hasDragged) return;
+  // If the click already landed on a visible face anchor, let it handle nav.
+  if (e.target.closest('a.cube-face')) return;
+  const idx = (state.activeFace != null) ? state.activeFace : getFrontFace();
+  if (idx != null && FACE_URLS[idx]) {
+    window.location.href = FACE_URLS[idx];
+  }
 });
 
 // Remove color + hide info when mouse leaves cube area
