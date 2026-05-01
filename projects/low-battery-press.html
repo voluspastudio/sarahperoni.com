@@ -14,24 +14,36 @@
    ============================================================ */
 
 :root {
-  /* PALETTE · Internet Girl, Low Signal */
-  --monitor-blue:    #8FA8D8;
-  --monitor-blue-d:  #6c87b8;
-  --window-lavender: #C8B9D8;
-  --window-lavender-d: #a895bf;
-  /* Cloud white replaces the warm beige across journal areas, fields,
-     popups, cards, window interiors, and print previews. */
-  --paper:           #F7F5FF;
-  --paper-warm:      #E5DFF5;
-  /* Slightly cooler, deeper plum used for borders and most text. */
-  --plum:            #261B3D;
-  --plum-mid:        #4a3a5e;
-  --signal-green:    #B9E86C;
-  --signal-green-d:  #8cc444;
-  --sticker-pink:    #F2A6C8;
-  --battery-red:     #D94B4B;
-  --chrome:          #B9B8C4;
-  --chrome-d:        #9594a0;
+  /* PALETTE · Internet Girl, Low Signal · 90s desktop OS, not paper */
+  --screen-blue:        #6FA8FF; /* main desktop / page background */
+  --screen-blue-d:      #4d8be8;
+  --pixel-lavender:     #B99CFF; /* titlebars, panels, folders */
+  --pixel-lavender-d:   #9a7ee8;
+  --soft-lilac:         #E7D8FF; /* secondary panels, soft window bodies */
+  --cloud-white:        #F7F5FF; /* journal fields, popups, content */
+  --deep-plum:          #261B3D; /* type, borders, shadows, dividers */
+  --deep-plum-mid:      #4a3a5e;
+  --signal-green:       #A8FF6A; /* alive · active states, battery, save */
+  --soft-circuit-green: #D8FFB0; /* lighter hover bg, secondary actives */
+  --sticker-pink:       #FF85C8; /* playful accents, tabs, small highlights */
+  --sunny-yellow:       #FFD85C; /* happy moods, sun reactions, highlights */
+  --low-battery-red:    #FF4D5E; /* alerts, errors, depleted, glitch */
+  --chrome-gray:        #B8BBCB; /* menu bars, inactive buttons */
+  --chrome-gray-d:      #9598ab;
+
+  /* legacy aliases · keep older selectors working without rewrites */
+  --monitor-blue:       var(--screen-blue);
+  --monitor-blue-d:     var(--screen-blue-d);
+  --window-lavender:    var(--pixel-lavender);
+  --window-lavender-d:  var(--pixel-lavender-d);
+  --paper:              var(--cloud-white);
+  --paper-warm:         var(--soft-lilac);
+  --plum:               var(--deep-plum);
+  --plum-mid:           var(--deep-plum-mid);
+  --signal-green-d:     #6fd03a;
+  --battery-red:        var(--low-battery-red);
+  --chrome:             var(--chrome-gray);
+  --chrome-d:           var(--chrome-gray-d);
 
   /* TYPE */
   --display: 'Bowlby One', 'Impact', sans-serif;
@@ -51,9 +63,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-/* Desktop wallpaper · cloud background svg + soft pastel sky */
+/* Desktop wallpaper · solid screen-blue with cloud SVG floating above
+   it, evoking a 90s "blue desktop" vibe rather than aged paper. */
 body {
-  background: linear-gradient(180deg, #d6dff0 0%, #c8d5ec 50%, #c8b9d8 100%);
+  background: var(--screen-blue);
   min-height: 100vh;
   position: relative;
 }
@@ -63,15 +76,16 @@ body::before {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.95;
+  /* clouds are now decoration on top of screen-blue, not the main bg */
+  opacity: 0.55;
 }
-/* faint grid sits on top of clouds for desktop-paper texture */
+/* pixel grid sits over the desktop for that scanned-CRT desktop feel */
 body::after {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background-image:
-    repeating-linear-gradient(0deg, rgba(43,32,56,0.035) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(90deg, rgba(43,32,56,0.035) 0 1px, transparent 1px 28px);
-  opacity: 0.45;
+    repeating-linear-gradient(0deg, rgba(38,27,61,0.06) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(38,27,61,0.06) 0 1px, transparent 1px 28px);
+  opacity: 0.55;
 }
 ::selection { background: var(--signal-green); color: var(--plum); }
 img { max-width: 100%; display: block; }
@@ -105,22 +119,24 @@ ul { list-style: none; }
 .desktop {
   position: relative;
   min-height: clamp(640px, 92vh, 920px);
+  /* CRT-screen gradient · brighter at the top of the tube, deeper at the
+     edges, all in the new screen-blue family. */
   background:
-    radial-gradient(ellipse at 50% 35%, #a8bfe5 0%, var(--monitor-blue) 60%, var(--monitor-blue-d) 100%);
-  border-bottom: 4px solid var(--plum);
+    radial-gradient(ellipse at 50% 35%, #9dc1ff 0%, var(--screen-blue) 60%, var(--screen-blue-d) 100%);
+  border-bottom: 4px solid var(--deep-plum);
   overflow: hidden;
 }
 /* CRT scanlines + grain */
 .desktop::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 30;
   background:
-    repeating-linear-gradient(180deg, rgba(43,32,56,0.04) 0 2px, transparent 2px 4px);
+    repeating-linear-gradient(180deg, rgba(38,27,61,0.04) 0 2px, transparent 2px 4px);
   opacity: 0.55;
 }
 .desktop::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 31;
   background-image:
-    radial-gradient(rgba(43,32,56,0.06) 1px, transparent 1px);
+    radial-gradient(rgba(38,27,61,0.06) 1px, transparent 1px);
   background-size: 3px 3px;
   opacity: 0.4;
 }
@@ -135,7 +151,7 @@ ul { list-style: none; }
   font-family: var(--pixel); font-size: 16px;
   color: var(--plum);
   letter-spacing: 0.04em;
-  box-shadow: 0 2px 0 rgba(43,32,56,0.18);
+  box-shadow: 0 2px 0 rgba(38,27,61,0.18);
 }
 .menu-bar .menu-logo {
   font-family: var(--ui); font-weight: 700; font-size: 14px;
@@ -153,7 +169,7 @@ ul { list-style: none; }
   border: 1px solid transparent;
   cursor: pointer;
 }
-.menu-bar nav a:hover { background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; border-color: var(--plum); }
+.menu-bar nav a:hover { background: var(--cloud-white); border-color: var(--plum); }
 .menu-bar .spacer { flex: 1; }
 .menu-bar .meta { display: flex; align-items: center; gap: 14px; }
 
@@ -166,7 +182,7 @@ ul { list-style: none; }
   position: relative;
   width: 32px; height: 14px;
   border: 2px solid var(--plum);
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   padding: 1px;
 }
 .battery-icon::after {
@@ -200,7 +216,7 @@ ul { list-style: none; }
 
 .clock {
   font-family: var(--pixel); font-size: 16px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; padding: 1px 8px;
+  background: var(--cloud-white); padding: 1px 8px;
   border: 1px solid var(--plum);
 }
 .clock .blink { color: var(--battery-red); animation: blink 1s steps(2) infinite; }
@@ -217,7 +233,7 @@ ul { list-style: none; }
 .desktop-hero-copy {
   position: relative; z-index: 4;
   max-width: 540px;
-  background: rgba(244,232,204,0.92);
+  background: rgba(247,245,255,0.92);
   border: 2px solid var(--plum);
   box-shadow: 6px 6px 0 var(--plum);
   padding: 20px 22px 22px;
@@ -284,13 +300,13 @@ ul { list-style: none; }
 }
 .icon-art img {
   max-width: 100%; max-height: 100%; image-rendering: pixelated;
-  filter: drop-shadow(2px 2px 0 rgba(43,32,56,0.18));
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.18));
 }
 .icon-art svg { width: 56px; height: 56px; }
 .icon-label {
   font-family: var(--ui); font-size: 13px; font-weight: 500;
   color: var(--plum);
-  background: rgba(244,232,204,0.7);
+  background: rgba(247,245,255,0.7);
   padding: 1px 6px;
   border: 1px solid transparent;
   letter-spacing: 0.02em;
@@ -311,7 +327,7 @@ ul { list-style: none; }
   box-shadow: 3px 3px 0 var(--plum);
 }
 .sticker.s1 { top: 14%; right: 8%; transform: rotate(6deg); background: var(--signal-green); }
-.sticker.s2 { bottom: 22%; right: 22%; transform: rotate(-5deg); background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.sticker.s2 { bottom: 22%; right: 22%; transform: rotate(-5deg); background: var(--cloud-white); }
 .sticker.s3 { top: 36%; right: 14%; transform: rotate(2deg); }
 .sticker.s4 { bottom: 14%; right: 6%; transform: rotate(-8deg); background: var(--window-lavender); }
 
@@ -338,7 +354,9 @@ ul { list-style: none; }
 .window-titlebar {
   display: flex; align-items: center; gap: 8px;
   padding: 5px 8px;
-  background: var(--plum); color: var(--paper);
+  /* 90s window-chrome titlebar: lavender header, plum text */
+  background: var(--pixel-lavender); color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
   font-family: var(--ui); font-size: 12px; font-weight: 600;
   letter-spacing: 0.04em;
   cursor: grab;
@@ -349,33 +367,34 @@ ul { list-style: none; }
 .window-titlebar .ttl-icon {
   width: 14px; height: 14px;
   background: var(--signal-green);
-  border: 1px solid var(--paper);
+  border: 1px solid var(--deep-plum);
   display: inline-block;
 }
 .window-controls { display: flex; gap: 4px; }
 .win-btn {
   width: 18px; height: 16px;
-  background: var(--chrome); color: var(--plum);
-  border: 1px solid var(--plum);
+  background: var(--chrome-gray); color: var(--deep-plum);
+  border: 1px solid var(--deep-plum);
   font-family: var(--ui); font-size: 12px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; padding: 0;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-d);
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 var(--chrome-gray-d);
 }
-.win-btn.close { background: var(--battery-red); color: var(--paper); }
+.win-btn.close { background: var(--low-battery-red); color: var(--cloud-white); }
 .win-btn:hover { filter: brightness(1.08); }
-.win-btn:active { box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff; }
+.win-btn:active { box-shadow: inset 1px 1px 0 var(--chrome-gray-d), inset -1px -1px 0 #fff; }
 .window-content {
   padding: 14px 14px 14px;
-  font-size: 13px; color: var(--plum);
-  background: var(--window-lavender);
+  font-size: 13px; color: var(--deep-plum);
+  /* readable lilac body so windows feel like UI panels, not paper */
+  background: var(--soft-lilac);
 }
 .window-content .prompt {
   font-family: var(--pixel); font-size: 18px; color: var(--plum); margin-bottom: 8px;
 }
 .window-content textarea {
   width: 100%; min-height: 110px; resize: vertical;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   border: 2px solid var(--plum);
   padding: 10px 12px;
   font-family: var(--body); font-size: 13px; line-height: 1.55;
@@ -387,7 +406,7 @@ ul { list-style: none; }
 .window-content .btn {
   font-family: var(--ui); font-size: 12px; font-weight: 600;
   padding: 5px 12px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   border: 2px solid var(--plum); cursor: pointer;
   box-shadow: 2px 2px 0 var(--plum);
   transition: transform 0.06s ease, box-shadow 0.06s ease;
@@ -455,7 +474,7 @@ ul { list-style: none; }
 }
 .pt-btn:hover { background: #d4d3df; }
 .pt-btn.active {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   box-shadow: inset 1px 1px 0 var(--chrome-d), inset -1px -1px 0 #fff;
 }
 #paint-canvas {
@@ -476,7 +495,7 @@ ul { list-style: none; }
 }
 .ps-size {
   width: 36px; height: 22px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   border: 1.5px solid var(--plum);
   cursor: pointer; padding: 0;
   display: flex; align-items: center; justify-content: center;
@@ -529,7 +548,7 @@ ul { list-style: none; }
 .drawpad-toolbar {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   padding: 6px 8px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 1.5px solid var(--plum);
   font-family: var(--ui); font-size: 11px;
 }
@@ -596,14 +615,14 @@ ul { list-style: none; }
   position: absolute; top: 8px; left: 10px;
   font-family: var(--pixel); font-size: 14px;
   color: var(--battery-red); display: flex; align-items: center; gap: 6px;
-  background: rgba(43,32,56,0.6); padding: 1px 6px;
+  background: rgba(38,27,61,0.6); padding: 1px 6px;
   text-transform: uppercase; letter-spacing: 0.08em;
 }
 .webcam .rec::before { content: '●'; animation: blink 1.4s steps(2) infinite; }
 .webcam .face {
   position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
   width: 50%; height: 60%;
-  background: radial-gradient(ellipse at 50% 30%, rgba(244,232,204,0.18) 0%, rgba(244,232,204,0.04) 60%, transparent 80%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(247,245,255,0.18) 0%, rgba(247,245,255,0.04) 60%, transparent 80%);
   filter: blur(0.5px);
 }
 .webcam .ts {
@@ -613,7 +632,7 @@ ul { list-style: none; }
   letter-spacing: 0.1em;
 }
 .video-log-output {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   padding: 12px;
   font-family: var(--pixel); font-size: 16px; color: var(--plum); line-height: 1.4;
@@ -644,7 +663,7 @@ ul { list-style: none; }
   font-family: var(--pixel); font-size: 16px;
   margin-bottom: 12px;
   padding: 6px 8px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; border: 1px solid var(--plum);
+  background: var(--cloud-white); border: 1px solid var(--plum);
 }
 .mood-list {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
@@ -652,7 +671,7 @@ ul { list-style: none; }
 .mood-list .mood {
   font-family: var(--ui); font-size: 12px; font-weight: 600;
   padding: 6px; border: 1.5px solid var(--plum);
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   text-align: center; cursor: pointer;
   transition: background 0.15s ease;
   text-transform: lowercase;
@@ -663,7 +682,7 @@ ul { list-style: none; }
 /* Archive */
 .archive-list {
   display: flex; flex-direction: column; gap: 4px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   padding: 8px;
 }
@@ -678,13 +697,13 @@ ul { list-style: none; }
 .archive-row:hover, .archive-row:focus-visible { background: var(--signal-green); outline: none; }
 .archive-row .file-icon {
   width: 16px; height: 18px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; border: 1.5px solid var(--plum);
+  background: var(--cloud-white); border: 1.5px solid var(--plum);
   position: relative;
 }
 .archive-row .file-icon::after {
   content: ''; position: absolute; top: 0; right: 0;
   width: 5px; height: 5px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border-left: 1.5px solid var(--plum);
   border-bottom: 1.5px solid var(--plum);
 }
@@ -702,12 +721,12 @@ ul { list-style: none; }
   display: flex; align-items: center; gap: 6px;
   font-family: var(--ui); font-size: 12px;
   padding: 5px 8px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; border: 1.5px solid var(--plum); cursor: pointer;
+  background: var(--cloud-white); border: 1.5px solid var(--plum); cursor: pointer;
 }
 .print-options label:hover { background: var(--sticker-pink); }
 .print-options input[type="radio"] { accent-color: var(--plum); }
 .print-preview {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   padding: 14px 14px;
   min-height: 140px;
@@ -730,12 +749,12 @@ ul { list-style: none; }
   padding: 4px 8px;
   display: flex; align-items: center; gap: 8px;
   font-family: var(--ui); font-size: 12px;
-  box-shadow: 0 -2px 0 rgba(43,32,56,0.18);
+  box-shadow: 0 -2px 0 rgba(38,27,61,0.18);
 }
 .taskbar-start {
   display: flex; align-items: center; gap: 6px;
   font-weight: 700;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   border: 2px solid var(--plum);
   padding: 2px 10px;
   letter-spacing: 0.04em;
@@ -750,7 +769,7 @@ ul { list-style: none; }
   cursor: pointer;
   letter-spacing: 0.02em;
 }
-.task:hover { background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.task:hover { background: var(--cloud-white); }
 .task.active { background: var(--signal-green); }
 .taskbar-meta {
   font-family: var(--pixel); font-size: 14px; color: var(--plum);
@@ -797,7 +816,7 @@ ul { list-style: none; }
 .icon-art img.pixel-icon {
   width: 56px; height: 56px;
   object-fit: contain;
-  filter: drop-shadow(2px 2px 0 rgba(43,32,56,0.22));
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.22));
 }
 .icon-error .icon-art img { filter: drop-shadow(2px 2px 0 rgba(217,75,75,0.4)); }
 
@@ -846,7 +865,7 @@ ul { list-style: none; }
 }
 
 .mm-log {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   font-family: var(--pixel);
 }
@@ -862,7 +881,7 @@ ul { list-style: none; }
   display: grid; grid-template-columns: 22px 1fr auto auto;
   gap: 8px; align-items: center;
   padding: 4px 10px;
-  border-bottom: 1px dashed rgba(43,32,56,0.18);
+  border-bottom: 1px dashed rgba(38,27,61,0.18);
   font-size: 14px; color: var(--plum);
 }
 .mm-log-row:last-child { border-bottom: 0; }
@@ -884,7 +903,7 @@ ul { list-style: none; }
 }
 .window-error { border: 2px solid var(--battery-red); box-shadow: 6px 6px 0 var(--battery-red); }
 .window-error .window-titlebar { background: linear-gradient(180deg, var(--battery-red) 0%, #aa3636 100%); }
-.window-error .window-content { background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.window-error .window-content { background: var(--cloud-white); }
 .err-content {
   display: flex; flex-direction: column; align-items: center;
   text-align: center; gap: 10px;
@@ -914,7 +933,7 @@ ul { list-style: none; }
    ============================================================ */
 .icon-nav {
   margin: clamp(20px, 3vw, 36px) clamp(16px, 3vw, 36px) 0;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   box-shadow: 8px 8px 0 var(--plum);
   position: relative; z-index: 2;
@@ -933,13 +952,13 @@ ul { list-style: none; }
 .icon-nav-grid {
   display: grid; grid-template-columns: repeat(8, 1fr);
   gap: 0;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
 }
 .icon-nav-card {
   display: flex; flex-direction: column; align-items: center; gap: 6px;
   padding: 18px 10px 14px;
   background: transparent; border: 0;
-  border-right: 1px dashed rgba(43,32,56,0.18);
+  border-right: 1px dashed rgba(38,27,61,0.18);
   cursor: pointer;
   transition: background 0.15s ease, transform 0.12s ease;
 }
@@ -948,7 +967,7 @@ ul { list-style: none; }
 .icon-nav-card:focus-visible { outline: 2px dashed var(--plum); outline-offset: -2px; }
 .icon-nav-card img {
   width: 44px; height: 44px;
-  filter: drop-shadow(2px 2px 0 rgba(43,32,56,0.18));
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.18));
 }
 .icon-nav-card .inc-label {
   font-family: var(--ui); font-weight: 600; font-size: 12px;
@@ -957,7 +976,7 @@ ul { list-style: none; }
 @media (max-width: 880px) {
   .icon-nav-grid { grid-template-columns: repeat(4, 1fr); }
   .icon-nav-card:nth-child(4n) { border-right: 0; }
-  .icon-nav-card:nth-child(-n+4) { border-bottom: 1px dashed rgba(43,32,56,0.18); }
+  .icon-nav-card:nth-child(-n+4) { border-bottom: 1px dashed rgba(38,27,61,0.18); }
 }
 
 /* ============================================================
@@ -967,7 +986,7 @@ ul { list-style: none; }
   display: flex; align-items: center; gap: 6px;
   flex-wrap: wrap; margin-top: 12px;
   padding: 8px 10px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 1.5px solid var(--plum);
 }
 .mood-objects .mo-label {
@@ -990,7 +1009,7 @@ ul { list-style: none; }
 .mood-objects .mo:active { transform: scale(0.95); }
 .mood-objects .mo-img img {
   width: 28px; height: 28px;
-  filter: drop-shadow(1px 1px 0 rgba(43,32,56,0.2));
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.2));
 }
 
 /* particles · spawn inside window-content on tap */
@@ -1289,7 +1308,7 @@ ul { list-style: none; }
 .tf {
   font-family: var(--ui); font-size: 11px; font-weight: 600;
   padding: 3px 8px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   border: 1.5px solid var(--plum); cursor: pointer;
   letter-spacing: 0.04em;
 }
@@ -1309,7 +1328,7 @@ ul { list-style: none; }
   display: flex; justify-content: space-between;
   font-family: var(--pixel); font-size: 14px;
   color: var(--plum); padding: 2px 0;
-  border-bottom: 1px dotted rgba(43,32,56,0.15);
+  border-bottom: 1px dotted rgba(38,27,61,0.15);
   letter-spacing: 0.04em;
 }
 .emotion-printout .ep-row .ep-emojis { font-size: 16px; letter-spacing: 0; }
@@ -1323,7 +1342,7 @@ ul { list-style: none; }
 }
 .emotion-printout .ep-grid span {
   text-align: center; font-size: 16px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 1px solid var(--plum);
   padding: 3px 0;
 }
@@ -1365,7 +1384,7 @@ ul { list-style: none; }
 .bb-dots span:nth-child(3) { background: var(--signal-green); }
 .bb-url {
   flex: 1; max-width: 460px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; color: var(--plum);
+  background: var(--cloud-white); color: var(--plum);
   padding: 3px 12px;
   font-family: var(--pixel); font-size: 14px;
   border: 1px solid var(--plum);
@@ -1383,50 +1402,55 @@ ul { list-style: none; }
   display: grid;
   grid-template-columns: 220px 1fr;
   min-height: 720px;
+  /* desktop interior: pixel-lavender base with subtle dual radial pings of
+     pink + green so the page reads as a colorful 90s OS, not a beige page */
   background:
-    radial-gradient(ellipse at 30% 10%, rgba(242,166,200,0.25) 0%, transparent 35%),
-    radial-gradient(ellipse at 80% 90%, rgba(185,232,108,0.20) 0%, transparent 35%),
-    var(--monitor-blue);
+    radial-gradient(ellipse at 30% 10%, rgba(255,133,200,0.20) 0%, transparent 35%),
+    radial-gradient(ellipse at 80% 90%, rgba(168,255,106,0.18) 0%, transparent 35%),
+    var(--pixel-lavender);
 }
 
-/* LEFT MENU */
+/* LEFT MENU · pixel-lavender side panel · green for the active page */
 .bs-menu {
   padding: 18px 16px;
   display: flex; flex-direction: column; gap: 16px;
-  border-right: 2px solid var(--plum);
+  background: var(--pixel-lavender);
+  border-right: 2px solid var(--deep-plum);
 }
 .bs-block {
-  background: var(--window-lavender);
-  border: 2px solid var(--plum);
-  box-shadow: 3px 3px 0 var(--plum);
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 3px 3px 0 var(--deep-plum);
 }
 .bs-block-bar {
-  background: var(--plum); color: var(--signal-green);
+  background: var(--deep-plum); color: var(--signal-green);
   padding: 4px 10px;
   font-family: var(--pixel); font-size: 14px;
   letter-spacing: 0.06em;
-  border-bottom: 2px solid var(--plum);
+  border-bottom: 2px solid var(--deep-plum);
 }
 .bs-block-body {
   padding: 8px 6px;
   display: flex; flex-direction: column; gap: 2px;
 }
 .bs-item {
-  background: transparent; border: 0; color: var(--plum);
+  background: transparent; border: 0; color: var(--deep-plum);
   font-family: var(--ui); font-size: 14px; font-weight: 600;
   text-align: left; padding: 5px 10px;
   cursor: pointer; letter-spacing: 0.03em;
   border: 2px solid transparent;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
-.bs-item:hover { background: var(--sticker-pink); border-color: var(--plum); }
+/* hover · soft circuit green (alive but not loud) */
+.bs-item:hover { background: var(--soft-circuit-green); border-color: var(--deep-plum); }
+/* active · full signal green (the system is connected to this page) */
 .bs-item.active {
-  background: var(--signal-green); color: var(--plum);
-  border-color: var(--plum);
-  box-shadow: inset 1px 1px 0 var(--paper);
+  background: var(--signal-green); color: var(--deep-plum);
+  border-color: var(--deep-plum);
+  box-shadow: inset 1px 1px 0 var(--cloud-white);
 }
 
-.bs-status-body { gap: 4px; padding: 10px; background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.bs-status-body { gap: 4px; padding: 10px; background: var(--cloud-white); }
 .bs-status-row {
   display: flex; justify-content: space-between;
   font-family: var(--pixel); font-size: 14px;
@@ -1454,7 +1478,7 @@ ul { list-style: none; }
 /* MAIN CONTENT FRAME */
 .bs-main {
   position: relative;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   display: flex; flex-direction: column;
   min-width: 0;
   overflow: hidden;
@@ -1478,14 +1502,14 @@ ul { list-style: none; }
     var(--window-lavender);
 }
 .bs-stats-body {
-  padding: 12px; background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  padding: 12px; background: var(--cloud-white);
   gap: 6px;
 }
 .bs-stat-row {
   display: flex; justify-content: space-between;
   font-family: var(--pixel); font-size: 14px;
   color: var(--plum-mid); padding: 2px 0;
-  border-bottom: 1px dashed rgba(43,32,56,0.15);
+  border-bottom: 1px dashed rgba(38,27,61,0.15);
   letter-spacing: 0.04em;
 }
 .bs-stat-row:last-child { border-bottom: 0; }
@@ -1493,7 +1517,7 @@ ul { list-style: none; }
   font-family: var(--ui); font-weight: 700; color: var(--plum);
 }
 
-.bs-block-now .bs-block-body { padding: 12px; background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.bs-block-now .bs-block-body { padding: 12px; background: var(--cloud-white); }
 .bs-now-title {
   font-family: var(--ui); font-weight: 600; font-size: 13px; color: var(--plum);
   margin-bottom: 8px;
@@ -1504,8 +1528,9 @@ ul { list-style: none; }
   margin-bottom: 6px;
 }
 .bs-now-fill {
+  /* "now playing" is a connected/alive state → signal green */
   height: 100%; width: 30%;
-  background: var(--sticker-pink);
+  background: var(--signal-green);
   animation: now-progress 90s linear infinite;
 }
 @keyframes now-progress { from { width: 30%; } to { width: 95%; } }
@@ -1546,7 +1571,7 @@ ul { list-style: none; }
 }
 
 .bs-side-stickers {
-  display: flex; flex-wrap: wrap; gap: 5px; padding: 12px; background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  display: flex; flex-wrap: wrap; gap: 5px; padding: 12px; background: var(--cloud-white);
 }
 .bs-side-sticker {
   font-family: var(--ui); font-size: 11px; font-weight: 700;
@@ -1640,7 +1665,7 @@ ul { list-style: none; }
   top: 56px; right: 28px;
   z-index: 2; pointer-events: none;
   width: 56px; height: 56px;
-  filter: drop-shadow(3px 3px 0 rgba(43,32,56,0.25));
+  filter: drop-shadow(3px 3px 0 rgba(38,27,61,0.25));
   transform: rotate(6deg);
   animation: badge-float 5s ease-in-out infinite alternate;
 }
@@ -1651,13 +1676,13 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) { .panel-badge { animation: none; } }
 @media (max-width: 720px) { .panel-badge { width: 40px; height: 40px; top: 50px; right: 18px; } }
 
-/* OS title bar */
+/* OS title bar · pixel-lavender 90s panel header, plum text */
 .os-titlebar {
   display: flex; align-items: center; gap: 8px;
   padding: 5px 8px;
-  background: linear-gradient(180deg, var(--plum) 0%, var(--plum-mid) 100%);
-  color: var(--paper);
-  border-bottom: 2px solid var(--plum);
+  background: linear-gradient(180deg, var(--pixel-lavender) 0%, var(--pixel-lavender-d) 100%);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
   font-family: var(--ui); font-size: 13px; font-weight: 600;
   letter-spacing: 0.06em;
   cursor: grab;
@@ -1667,14 +1692,14 @@ ul { list-style: none; }
 .os-titlebar .os-icon {
   width: 14px; height: 14px;
   background: var(--signal-green);
-  border: 1px solid var(--paper);
+  border: 1px solid var(--deep-plum);
   flex: 0 0 auto;
 }
 .os-titlebar .os-name { flex: 1; }
 .os-titlebar .os-num {
   font-family: var(--pixel); font-size: 13px;
-  color: var(--signal-green); padding-right: 6px;
-  border-right: 1px solid rgba(244,232,204,0.3);
+  color: var(--deep-plum); padding-right: 6px;
+  border-right: 1px solid rgba(38,27,61,0.3);
   letter-spacing: 0.1em;
 }
 .os-controls { display: flex; gap: 4px; }
@@ -1711,7 +1736,7 @@ ul { list-style: none; }
 }
 .os-sticker.tl { top: -10px; left: 24px; transform: rotate(-3deg); }
 .os-sticker.tr { top: -10px; right: 32px; transform: rotate(4deg); background: var(--signal-green); }
-.os-sticker.br { bottom: -10px; right: 36px; transform: rotate(-2deg); background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; }
+.os-sticker.br { bottom: -10px; right: 36px; transform: rotate(-2deg); background: var(--cloud-white); }
 .os-sticker.bl { bottom: -10px; left: 28px; transform: rotate(3deg); background: var(--monitor-blue); color: var(--paper); }
 .os-sticker.heart::before { content: '♡ '; }
 .os-sticker.star::before { content: '★ '; }
@@ -1722,7 +1747,7 @@ ul { list-style: none; }
   font-family: var(--pixel); font-size: 18px; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--plum-mid);
   display: inline-block; padding: 2px 10px;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; border: 1.5px solid var(--plum-mid);
+  background: var(--cloud-white); border: 1.5px solid var(--plum-mid);
   margin-bottom: 22px;
 }
 .section h2 {
@@ -1779,10 +1804,10 @@ ul { list-style: none; }
 }
 .bullet-list li:nth-child(6n+1)::before { content: '★'; background: var(--signal-green); transform: rotate(-3deg); }
 .bullet-list li:nth-child(6n+2)::before { content: '♡'; background: var(--sticker-pink); transform: rotate(2deg); }
-.bullet-list li:nth-child(6n+3)::before { content: '✦'; background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover; transform: rotate(-2deg); color: var(--plum); }
-.bullet-list li:nth-child(6n+4)::before { content: '◆'; background: var(--monitor-blue); transform: rotate(4deg); color: var(--paper); }
-.bullet-list li:nth-child(6n+5)::before { content: '⚡'; background: var(--paper-warm); transform: rotate(-4deg); }
-.bullet-list li:nth-child(6n+6)::before { content: '♪'; background: var(--window-lavender); transform: rotate(3deg); }
+.bullet-list li:nth-child(6n+3)::before { content: '✦'; background: var(--soft-circuit-green); transform: rotate(-2deg); color: var(--deep-plum); }
+.bullet-list li:nth-child(6n+4)::before { content: '◆'; background: var(--screen-blue); transform: rotate(4deg); color: var(--cloud-white); }
+.bullet-list li:nth-child(6n+5)::before { content: '⚡'; background: var(--sunny-yellow); transform: rotate(-4deg); color: var(--deep-plum); }
+.bullet-list li:nth-child(6n+6)::before { content: '♪'; background: var(--pixel-lavender); transform: rotate(3deg); color: var(--cloud-white); }
 
 .section.plum .bullet-list { color: var(--paper); }
 .section.plum .bullet-list li::before {
@@ -1790,34 +1815,37 @@ ul { list-style: none; }
   box-shadow: 2px 2px 0 var(--signal-green);
 }
 
-/* alt section · inner bg overrides — vibrant, not beige */
+/* alt section · inner bg overrides — colorful, controlled, not pink-only */
 .section.lavender { background: transparent; }
-.section.lavender .section-inner { background: var(--sticker-pink); }
+.section.lavender .section-inner { background: var(--soft-lilac); }
 .section.blue { background: transparent; }
-.section.blue .section-inner { background: var(--monitor-blue); }
+.section.blue .section-inner { background: var(--pixel-lavender); }
 .section.plum { background: transparent; }
-.section.plum .section-inner { background: var(--plum); color: var(--paper); }
-.section.plum h2 { color: var(--paper); }
-.section.plum h2 em { color: var(--plum); }
-.section.plum .lead { color: var(--paper); }
-.section.plum .body { color: rgba(244,232,204,0.85); }
+.section.plum .section-inner { background: var(--deep-plum); color: var(--cloud-white); }
+.section.plum h2 { color: var(--cloud-white); }
+.section.plum h2 em { color: var(--deep-plum); }
+.section.plum .lead { color: var(--cloud-white); }
+.section.plum .body { color: rgba(247,245,255,0.85); }
 .section.plum .section-label { background: transparent; color: var(--signal-green); border-color: var(--signal-green); }
-.section.plum .bullet-list { color: var(--paper); }
+.section.plum .bullet-list { color: var(--cloud-white); }
+/* CTA = save / commit moment, so it gets the bright "alive" green */
 .section.cta-section .section-inner { background: var(--signal-green); }
 
-/* Panel-specific bg accents */
-#about .section-inner { background: var(--window-lavender); }
-#tools .section-inner { background: var(--sticker-pink); }
-#video .section-inner { background: var(--monitor-blue); }
-#mood  .section-inner { background: var(--plum); color: var(--paper); }
-#mood h2 { color: var(--paper); } #mood h2 em { color: var(--plum); }
-#mood .lead { color: var(--paper); }
-#mood .body { color: rgba(244,232,204,0.85); }
+/* Panel-specific bg accents · spread the palette without pink overload */
+#about   .section-inner { background: var(--soft-lilac); }
+#tools   .section-inner { background: var(--pixel-lavender); }
+#video   .section-inner { background: var(--soft-lilac); }
+#mood    .section-inner { background: var(--deep-plum); color: var(--cloud-white); }
+#mood h2 { color: var(--cloud-white); } #mood h2 em { color: var(--deep-plum); }
+#mood .lead { color: var(--cloud-white); }
+#mood .body { color: rgba(247,245,255,0.85); }
 #mood .section-label { background: transparent; color: var(--signal-green); border-color: var(--signal-green); }
-#archive .section-inner { background: var(--signal-green); }
-#dump .section-inner { background: var(--sticker-pink); }
-#brand .section-inner { background: var(--window-lavender); }
-#start .section-inner { background: var(--signal-green); }
+/* archive = saved / logged → soft-circuit-green so it reads as "filed" */
+#archive .section-inner { background: var(--soft-circuit-green); }
+#dump    .section-inner { background: var(--sticker-pink); }
+#brand   .section-inner { background: var(--soft-lilac); }
+/* start = call to action, the brightest signal-green */
+#start   .section-inner { background: var(--signal-green); }
 
 /* ============================================================
    3 · TOOLS GRID
@@ -1829,7 +1857,7 @@ ul { list-style: none; }
   margin-top: 32px;
 }
 .tool-card {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   box-shadow: 4px 4px 0 var(--plum);
   padding: 16px;
@@ -1878,7 +1906,7 @@ ul { list-style: none; }
 }
 .mood-state {
   font-family: var(--ui); font-size: 13px; font-weight: 600;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   padding: 10px 12px;
   text-align: left;
@@ -1903,7 +1931,7 @@ ul { list-style: none; }
   gap: 14px; margin-top: 32px;
 }
 .archive-item {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   box-shadow: 4px 4px 0 var(--plum);
   aspect-ratio: 4/5;
@@ -1924,11 +1952,11 @@ ul { list-style: none; }
   display: flex; flex-direction: column;
   position: relative;
   background:
-    repeating-linear-gradient(180deg, transparent 0 22px, rgba(43,32,56,0.06) 22px 23px);
+    repeating-linear-gradient(180deg, transparent 0 22px, rgba(38,27,61,0.06) 22px 23px);
 }
 .archive-item.receipt .a-body {
   font-family: var(--pixel); font-size: 14px; line-height: 1.5;
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
 }
 .archive-item.receipt::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
@@ -1964,7 +1992,7 @@ ul { list-style: none; }
 }
 @media (max-width: 720px) { .dump-mock { grid-template-columns: 1fr; } }
 .zine-page {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   box-shadow: 6px 6px 0 var(--plum);
   padding: 20px;
@@ -2035,7 +2063,7 @@ ul { list-style: none; }
 }
 @media (max-width: 720px) { .type-spec { grid-template-columns: 1fr; } }
 .type-card {
-  background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;
+  background: var(--cloud-white);
   border: 2px solid var(--plum);
   padding: 18px;
 }
@@ -2885,7 +2913,7 @@ ul { list-style: none; }
 <section class="section panel" id="archive" data-panel="archive">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--paper) url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover;"></span>
+      <span class="os-icon" style="background: var(--cloud-white);"></span>
       <span class="os-num">06</span>
       <span class="os-name">▸ analog_archive/</span>
       <div class="os-controls">
