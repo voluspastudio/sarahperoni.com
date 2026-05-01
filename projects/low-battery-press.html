@@ -19,9 +19,12 @@
   --monitor-blue-d:  #6c87b8;
   --window-lavender: #C8B9D8;
   --window-lavender-d: #a895bf;
-  --paper:           #F4E8CC;
-  --paper-warm:      #ebdda9;
-  --plum:            #2B2038;
+  /* Cloud white replaces the warm beige across journal areas, fields,
+     popups, cards, window interiors, and print previews. */
+  --paper:           #F7F5FF;
+  --paper-warm:      #E5DFF5;
+  /* Slightly cooler, deeper plum used for borders and most text. */
+  --plum:            #261B3D;
   --plum-mid:        #4a3a5e;
   --signal-green:    #B9E86C;
   --signal-green-d:  #8cc444;
@@ -2510,7 +2513,7 @@ ul { list-style: none; }
 
         <div class="paint-palette">
           <div class="pp-current">
-            <span class="pp-fg" id="pp-fg" style="background:#2B2038;"></span>
+            <span class="pp-fg" id="pp-fg" style="background:#261B3D;"></span>
             <span class="pp-bg" id="pp-bg" style="background:#ffffff;"></span>
           </div>
           <div class="pp-grid" id="pp-grid">
@@ -2525,7 +2528,7 @@ ul { list-style: none; }
             <button class="pp-sw" data-color="#00a2e8" style="background:#00a2e8"></button>
             <button class="pp-sw" data-color="#3f48cc" style="background:#3f48cc"></button>
             <button class="pp-sw" data-color="#a349a4" style="background:#a349a4"></button>
-            <button class="pp-sw" data-color="#2B2038" style="background:#2B2038"></button>
+            <button class="pp-sw" data-color="#261B3D" style="background:#261B3D"></button>
             <button class="pp-sw" data-color="#D94B4B" style="background:#D94B4B"></button>
             <button class="pp-sw" data-color="#F2A6C8" style="background:#F2A6C8"></button>
             <button class="pp-sw" data-color="#B9E86C" style="background:#B9E86C"></button>
@@ -2542,7 +2545,7 @@ ul { list-style: none; }
             <button class="pp-sw" data-color="#7092be" style="background:#7092be"></button>
             <button class="pp-sw" data-color="#c8bfe7" style="background:#c8bfe7"></button>
             <button class="pp-sw" data-color="#C8B9D8" style="background:#C8B9D8"></button>
-            <button class="pp-sw" data-color="#F4E8CC" style="background:#F4E8CC"></button>
+            <button class="pp-sw" data-color="#F7F5FF" style="background:#F7F5FF"></button>
             <button class="pp-sw" data-color="#B9B8C4" style="background:#B9B8C4"></button>
             <button class="pp-sw" data-color="#d4a82a" style="background:#d4a82a"></button>
           </div>
@@ -2574,7 +2577,7 @@ ul { list-style: none; }
               <button class="dp-tool" data-tool="erase" title="eraser">⌫</button>
             </div>
             <div class="dp-colors" id="dp-colors">
-              <button class="dp-color active" data-color="#2B2038" style="background:#2B2038"></button>
+              <button class="dp-color active" data-color="#261B3D" style="background:#261B3D"></button>
               <button class="dp-color" data-color="#D94B4B" style="background:#D94B4B"></button>
               <button class="dp-color" data-color="#F2A6C8" style="background:#F2A6C8"></button>
               <button class="dp-color" data-color="#B9E86C" style="background:#B9E86C"></button>
@@ -3045,15 +3048,15 @@ ul { list-style: none; }
         <span class="sw-use">app windows, folders, soft surfaces</span>
         <span class="sw-hex">#C8B9D8</span>
       </div>
-      <div class="swatch" style="background: #F4E8CC;">
-        <span class="sw-name">Computer<br/>Paper</span>
-        <span class="sw-use">notes, printouts, popups, analog outputs</span>
-        <span class="sw-hex">#F4E8CC</span>
+      <div class="swatch" style="background: #F7F5FF;">
+        <span class="sw-name">Cloud<br/>White</span>
+        <span class="sw-use">journal areas, text fields, popups, cards, window interiors</span>
+        <span class="sw-hex">#F7F5FF</span>
       </div>
-      <div class="swatch dark" style="background: #2B2038;">
+      <div class="swatch dark" style="background: #261B3D;">
         <span class="sw-name">Deep<br/>Plum</span>
         <span class="sw-use">text, borders, shadows, outlines</span>
-        <span class="sw-hex">#2B2038</span>
+        <span class="sw-hex">#261B3D</span>
       </div>
       <div class="swatch" style="background: #B9E86C;">
         <span class="sw-name">Signal<br/>Green</span>
@@ -3360,7 +3363,7 @@ ul { list-style: none; }
 
   let tool = 'pencil';
   let size = 3;
-  let fg = '#2B2038';
+  let fg = '#261B3D';
   let bg = '#ffffff';
   let drawing = false;
   let startX = 0, startY = 0;
@@ -3615,7 +3618,7 @@ ul { list-style: none; }
 
   let drawing = false;
   let lastX = 0, lastY = 0;
-  let color = '#2B2038';
+  let color = '#261B3D';
   let size = 4;
   let tool = 'pen';
   let strokes = 0;
