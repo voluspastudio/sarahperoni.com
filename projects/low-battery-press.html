@@ -2887,28 +2887,19 @@ ul { list-style: none; }
   let lastX = 0, lastY = 0;
   let preCommit = null; /* ImageData snapshot before shape preview */
 
-  /* Resolve canvas to a crisp pixel buffer */
-  function fitCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    const w = Math.max(1, Math.floor(rect.width));
-    const h = Math.max(1, Math.floor(rect.height));
-    if (canvas.width !== w || canvas.height !== h) {
-      const old = canvas.width && canvas.height ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
-      canvas.width = w; canvas.height = h;
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, w, h);
-      if (old) try { ctx.putImageData(old, 0, 0); } catch (e) {}
-    }
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-  }
-  fitCanvas();
-  window.addEventListener('resize', fitCanvas);
+  /* Canvas buffer stays at the declared size (380×260 from markup);
+     mouse coords are scaled into buffer space below. */
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
 
   function pos(e) {
     const r = canvas.getBoundingClientRect();
     const ev = (e.touches && e.touches[0]) || e;
-    return { x: Math.floor(ev.clientX - r.left), y: Math.floor(ev.clientY - r.top) };
+    const sx = canvas.width  / Math.max(1, r.width);
+    const sy = canvas.height / Math.max(1, r.height);
+    return { x: Math.floor((ev.clientX - r.left) * sx), y: Math.floor((ev.clientY - r.top) * sy) };
   }
 
   function setStatus(msg) { if (status) status.textContent = msg; }
@@ -3116,30 +3107,20 @@ ul { list-style: none; }
   let tool = 'pen';
   let strokes = 0;
 
-  /* fit drawing buffer to its rendered size for crisp lines */
-  function sizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-      const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      ctx.scale(dpr, dpr);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      try { ctx.putImageData(data, 0, 0); } catch (e) { /* size shifted, skip restore */ }
-    } else {
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-    }
-  }
-  sizeCanvas();
-  window.addEventListener('resize', sizeCanvas);
+  /* Canvas buffer stays at the declared size (320×220 from the markup);
+     mouse coords get scaled into buffer space so the canvas works
+     regardless of CSS sizing or whether its window is hidden on init. */
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
 
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     const evt = (e.touches && e.touches[0]) || e;
-    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+    const sx = canvas.width  / Math.max(1, rect.width);
+    const sy = canvas.height / Math.max(1, rect.height);
+    return { x: (evt.clientX - rect.left) * sx, y: (evt.clientY - rect.top) * sy };
   }
   function start(e) {
     drawing = true;
@@ -3207,15 +3188,11 @@ ul { list-style: none; }
     });
   });
 
-  /* clear */
+  /* clear · paint white so the canvas always has a clean background */
   const clearBtn = document.getElementById('dp-clear');
   if (clearBtn) clearBtn.addEventListener('click', () => {
-    const w = canvas.width, h = canvas.height;
-    /* reset transform · clear in actual pixels */
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    ctx.restore();
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     strokes = 0;
     if (status) status.textContent = 'untitled.png · empty';
   });
