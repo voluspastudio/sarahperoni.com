@@ -386,8 +386,12 @@ ul { list-style: none; }
 .window-content {
   padding: 14px 14px 14px;
   font-size: 13px; color: var(--deep-plum);
-  /* readable lilac body so windows feel like UI panels, not paper */
-  background: var(--soft-lilac);
+  /* pixelsunrise texture sits behind a soft-lilac scrim so the window
+     reads as a UI panel with a faint sunset wash, not a flat surface */
+  background:
+    linear-gradient(rgba(231,216,255,0.78), rgba(231,216,255,0.78)),
+    url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover,
+    var(--soft-lilac);
 }
 .window-content .prompt {
   font-family: var(--pixel); font-size: 18px; color: var(--plum); margin-bottom: 8px;
@@ -2227,6 +2231,10 @@ ul { list-style: none; }
   padding: 14px;
   font-family: var(--body); font-size: 13px;
   color: var(--deep-plum);
+  background:
+    linear-gradient(rgba(231,216,255,0.78), rgba(231,216,255,0.78)),
+    url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover,
+    var(--soft-lilac);
 }
 .dp-prompt {
   font-family: var(--pixel); font-size: 16px;
@@ -2302,6 +2310,10 @@ ul { list-style: none; }
   padding: 14px;
   font-family: var(--body); font-size: 13px;
   color: var(--deep-plum);
+  background:
+    linear-gradient(rgba(231,216,255,0.78), rgba(231,216,255,0.78)),
+    url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover,
+    var(--soft-lilac);
 }
 .mp-entry {
   background: var(--cloud-white);
@@ -2352,6 +2364,10 @@ ul { list-style: none; }
 .mm-now-body {
   padding: 16px;
   display: flex; align-items: center; gap: 14px;
+  background:
+    linear-gradient(rgba(231,216,255,0.78), rgba(231,216,255,0.78)),
+    url('../images/projects/lowbatterypress/pixelsunrise.png') center/cover,
+    var(--soft-lilac);
 }
 .mm-cd {
   width: 64px; height: 64px;
