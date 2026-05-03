@@ -2554,22 +2554,28 @@ ul { list-style: none; }
   box-shadow: 4px 4px 0 var(--deep-plum);
   display: flex; flex-direction: column;
   overflow: hidden;
-  min-height: 220px;
+  /* every Core Tools window renders at the same square aspect so the
+     image-based mockups and the CSS-built Print Dump share size */
+  aspect-ratio: 1 / 1;
+  min-height: 0;
 }
-/* image-based windows · the PNG already includes the window chrome,
-   so drop the wrapper border/shadow/min-height and let the image
-   define the box. mix-blend-mode: multiply drops the PNG's white
-   areas so the lilac panel shows through behind them. */
+/* image-based windows · PNG already includes window chrome, so drop
+   the wrapper border/shadow and let the image define the visible box.
+   mix-blend-mode: multiply drops the PNG's white areas so the lilac
+   panel shows through. object-fit: contain keeps the aspect square
+   without distorting the screenshot. */
 .ct-window.ct-window-img {
   background: transparent;
   border: 0;
   box-shadow: none;
-  min-height: 0;
   display: block;
   overflow: visible;
+  aspect-ratio: 1 / 1;
 }
 .ct-window.ct-window-img img {
-  width: 100%; height: auto; display: block;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
   image-rendering: auto;
   mix-blend-mode: multiply;
 }
@@ -2947,9 +2953,8 @@ ul { list-style: none; }
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  border: 2px solid var(--deep-plum);
-  box-shadow: 4px 4px 0 var(--deep-plum);
-  background: var(--cloud-white);
+  background: transparent;
+  mix-blend-mode: multiply;
 }
 .mm-row-text {
   display: flex; flex-direction: column;
@@ -2977,9 +2982,10 @@ ul { list-style: none; }
 }
 .pa-printout img {
   width: 100%; height: auto; display: block;
-  border: 2px solid var(--deep-plum);
-  box-shadow: 4px 4px 0 var(--deep-plum);
-  background: var(--cloud-white);
+  background: transparent;
+  /* drop the cloud-white frame baked into the PNG so the lilac panel
+     shows through · keeps the colored chrome and content visible */
+  mix-blend-mode: multiply;
 }
 .pa-entry-list { display: flex; flex-direction: column; }
 .pa-entries {
@@ -4037,17 +4043,8 @@ ul { list-style: none; }
             <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/>
             <span class="ct-app-name">Journal.exe</span>
           </div>
-          <div class="ct-window">
-            <div class="ct-titlebar">
-              <span>Journal.exe</span>
-              <span class="ct-ctrls">_ □ <em>×</em></span>
-            </div>
-            <div class="ct-body ct-journal">
-              <p>dear diary,</p>
-              <p>today was a low<br/>battery day.</p>
-              <img class="ct-stamp pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
-              <span class="ct-scrollbar" aria-hidden="true"><span></span></span>
-            </div>
+          <div class="ct-window ct-window-img">
+            <img src="../images/projects/lowbatterypress/lbp-journal.png" alt="Journal.exe window with sample diary entry"/>
           </div>
           <p class="ct-caption">Type your thoughts.<br/>A soft place to write.</p>
         </article>
