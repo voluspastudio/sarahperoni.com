@@ -2522,8 +2522,317 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   CORE TOOLS · tool cards rendered as 90s-style mini windows
+   CORE TOOLS · icon header + window mockup with sample content
    ============================================================ */
+.ct-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px 22px;
+  margin: 22px 0 0;
+}
+.ct-card {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ct-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 2px;
+}
+.ct-app-icon {
+  width: 36px; height: 36px;
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.18));
+}
+.ct-app-name {
+  font-family: var(--ui); font-size: 16px; font-weight: 700;
+  color: var(--deep-plum);
+  letter-spacing: 0.02em;
+}
+.ct-window {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 4px 4px 0 var(--deep-plum);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  min-height: 220px;
+}
+.ct-titlebar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 8px;
+  background: var(--pixel-lavender);
+  color: var(--deep-plum);
+  border-bottom: 2px solid var(--deep-plum);
+  font-family: var(--ui); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.ct-ctrls {
+  font-family: var(--ui); font-size: 10px;
+  letter-spacing: 0.16em;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.ct-ctrls em {
+  font-style: normal;
+  background: var(--low-battery-red);
+  color: var(--cloud-white);
+  padding: 0 4px;
+  margin-left: 2px;
+}
+.ct-body {
+  flex: 1;
+  padding: 12px;
+  font-family: var(--body); font-size: 12px;
+  color: var(--deep-plum);
+  position: relative;
+  background: var(--cloud-white);
+}
+.ct-caption {
+  font-family: var(--ui); font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--deep-plum);
+  margin: 0;
+}
+
+/* ── Journal.exe · diary entry */
+.ct-journal { font-family: var(--ui); font-size: 13px; line-height: 1.5; }
+.ct-journal p { margin: 0 0 6px; }
+.ct-journal p:first-child { margin-bottom: 8px; }
+.ct-stamp {
+  position: absolute;
+  width: 28px; height: 28px;
+  bottom: 14px; right: 22px;
+  image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.2));
+}
+.ct-scrollbar {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 12px;
+  background: var(--soft-lilac);
+  border-left: 1.5px solid var(--deep-plum);
+}
+.ct-scrollbar > span {
+  display: block;
+  width: 100%; height: 38%;
+  background: var(--chrome-gray);
+  margin-top: 30%;
+  border: 1.5px solid var(--deep-plum);
+}
+
+/* ── Video Log · webcam frame */
+.ct-video { padding: 0; display: flex; flex-direction: column; }
+.ct-cam {
+  flex: 1;
+  position: relative;
+  /* simulated webcam scene · pinkish glow + dark figure silhouette */
+  background:
+    radial-gradient(ellipse at 50% 65%, rgba(255,133,200,0.55) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(231,216,255,0.85) 0%, rgba(185,156,255,0.55) 60%, rgba(38,27,61,0.45) 100%),
+    var(--soft-lilac);
+  min-height: 130px;
+}
+.ct-face {
+  position: absolute;
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  width: 64px; height: 76px;
+  background:
+    radial-gradient(circle at 50% 35%, var(--deep-plum) 0%, var(--deep-plum) 38%, transparent 40%),
+    radial-gradient(ellipse at 50% 95%, var(--deep-plum) 0%, var(--deep-plum) 50%, transparent 52%);
+  border-radius: 50% 50% 30% 30%;
+  filter: blur(0.4px);
+}
+.ct-cam-light {
+  position: absolute; top: 8px; right: 10px;
+  width: 8px; height: 8px;
+  background: var(--low-battery-red);
+  border: 1.5px solid var(--deep-plum);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255,77,94,0.6);
+}
+.ct-cam-controls {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 8px;
+  background: var(--cloud-white);
+  border-top: 1.5px solid var(--deep-plum);
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--deep-plum);
+}
+.ct-rec  { color: var(--low-battery-red); font-size: 14px; }
+.ct-pause { font-size: 12px; letter-spacing: -2px; }
+.ct-time { flex: 1; text-align: center; }
+.ct-full { font-size: 14px; }
+
+/* ── Notes.txt · bullet list */
+.ct-notes { font-family: var(--ui); font-size: 12.5px; line-height: 1.4; padding-right: 22px; }
+.ct-notes ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ct-notes li {
+  position: relative; padding-left: 14px;
+  color: var(--deep-plum);
+}
+.ct-notes li::before {
+  content: '•';
+  position: absolute; left: 0; top: 0;
+  color: var(--deep-plum);
+  font-size: 14px;
+}
+.ct-notes li strong { font-weight: 700; }
+.ct-notes li span { color: var(--deep-plum-mid); }
+
+/* ── Draw Pad · canvas + palette */
+.ct-draw { padding: 0; display: flex; flex-direction: column; }
+.ct-draw-tools {
+  display: flex; gap: 6px;
+  padding: 4px 8px;
+  background: var(--soft-lilac);
+  border-bottom: 1.5px solid var(--deep-plum);
+  font-family: var(--ui); font-size: 12px;
+  color: var(--deep-plum);
+}
+.ct-draw-tools span {
+  display: inline-grid; place-items: center;
+  width: 18px; height: 18px;
+  background: var(--cloud-white);
+  border: 1px solid var(--deep-plum);
+  font-size: 11px;
+}
+.ct-draw-canvas {
+  flex: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  gap: 6px;
+  padding: 14px 18px;
+  background: var(--cloud-white);
+  min-height: 100px;
+}
+.ct-draw-canvas img {
+  width: 28px; height: 28px;
+  image-rendering: pixelated;
+  justify-self: center;
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.18));
+}
+.ct-draw-pencil { transform: rotate(-12deg); }
+.ct-spark {
+  position: absolute;
+  font-family: var(--display); color: var(--sticker-pink);
+  font-size: 16px;
+  top: 30%; left: 70%;
+  text-shadow: 1px 1px 0 var(--deep-plum);
+}
+.ct-spark-2 { top: 60%; left: 25%; color: var(--sunny-yellow); }
+.ct-draw-palette {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 0;
+  padding: 6px 8px;
+  background: var(--cloud-white);
+  border-top: 1.5px solid var(--deep-plum);
+}
+.ct-draw-palette span {
+  width: 100%; aspect-ratio: 1;
+  border: 1.5px solid var(--deep-plum);
+  margin-right: -1.5px;
+}
+
+/* ── Mood Meter · big battery */
+.ct-mood {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding-top: 16px;
+}
+.ct-mood-label {
+  font-family: var(--ui); font-size: 12px;
+  color: var(--deep-plum); margin: 0 0 4px;
+}
+.ct-battery-big {
+  position: relative;
+  width: 130px; height: 50px;
+  border: 2px solid var(--deep-plum);
+  background: var(--cloud-white);
+  padding: 4px;
+  margin: 0 0 4px;
+}
+.ct-battery-big::after {
+  content: ''; position: absolute;
+  right: -8px; top: 14px;
+  width: 6px; height: 22px;
+  background: var(--deep-plum);
+}
+.ct-battery-fill {
+  display: flex; gap: 3px; height: 100%;
+}
+.ct-battery-fill span {
+  flex: 1;
+  background: var(--signal-green);
+  border: 1.5px solid var(--deep-plum);
+}
+.ct-battery-fill span:nth-child(4) {
+  background: var(--cloud-white);
+  border-style: dashed;
+}
+.ct-mood-pct {
+  font-family: var(--display); font-size: 22px;
+  color: var(--deep-plum);
+  margin: 0; line-height: 1;
+}
+.ct-mood-state {
+  font-family: var(--ui); font-size: 13px;
+  color: var(--deep-plum);
+  margin: 0;
+}
+.ct-smile { color: var(--sunny-yellow); text-shadow: 1px 1px 0 var(--deep-plum); }
+
+/* ── Print Dump · receipt + tiny printer */
+.ct-print {
+  display: flex; align-items: stretch;
+  gap: 10px;
+  padding: 10px 12px;
+}
+.ct-print-receipt {
+  flex: 1;
+  background: var(--cloud-white);
+  border: 1.5px solid var(--deep-plum);
+  padding: 10px 12px;
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--deep-plum);
+  line-height: 1.45;
+}
+.ct-print-receipt p { margin: 0 0 2px; }
+.ct-print-head { font-family: var(--ui); font-weight: 700; font-size: 12px; }
+.ct-print-rule { letter-spacing: 0.05em; color: var(--deep-plum-mid); }
+.ct-printer {
+  flex: 0 0 38px;
+  display: flex; flex-direction: column; align-self: flex-end;
+}
+.ct-printer-top {
+  width: 38px; height: 8px;
+  background: var(--chrome-gray);
+  border: 1.5px solid var(--deep-plum);
+  margin: 0 auto 0;
+}
+.ct-printer-mid {
+  width: 38px; height: 18px;
+  background: var(--pixel-lavender);
+  border: 1.5px solid var(--deep-plum);
+  border-top: 0;
+  position: relative;
+}
+.ct-printer-mid::after {
+  content: ''; position: absolute;
+  left: 6px; right: 6px; bottom: 4px;
+  height: 4px;
+  background: var(--cloud-white);
+  border: 1px solid var(--deep-plum);
+}
+.ct-printer-bot {
+  width: 30px; height: 4px;
+  background: var(--deep-plum);
+  margin: 0 auto;
+}
+
+/* legacy .tool-window styles · kept in case other panels reference them */
 .tool-card.tool-window {
   padding: 0;
   background: var(--soft-lilac);
@@ -3698,80 +4007,177 @@ ul { list-style: none; }
     <div class="ds-sub" id="ds-tools">
       <h3 class="ds-sub-title"><span class="ds-sub-num">02.2</span> Core Tools</h3>
       <div class="body">
-        <p>Each tool supports a different kind of entry. A user can write a full post, save a quick note, record a video check-in, sketch an idea, or mark a mood state.</p>
+        <p>Low Battery Press is a desktop of simple tools for everyday expression. Type, talk, sketch, save fragments, track signals, and export prints.</p>
       </div>
 
-      <div class="tools-grid" style="margin-top: 18px;">
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
-            <span class="tw-name">Journal.exe</span>
-            <span class="tw-ctrls">_ □ ×</span>
+      <!-- core tools · each card has an icon+name header, a window
+           mockup with sample content inside, and a 2-line caption -->
+      <div class="ct-grid">
+        <!-- Journal.exe -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/>
+            <span class="ct-app-name">Journal.exe</span>
           </div>
-          <div class="tw-body">
-            <h3>Written entries and prompts.</h3>
-            <p>A writing window for typed entries and optional prompts when starting from scratch is hard.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Journal.exe</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-journal">
+              <p>dear diary,</p>
+              <p>today was a low<br/>battery day.</p>
+              <img class="ct-stamp pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
+              <span class="ct-scrollbar" aria-hidden="true"><span></span></span>
+            </div>
           </div>
+          <p class="ct-caption">Type your thoughts.<br/>A soft place to write.</p>
         </article>
 
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
-            <span class="tw-name">Video Log</span>
-            <span class="tw-ctrls">_ □ ×</span>
+        <!-- Video Log -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
+            <span class="ct-app-name">Video Log</span>
           </div>
-          <div class="tw-body">
-            <h3>Camera-based check-ins.</h3>
-            <p>A short webcam recording for talking through the moment instead of typing it.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Video Log</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-video">
+              <div class="ct-cam">
+                <span class="ct-face" aria-hidden="true"></span>
+                <span class="ct-cam-light"></span>
+              </div>
+              <div class="ct-cam-controls">
+                <span class="ct-rec">●</span>
+                <span class="ct-pause">‖ ‖</span>
+                <span class="ct-time">00:00:37</span>
+                <span class="ct-full">⛶</span>
+              </div>
+            </div>
           </div>
+          <p class="ct-caption">Talk it out on camera.<br/>Real time, real you.</p>
         </article>
 
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
-            <span class="tw-name">Notes.txt</span>
-            <span class="tw-ctrls">_ □ ×</span>
+        <!-- Notes.txt -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/>
+            <span class="ct-app-name">Notes.txt</span>
           </div>
-          <div class="tw-body">
-            <h3>Fragments, lists, unfinished thoughts.</h3>
-            <p>A place for things that are not yet a full entry. Nothing has to be resolved here.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Notes.txt</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-notes">
+              <ul>
+                <li><strong>9:30 am</strong><br/><span>coffee + big thoughts</span></li>
+                <li><strong>tiny wins:</strong><br/><span>sent the email ☆</span></li>
+                <li><strong>reminder:</strong><br/><span>rest is productive</span></li>
+              </ul>
+              <img class="ct-stamp pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
+              <span class="ct-scrollbar" aria-hidden="true"><span></span></span>
+            </div>
           </div>
+          <p class="ct-caption">Jot loose notes.<br/>Lists, ideas, fragments.</p>
         </article>
 
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
-            <span class="tw-name">Draw Pad</span>
-            <span class="tw-ctrls">_ □ ×</span>
+        <!-- Draw Pad -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
+            <span class="ct-app-name">Draw Pad</span>
           </div>
-          <div class="tw-body">
-            <h3>Sketches, marks, visual notes.</h3>
-            <p>A small drawing space for symbols and rough visual notes. Drawings can be saved as icons or cursors.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Draw Pad</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-draw">
+              <div class="ct-draw-tools" aria-hidden="true">
+                <span>✎</span><span>▭</span><span>◯</span><span>▣</span><span>⌫</span>
+              </div>
+              <div class="ct-draw-canvas">
+                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/>
+                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
+                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/>
+                <img class="pixel-icon ct-draw-pencil" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
+                <span class="ct-spark">✦</span>
+                <span class="ct-spark ct-spark-2">✧</span>
+              </div>
+              <div class="ct-draw-palette">
+                <span style="background:#261B3D"></span>
+                <span style="background:#FF85C8"></span>
+                <span style="background:#FF4D5E"></span>
+                <span style="background:#FFD85C"></span>
+                <span style="background:#FFA94D"></span>
+                <span style="background:#A8FF6A"></span>
+                <span style="background:#6FA8FF"></span>
+                <span style="background:#3D5FFF"></span>
+                <span style="background:#B99CFF"></span>
+                <span style="background:#E7D8FF"></span>
+                <span style="background:#F7F5FF;border-color:var(--deep-plum)"></span>
+              </div>
+            </div>
           </div>
+          <p class="ct-caption">Sketch, scribble, doodle.<br/>Express without rules.</p>
         </article>
 
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
-            <span class="tw-name">Mood Meter</span>
-            <span class="tw-ctrls">_ □ ×</span>
+        <!-- Mood Meter -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
+            <span class="ct-app-name">Mood Meter</span>
           </div>
-          <div class="tw-body">
-            <h3>Battery level, signal, and mood.</h3>
-            <p>A non-clinical tool for marking emotional state using battery levels and signal terms instead of numerical scores.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Mood Meter</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-mood">
+              <p class="ct-mood-label">current level</p>
+              <div class="ct-battery-big">
+                <div class="ct-battery-fill"><span></span><span></span><span></span><span></span></div>
+              </div>
+              <p class="ct-mood-pct">46%</p>
+              <p class="ct-mood-state">moderate <span class="ct-smile">☺</span></p>
+            </div>
           </div>
+          <p class="ct-caption">Track your energy.<br/>Names for the feeling.</p>
         </article>
 
-        <article class="tool-card tool-window">
-          <div class="tw-titlebar">
-            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
-            <span class="tw-name">Archive</span>
-            <span class="tw-ctrls">_ □ ×</span>
+        <!-- Print Dump -->
+        <article class="ct-card">
+          <div class="ct-header">
+            <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/>
+            <span class="ct-app-name">Print Dump</span>
           </div>
-          <div class="tw-body">
-            <h3>Saved entries and files.</h3>
-            <p>Where every saved entry, note, drawing, song, and printed output can be opened again.</p>
+          <div class="ct-window">
+            <div class="ct-titlebar">
+              <span>Print Dump</span>
+              <span class="ct-ctrls">_ □ <em>×</em></span>
+            </div>
+            <div class="ct-body ct-print">
+              <div class="ct-print-receipt">
+                <p class="ct-print-head">LOW BATTERY PRESS<br/>PRINT DUMP</p>
+                <p class="ct-print-rule">—————————</p>
+                <p>date: 05.24.25</p>
+                <p>time: 11:42 am</p>
+                <p>mood: moderate</p>
+                <p class="ct-print-rule">—————————</p>
+                <p>pages: 12</p>
+              </div>
+              <span class="ct-printer" aria-hidden="true">
+                <span class="ct-printer-top"></span>
+                <span class="ct-printer-mid"></span>
+                <span class="ct-printer-bot"></span>
+              </span>
+            </div>
           </div>
+          <p class="ct-caption">Export your bits.<br/>Make a print dump.</p>
         </article>
       </div>
     </div>
