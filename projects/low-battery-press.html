@@ -278,42 +278,93 @@ ul { list-style: none; }
   color: var(--plum-mid);
 }
 
-/* DESKTOP ICONS */
-.desktop-icons {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
-  gap: 24px 18px;
-  max-width: 720px;
+/* HERO LAYOUT · copy + iMac side by side */
+.desktop-hero {
+  position: relative; z-index: 5;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(24px, 4vw, 56px);
 }
-.icon {
-  background: transparent; border: 0; padding: 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  cursor: pointer;
-  transition: transform 0.18s ease;
+.desktop-hero-copy { flex: 1 1 380px; max-width: 540px; margin-bottom: 0; }
+.desktop-hero-imac {
+  flex: 0 1 480px;
+  margin: 0;
+  align-self: center;
+  text-align: center;
 }
-.icon:hover { transform: translateY(-2px); }
-.icon:focus-visible { outline: 2px dashed var(--plum); outline-offset: 4px; }
-.icon-art {
-  width: 64px; height: 64px;
-  display: flex; align-items: center; justify-content: center;
-  background: transparent;
+.desktop-hero-imac img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  image-rendering: crisp-edges;
+  /* subtle plum drop-shadow to land it on the desktop */
+  filter: drop-shadow(6px 6px 0 rgba(38,27,61,0.18));
+  animation: imac-float 6s ease-in-out infinite alternate;
 }
-.icon-art img {
-  max-width: 100%; max-height: 100%; image-rendering: pixelated;
+@keyframes imac-float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desktop-hero-imac img { animation: none; }
+}
+@media (max-width: 880px) {
+  .desktop-hero { gap: 18px; }
+  .desktop-hero-imac { flex-basis: auto; max-width: 360px; margin-inline: auto; }
+}
+
+/* DESKTOP ICON WALLPAPER · scattered pixel icons used as decoration
+   instead of clickable icons under the hero copy */
+.desktop-icon-wallpaper {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  /* sits above the .desktop gradient + scanlines but below the hero copy */
+  opacity: 0.22;
+  background-image:
+    url('../images/projects/lowbatterypress/icons/book.png'),
+    url('../images/projects/lowbatterypress/icons/pc.png'),
+    url('../images/projects/lowbatterypress/icons/notepad.png'),
+    url('../images/projects/lowbatterypress/icons/window.png'),
+    url('../images/projects/lowbatterypress/icons/paint.png'),
+    url('../images/projects/lowbatterypress/icons/blue heart.png'),
+    url('../images/projects/lowbatterypress/icons/cd.png'),
+    url('../images/projects/lowbatterypress/icons/drive.png'),
+    url('../images/projects/lowbatterypress/icons/mail.png'),
+    url('../images/projects/lowbatterypress/icons/cat.png'),
+    url('../images/projects/lowbatterypress/icons/star.png'),
+    url('../images/projects/lowbatterypress/icons/yelow heart.png'),
+    url('../images/projects/lowbatterypress/icons/rainbow.png'),
+    url('../images/projects/lowbatterypress/icons/white cloud.png'),
+    url('../images/projects/lowbatterypress/icons/music note.png'),
+    url('../images/projects/lowbatterypress/icons/foldericon.png');
+  background-position:
+     6%  82%,
+    14%  18%,
+    28%  68%,
+    44%  10%,
+    62%  76%,
+    78%  22%,
+    90%  64%,
+    10%  46%,
+    36%  36%,
+    72%  46%,
+    18%  92%,
+    52%  52%,
+    84%  88%,
+    66%   6%,
+    96%  36%,
+    32%  88%;
+  background-size:
+    72px, 64px, 78px, 66px, 70px, 60px, 74px, 58px,
+    66px, 60px, 50px, 48px, 56px, 54px, 52px, 70px;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
   filter: drop-shadow(2px 2px 0 rgba(38,27,61,0.18));
 }
-.icon-art svg { width: 56px; height: 56px; }
-.icon-label {
-  font-family: var(--ui); font-size: 13px; font-weight: 500;
-  color: var(--plum);
-  background: rgba(247,245,255,0.7);
-  padding: 1px 6px;
-  border: 1px solid transparent;
-  letter-spacing: 0.02em;
-}
-.icon:hover .icon-label,
-.icon:focus-visible .icon-label {
-  background: var(--plum); color: var(--paper); border-color: var(--plum);
+@media (max-width: 720px) {
+  .desktop-icon-wallpaper { opacity: 0.15; }
 }
 
 /* STICKERS · scattered desktop accents */
@@ -784,8 +835,6 @@ ul { list-style: none; }
   .desktop { min-height: auto; }
   .desktop-hero-copy { padding: 18px; max-width: none; }
   .desktop-stage { padding: 24px; }
-  .desktop-icons { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-  .icon-art { width: 50px; height: 50px; }
   .window {
     position: static !important;
     margin: 18px auto !important;
@@ -2500,11 +2549,11 @@ ul { list-style: none; }
   <div class="menu-bar">
     <span class="menu-logo"><span class="bolt">⚡</span> LBP.OS</span>
     <nav>
-      <a href="#about">file</a>
-      <a href="#tools">edit</a>
-      <a href="#mood">mood</a>
-      <a href="#archive">archive</a>
-      <a href="#print">print</a>
+      <a href="#" data-window="journal">file</a>
+      <a href="#" data-window="paint">edit</a>
+      <a href="#" data-window="mood">mood</a>
+      <a href="#" data-window="archive">archive</a>
+      <a href="#" data-window="print">print</a>
     </nav>
     <span class="spacer"></span>
     <span class="meta">
@@ -2514,55 +2563,19 @@ ul { list-style: none; }
     </span>
   </div>
 
-  <div class="desktop-stage">
-    <div class="desktop-hero-copy">
-      <h1>Low<br/><em>Battery</em><br/>Press</h1>
-      <p class="lead">A desktop diary for low-signal days.</p>
-      <p class="blurb">A place to save small entries, loose thoughts, drawings, songs, and mood objects. Type, talk, draw, save fragments. Entries can stay digital or become printed records.</p>
-    </div>
+  <!-- DESKTOP WALLPAPER · scattered pixel icons sit behind everything -->
+  <div class="desktop-icon-wallpaper" aria-hidden="true"></div>
 
-    <!-- DESKTOP ICONS · all PNG, all pixelated -->
-    <div class="desktop-icons" id="desktop-icons">
-      <button class="icon" data-window="journal" aria-label="Open Journal.exe">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
-        <span class="icon-label">Journal.exe</span>
-      </button>
-      <button class="icon" data-window="video" aria-label="Open Video Log">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
-        <span class="icon-label">Video Log</span>
-      </button>
-      <button class="icon" data-window="notes" aria-label="Open Notes.txt">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
-        <span class="icon-label">Notes.txt</span>
-      </button>
-      <button class="icon" data-window="draw" aria-label="Open Draw Pad">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
-        <span class="icon-label">Draw Pad</span>
-      </button>
-      <button class="icon" data-window="paint" aria-label="Open Paint">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/></span>
-        <span class="icon-label">Paint</span>
-      </button>
-      <button class="icon" data-window="mood" aria-label="Open Mood Meter">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
-        <span class="icon-label">Mood Meter</span>
-      </button>
-      <button class="icon" data-window="music" aria-label="Open Music Memory">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></span>
-        <span class="icon-label">Music Log</span>
-      </button>
-      <button class="icon" data-window="archive" aria-label="Open Archive">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
-        <span class="icon-label">Archive</span>
-      </button>
-      <button class="icon" data-window="print" aria-label="Open Print Dump">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/></span>
-        <span class="icon-label">Print Dump</span>
-      </button>
-      <button class="icon icon-error" data-window="error" aria-label="Open System Error">
-        <span class="icon-art"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></span>
-        <span class="icon-label">System.err</span>
-      </button>
+  <div class="desktop-stage">
+    <div class="desktop-hero">
+      <div class="desktop-hero-copy">
+        <h1>Low<br/><em>Battery</em><br/>Press</h1>
+        <p class="lead">A desktop diary for low-signal days.</p>
+        <p class="blurb">A place to save small entries, loose thoughts, drawings, songs, and mood objects. Type, talk, draw, save fragments. Entries can stay digital or become printed records.</p>
+      </div>
+      <figure class="desktop-hero-imac" aria-label="LBP running on a small iMac">
+        <img src="../images/projects/lowbatterypress/lbp-imac.png" alt="Low Battery Press shown on an iMac"/>
+      </figure>
     </div>
 
     <!-- WINDOWS -->
@@ -3713,7 +3726,9 @@ ul { list-style: none; }
 (function() {
   const stage = document.querySelector('.desktop-stage');
   if (!stage) return;
-  const icons = document.querySelectorAll('.icon');
+  /* every trigger that is NOT one of the actual window divs · catches the
+     menu-bar nav <a data-window> and any other future launcher */
+  const icons = document.querySelectorAll('[data-window]:not(.window)');
   const windows = document.querySelectorAll('.window');
   const tasks = document.getElementById('taskbar-tasks');
   let zCounter = 20;
@@ -3762,11 +3777,14 @@ ul { list-style: none; }
     rebuildTaskbar();
   }
 
-  /* icon clicks */
+  /* trigger clicks (menu-bar nav, icon-nav cards, etc.) */
   icons.forEach(ic => {
-    ic.addEventListener('click', () => {
+    ic.addEventListener('click', (e) => {
       const id = ic.dataset.window;
-      if (id) openWindow(id);
+      if (id) {
+        e.preventDefault();
+        openWindow(id);
+      }
     });
   });
 
