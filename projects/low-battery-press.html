@@ -119,6 +119,10 @@ ul { list-style: none; }
 .desktop {
   position: relative;
   min-height: clamp(640px, 92vh, 920px);
+  /* flex column so menu-bar / stage / taskbar fill the desktop without
+     leaving a strip of blue below the taskbar at any viewport height */
+  display: flex;
+  flex-direction: column;
   /* CRT-screen gradient · brighter at the top of the tube, deeper at the
      edges, all in the new screen-blue family. */
   background:
@@ -226,7 +230,9 @@ ul { list-style: none; }
 .desktop-stage {
   position: relative; z-index: 5;
   padding: clamp(30px, 5vw, 70px) clamp(28px, 5vw, 80px);
-  min-height: calc(100% - 50px);
+  /* fill remaining vertical space between menu-bar and taskbar so the
+     taskbar always sits flush at the bottom of the blue desktop */
+  flex: 1;
 }
 
 /* HERO COPY · floats over wallpaper, top-left */
@@ -3785,7 +3791,6 @@ ul { list-style: none; }
     <div class="taskbar-tasks" id="taskbar-tasks">
       <span class="task active">Desktop</span>
     </div>
-    <span class="taskbar-meta">USR · 1 · online</span>
   </div>
 </section>
 
