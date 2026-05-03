@@ -2556,6 +2556,21 @@ ul { list-style: none; }
   overflow: hidden;
   min-height: 220px;
 }
+/* image-based windows · the PNG already includes the window chrome,
+   so drop the wrapper border/shadow/min-height and let the image
+   define the box. */
+.ct-window.ct-window-img {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  min-height: 0;
+  display: block;
+  overflow: visible;
+}
+.ct-window.ct-window-img img {
+  width: 100%; height: auto; display: block;
+  image-rendering: auto;
+}
 .ct-titlebar {
   display: flex; align-items: center; justify-content: space-between;
   padding: 4px 8px;
@@ -4041,23 +4056,8 @@ ul { list-style: none; }
             <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
             <span class="ct-app-name">Video Log</span>
           </div>
-          <div class="ct-window">
-            <div class="ct-titlebar">
-              <span>Video Log</span>
-              <span class="ct-ctrls">_ □ <em>×</em></span>
-            </div>
-            <div class="ct-body ct-video">
-              <div class="ct-cam">
-                <span class="ct-face" aria-hidden="true"></span>
-                <span class="ct-cam-light"></span>
-              </div>
-              <div class="ct-cam-controls">
-                <span class="ct-rec">●</span>
-                <span class="ct-pause">‖ ‖</span>
-                <span class="ct-time">00:00:37</span>
-                <span class="ct-full">⛶</span>
-              </div>
-            </div>
+          <div class="ct-window ct-window-img">
+            <img src="../images/projects/lowbatterypress/lbp-video.png" alt="Video Log window with webcam recording"/>
           </div>
           <p class="ct-caption">Talk it out on camera.<br/>Real time, real you.</p>
         </article>
@@ -4068,20 +4068,8 @@ ul { list-style: none; }
             <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/>
             <span class="ct-app-name">Notes.txt</span>
           </div>
-          <div class="ct-window">
-            <div class="ct-titlebar">
-              <span>Notes.txt</span>
-              <span class="ct-ctrls">_ □ <em>×</em></span>
-            </div>
-            <div class="ct-body ct-notes">
-              <ul>
-                <li><strong>9:30 am</strong><br/><span>coffee + big thoughts</span></li>
-                <li><strong>tiny wins:</strong><br/><span>sent the email ☆</span></li>
-                <li><strong>reminder:</strong><br/><span>rest is productive</span></li>
-              </ul>
-              <img class="ct-stamp pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
-              <span class="ct-scrollbar" aria-hidden="true"><span></span></span>
-            </div>
+          <div class="ct-window ct-window-img">
+            <img src="../images/projects/lowbatterypress/lbp-notes.png" alt="Notes.txt window with bullet notes"/>
           </div>
           <p class="ct-caption">Jot loose notes.<br/>Lists, ideas, fragments.</p>
         </article>
@@ -4092,37 +4080,8 @@ ul { list-style: none; }
             <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
             <span class="ct-app-name">Draw Pad</span>
           </div>
-          <div class="ct-window">
-            <div class="ct-titlebar">
-              <span>Draw Pad</span>
-              <span class="ct-ctrls">_ □ <em>×</em></span>
-            </div>
-            <div class="ct-body ct-draw">
-              <div class="ct-draw-tools" aria-hidden="true">
-                <span>✎</span><span>▭</span><span>◯</span><span>▣</span><span>⌫</span>
-              </div>
-              <div class="ct-draw-canvas">
-                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/>
-                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/>
-                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/>
-                <img class="pixel-icon ct-draw-pencil" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
-                <span class="ct-spark">✦</span>
-                <span class="ct-spark ct-spark-2">✧</span>
-              </div>
-              <div class="ct-draw-palette">
-                <span style="background:#261B3D"></span>
-                <span style="background:#FF85C8"></span>
-                <span style="background:#FF4D5E"></span>
-                <span style="background:#FFD85C"></span>
-                <span style="background:#FFA94D"></span>
-                <span style="background:#A8FF6A"></span>
-                <span style="background:#6FA8FF"></span>
-                <span style="background:#3D5FFF"></span>
-                <span style="background:#B99CFF"></span>
-                <span style="background:#E7D8FF"></span>
-                <span style="background:#F7F5FF;border-color:var(--deep-plum)"></span>
-              </div>
-            </div>
+          <div class="ct-window ct-window-img">
+            <img src="../images/projects/lowbatterypress/lbp-drawing.png" alt="Draw Pad window with sketch and palette"/>
           </div>
           <p class="ct-caption">Sketch, scribble, doodle.<br/>Express without rules.</p>
         </article>
@@ -4133,19 +4092,8 @@ ul { list-style: none; }
             <img class="ct-app-icon pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
             <span class="ct-app-name">Mood Meter</span>
           </div>
-          <div class="ct-window">
-            <div class="ct-titlebar">
-              <span>Mood Meter</span>
-              <span class="ct-ctrls">_ □ <em>×</em></span>
-            </div>
-            <div class="ct-body ct-mood">
-              <p class="ct-mood-label">current level</p>
-              <div class="ct-battery-big">
-                <div class="ct-battery-fill"><span></span><span></span><span></span><span></span></div>
-              </div>
-              <p class="ct-mood-pct">46%</p>
-              <p class="ct-mood-state">moderate <span class="ct-smile">☺</span></p>
-            </div>
+          <div class="ct-window ct-window-img">
+            <img src="../images/projects/lowbatterypress/lbp-mood.png" alt="Mood Meter window with battery level"/>
           </div>
           <p class="ct-caption">Track your energy.<br/>Names for the feeling.</p>
         </article>
