@@ -2505,27 +2505,11 @@ ul { list-style: none; }
 /* ============================================================
    IMAGE / WINDOW · panel mockups with hover-grow behaviour
    ============================================================ */
-/* Reusable hover-grow · image scales up to ~1.5x on hover, popping over
-   the layout. Panels use this for screenshots and printout images. */
-.hover-grow {
-  cursor: zoom-in;
-  transition: transform 0.35s cubic-bezier(.2,.8,.3,1),
-              z-index 0s linear 0.35s,
-              box-shadow 0.25s ease;
-  will-change: transform;
-  position: relative;
-}
+/* hover-grow · disabled. Images and windows now sit at their natural
+   size; no scale-on-hover anywhere on the page. */
+.hover-grow { position: relative; }
 .hover-grow:hover,
-.hover-grow:focus-within {
-  transform: scale(1.5);
-  z-index: 50;
-  transition: transform 0.35s cubic-bezier(.2,.8,.3,1),
-              z-index 0s linear 0s,
-              box-shadow 0.25s ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hover-grow, .hover-grow:hover { transform: none; transition: none; }
-}
+.hover-grow:focus-within { transform: none; }
 
 /* iMac mockup that sits inside the Desktop System panel · centered, wide */
 .desktop-system-imac {
@@ -2783,19 +2767,17 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   PHYSICAL DELIVERABLES · image mockups (stickers, stamps, pouches)
+   PHYSICAL DELIVERABLES · product mockup images
    ============================================================ */
-/* Wrapper for the actual product mockup PNGs · framed in plum so they
-   land on the lilac panel like the other windows. */
+/* PNG mockups sit directly on the panel · no frame, no white box,
+   so they read as photographic product shots. */
 .pd-image-mock {
   margin: 18px auto 0;
   max-width: 720px;
 }
 .pd-image-mock img {
   width: 100%; height: auto; display: block;
-  border: 2px solid var(--deep-plum);
-  box-shadow: 6px 6px 0 var(--deep-plum);
-  background: var(--cloud-white);
+  background: transparent;
   image-rendering: auto;
 }
 
@@ -3948,25 +3930,16 @@ ul { list-style: none; }
       </div>
 
       <div class="pa-printout-row">
-        <figure class="pa-printout hover-grow" aria-label="Monthly Dump Report printout">
+        <figure class="pa-printout" aria-label="Monthly Dump Report printout">
           <img src="../images/projects/lowbatterypress/lbp-printout.png" alt="Monthly Dump Report printout"/>
         </figure>
         <div class="pa-entry-list">
-          <div class="bs-block-bar overview-deliverables-bar">~ may · entries on this report</div>
-          <ul class="pa-entries">
-            <li><span class="pa-date">05·02</span><span class="pa-line">A short note from the morning.</span><span class="pa-meta">42% · soft</span></li>
-            <li><span class="pa-date">05·05</span><span class="pa-line">Notes about a long walk.</span><span class="pa-meta">61% · good</span></li>
-            <li><span class="pa-date">05·07</span><span class="pa-line">A few lines saved before bed.</span><span class="pa-meta">22% · quiet</span></li>
-            <li><span class="pa-date">05·09</span><span class="pa-line">Quietest day this month.</span><span class="pa-meta">04% · low</span></li>
-            <li><span class="pa-date">05·12</span><span class="pa-line">Voice note transcribed to text.</span><span class="pa-meta">38% · soft</span></li>
-            <li><span class="pa-date">05·14</span><span class="pa-line">Short entry with song attached.</span><span class="pa-meta">22% · soft</span></li>
-            <li><span class="pa-date">05·17</span><span class="pa-line">A list of unsent messages.</span><span class="pa-meta">48% · numb</span></li>
-            <li><span class="pa-date">05·19</span><span class="pa-line">A drawing saved as the day's icon.</span><span class="pa-meta">71% · wired</span></li>
-            <li><span class="pa-date">05·21</span><span class="pa-line">Three sentences about a song.</span><span class="pa-meta">55% · soft</span></li>
-            <li><span class="pa-date">05·24</span><span class="pa-line">A small fragment.</span><span class="pa-meta">30% · quiet</span></li>
-            <li><span class="pa-date">05·27</span><span class="pa-line">Return-to-okay note.</span><span class="pa-meta">64% · almost okay</span></li>
-            <li><span class="pa-date">05·31</span><span class="pa-line">Last entry of the month.</span><span class="pa-meta">82% · good</span></li>
-          </ul>
+          <div class="bs-block-bar overview-deliverables-bar">~ about the monthly dump report</div>
+          <div class="body">
+            <p>One printed page that summarizes a full month of entries from the LBP archive. The report pulls in saved entries, mood objects, music memory, drawings, and battery data and arranges them into a single cyberdeck-style readout.</p>
+            <p>Each report includes the most-used words and mood objects, an average battery level, saved drawings, songs logged, and a short monthly summary. The page reads like a system report — neutral, functional, and easy to file alongside the rest of the physical archive.</p>
+            <p>Reports can be generated for any timeframe, then stored inside the translucent file pouches with the matching sticker sheets and stamped notes.</p>
+          </div>
         </div>
       </div>
 
@@ -4019,52 +3992,6 @@ ul { list-style: none; }
       </figure>
     </div>
 
-    <!-- secondary print outputs · receipts, cards, stickers, emotion report -->
-    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ supporting prints</div>
-    <div class="archive-grid">
-      <article class="archive-item receipt">
-        <div class="a-head"><span>RECEIPT // 05·14</span><span>22%</span></div>
-        <div class="a-body">
-          ▸ entry 05·14<br/>
-          short note.<br/>
-          ─────────────<br/>
-          mood: soft<br/>
-          ─────────────<br/>
-          song attached.
-        </div>
-      </article>
-      <article class="archive-item mood-card">
-        <div class="a-head"><span>MOOD CARD</span><span>05·14</span></div>
-        <div class="a-body">
-          <div class="pct">42%</div>
-          soft<br/>
-          <small style="font-family: var(--ui); font-size: 11px; opacity: 0.85;">cloud + heart logged</small>
-        </div>
-      </article>
-      <article class="archive-item sticker-sheet">
-        <div class="a-head"><span>STICKER SHEET</span><span>×8</span></div>
-        <div class="a-body">
-          <span class="a-sticker">★ saved</span>
-          <span class="a-sticker">▸ quiet</span>
-          <span class="a-sticker">soft</span>
-          <span class="a-sticker">low</span>
-          <span class="a-sticker">good</span>
-          <span class="a-sticker">offline</span>
-          <span class="a-sticker">wired</span>
-          <span class="a-sticker">♡ logged</span>
-        </div>
-      </article>
-      <article class="archive-item crash">
-        <div class="a-head"><span>EMOTION REPORT</span><span>30d</span></div>
-        <div class="a-body">
-          <span class="err">range · 04—91%</span>
-          most marked: soft<br/>
-          least marked: numb<br/>
-          ─────────────<br/>
-          songs logged: 14
-        </div>
-      </article>
-    </div>
     </div>
   </div>
 </section>
