@@ -1487,20 +1487,48 @@ ul { list-style: none; }
   display: flex; flex-direction: column; gap: 2px;
 }
 .bs-item {
-  background: transparent; border: 0; color: var(--deep-plum);
-  font-family: var(--ui); font-size: 14px; font-weight: 600;
-  text-align: left; padding: 5px 10px;
-  cursor: pointer; letter-spacing: 0.03em;
+  display: grid;
+  grid-template-columns: 22px auto 1fr;
+  align-items: center;
+  gap: 8px;
+  background: transparent; color: var(--deep-plum);
+  font-family: var(--ui); font-size: 13.5px; font-weight: 600;
+  text-align: left; padding: 6px 10px;
+  cursor: pointer; letter-spacing: 0.02em;
   border: 2px solid transparent;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-/* hover · soft circuit green (alive but not loud) */
-.bs-item:hover { background: var(--soft-circuit-green); border-color: var(--deep-plum); }
+.bs-item .bs-icon {
+  width: 20px; height: 20px;
+  image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.18));
+  transition: transform 0.18s ease;
+}
+.bs-item .bs-num {
+  font-family: var(--pixel); font-size: 13px;
+  color: var(--deep-plum-mid);
+  letter-spacing: 0.04em;
+}
+.bs-item .bs-name { line-height: 1.15; }
+
+/* hover · soft circuit green bg + small icon lift */
+.bs-item:hover {
+  background: var(--soft-circuit-green);
+  border-color: var(--deep-plum);
+}
+.bs-item:hover .bs-icon { transform: translateY(-2px); }
+
 /* active · full signal green (the system is connected to this page) */
 .bs-item.active {
   background: var(--signal-green); color: var(--deep-plum);
   border-color: var(--deep-plum);
   box-shadow: inset 1px 1px 0 var(--cloud-white);
+}
+.bs-item.active .bs-num { color: var(--deep-plum); }
+
+.bs-item:focus-visible {
+  outline: 2px dashed var(--deep-plum);
+  outline-offset: 2px;
 }
 
 .bs-status-body { gap: 4px; padding: 10px; background: var(--cloud-white); }
@@ -1884,21 +1912,11 @@ ul { list-style: none; }
 /* CTA = save / commit moment, so it gets the bright "alive" green */
 .section.cta-section .section-inner { background: var(--signal-green); }
 
-/* Panel-specific bg accents · spread the palette without pink overload */
-#about   .section-inner { background: var(--soft-lilac); }
-#tools   .section-inner { background: var(--pixel-lavender); }
-#video   .section-inner { background: var(--soft-lilac); }
-#mood    .section-inner { background: var(--deep-plum); color: var(--cloud-white); }
-#mood h2 { color: var(--cloud-white); } #mood h2 em { color: var(--deep-plum); }
-#mood .lead { color: var(--cloud-white); }
-#mood .body { color: rgba(247,245,255,0.85); }
-#mood .section-label { background: transparent; color: var(--signal-green); border-color: var(--signal-green); }
-/* archive = saved / logged → soft-circuit-green so it reads as "filed" */
-#archive .section-inner { background: var(--soft-circuit-green); }
-#dump    .section-inner { background: var(--sticker-pink); }
-#brand   .section-inner { background: var(--soft-lilac); }
-/* start = call to action, the brightest signal-green */
-#start   .section-inner { background: var(--signal-green); }
+/* Panel-specific bg accents · 4 sections, spread but controlled */
+#overview              .section-inner { background: var(--soft-lilac); }
+#digital-system        .section-inner { background: var(--pixel-lavender); }
+#physical-deliverables .section-inner { background: var(--soft-lilac); }
+#brand-system          .section-inner { background: var(--cloud-white); }
 
 /* ============================================================
    3 · TOOLS GRID
@@ -2692,6 +2710,231 @@ ul { list-style: none; }
 }
 
 /* ============================================================
+   OVERVIEW · iMac mockup + brand snapshot strip
+   ============================================================ */
+.overview-imac {
+  margin: 22px 0 28px;
+  max-width: 720px;
+}
+.overview-imac img {
+  width: 100%; height: auto; display: block;
+  filter: drop-shadow(6px 6px 0 rgba(38,27,61,0.18));
+}
+.overview-snapshot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+.overview-snapshot .snap-icons,
+.overview-snapshot .snap-palette {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 3px 3px 0 var(--deep-plum);
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.overview-snapshot .snap-icons img {
+  width: 32px; height: 32px;
+  image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.18));
+}
+.overview-snapshot .snap-palette { gap: 6px; }
+.overview-snapshot .snap-sw {
+  width: 26px; height: 26px;
+  border: 1.5px solid var(--deep-plum);
+  display: inline-block;
+}
+.overview-snapshot .snap-sw-dark { box-shadow: inset 1px 1px 0 rgba(247,245,255,0.35); }
+@media (max-width: 720px) {
+  .overview-snapshot { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   DIGITAL SYSTEM / PHYSICAL DELIVERABLES · subsection rhythm
+   ============================================================ */
+.ds-sub {
+  margin: 36px 0 0;
+  padding: 22px 0 0;
+  border-top: 2px dashed var(--deep-plum);
+}
+.ds-sub:first-of-type { margin-top: 28px; }
+.ds-sub-title {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: var(--display);
+  font-size: clamp(20px, 2.6vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--deep-plum);
+  margin: 0 0 12px;
+}
+.ds-sub-title .ds-sub-num {
+  font-family: var(--pixel);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  background: var(--signal-green);
+  color: var(--deep-plum);
+  border: 1.5px solid var(--deep-plum);
+  padding: 0 8px;
+}
+
+/* ============================================================
+   PHYSICAL DELIVERABLES · sticker sheet, stamp set, pouches
+   ============================================================ */
+
+/* Sticker sheet · pixel icons on a perforated sheet */
+.pd-stickers-mock {
+  margin: 18px 0 0;
+}
+.pd-stickers-frame {
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 4px 4px 0 var(--deep-plum);
+  padding: 0;
+}
+.pd-stickers-head,
+.pd-stickers-foot {
+  background: var(--pixel-lavender);
+  color: var(--deep-plum);
+  font-family: var(--pixel); font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+}
+.pd-stickers-head { border-bottom: 2px solid var(--deep-plum); }
+.pd-stickers-foot { border-top: 2px solid var(--deep-plum); text-align: center; }
+.pd-stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  gap: 0;
+  padding: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 53px, rgba(38,27,61,0.18) 53px 54px),
+    repeating-linear-gradient(90deg, transparent 0 53px, rgba(38,27,61,0.18) 53px 54px),
+    var(--cloud-white);
+}
+.pd-sticker {
+  display: grid; place-items: center;
+  aspect-ratio: 1;
+  padding: 8px;
+}
+.pd-sticker img {
+  width: 100%; height: 100%; object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(38,27,61,0.18));
+}
+
+/* Icon stamp set · little stamps with handles */
+.pd-stamps-mock { margin: 18px 0 0; }
+.pd-stamps-frame {
+  background: var(--soft-lilac);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 4px 4px 0 var(--deep-plum);
+}
+.pd-stamps-head,
+.pd-stamps-foot {
+  background: var(--pixel-lavender);
+  color: var(--deep-plum);
+  font-family: var(--pixel); font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+}
+.pd-stamps-head { border-bottom: 2px solid var(--deep-plum); }
+.pd-stamps-foot { border-top: 2px solid var(--deep-plum); text-align: center; }
+.pd-stamps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 18px;
+  padding: 22px 18px;
+  justify-items: center;
+}
+.pd-stamp {
+  display: flex; flex-direction: column; align-items: center;
+}
+.pd-stamp-handle {
+  width: 16px; height: 36px;
+  background: var(--chrome-gray);
+  border: 1.5px solid var(--deep-plum);
+  border-bottom: 0;
+  position: relative;
+}
+.pd-stamp-handle::before {
+  content: ''; position: absolute;
+  top: -8px; left: -6px; right: -6px;
+  height: 10px;
+  background: var(--deep-plum);
+  border: 1.5px solid var(--deep-plum);
+}
+.pd-stamp-base {
+  width: 56px; height: 36px;
+  background: var(--cloud-white);
+  border: 2px solid var(--deep-plum);
+  box-shadow: 2px 2px 0 var(--deep-plum);
+  display: grid; place-items: center;
+  padding: 4px;
+}
+.pd-stamp-base img {
+  width: 100%; height: 100%; object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* Translucent file pouches · 3-pouch row, semi-transparent */
+.pd-pouches-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  margin: 18px 0 0;
+}
+.pd-pouch { margin: 0; }
+.pd-pouch-frame {
+  border: 2px solid var(--deep-plum);
+  box-shadow: 5px 5px 0 var(--deep-plum);
+  display: flex; flex-direction: column;
+  /* simulated translucent plastic · soft inset edge */
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+.pd-pouch-frame::after {
+  /* glossy seam down the left edge */
+  content: ''; position: absolute;
+  top: 0; bottom: 0; left: 8px; width: 4px;
+  background: linear-gradient(180deg, rgba(247,245,255,0.55), rgba(247,245,255,0.15));
+  opacity: 0.6;
+  pointer-events: none;
+}
+.pd-pouch-green { background: rgba(168,255,106,0.45); }
+.pd-pouch-lilac { background: rgba(231,216,255,0.65); }
+.pd-pouch-pink  { background: rgba(255,133,200,0.40); }
+.pd-pouch-tag {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  background: var(--cloud-white);
+  border-bottom: 2px solid var(--deep-plum);
+  padding: 4px 10px;
+  font-family: var(--pixel); font-size: 12px;
+  color: var(--deep-plum);
+  letter-spacing: 0.04em;
+}
+.pd-pouch-body {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 6px;
+  padding: 14px 12px;
+}
+.pd-pouch-card {
+  font-family: var(--ui); font-size: 12px;
+  color: var(--deep-plum);
+  background: var(--cloud-white);
+  border: 1.5px solid var(--deep-plum);
+  padding: 6px 10px;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
    9 · CTA · final
    ============================================================ */
 .cta-section {
@@ -3214,7 +3457,7 @@ ul { list-style: none; }
 </section>
 
 <!-- ============================================================
-     ICON NAV · 7 system categories as desktop shortcut cards
+     ICON NAV · 4 case-study sections as desktop shortcut cards
      ============================================================ -->
 <section class="icon-nav" aria-label="Section navigation">
   <div class="icon-nav-bar">
@@ -3223,32 +3466,20 @@ ul { list-style: none; }
   </div>
   <div class="icon-nav-grid">
     <button class="icon-nav-card" data-page="overview" aria-label="Open overview">
-      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/>
-      <span class="inc-label">overview.html</span>
-    </button>
-    <button class="icon-nav-card" data-page="desktop-system" aria-label="Open desktop system">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
-      <span class="inc-label">desktop.os</span>
+      <span class="inc-label">01 · Overview</span>
     </button>
-    <button class="icon-nav-card" data-page="core-tools" aria-label="Open core tools">
+    <button class="icon-nav-card" data-page="digital-system" aria-label="Open digital system">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
-      <span class="inc-label">tools/</span>
+      <span class="inc-label">02 · Digital System</span>
     </button>
-    <button class="icon-nav-card" data-page="mood-objects" aria-label="Open mood objects">
-      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
-      <span class="inc-label">mood.app</span>
-    </button>
-    <button class="icon-nav-card" data-page="music-memory" aria-label="Open music memory">
-      <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/>
-      <span class="inc-label">music.log</span>
-    </button>
-    <button class="icon-nav-card" data-page="print-archive" aria-label="Open print archive">
+    <button class="icon-nav-card" data-page="physical-deliverables" aria-label="Open physical deliverables">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
-      <span class="inc-label">archive/</span>
+      <span class="inc-label">03 · Physical Deliverables</span>
     </button>
     <button class="icon-nav-card" data-page="brand-system" aria-label="Open brand system">
       <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
-      <span class="inc-label">brand.cfg</span>
+      <span class="inc-label">04 · Brand System</span>
     </button>
   </div>
 </section>
@@ -3270,13 +3501,26 @@ ul { list-style: none; }
       <div class="bs-block bs-block-menu">
         <div class="bs-block-bar">~ system</div>
         <div class="bs-block-body">
-          <button class="bs-item active" data-page="overview">▸ Overview</button>
-          <button class="bs-item" data-page="desktop-system">▸ Desktop System</button>
-          <button class="bs-item" data-page="core-tools">▸ Core Tools</button>
-          <button class="bs-item" data-page="mood-objects">▸ Mood Objects</button>
-          <button class="bs-item" data-page="music-memory">▸ Music Memory</button>
-          <button class="bs-item" data-page="print-archive">▸ Print Archive</button>
-          <button class="bs-item" data-page="brand-system">▸ Brand System</button>
+          <button class="bs-item active" data-page="overview">
+            <img class="bs-icon pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
+            <span class="bs-num">01</span>
+            <span class="bs-name">Overview</span>
+          </button>
+          <button class="bs-item" data-page="digital-system">
+            <img class="bs-icon pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
+            <span class="bs-num">02</span>
+            <span class="bs-name">Digital System</span>
+          </button>
+          <button class="bs-item" data-page="physical-deliverables">
+            <img class="bs-icon pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
+            <span class="bs-num">03</span>
+            <span class="bs-name">Physical Deliverables</span>
+          </button>
+          <button class="bs-item" data-page="brand-system">
+            <img class="bs-icon pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
+            <span class="bs-num">04</span>
+            <span class="bs-name">Brand System</span>
+          </button>
         </div>
       </div>
 
@@ -3307,25 +3551,9 @@ ul { list-style: none; }
     <h2>Low Battery <em>Press.</em></h2>
     <p class="lead">A desktop diary for low-signal days.</p>
 
-    <!-- mini hero desktop preview · sits inside the overview panel -->
-    <figure class="overview-preview" aria-label="Hero desktop mockup preview">
-      <div class="op-frame">
-        <div class="op-bar">
-          <span class="op-dots"><span></span><span></span><span></span></span>
-          <span class="op-url">▸ lbp.os / desktop.preview</span>
-          <span class="op-meta">battery: 42%</span>
-        </div>
-        <div class="op-stage">
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/><span>Journal.exe</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/><span>Video Log</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
-          <button class="op-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
-        </div>
-      </div>
+    <!-- main hero · iMac mockup with the LBP desktop on screen -->
+    <figure class="overview-imac hover-grow" aria-label="Low Battery Press on a translucent green iMac">
+      <img src="../images/projects/lowbatterypress/lbp-imac.png" alt="LBP desktop interface running on a green translucent iMac"/>
     </figure>
 
     <div class="body">
@@ -3335,119 +3563,57 @@ ul { list-style: none; }
 
     <div class="bs-block-bar overview-deliverables-bar">~ deliverables</div>
     <ul class="bullet-list">
-      <li>Brand identity</li>
       <li>Desktop interface</li>
       <li>Journaling tools</li>
       <li>Mood object system</li>
-      <li>Music memory</li>
-      <li>Print archive</li>
-      <li>Icon system</li>
+      <li>Music memory feature</li>
+      <li>Monthly print report</li>
+      <li>Sticker sheets</li>
+      <li>Icon stamp set</li>
+      <li>Translucent file pouches</li>
+      <li>Brand system</li>
     </ul>
+
+    <!-- brand snapshot · mini icon strip + palette preview -->
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ brand snapshot</div>
+    <div class="overview-snapshot">
+      <div class="snap-icons" aria-label="Mini icon strip">
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/>
+        <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/>
+      </div>
+      <div class="snap-palette" aria-label="Mini palette preview">
+        <span class="snap-sw" style="background:#6FA8FF" title="Screen Blue"></span>
+        <span class="snap-sw" style="background:#B99CFF" title="Pixel Lavender"></span>
+        <span class="snap-sw" style="background:#E7D8FF" title="Soft Lilac"></span>
+        <span class="snap-sw" style="background:#F7F5FF" title="Cloud White"></span>
+        <span class="snap-sw" style="background:#A8FF6A" title="Signal Green"></span>
+        <span class="snap-sw" style="background:#D8FFB0" title="Soft Circuit Green"></span>
+        <span class="snap-sw" style="background:#FF85C8" title="Sticker Pink"></span>
+        <span class="snap-sw" style="background:#FFD85C" title="Sunny Pixel Yellow"></span>
+        <span class="snap-sw" style="background:#FF4D5E" title="Low Battery Red"></span>
+        <span class="snap-sw" style="background:#B8BBCB" title="Chrome Gray"></span>
+        <span class="snap-sw snap-sw-dark" style="background:#261B3D" title="Deep Plum"></span>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     02 · DESKTOP SYSTEM
+     02 · DIGITAL SYSTEM · merged desktop + tools + mood + music + print
      ============================================================ -->
-<section class="section lavender panel" id="desktop-system" data-panel="desktop-system">
+<section class="section lavender panel" id="digital-system" data-panel="digital-system">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
       <span class="os-icon" style="background: var(--screen-blue);"></span>
       <span class="os-num">02</span>
-      <span class="os-name">▸ desktop_system.os</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
-      </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">Desktop System</span>
-    <h2>The Desktop<br/>as <em>Journal.</em></h2>
-
-    <!-- iMac mockup right under the title, ahead of the summary -->
-    <figure class="desktop-system-imac hover-grow" aria-label="LBP running on an iMac">
-      <img src="../images/projects/lowbatterypress/lbp-imac.png" alt="Low Battery Press shown on an iMac"/>
-    </figure>
-
-    <p class="lead">The interface is organized like a personal computer desktop.</p>
-    <div class="body">
-      <p>Each icon opens a different journaling tool, from written entries and video logs to notes, drawing, music memory, mood objects, and print outputs.</p>
-      <p>This structure keeps the experience familiar and flexible. Users can move between tools, save entries as files, and return to the archive later. Use the tools you need. Leave the rest closed.</p>
-    </div>
-
-    <!-- full desktop screen preview · menubar / icons / window / taskbar -->
-    <figure class="desk-preview" aria-label="Full desktop preview with icons, open window, and taskbar">
-      <div class="dp-frame">
-        <div class="dp-menubar">
-          <span class="dp-logo">⚡ LBP</span>
-          <span class="dp-menus">File · Edit · View · Mood · Help</span>
-          <span class="dp-meta">battery: 42% · 9:41 · tue · may 14</span>
-        </div>
-        <div class="dp-stage">
-          <div class="dp-icons">
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/><span>Journal.exe</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/><span>Video Log</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
-            <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
-          </div>
-          <div class="dp-window">
-            <div class="dp-titlebar">
-              <span class="dp-tt-icon"></span>
-              <span>▸ Journal.exe · entry_0042.txt</span>
-              <span class="dp-tt-ctrls">_ □ ×</span>
-            </div>
-            <div class="dp-window-body">
-              <p class="dp-prompt">new entry</p>
-              <p class="dp-entry">A short note about how the day went.<br/>A few lines, a mood object, a song.<br/>Saved to the archive.</p>
-              <div class="dp-mood-row">
-                <span class="dp-mo">☁</span>
-                <span class="dp-mo">♡</span>
-                <span class="dp-mo">★</span>
-                <span class="dp-mo">⚡</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dp-taskbar">
-          <span class="dp-start">⚡ LBP</span>
-          <span class="dp-task active">Journal.exe</span>
-          <span class="dp-task">Music Memory</span>
-          <span class="dp-task-meta">online · 9:41</span>
-        </div>
-      </div>
-    </figure>
-
-    <div class="bs-block-bar overview-deliverables-bar">~ tools include</div>
-    <ul class="bullet-list">
-      <li>Journal.exe</li>
-      <li>Video Log</li>
-      <li>Notes.txt</li>
-      <li>Draw Pad</li>
-      <li>Mood Meter</li>
-      <li>Music Memory</li>
-      <li>Archive</li>
-      <li>Print Dump</li>
-    </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     03 · CORE TOOLS
-     ============================================================ -->
-<section class="section panel" id="core-tools" data-panel="core-tools">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--soft-circuit-green);"></span>
-      <span class="os-num">03</span>
-      <span class="os-name">▸ core_tools/</span>
+      <span class="os-name">▸ digital_system.os</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
@@ -3456,274 +3622,289 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">Core Tools</span>
-    <h2>Ways to make<br/>an <em>entry.</em></h2>
-    <p class="lead">An entry can be written, spoken, sketched, saved as a note, paired with a song, or marked with a mood object.</p>
-
-    <!-- core tools · each tool rendered as a mini app window with its
-         actual icon in the titlebar, matching the live hero windows -->
-    <div class="tools-grid">
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
-          <span class="tw-name">Journal.exe</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Written entries and prompts.</h3>
-          <p>A writing window for typed entries. Short or long, with optional prompts when starting from scratch is hard.</p>
-        </div>
-      </article>
-
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
-          <span class="tw-name">Video Log</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Camera-based check-ins.</h3>
-          <p>A short webcam recording for talking through the moment instead of typing it.</p>
-        </div>
-      </article>
-
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
-          <span class="tw-name">Notes.txt</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Fragments, lists, unfinished thoughts.</h3>
-          <p>A place for things that are not yet a full entry. Nothing has to be resolved here.</p>
-        </div>
-      </article>
-
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
-          <span class="tw-name">Draw Pad</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Sketches, marks, visual notes.</h3>
-          <p>A small drawing space for symbols and rough visual notes. Drawings can be saved as icons or cursors.</p>
-        </div>
-      </article>
-
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
-          <span class="tw-name">Mood Meter</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Battery level, signal, and mood.</h3>
-          <p>A non-clinical tool for marking emotional state using battery levels and signal terms instead of numerical scores.</p>
-        </div>
-      </article>
-
-      <article class="tool-card tool-window">
-        <div class="tw-titlebar">
-          <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
-          <span class="tw-name">Archive</span>
-          <span class="tw-ctrls">_ □ ×</span>
-        </div>
-        <div class="tw-body">
-          <h3>Saved entries and files.</h3>
-          <p>Where every saved entry, note, drawing, song, and printed output can be opened again.</p>
-        </div>
-      </article>
+    <span class="section-label">Digital System</span>
+    <h2>One desktop,<br/>many <em>entries.</em></h2>
+    <p class="lead">The digital system is organized like a personal desktop. Icons act as entry points into different journaling tools, and each window supports a different way of creating or saving an entry.</p>
+    <div class="body">
+      <p>Users can write, record, sketch, tag, archive, and print without needing to begin from one traditional blank journal page.</p>
     </div>
 
-    <div class="body" style="margin-top: 24px;">
-      <p>The tools are intentionally small so the user does not need to complete a long reflection every time they open the system.</p>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     04 · MOOD OBJECTS
-     ============================================================ -->
-<section class="section blue mood-section panel" id="mood-objects" data-panel="mood-objects">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon" style="background: var(--sticker-pink);"></span>
-      <span class="os-num">04</span>
-      <span class="os-name">▸ mood_objects.app</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
+    <!-- ─────────────── Subsection 2.1 · Desktop Interface ────────────── -->
+    <div class="ds-sub" id="ds-desktop">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.1</span> Desktop Interface</h3>
+      <div class="body">
+        <p>The main interface uses a desktop layout with icons, windows, folders, popups, and status states. This structure makes the system feel familiar, flexible, and low-pressure.</p>
       </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/pink cloud.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">Mood Objects</span>
-    <h2>Emoji as<br/><em>interface.</em></h2>
-    <p class="lead">Small pixel icons that can be attached to an entry as visual tags for tone, memory, and emotional state.</p>
 
-    <!-- post window with emoji row -->
-    <figure class="mood-post-mock" aria-label="Sample post with mood objects">
-      <div class="mp-titlebar">
-        <span class="mp-icon"></span>
-        <span>▸ Journal.exe · entry_0042.txt</span>
-        <span class="mp-ctrls">_ □ ×</span>
-      </div>
-      <div class="mp-body">
-        <p class="mp-entry">A short note from the afternoon.<br/>A few lines, then a song,<br/>then closed the window.</p>
-        <div class="mp-mood-row">
-          <button class="mp-mo" data-react="cloud" title="quiet"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></button>
-          <button class="mp-mo" data-react="heart" title="soft"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></button>
-          <button class="mp-mo" data-react="star"  title="good"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></button>
-          <button class="mp-mo" data-react="rainbow" title="connected"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></button>
-          <button class="mp-mo" data-react="music" title="song logged"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></button>
-          <button class="mp-mo" data-react="cat"   title="error"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></button>
-        </div>
-        <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
-      </div>
-    </figure>
-
-    <div class="body" style="margin-top: 24px;">
-      <p>Some mood objects can respond when selected. A sad icon can release tears, a happy icon can release suns, a heart can float upward, and an error icon can create a small glitch effect.</p>
-      <p>Mood objects also carry into the printed archive, where they become part of the visual record of a day, week, or month.</p>
-    </div>
-
-    <div class="bs-block-bar overview-deliverables-bar">~ object behaviors</div>
-    <ul class="bullet-list">
-      <li>Sad icons release pixel tears</li>
-      <li>Happy icons release suns or sparkles</li>
-      <li>Heart icons float upward</li>
-      <li>Error icons briefly glitch the post</li>
-      <li>Music icons connect the entry to a song</li>
-      <li>Each object becomes part of the printed archive</li>
-    </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     05 · MUSIC MEMORY
-     ============================================================ -->
-<section class="section panel" id="music-memory" data-panel="music-memory">
-  <div class="section-inner">
-    <div class="os-titlebar" data-drag>
-      <span class="os-icon"></span>
-      <span class="os-num">05</span>
-      <span class="os-name">▸ music_memory.log</span>
-      <div class="os-controls">
-        <button class="os-btn os-min" aria-label="Collapse">_</button>
-        <button class="os-btn os-max" aria-label="Maximize">□</button>
-        <button class="os-btn close" aria-label="Close">×</button>
-      </div>
-    </div>
-    <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/>
-    <div class="os-body">
-    <span class="section-label">Music Memory</span>
-    <h2>Music attached<br/>to the <em>moment.</em></h2>
-
-    <!-- phone hero · LBP running on a phone, full-bleed -->
-    <figure class="mm-phone-hero hover-grow" aria-label="LBP running on a phone">
-      <img src="../images/projects/lowbatterypress/lbp-phone.png" alt="Low Battery Press on a phone"/>
-    </figure>
-
-    <p class="lead">Low Battery Press records the song that was playing when an entry was saved.</p>
-
-    <!-- ROW 1 · entry window with song attached + summary -->
-    <div class="mm-row">
-      <div class="mm-row-image hover-grow" data-aria="Journal entry showing song attached">
-        <div class="mm-frame">
-          <div class="mp-titlebar">
-            <span class="mp-icon"></span>
-            <span>▸ entry_0042 · song attached</span>
-            <span class="mp-ctrls">_ □ ×</span>
+      <figure class="desk-preview" aria-label="Full desktop preview with icons, open window, and taskbar">
+        <div class="dp-frame">
+          <div class="dp-menubar">
+            <span class="dp-logo">⚡ LBP</span>
+            <span class="dp-menus">File · Edit · View · Mood · Help</span>
+            <span class="dp-meta">battery: 42% · 9:41 · tue · may 14</span>
           </div>
-          <div class="mp-body">
-            <p class="mp-entry">A short note from the afternoon, with the song that was playing when it was saved.</p>
-            <div class="mm-attached">
-              <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/>
-              <span>Fade Into You · Mazzy Star</span>
+          <div class="dp-stage">
+            <div class="dp-icons">
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/><span>Journal.exe</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/><span>Video Log</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
             </div>
-            <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="mm-row-text">
-        <div class="bs-block-bar overview-deliverables-bar">~ song in the entry</div>
-        <div class="body">
-          <p>Each saved entry stores the track that was playing alongside the text, mood objects, battery level, and timestamp. The song becomes part of the record, not a separate field.</p>
-          <p>Opening an old entry brings the same song back with it — a way to remember the atmosphere around a note, not just the words.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 2 · summary on the left, now-playing window on the right -->
-    <div class="mm-row mm-row-reverse">
-      <div class="mm-row-image hover-grow" data-aria="Now playing window connected to a music app">
-        <div class="mm-frame">
-          <div class="mp-titlebar">
-            <span class="mp-icon" style="background: var(--signal-green);"></span>
-            <span>▸ now_playing.cd</span>
-            <span class="mp-ctrls">_ □ ×</span>
-          </div>
-          <div class="mm-now-body">
-            <div class="mm-cd"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></div>
-            <div class="mm-track-block">
-              <div class="mm-status">▸ connected</div>
-              <div class="mm-track">Fade Into You</div>
-              <div class="mm-artist">Mazzy Star · 1993</div>
-              <div class="mm-progress"><span></span></div>
-              <div class="mm-times"><span>1:42</span><span>4:55</span></div>
+            <div class="dp-window">
+              <div class="dp-titlebar">
+                <span class="dp-tt-icon"></span>
+                <span>▸ Journal.exe · entry_0042.txt</span>
+                <span class="dp-tt-ctrls">_ □ ×</span>
+              </div>
+              <div class="dp-window-body">
+                <p class="dp-prompt">new entry</p>
+                <p class="dp-entry">A short note about how the day went.<br/>A few lines, a mood object, a song.<br/>Saved to the archive.</p>
+                <div class="dp-mood-row">
+                  <span class="dp-mo">☁</span>
+                  <span class="dp-mo">♡</span>
+                  <span class="dp-mo">★</span>
+                  <span class="dp-mo">⚡</span>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="dp-taskbar">
+            <span class="dp-start">⚡ LBP</span>
+            <span class="dp-task active">Journal.exe</span>
+            <span class="dp-task">Music Memory</span>
+            <span class="dp-task-meta">online · 9:41</span>
+          </div>
+        </div>
+      </figure>
+
+      <div class="bs-block-bar overview-deliverables-bar">~ desktop tools</div>
+      <ul class="bullet-list">
+        <li>Journal.exe</li>
+        <li>Video Log</li>
+        <li>Notes.txt</li>
+        <li>Draw Pad</li>
+        <li>Mood Meter</li>
+        <li>Music Memory</li>
+        <li>Archive</li>
+        <li>Print Dump</li>
+      </ul>
+    </div>
+
+    <!-- ─────────────── Subsection 2.2 · Core Tools ────────────────── -->
+    <div class="ds-sub" id="ds-tools">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.2</span> Core Tools</h3>
+      <div class="body">
+        <p>Each tool supports a different kind of entry. A user can write a full post, save a quick note, record a video check-in, sketch an idea, or mark a mood state.</p>
+      </div>
+
+      <div class="tools-grid" style="margin-top: 18px;">
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
+            <span class="tw-name">Journal.exe</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Written entries and prompts.</h3>
+            <p>A writing window for typed entries and optional prompts when starting from scratch is hard.</p>
+          </div>
+        </article>
+
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
+            <span class="tw-name">Video Log</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Camera-based check-ins.</h3>
+            <p>A short webcam recording for talking through the moment instead of typing it.</p>
+          </div>
+        </article>
+
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
+            <span class="tw-name">Notes.txt</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Fragments, lists, unfinished thoughts.</h3>
+            <p>A place for things that are not yet a full entry. Nothing has to be resolved here.</p>
+          </div>
+        </article>
+
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
+            <span class="tw-name">Draw Pad</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Sketches, marks, visual notes.</h3>
+            <p>A small drawing space for symbols and rough visual notes. Drawings can be saved as icons or cursors.</p>
+          </div>
+        </article>
+
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
+            <span class="tw-name">Mood Meter</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Battery level, signal, and mood.</h3>
+            <p>A non-clinical tool for marking emotional state using battery levels and signal terms instead of numerical scores.</p>
+          </div>
+        </article>
+
+        <article class="tool-card tool-window">
+          <div class="tw-titlebar">
+            <span class="tw-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
+            <span class="tw-name">Archive</span>
+            <span class="tw-ctrls">_ □ ×</span>
+          </div>
+          <div class="tw-body">
+            <h3>Saved entries and files.</h3>
+            <p>Where every saved entry, note, drawing, song, and printed output can be opened again.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ─────────────── Subsection 2.3 · Mood Objects ────────────────── -->
+    <div class="ds-sub" id="ds-mood">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.3</span> Mood Objects</h3>
+      <div class="body">
+        <p>Mood objects are small pixel icons that can be attached to an entry. They work as visual tags for tone, memory, and emotional state.</p>
+        <p>Some mood objects respond when selected. A sad icon can release tears, a happy icon can release suns, a heart can float upward, and an error icon can create a small glitch effect.</p>
+        <p>Mood objects also carry into the printed archive, where they become part of the visual record of a day, week, or month.</p>
+      </div>
+
+      <figure class="mood-post-mock" aria-label="Sample post with mood objects">
+        <div class="mp-titlebar">
+          <span class="mp-icon"></span>
+          <span>▸ Journal.exe · entry_0042.txt</span>
+          <span class="mp-ctrls">_ □ ×</span>
+        </div>
+        <div class="mp-body">
+          <p class="mp-entry">A short note from the afternoon.<br/>A few lines, then a song,<br/>then closed the window.</p>
+          <div class="mp-mood-row">
+            <button class="mp-mo" data-react="cloud" title="quiet"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></button>
+            <button class="mp-mo" data-react="heart" title="soft"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></button>
+            <button class="mp-mo" data-react="star"  title="good"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></button>
+            <button class="mp-mo" data-react="rainbow" title="connected"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></button>
+            <button class="mp-mo" data-react="music" title="song logged"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></button>
+            <button class="mp-mo" data-react="cat"   title="error"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></button>
+          </div>
+          <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
+        </div>
+      </figure>
+
+      <div class="bs-block-bar overview-deliverables-bar">~ object behaviors</div>
+      <ul class="bullet-list">
+        <li>Sad icons release pixel tears</li>
+        <li>Happy icons release suns or sparkles</li>
+        <li>Heart icons float upward</li>
+        <li>Error icons briefly glitch the post</li>
+        <li>Music icons connect the entry to a song</li>
+        <li>Each object becomes part of the printed archive</li>
+      </ul>
+    </div>
+
+    <!-- ─────────────── Subsection 2.4 · Music Memory ────────────────── -->
+    <div class="ds-sub" id="ds-music">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.4</span> Music Memory</h3>
+      <div class="body">
+        <p>Low Battery Press can record the song playing when an entry is created. The track becomes part of the saved entry, alongside the text, mood objects, battery level, and timestamp.</p>
+        <p>The feature treats music as context. It helps preserve the atmosphere around an entry without turning it into a social post.</p>
+      </div>
+
+      <figure class="mm-phone-hero hover-grow" aria-label="LBP running on a phone">
+        <img src="../images/projects/lowbatterypress/lbp-phone.png" alt="Low Battery Press on a phone"/>
+      </figure>
+
+      <div class="mm-row">
+        <div class="mm-row-image hover-grow" data-aria="Journal entry showing song attached">
+          <div class="mm-frame">
+            <div class="mp-titlebar">
+              <span class="mp-icon"></span>
+              <span>▸ entry_0042 · song attached</span>
+              <span class="mp-ctrls">_ □ ×</span>
+            </div>
+            <div class="mp-body">
+              <p class="mp-entry">A short note from the afternoon, with the song that was playing when it was saved.</p>
+              <div class="mm-attached">
+                <img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/>
+                <span>Fade Into You · Mazzy Star</span>
+              </div>
+              <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mm-row-text">
+          <div class="bs-block-bar overview-deliverables-bar">~ song in the entry</div>
+          <div class="body">
+            <p>Each saved entry stores the track that was playing alongside the text, mood objects, battery level, and timestamp.</p>
+          </div>
         </div>
       </div>
-      <div class="mm-row-text">
-        <div class="bs-block-bar overview-deliverables-bar">~ live player</div>
-        <div class="body">
-          <p>The Now Playing window connects to the user's music app and shows the track in real time — title, artist, year, and progress.</p>
-          <p>When a new entry is saved, the system reads the current track from this window and attaches it automatically. The user does not have to type the song.</p>
+
+      <div class="mm-row mm-row-reverse">
+        <div class="mm-row-image hover-grow" data-aria="Now playing window connected to a music app">
+          <div class="mm-frame">
+            <div class="mp-titlebar">
+              <span class="mp-icon" style="background: var(--signal-green);"></span>
+              <span>▸ now_playing.cd</span>
+              <span class="mp-ctrls">_ □ ×</span>
+            </div>
+            <div class="mm-now-body">
+              <div class="mm-cd"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></div>
+              <div class="mm-track-block">
+                <div class="mm-status">▸ connected</div>
+                <div class="mm-track">Fade Into You</div>
+                <div class="mm-artist">Mazzy Star · 1993</div>
+                <div class="mm-progress"><span></span></div>
+                <div class="mm-times"><span>1:42</span><span>4:55</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mm-row-text">
+          <div class="bs-block-bar overview-deliverables-bar">~ live player</div>
+          <div class="body">
+            <p>The Now Playing window connects to the user's music app and reads the current track. New entries pick up the song automatically.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ROW 3 · printout image with summary on the right -->
-    <div class="mm-row">
-      <div class="mm-row-image hover-grow" data-aria="Printed receipt of the month's top songs">
-        <img src="../images/projects/lowbatterypress/lbp-printout.png" alt="Printed receipt with song log" class="mm-printout-img"/>
-      </div>
-      <div class="mm-row-text">
-        <div class="bs-block-bar overview-deliverables-bar">~ printed song log</div>
-        <div class="body">
-          <p>At the end of the month the system prints a small receipt of top songs played, with how many entries they attached to.</p>
-          <p>It works as a music report and a memory map: the songs that scored the month, how often they came back, and which entries they came with.</p>
-        </div>
+    <!-- ─────────────── Subsection 2.5 · Print Dump ────────────────── -->
+    <div class="ds-sub" id="ds-print">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.5</span> Print Dump</h3>
+      <div class="body">
+        <p>Print Dump is the bridge between the digital system and the physical deliverables. It exports selected entries, mood objects, drawings, words, songs, and battery states into printed records.</p>
+        <p>The same files saved through Journal.exe, Notes.txt, Draw Pad, and Mood Meter become receipts, mood cards, sticker sheets, and monthly reports — covered in the next section.</p>
       </div>
     </div>
 
-    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ music memory includes</div>
-    <ul class="bullet-list">
-      <li>Now-playing status</li>
-      <li>Song and artist field</li>
-      <li>Timestamp</li>
-      <li>Battery level</li>
-      <li>Mood objects attached to the entry</li>
-      <li>Archive record for later printing</li>
-    </ul>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     06 · PRINT ARCHIVE
+     03 · PHYSICAL DELIVERABLES
      ============================================================ -->
-<section class="section lavender panel" id="print-archive" data-panel="print-archive">
+<section class="section lavender panel" id="physical-deliverables" data-panel="physical-deliverables">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
       <span class="os-icon" style="background: var(--cloud-white);"></span>
-      <span class="os-num">06</span>
-      <span class="os-name">▸ print_archive/</span>
+      <span class="os-num">03</span>
+      <span class="os-name">▸ physical_deliverables/</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
         <button class="os-btn os-max" aria-label="Maximize">□</button>
@@ -3732,39 +3913,160 @@ ul { list-style: none; }
     </div>
     <img class="panel-badge pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/>
     <div class="os-body">
-    <span class="section-label">Print Archive</span>
-    <h2>Digital entries,<br/>printed <em>records.</em></h2>
-    <p class="lead">Entries can stay inside the desktop archive or be exported as printed pieces.</p>
+    <span class="section-label">Physical Deliverables</span>
+    <h2>Beyond the<br/><em>screen.</em></h2>
+    <p class="lead">Low Battery Press extends beyond the desktop screen through printed and physical objects.</p>
+    <div class="body">
+      <p>Monthly reports, sticker sheets, icon stamps, and translucent file pouches give users a way to save, mark, and organize the entries created inside LBP.OS.</p>
+      <p>The physical deliverables support the same archive logic as the interface: entries become files, mood objects become stickers, and saved moments can be printed, stamped, and stored.</p>
+    </div>
 
-    <!-- printout image with the month's entries listed beside it -->
-    <div class="pa-printout-row">
-      <figure class="pa-printout hover-grow" aria-label="May print archive — full receipt">
-        <img src="../images/projects/lowbatterypress/lbp-printout.png" alt="Printed archive of saved entries"/>
-      </figure>
-      <div class="pa-entry-list">
-        <div class="bs-block-bar overview-deliverables-bar">~ may · entries on this print</div>
-        <ul class="pa-entries">
-          <li><span class="pa-date">05·02</span><span class="pa-line">A short note from the morning.</span><span class="pa-meta">42% · soft</span></li>
-          <li><span class="pa-date">05·05</span><span class="pa-line">Notes about a long walk.</span><span class="pa-meta">61% · good</span></li>
-          <li><span class="pa-date">05·07</span><span class="pa-line">A few lines saved before bed.</span><span class="pa-meta">22% · quiet</span></li>
-          <li><span class="pa-date">05·09</span><span class="pa-line">Quietest day this month.</span><span class="pa-meta">04% · low</span></li>
-          <li><span class="pa-date">05·12</span><span class="pa-line">Voice note transcribed to text.</span><span class="pa-meta">38% · soft</span></li>
-          <li><span class="pa-date">05·14</span><span class="pa-line">Short entry with song attached.</span><span class="pa-meta">22% · soft</span></li>
-          <li><span class="pa-date">05·17</span><span class="pa-line">A list of unsent messages.</span><span class="pa-meta">48% · numb</span></li>
-          <li><span class="pa-date">05·19</span><span class="pa-line">A drawing saved as the day's icon.</span><span class="pa-meta">71% · wired</span></li>
-          <li><span class="pa-date">05·21</span><span class="pa-line">Three sentences about a song.</span><span class="pa-meta">55% · soft</span></li>
-          <li><span class="pa-date">05·24</span><span class="pa-line">A small fragment, kept anyway.</span><span class="pa-meta">30% · quiet</span></li>
-          <li><span class="pa-date">05·27</span><span class="pa-line">Return-to-okay note.</span><span class="pa-meta">64% · almost okay</span></li>
-          <li><span class="pa-date">05·31</span><span class="pa-line">Last entry of the month.</span><span class="pa-meta">82% · good</span></li>
-        </ul>
-        <div class="body" style="margin-top: 18px;">
-          <p>Each entry on the printed receipt corresponds to a saved file in the archive. The printout collapses a month of small notes into one continuous strip — a tactile record that does not disappear into a feed.</p>
+    <!-- ─────────────── Subsection 3.1 · Monthly Dump Report ────────────── -->
+    <div class="ds-sub" id="pd-report">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">03.1</span> Monthly Dump Report</h3>
+      <div class="body">
+        <p>The Monthly Dump Report is a single-page printout generated from the user's archive. It summarizes entries from a selected timeframe through most-used words, mood objects, saved drawings, music memory, battery averages, and signal data.</p>
+        <p>It reads like a clean cyberdeck-style system report, not a sad diary page.</p>
+      </div>
+
+      <div class="pa-printout-row">
+        <figure class="pa-printout hover-grow" aria-label="Monthly Dump Report printout">
+          <img src="../images/projects/lowbatterypress/lbp-printout.png" alt="Monthly Dump Report printout"/>
+        </figure>
+        <div class="pa-entry-list">
+          <div class="bs-block-bar overview-deliverables-bar">~ may · entries on this report</div>
+          <ul class="pa-entries">
+            <li><span class="pa-date">05·02</span><span class="pa-line">A short note from the morning.</span><span class="pa-meta">42% · soft</span></li>
+            <li><span class="pa-date">05·05</span><span class="pa-line">Notes about a long walk.</span><span class="pa-meta">61% · good</span></li>
+            <li><span class="pa-date">05·07</span><span class="pa-line">A few lines saved before bed.</span><span class="pa-meta">22% · quiet</span></li>
+            <li><span class="pa-date">05·09</span><span class="pa-line">Quietest day this month.</span><span class="pa-meta">04% · low</span></li>
+            <li><span class="pa-date">05·12</span><span class="pa-line">Voice note transcribed to text.</span><span class="pa-meta">38% · soft</span></li>
+            <li><span class="pa-date">05·14</span><span class="pa-line">Short entry with song attached.</span><span class="pa-meta">22% · soft</span></li>
+            <li><span class="pa-date">05·17</span><span class="pa-line">A list of unsent messages.</span><span class="pa-meta">48% · numb</span></li>
+            <li><span class="pa-date">05·19</span><span class="pa-line">A drawing saved as the day's icon.</span><span class="pa-meta">71% · wired</span></li>
+            <li><span class="pa-date">05·21</span><span class="pa-line">Three sentences about a song.</span><span class="pa-meta">55% · soft</span></li>
+            <li><span class="pa-date">05·24</span><span class="pa-line">A small fragment.</span><span class="pa-meta">30% · quiet</span></li>
+            <li><span class="pa-date">05·27</span><span class="pa-line">Return-to-okay note.</span><span class="pa-meta">64% · almost okay</span></li>
+            <li><span class="pa-date">05·31</span><span class="pa-line">Last entry of the month.</span><span class="pa-meta">82% · good</span></li>
+          </ul>
         </div>
+      </div>
+
+      <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 24px;">~ contents</div>
+      <ul class="bullet-list">
+        <li>Most-used words</li>
+        <li>Most-used mood objects</li>
+        <li>Average battery level</li>
+        <li>Saved drawings from the month</li>
+        <li>Music memory</li>
+        <li>Short monthly summary</li>
+        <li>Archive marks and dotted dividers</li>
+        <li>Pixel icons</li>
+      </ul>
+    </div>
+
+    <!-- ─────────────── Subsection 3.2 · Sticker Sheet ────────────────── -->
+    <div class="ds-sub" id="pd-stickers">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">03.2</span> Mood Object Sticker Sheet</h3>
+      <div class="body">
+        <p>The sticker sheet turns the same icons used in the interface into physical mood objects. Users can place them on printed reports, archive cards, pouches, or personal logs.</p>
+      </div>
+
+      <figure class="pd-stickers-mock hover-grow" aria-label="Mood object sticker sheet mockup">
+        <div class="pd-stickers-frame">
+          <div class="pd-stickers-head">▸ mood-object-sticker-sheet · ×24</div>
+          <div class="pd-stickers-grid">
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pink cloud.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
+            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/banner.png" alt=""/></span>
+          </div>
+          <div class="pd-stickers-foot">peel · place · file</div>
+        </div>
+      </figure>
+    </div>
+
+    <!-- ─────────────── Subsection 3.3 · Icon Stamp Set ────────────────── -->
+    <div class="ds-sub" id="pd-stamps">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">03.3</span> Icon Stamp Set</h3>
+      <div class="body">
+        <p>The icon stamp set gives users a way to mark physical records with the same symbol language used throughout the desktop system. The stamps use icons only, without text, so they can function across reports, cards, and archive pieces.</p>
+      </div>
+
+      <figure class="pd-stamps-mock hover-grow" aria-label="Icon stamp set mockup">
+        <div class="pd-stamps-frame">
+          <div class="pd-stamps-head">▸ icon-stamp-set · ×6</div>
+          <div class="pd-stamps-grid">
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></div></div>
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></div></div>
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></div></div>
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></div></div>
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></div></div>
+            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></div></div>
+          </div>
+          <div class="pd-stamps-foot">stamp on receipts · cards · pouches</div>
+        </div>
+      </figure>
+    </div>
+
+    <!-- ─────────────── Subsection 3.4 · Translucent File Pouches ────────── -->
+    <div class="ds-sub" id="pd-pouches">
+      <h3 class="ds-sub-title"><span class="ds-sub-num">03.4</span> Translucent File Pouches</h3>
+      <div class="body">
+        <p>The translucent file pouches store the physical archive: monthly reports, sticker sheets, music memory cards, receipt logs, and stamped records. The pouches feel practical, cyberdeck-adjacent, and connect to the system's green signal language.</p>
+      </div>
+
+      <div class="pd-pouches-row">
+        <figure class="pd-pouch hover-grow" aria-label="Translucent green pouch">
+          <div class="pd-pouch-frame pd-pouch-green">
+            <div class="pd-pouch-tag"><span>▸ archive · may</span><span>signal</span></div>
+            <div class="pd-pouch-body">
+              <div class="pd-pouch-card">monthly report</div>
+              <div class="pd-pouch-card">sticker sheet</div>
+              <div class="pd-pouch-card">song log</div>
+            </div>
+          </div>
+        </figure>
+        <figure class="pd-pouch hover-grow" aria-label="Translucent lilac pouch">
+          <div class="pd-pouch-frame pd-pouch-lilac">
+            <div class="pd-pouch-tag"><span>▸ archive · apr</span><span>quiet</span></div>
+            <div class="pd-pouch-body">
+              <div class="pd-pouch-card">receipt log</div>
+              <div class="pd-pouch-card">mood cards</div>
+              <div class="pd-pouch-card">stamped notes</div>
+            </div>
+          </div>
+        </figure>
+        <figure class="pd-pouch hover-grow" aria-label="Translucent pink pouch">
+          <div class="pd-pouch-frame pd-pouch-pink">
+            <div class="pd-pouch-tag"><span>▸ archive · mar</span><span>good</span></div>
+            <div class="pd-pouch-body">
+              <div class="pd-pouch-card">monthly report</div>
+              <div class="pd-pouch-card">drawing prints</div>
+              <div class="pd-pouch-card">sticker sheet</div>
+            </div>
+          </div>
+        </figure>
       </div>
     </div>
 
     <!-- secondary print outputs · receipts, cards, stickers, emotion report -->
-    <div class="archive-grid" style="margin-top: 32px;">
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ supporting prints</div>
+    <div class="archive-grid">
       <article class="archive-item receipt">
         <div class="a-head"><span>RECEIPT // 05·14</span><span>22%</span></div>
         <div class="a-body">
@@ -3802,34 +4104,24 @@ ul { list-style: none; }
         <div class="a-body">
           <span class="err">range · 04—91%</span>
           most marked: soft<br/>
-          least marked: feral<br/>
+          least marked: numb<br/>
           ─────────────<br/>
           songs logged: 14
         </div>
       </article>
     </div>
-
-    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ print outputs</div>
-    <ul class="bullet-list">
-      <li>Receipt-style entry logs</li>
-      <li>Mood cards</li>
-      <li>Sticker sheets</li>
-      <li>Monthly recap zines</li>
-      <li>Emotion reports</li>
-      <li>Archive cards</li>
-    </ul>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     07 · BRAND SYSTEM
+     04 · BRAND SYSTEM
      ============================================================ -->
 <section class="section panel" id="brand-system" data-panel="brand-system">
   <div class="section-inner">
     <div class="os-titlebar" data-drag>
       <span class="os-icon" style="background: var(--screen-blue);"></span>
-      <span class="os-num">07</span>
+      <span class="os-num">04</span>
       <span class="os-name">▸ brand_system.cfg</span>
       <div class="os-controls">
         <button class="os-btn os-min" aria-label="Collapse">_</button>
@@ -3841,9 +4133,9 @@ ul { list-style: none; }
     <div class="os-body">
     <span class="section-label">Brand System</span>
     <h2>Low <em>Signal</em><br/>Desktop.</h2>
-    <p class="lead">The visual system is based on 90s desktop interfaces, pixel icons, soft hardware colors, window panels, and printable archive pieces.</p>
+    <p class="lead">The visual system is based on 90s desktop interfaces, pixel icons, soft hardware colors, window panels, and physical archive pieces.</p>
     <div class="body">
-      <p>The palette uses screen blue, pixel lavender, cloud white, deep plum, signal green, sticker pink, sunny yellow, low battery red, and chrome gray. Green is used for active states, connection, battery, and saved moments.</p>
+      <p>The brand uses a bright screen-based palette instead of beige paper tones. Blue and lavender build the desktop environment, green marks active system states, and pixel icons connect the interface to the physical deliverables.</p>
     </div>
 
     <div class="palette-grid">
@@ -3927,13 +4219,40 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ system rules</div>
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ brand rules</div>
     <ul class="bullet-list">
       <li>Icons act as navigation</li>
       <li>Windows organize content</li>
-      <li>Mood objects add emotional context</li>
+      <li>Mood objects add context to entries</li>
       <li>Music connects entries to time</li>
       <li>Print outputs give the archive a physical form</li>
+      <li>Green represents signal, battery, activity, and saved states</li>
+      <li>Avoid beige, parchment, scrapbook textures, and overly sad-girl styling</li>
+    </ul>
+
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ green usage</div>
+    <ul class="bullet-list">
+      <li>Battery meter</li>
+      <li>Active desktop icons</li>
+      <li>Selected left-menu section</li>
+      <li>Hover states</li>
+      <li>Online status</li>
+      <li>Now-playing connected state</li>
+      <li>Save confirmation</li>
+      <li>Logged states and check marks</li>
+      <li>Signal bars and active tabs</li>
+      <li>Cursor details and small stickers</li>
+    </ul>
+
+    <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 28px;">~ color ratio</div>
+    <ul class="bullet-list">
+      <li>40% Screen Blue / Pixel Lavender</li>
+      <li>25% Cloud White / Soft Lilac</li>
+      <li>15% Deep Plum</li>
+      <li>10% Signal Green / Soft Circuit Green</li>
+      <li>5% Sticker Pink</li>
+      <li>3% Sunny Pixel Yellow</li>
+      <li>2% Low Battery Red</li>
     </ul>
     </div>
   </div>
