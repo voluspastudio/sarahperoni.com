@@ -2783,7 +2783,25 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   PHYSICAL DELIVERABLES · sticker sheet, stamp set, pouches
+   PHYSICAL DELIVERABLES · image mockups (stickers, stamps, pouches)
+   ============================================================ */
+/* Wrapper for the actual product mockup PNGs · framed in plum so they
+   land on the lilac panel like the other windows. */
+.pd-image-mock {
+  margin: 18px auto 0;
+  max-width: 720px;
+}
+.pd-image-mock img {
+  width: 100%; height: auto; display: block;
+  border: 2px solid var(--deep-plum);
+  box-shadow: 6px 6px 0 var(--deep-plum);
+  background: var(--cloud-white);
+  image-rendering: auto;
+}
+
+/* ============================================================
+   LEGACY · CSS-built sticker / stamp / pouch mockups (kept in case
+   referenced elsewhere; new panel uses .pd-image-mock above)
    ============================================================ */
 
 /* Sticker sheet · pixel icons on a perforated sheet */
@@ -3972,31 +3990,8 @@ ul { list-style: none; }
         <p>The sticker sheet turns the same icons used in the interface into physical mood objects. Users can place them on printed reports, archive cards, pouches, or personal logs.</p>
       </div>
 
-      <figure class="pd-stickers-mock hover-grow" aria-label="Mood object sticker sheet mockup">
-        <div class="pd-stickers-frame">
-          <div class="pd-stickers-head">▸ mood-object-sticker-sheet · ×24</div>
-          <div class="pd-stickers-grid">
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pink cloud.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/book.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/foldericon.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/paint.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/pc.png" alt=""/></span>
-            <span class="pd-sticker"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/banner.png" alt=""/></span>
-          </div>
-          <div class="pd-stickers-foot">peel · place · file</div>
-        </div>
+      <figure class="pd-image-mock hover-grow" aria-label="Mood object sticker sheet mockup">
+        <img src="../images/projects/lowbatterypress/lbp-stickers.png" alt="Sticker sheet of pixel mood objects"/>
       </figure>
     </div>
 
@@ -4007,19 +4002,8 @@ ul { list-style: none; }
         <p>The icon stamp set gives users a way to mark physical records with the same symbol language used throughout the desktop system. The stamps use icons only, without text, so they can function across reports, cards, and archive pieces.</p>
       </div>
 
-      <figure class="pd-stamps-mock hover-grow" aria-label="Icon stamp set mockup">
-        <div class="pd-stamps-frame">
-          <div class="pd-stamps-head">▸ icon-stamp-set · ×6</div>
-          <div class="pd-stamps-grid">
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></div></div>
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></div></div>
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></div></div>
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></div></div>
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></div></div>
-            <div class="pd-stamp"><div class="pd-stamp-handle"></div><div class="pd-stamp-base"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></div></div>
-          </div>
-          <div class="pd-stamps-foot">stamp on receipts · cards · pouches</div>
-        </div>
+      <figure class="pd-image-mock hover-grow" aria-label="Icon stamp set mockup">
+        <img src="../images/projects/lowbatterypress/lbp-stamps.png" alt="Set of pixel icon stamps"/>
       </figure>
     </div>
 
@@ -4030,38 +4014,9 @@ ul { list-style: none; }
         <p>The translucent file pouches store the physical archive: monthly reports, sticker sheets, music memory cards, receipt logs, and stamped records. The pouches feel practical, cyberdeck-adjacent, and connect to the system's green signal language.</p>
       </div>
 
-      <div class="pd-pouches-row">
-        <figure class="pd-pouch hover-grow" aria-label="Translucent green pouch">
-          <div class="pd-pouch-frame pd-pouch-green">
-            <div class="pd-pouch-tag"><span>▸ archive · may</span><span>signal</span></div>
-            <div class="pd-pouch-body">
-              <div class="pd-pouch-card">monthly report</div>
-              <div class="pd-pouch-card">sticker sheet</div>
-              <div class="pd-pouch-card">song log</div>
-            </div>
-          </div>
-        </figure>
-        <figure class="pd-pouch hover-grow" aria-label="Translucent lilac pouch">
-          <div class="pd-pouch-frame pd-pouch-lilac">
-            <div class="pd-pouch-tag"><span>▸ archive · apr</span><span>quiet</span></div>
-            <div class="pd-pouch-body">
-              <div class="pd-pouch-card">receipt log</div>
-              <div class="pd-pouch-card">mood cards</div>
-              <div class="pd-pouch-card">stamped notes</div>
-            </div>
-          </div>
-        </figure>
-        <figure class="pd-pouch hover-grow" aria-label="Translucent pink pouch">
-          <div class="pd-pouch-frame pd-pouch-pink">
-            <div class="pd-pouch-tag"><span>▸ archive · mar</span><span>good</span></div>
-            <div class="pd-pouch-body">
-              <div class="pd-pouch-card">monthly report</div>
-              <div class="pd-pouch-card">drawing prints</div>
-              <div class="pd-pouch-card">sticker sheet</div>
-            </div>
-          </div>
-        </figure>
-      </div>
+      <figure class="pd-image-mock hover-grow" aria-label="Translucent file pouches mockup">
+        <img src="../images/projects/lowbatterypress/lbp-cases.png" alt="Translucent file pouches holding archive pieces"/>
+      </figure>
     </div>
 
     <!-- secondary print outputs · receipts, cards, stickers, emotion report -->
