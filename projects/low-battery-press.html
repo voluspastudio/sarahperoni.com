@@ -2558,7 +2558,8 @@ ul { list-style: none; }
 }
 /* image-based windows · the PNG already includes the window chrome,
    so drop the wrapper border/shadow/min-height and let the image
-   define the box. */
+   define the box. mix-blend-mode: multiply drops the PNG's white
+   areas so the lilac panel shows through behind them. */
 .ct-window.ct-window-img {
   background: transparent;
   border: 0;
@@ -2570,6 +2571,7 @@ ul { list-style: none; }
 .ct-window.ct-window-img img {
   width: 100%; height: auto; display: block;
   image-rendering: auto;
+  mix-blend-mode: multiply;
 }
 .ct-titlebar {
   display: flex; align-items: center; justify-content: space-between;
