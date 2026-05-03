@@ -874,7 +874,7 @@ ul { list-style: none; }
 .icon-error .icon-art img { filter: drop-shadow(2px 2px 0 rgba(217,75,75,0.4)); }
 
 /* ============================================================
-   MUSIC MEMORY WINDOW
+   MUSIC PLAYER WINDOW
    ============================================================ */
 #win-music { width: 360px; top: 80px; left: 940px; }
 @media (max-width: 1100px) {
@@ -1033,7 +1033,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   EMOJIS · tap to scatter tiny stickers across the window
+   ICONS · tap to scatter tiny stickers across the window
    ============================================================ */
 .mood-objects {
   display: flex; align-items: center; gap: 6px;
@@ -1265,7 +1265,7 @@ ul { list-style: none; }
   padding-top: 6px;
 }
 
-/* custom emoji button gets a little frame so it reads as user art */
+/* custom icon button gets a little frame so it reads as user art */
 .mood-objects .mo-custom {
   border: 1.5px dashed var(--plum) !important;
   background: #fff !important;
@@ -1286,7 +1286,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   MUSIC MEMORY · "playing while saved" widget inside Journal
+   MUSIC PLAYER · "playing while saved" widget inside Journal
    ============================================================ */
 .music-memory {
   margin-top: 12px;
@@ -1384,7 +1384,7 @@ ul { list-style: none; }
   border-bottom: 1px dotted rgba(38,27,61,0.15);
   letter-spacing: 0.04em;
 }
-.emotion-printout .ep-row .ep-emojis { font-size: 16px; letter-spacing: 0; }
+.emotion-printout .ep-row .ep-icons { font-size: 16px; letter-spacing: 0; }
 .emotion-printout .ep-grid {
   display: grid; grid-template-columns: repeat(6, 1fr);
   gap: 4px;
@@ -2154,7 +2154,7 @@ ul { list-style: none; }
 
 /* ============================================================
    PANEL MOCKUPS · overview preview, desktop system preview,
-   mood-post mock, music memory grid
+   mood-post mock, music player grid
    ============================================================ */
 
 /* overview-deliverables-bar reuses the bs-block-bar look but lives inside
@@ -2415,7 +2415,7 @@ ul { list-style: none; }
   padding-top: 8px;
 }
 
-/* MUSIC MEMORY GRID · now-playing window + entry + archive card */
+/* MUSIC PLAYER GRID · now-playing window + entry + archive card */
 .music-memory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -2887,7 +2887,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   MUSIC MEMORY · row layout with image on one side, text on other
+   MUSIC PLAYER · row layout with image on one side, text on other
    ============================================================ */
 .mm-phone-hero {
   margin: 22px auto 28px;
@@ -3330,7 +3330,7 @@ ul { list-style: none; }
       <div class="desktop-hero-copy">
         <h1>Low<br/><em>Battery</em><br/>Press</h1>
         <p class="lead">A desktop diary for low-signal days.</p>
-        <p class="blurb">A place to save small entries, loose thoughts, drawings, songs, and emojis. Type, talk, draw, save fragments. Entries can stay digital or become printed records.</p>
+        <p class="blurb">A place to save small entries, loose thoughts, drawings, songs, and icons. Type, talk, draw, save fragments. Entries can stay digital or become printed records.</p>
       </div>
       <figure class="desktop-hero-imac" aria-label="LBP running on a small iMac">
         <img src="../images/projects/lowbatterypress/lbp-imac.png" alt="Low Battery Press shown on an iMac"/>
@@ -3353,9 +3353,9 @@ ul { list-style: none; }
         <p class="prompt">new entry</p>
         <textarea placeholder="type what you want to save. fragments are fine."></textarea>
 
-        <!-- Emojis · tap pixel icons to scatter them across the window -->
-        <div class="mood-objects" aria-label="add an emoji to your entry">
-          <span class="mo-label">emojis ·</span>
+        <!-- Icons · tap pixel icons to scatter them across the window -->
+        <div class="mood-objects" aria-label="add an icon to your entry">
+          <span class="mo-label">icons ·</span>
           <button class="mo mo-img" data-mood="cloud" title="low signal"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt="cloud · low signal"/></button>
           <button class="mo mo-img" data-mood="heart" title="soft"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt="heart · soft"/></button>
           <button class="mo mo-img" data-mood="sparkle" title="tiny win"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt="star · tiny win"/></button>
@@ -3364,7 +3364,7 @@ ul { list-style: none; }
           <button class="mo mo-img" data-mood="static" title="404 / glitch"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt="cat · glitching"/></button>
         </div>
 
-        <!-- Music Memory · what was playing when this got saved -->
+        <!-- Music Player · what was playing when this got saved -->
         <div class="music-memory" id="music-memory">
           <span class="mm-label">♪ playing while saved</span>
           <div class="mm-row">
@@ -3533,8 +3533,8 @@ ul { list-style: none; }
             <span>▸ EMOTION REPORT</span>
             <span id="ep-tf-label">day · 05·14·26</span>
           </div>
-          <div class="ep-row"><span>most-used emojis</span><span class="ep-emojis">😢 ☀ 💕</span></div>
-          <div class="ep-row"><span>emojis</span><span>47</span></div>
+          <div class="ep-row"><span>most-used icons</span><span class="ep-icons">😢 ☀ 💕</span></div>
+          <div class="ep-row"><span>icons</span><span>47</span></div>
           <div class="ep-row"><span>range</span><span>8% → 91%</span></div>
           <div class="ep-row"><span>battery avg</span><span>32%</span></div>
           <div class="ep-row"><span>lowest entry</span><span>04% · static day</span></div>
@@ -3557,11 +3557,11 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <!-- Music Memory · what was playing while saved -->
+    <!-- Music Player · what was playing while saved -->
     <div class="window" id="win-music" data-window="music">
       <div class="window-titlebar" data-drag>
         <span class="ttl-img"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/></span>
-        <span class="ttl">Music Memory</span>
+        <span class="ttl">Music Player</span>
         <div class="window-controls">
           <button class="win-btn min">_</button>
           <button class="win-btn close" aria-label="Close">×</button>
@@ -3866,7 +3866,7 @@ ul { list-style: none; }
     </figure>
 
     <div class="body">
-      <p>Low Battery Press is a journaling system built around a soft 90s desktop interface. Users can type, talk, draw, save fragments, log music, add emojis, and create printed records from their entries.</p>
+      <p>Low Battery Press is a journaling system built around a soft 90s desktop interface. Users can type, talk, draw, save fragments, log music, add icons, and create printed records from their entries.</p>
       <p>The system is designed for low-pressure documentation. Instead of starting with a blank journal page, users open small tools that match the kind of entry they want to make.</p>
     </div>
 
@@ -3874,8 +3874,8 @@ ul { list-style: none; }
     <ul class="bullet-list">
       <li>Desktop interface</li>
       <li>Journaling tools</li>
-      <li>Emoji system</li>
-      <li>Music memory feature</li>
+      <li>Icon system</li>
+      <li>Music player feature</li>
       <li>Monthly print report</li>
       <li>Sticker sheets</li>
       <li>Icon stamp set</li>
@@ -3959,7 +3959,7 @@ ul { list-style: none; }
               <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/notepad.png" alt=""/><span>Notes.txt</span></button>
               <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/window.png" alt=""/><span>Draw Pad</span></button>
               <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/blue heart.png" alt=""/><span>Mood Meter</span></button>
-              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Memory</span></button>
+              <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cd.png" alt=""/><span>Music Player</span></button>
               <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/drive.png" alt=""/><span>Archive</span></button>
               <button class="dp-icon"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/mail.png" alt=""/><span>Print Dump</span></button>
             </div>
@@ -3971,7 +3971,7 @@ ul { list-style: none; }
               </div>
               <div class="dp-window-body">
                 <p class="dp-prompt">new entry</p>
-                <p class="dp-entry">A short note about how the day went.<br/>A few lines, an emoji, a song.<br/>Saved to the archive.</p>
+                <p class="dp-entry">A short note about how the day went.<br/>A few lines, an icon, a song.<br/>Saved to the archive.</p>
                 <div class="dp-mood-row">
                   <span class="dp-mo">☁</span>
                   <span class="dp-mo">♡</span>
@@ -3984,7 +3984,7 @@ ul { list-style: none; }
           <div class="dp-taskbar">
             <span class="dp-start">⚡ LBP</span>
             <span class="dp-task active">Journal.exe</span>
-            <span class="dp-task">Music Memory</span>
+            <span class="dp-task">Music Player</span>
             <span class="dp-task-meta">online · 9:41</span>
           </div>
         </div>
@@ -3997,7 +3997,7 @@ ul { list-style: none; }
         <li>Notes.txt</li>
         <li>Draw Pad</li>
         <li>Mood Meter</li>
-        <li>Music Memory</li>
+        <li>Music Player</li>
         <li>Archive</li>
         <li>Print Dump</li>
       </ul>
@@ -4182,16 +4182,16 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <!-- ─────────────── Subsection 2.3 · Emojis ────────────────── -->
+    <!-- ─────────────── Subsection 2.3 · Icons ────────────────── -->
     <div class="ds-sub" id="ds-mood">
-      <h3 class="ds-sub-title"><span class="ds-sub-num">02.3</span> Emojis</h3>
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.3</span> Icons</h3>
       <div class="body">
-        <p>Emojis are small pixel icons that can be attached to an entry. They work as visual tags for tone, memory, and emotional state.</p>
-        <p>Some emojis respond when selected. A sad icon can release tears, a happy icon can release suns, a heart can float upward, and an error icon can create a small glitch effect.</p>
-        <p>Emojis also carry into the printed archive, where they become part of the visual record of a day, week, or month.</p>
+        <p>Icons are small pixel images that can be attached to an entry. They work as visual tags for tone, memory, and emotional state.</p>
+        <p>Some icons respond when selected. A sad icon can release tears, a happy icon can release suns, a heart can float upward, and an error icon can create a small glitch effect.</p>
+        <p>Icons also carry into the printed archive, where they become part of the visual record of a day, week, or month.</p>
       </div>
 
-      <figure class="mood-post-mock" aria-label="Sample post with emojis">
+      <figure class="mood-post-mock" aria-label="Sample post with icons">
         <div class="mp-titlebar">
           <span class="mp-icon"></span>
           <span>▸ Journal.exe · entry_0042.txt</span>
@@ -4222,11 +4222,11 @@ ul { list-style: none; }
       </ul>
     </div>
 
-    <!-- ─────────────── Subsection 2.4 · Music Memory ────────────────── -->
+    <!-- ─────────────── Subsection 2.4 · Music Player ────────────────── -->
     <div class="ds-sub" id="ds-music">
-      <h3 class="ds-sub-title"><span class="ds-sub-num">02.4</span> Music Memory</h3>
+      <h3 class="ds-sub-title"><span class="ds-sub-num">02.4</span> Music Player</h3>
       <div class="body">
-        <p>Low Battery Press can record the song playing when an entry is created. The track becomes part of the saved entry, alongside the text, emojis, battery level, and timestamp.</p>
+        <p>Low Battery Press can record the song playing when an entry is created. The track becomes part of the saved entry, alongside the text, icons, battery level, and timestamp.</p>
         <p>The feature treats music as context. It helps preserve the atmosphere around an entry without turning it into a social post.</p>
       </div>
 
@@ -4255,7 +4255,7 @@ ul { list-style: none; }
         <div class="mm-row-text">
           <div class="bs-block-bar overview-deliverables-bar">~ song in the entry</div>
           <div class="body">
-            <p>Each saved entry stores the track that was playing alongside the text, emojis, battery level, and timestamp.</p>
+            <p>Each saved entry stores the track that was playing alongside the text, icons, battery level, and timestamp.</p>
           </div>
         </div>
       </div>
@@ -4293,7 +4293,7 @@ ul { list-style: none; }
     <div class="ds-sub" id="ds-print">
       <h3 class="ds-sub-title"><span class="ds-sub-num">02.5</span> Print Dump</h3>
       <div class="body">
-        <p>Print Dump is the bridge between the digital system and the physical deliverables. It exports selected entries, emojis, drawings, words, songs, and battery states into printed records.</p>
+        <p>Print Dump is the bridge between the digital system and the physical deliverables. It exports selected entries, icons, drawings, words, songs, and battery states into printed records.</p>
         <p>The same files saved through Journal.exe, Notes.txt, Draw Pad, and Mood Meter become receipts, mood cards, sticker sheets, and monthly reports — covered in the next section.</p>
       </div>
     </div>
@@ -4324,14 +4324,14 @@ ul { list-style: none; }
     <p class="lead">Low Battery Press extends beyond the desktop screen through printed and physical objects.</p>
     <div class="body">
       <p>Monthly reports, sticker sheets, icon stamps, and translucent file pouches give users a way to save, mark, and organize the entries created inside LBP.OS.</p>
-      <p>The physical deliverables support the same archive logic as the interface: entries become files, emojis become stickers, and saved moments can be printed, stamped, and stored.</p>
+      <p>The physical deliverables support the same archive logic as the interface: entries become files, icons become stickers, and saved moments can be printed, stamped, and stored.</p>
     </div>
 
     <!-- ─────────────── Subsection 3.1 · Monthly Dump Report ────────────── -->
     <div class="ds-sub" id="pd-report">
       <h3 class="ds-sub-title"><span class="ds-sub-num">03.1</span> Monthly Dump Report</h3>
       <div class="body">
-        <p>The Monthly Dump Report is a single-page printout generated from the user's archive. It summarizes entries from a selected timeframe through most-used words, emojis, saved drawings, music memory, battery averages, and signal data.</p>
+        <p>The Monthly Dump Report is a single-page printout generated from the user's archive. It summarizes entries from a selected timeframe through most-used words, icons, saved drawings, music player, battery averages, and signal data.</p>
         <p>It reads like a clean cyberdeck-style system report, not a sad diary page.</p>
       </div>
 
@@ -4342,8 +4342,8 @@ ul { list-style: none; }
         <div class="pa-entry-list">
           <div class="bs-block-bar overview-deliverables-bar">~ about the monthly dump report</div>
           <div class="body">
-            <p>One printed page that summarizes a full month of entries from the LBP archive. The report pulls in saved entries, emojis, music memory, drawings, and battery data and arranges them into a single cyberdeck-style readout.</p>
-            <p>Each report includes the most-used words and emojis, an average battery level, saved drawings, songs logged, and a short monthly summary. The page reads like a system report — neutral, functional, and easy to file alongside the rest of the physical archive.</p>
+            <p>One printed page that summarizes a full month of entries from the LBP archive. The report pulls in saved entries, icons, music player, drawings, and battery data and arranges them into a single cyberdeck-style readout.</p>
+            <p>Each report includes the most-used words and icons, an average battery level, saved drawings, songs logged, and a short monthly summary. The page reads like a system report — neutral, functional, and easy to file alongside the rest of the physical archive.</p>
             <p>Reports can be generated for any timeframe, then stored inside the translucent file pouches with the matching sticker sheets and stamped notes.</p>
           </div>
         </div>
@@ -4352,10 +4352,10 @@ ul { list-style: none; }
       <div class="bs-block-bar overview-deliverables-bar" style="margin-top: 24px;">~ contents</div>
       <ul class="bullet-list">
         <li>Most-used words</li>
-        <li>Most-used emojis</li>
+        <li>Most-used icons</li>
         <li>Average battery level</li>
         <li>Saved drawings from the month</li>
-        <li>Music memory</li>
+        <li>Music player</li>
         <li>Short monthly summary</li>
         <li>Archive marks and dotted dividers</li>
         <li>Pixel icons</li>
@@ -4364,13 +4364,13 @@ ul { list-style: none; }
 
     <!-- ─────────────── Subsection 3.2 · Sticker Sheet ────────────────── -->
     <div class="ds-sub" id="pd-stickers">
-      <h3 class="ds-sub-title"><span class="ds-sub-num">03.2</span> Emoji Sticker Sheet</h3>
+      <h3 class="ds-sub-title"><span class="ds-sub-num">03.2</span> Icon Sticker Sheet</h3>
       <div class="body">
-        <p>The sticker sheet turns the same icons used in the interface into physical emojis. Users can place them on printed reports, archive cards, pouches, or personal logs.</p>
+        <p>The sticker sheet turns the icons used in the interface into physical stickers. Users can place them on printed reports, archive cards, pouches, or personal logs.</p>
       </div>
 
-      <figure class="pd-image-mock hover-grow" aria-label="Emoji sticker sheet mockup">
-        <img src="../images/projects/lowbatterypress/lbp-stickers.png" alt="Sticker sheet of pixel emojis"/>
+      <figure class="pd-image-mock hover-grow" aria-label="Icon sticker sheet mockup">
+        <img src="../images/projects/lowbatterypress/lbp-stickers.png" alt="Sticker sheet of pixel icons"/>
       </figure>
     </div>
 
@@ -4390,7 +4390,7 @@ ul { list-style: none; }
     <div class="ds-sub" id="pd-pouches">
       <h3 class="ds-sub-title"><span class="ds-sub-num">03.4</span> Translucent File Pouches</h3>
       <div class="body">
-        <p>The translucent file pouches store the physical archive: monthly reports, sticker sheets, music memory cards, receipt logs, and stamped records. The pouches feel practical, cyberdeck-adjacent, and connect to the system's green signal language.</p>
+        <p>The translucent file pouches store the physical archive: monthly reports, sticker sheets, music player cards, receipt logs, and stamped records. The pouches feel practical, cyberdeck-adjacent, and connect to the system's green signal language.</p>
       </div>
 
       <figure class="pd-image-mock hover-grow" aria-label="Translucent file pouches mockup">
@@ -4469,7 +4469,7 @@ ul { list-style: none; }
       </div>
       <div class="swatch" style="background: #FFD85C;">
         <span class="sw-name">Sunny Pixel<br/>Yellow</span>
-        <span class="sw-use">happy emojis, sun reactions, highlights</span>
+        <span class="sw-use">happy icons, sun reactions, highlights</span>
         <span class="sw-hex">#FFD85C</span>
       </div>
       <div class="swatch dark" style="background: #FF4D5E;">
@@ -4502,7 +4502,7 @@ ul { list-style: none; }
       </div>
       <div class="type-card">
         <div class="label">Body · diary copy</div>
-        <div class="sample body">A short note from the afternoon. A few lines, a song, an emoji. Saved to the archive.</div>
+        <div class="sample body">A short note from the afternoon. A few lines, a song, an icon. Saved to the archive.</div>
         <div class="name">Space Mono · quiet body</div>
       </div>
     </div>
@@ -4511,7 +4511,7 @@ ul { list-style: none; }
     <ul class="bullet-list">
       <li>Icons act as navigation</li>
       <li>Windows organize content</li>
-      <li>Emojis add context to entries</li>
+      <li>Icons add context to entries</li>
       <li>Music connects entries to time</li>
       <li>Print outputs give the archive a physical form</li>
       <li>Green represents signal, battery, activity, and saved states</li>
@@ -5002,7 +5002,7 @@ ul { list-style: none; }
     setStatus('cleared · ' + bg);
   });
 
-  /* save · capture image and offer cursor / emoji / download options */
+  /* save · capture image and offer cursor / icon / download options */
   const saveBtn = document.getElementById('paint-save');
   if (saveBtn) saveBtn.addEventListener('click', () => {
     const dataURL = canvas.toDataURL('image/png');
@@ -5118,7 +5118,7 @@ ul { list-style: none; }
     if (status) status.textContent = 'untitled.png · empty';
   });
 
-  /* save · capture image and offer cursor / emoji / download options */
+  /* save · capture image and offer cursor / icon / download options */
   const saveBtn = document.getElementById('dp-save');
   if (saveBtn) saveBtn.addEventListener('click', () => {
     const dataURL = canvas.toDataURL('image/png');
@@ -5130,7 +5130,7 @@ ul { list-style: none; }
   });
 })();
 
-/* EMOJIS · spawn pixel-icon particles across the window when tapped */
+/* ICONS · spawn pixel-icon particles across the window when tapped */
 (function() {
   const ICON_BASE = '../images/projects/lowbatterypress/icons/';
   const SYMBOLS = {
@@ -5144,7 +5144,7 @@ ul { list-style: none; }
   const MOTIONS = ['fall', 'rise', 'scatter'];
 
   function spawn(button) {
-    /* custom emojis carry their own src + motion; built-ins look up SYMBOLS */
+    /* custom icons carry their own src + motion; built-ins look up SYMBOLS */
     const mood = button.dataset.mood;
     const customSrc = button.dataset.src;
     const cfg = customSrc
@@ -5187,7 +5187,7 @@ ul { list-style: none; }
     }
   }
 
-  /* delegate so custom emojis added later still spawn */
+  /* delegate so custom icons added later still spawn */
   document.querySelectorAll('.mood-objects').forEach(row => {
     row.addEventListener('click', e => {
       const btn = e.target.closest('.mo');
@@ -5199,7 +5199,7 @@ ul { list-style: none; }
   window.LBP_MOOD = { spawn, MOTIONS };
 })();
 
-/* LBP SAVES · turn any saved canvas image into a cursor or emoji,
+/* LBP SAVES · turn any saved canvas image into a cursor or icon,
    plus drop a shortcut on the desktop and offer a download.            */
 (function() {
   const SAVES = [];                        // { id, dataURL, filename, kind }
@@ -5234,7 +5234,7 @@ ul { list-style: none; }
     return tile;
   }
 
-  /* ---------- options popover (cursor / emoji / download) ---------- */
+  /* ---------- options popover (cursor / icon / download) ---------- */
   function closeAllPopovers() {
     document.querySelectorAll('.save-options.open').forEach(el => el.remove());
   }
@@ -5254,7 +5254,7 @@ ul { list-style: none; }
       '<p class="so-q">use it as…</p>' +
       '<div class="so-actions">' +
         '<button class="so-btn" data-act="cursor">🖱 cursor</button>' +
-        '<button class="so-btn" data-act="emoji">✨ emoji</button>' +
+        '<button class="so-btn" data-act="icon">✨ icon</button>' +
         '<button class="so-btn" data-act="download">⬇ download</button>' +
         '<button class="so-btn so-reset" data-act="reset-cursor">reset cursor</button>' +
       '</div>' +
@@ -5277,9 +5277,9 @@ ul { list-style: none; }
           setAsCursor(entry).then(() => {
             status.textContent = 'cursor set · move your mouse';
           });
-        } else if (act === 'emoji') {
-          addAsEmoji(entry);
-          status.textContent = 'added to emojis · scroll to journal';
+        } else if (act === 'icon') {
+          addAsIcon(entry);
+          status.textContent = 'added to icons · scroll to journal';
         } else if (act === 'download') {
           download(entry);
           status.textContent = 'downloaded · ' + entry.filename;
@@ -5325,8 +5325,8 @@ ul { list-style: none; }
     });
   }
 
-  /* ---------- emoji (append a new mo button to mood-objects rows) --- */
-  function addAsEmoji(entry) {
+  /* ---------- icon (append a new mo button to mood-objects rows) --- */
+  function addAsIcon(entry) {
     const motion = window.LBP_MOOD && window.LBP_MOOD.MOTIONS
       ? window.LBP_MOOD.MOTIONS[Math.floor(Math.random() * window.LBP_MOOD.MOTIONS.length)]
       : 'fall';
@@ -5337,7 +5337,7 @@ ul { list-style: none; }
       btn.dataset.src = entry.dataURL;
       btn.dataset.motion = motion;
       btn.title = entry.filename + ' · your drawing';
-      btn.innerHTML = '<img class="pixel-icon" src="' + entry.dataURL + '" alt="custom emoji"/>';
+      btn.innerHTML = '<img class="pixel-icon" src="' + entry.dataURL + '" alt="custom icon"/>';
       row.appendChild(btn);
     });
   }
@@ -5365,11 +5365,11 @@ ul { list-style: none; }
       return entry;
     },
     list() { return SAVES.slice(); },
-    setAsCursor, addAsEmoji, download
+    setAsCursor, addAsIcon, download
   };
 })();
 
-/* MUSIC MEMORY · keep the journal track in sync with the right-sidebar player */
+/* MUSIC PLAYER · keep the journal track in sync with the right-sidebar player */
 (function() {
   const tracks = [
     { t: 'Fade Into You',         a: 'Mazzy Star' },
@@ -5410,10 +5410,10 @@ ul { list-style: none; }
     custom: 'custom range'
   };
   const TF_DATA = {
-    day:    { emojis: '☁ ☀ ♡', mo: 47,  range: '8% → 91%',  avg: '32%', low: '04% · earliest entry',  songs: 12,  played: 'Mazzy Star',   word: 'soft',  weather: 'mostly soft signal. one short reconnect in the afternoon.' },
-    week:   { emojis: '☁ 🪫 ☀', mo: 312, range: '4% → 96%',  avg: '34%', low: '04% · monday',          songs: 88,  played: 'Cocteau Twins', word: 'soft', weather: 'a long stretch of low signal. tuesday cleared briefly. average held steady.' },
-    month:  { emojis: '🪫 ☀ ♡', mo: 1148,range: '4% → 99%', avg: '38%', low: '04% · may 09',          songs: 412, played: 'Mazzy Star',   word: 'soft',  weather: 'steady soft signal. one full reconnect mid-month. ended on quiet.' },
-    custom: { emojis: '✦ ♡ 📺', mo: 22,  range: '12% → 64%', avg: '31%', low: '12% · selected day',    songs: 9,   played: 'Radiohead',    word: 'later', weather: 'hand-picked range. mostly low signal with one peak.' }
+    day:    { icons: '☁ ☀ ♡', mo: 47,  range: '8% → 91%',  avg: '32%', low: '04% · earliest entry',  songs: 12,  played: 'Mazzy Star',   word: 'soft',  weather: 'mostly soft signal. one short reconnect in the afternoon.' },
+    week:   { icons: '☁ 🪫 ☀', mo: 312, range: '4% → 96%',  avg: '34%', low: '04% · monday',          songs: 88,  played: 'Cocteau Twins', word: 'soft', weather: 'a long stretch of low signal. tuesday cleared briefly. average held steady.' },
+    month:  { icons: '🪫 ☀ ♡', mo: 1148,range: '4% → 99%', avg: '38%', low: '04% · may 09',          songs: 412, played: 'Mazzy Star',   word: 'soft',  weather: 'steady soft signal. one full reconnect mid-month. ended on quiet.' },
+    custom: { icons: '✦ ♡ 📺', mo: 22,  range: '12% → 64%', avg: '31%', low: '12% · selected day',    songs: 9,   played: 'Radiohead',    word: 'later', weather: 'hand-picked range. mostly low signal with one peak.' }
   };
 
   function renderEmotion(tf) {
@@ -5421,8 +5421,8 @@ ul { list-style: none; }
     if (tfLabel) tfLabel.textContent = TF_LABELS[tf] || TF_LABELS.day;
     preview.innerHTML = `
       <div class="ep-head"><span>▸ EMOTION REPORT</span><span id="ep-tf-label">${TF_LABELS[tf]}</span></div>
-      <div class="ep-row"><span>most-used emojis</span><span class="ep-emojis">${d.emojis}</span></div>
-      <div class="ep-row"><span>emojis</span><span>${d.mo}</span></div>
+      <div class="ep-row"><span>most-used icons</span><span class="ep-icons">${d.icons}</span></div>
+      <div class="ep-row"><span>icons</span><span>${d.mo}</span></div>
       <div class="ep-row"><span>range</span><span>${d.range}</span></div>
       <div class="ep-row"><span>battery avg</span><span>${d.avg}</span></div>
       <div class="ep-row"><span>lowest entry</span><span>${d.low}</span></div>
