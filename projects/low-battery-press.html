@@ -2437,9 +2437,10 @@ ul { list-style: none; }
     var(--soft-lilac);
 }
 .mm-cd {
+  /* CD sits cleanly on the player surface · no white frame */
   width: 64px; height: 64px;
-  background: var(--cloud-white);
-  border: 2px solid var(--deep-plum);
+  background: transparent;
+  border: 0;
   display: grid; place-items: center;
   flex: 0 0 auto;
 }
@@ -4200,12 +4201,12 @@ ul { list-style: none; }
         <div class="mp-body">
           <p class="mp-entry">A short note from the afternoon.<br/>A few lines, then a song,<br/>then closed the window.</p>
           <div class="mp-mood-row">
-            <button class="mp-mo" data-react="cloud" title="quiet"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></button>
-            <button class="mp-mo" data-react="heart" title="soft"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></button>
-            <button class="mp-mo" data-react="star"  title="good"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></button>
-            <button class="mp-mo" data-react="rainbow" title="connected"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></button>
-            <button class="mp-mo" data-react="music" title="song logged"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></button>
-            <button class="mp-mo" data-react="cat"   title="error"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></button>
+            <button class="mp-mo" data-mood="cloud"   title="quiet · click to drop"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/white cloud.png" alt=""/></button>
+            <button class="mp-mo" data-mood="heart"   title="soft · click to rise"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/yelow heart.png" alt=""/></button>
+            <button class="mp-mo" data-mood="sparkle" title="good · click to spark"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/star.png" alt=""/></button>
+            <button class="mp-mo" data-mood="rainbow" title="connected · click to rise"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/rainbow.png" alt=""/></button>
+            <button class="mp-mo" data-mood="music"   title="song logged · click to scatter"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/music note.png" alt=""/></button>
+            <button class="mp-mo" data-mood="static"  title="error · click to glitch"><img class="pixel-icon" src="../images/projects/lowbatterypress/icons/cat.png" alt=""/></button>
           </div>
           <div class="mp-meta"><span>battery: 22%</span><span>05·14·26 · 9:41</span></div>
         </div>
@@ -5151,9 +5152,19 @@ ul { list-style: none; }
       ? { src: customSrc, motion: button.dataset.motion || 'fall', count: 12 }
       : (SYMBOLS[mood] || SYMBOLS.cloud);
 
-    const win = button.closest('.window');
-    const target = win ? win.querySelector('.window-content') : null;
+    /* find a container the particles can fall inside · live hero windows
+       use .window/.window-content; the Icons subsection preview uses
+       .mood-post-mock/.mp-body */
+    const container = button.closest('.window, .mood-post-mock');
+    const target = container
+      ? container.querySelector('.window-content, .mp-body')
+      : null;
     if (!target) return;
+    /* the particles are absolutely positioned · make sure the host is
+       a positioning context with overflow clipped to the window */
+    const cs = window.getComputedStyle(target);
+    if (cs.position === 'static') target.style.position = 'relative';
+    if (cs.overflow === 'visible') target.style.overflow = 'hidden';
 
     const rect = target.getBoundingClientRect();
     const w = rect.width, h = rect.height;
@@ -5182,15 +5193,24 @@ ul { list-style: none; }
     }
 
     if (mood === 'static') {
-      win.classList.add('flicker');
-      setTimeout(() => win.classList.remove('flicker'), 750);
+      container.classList.add('flicker');
+      setTimeout(() => container.classList.remove('flicker'), 750);
     }
   }
 
-  /* delegate so custom icons added later still spawn */
+  /* delegate so custom icons added later still spawn · live hero rows */
   document.querySelectorAll('.mood-objects').forEach(row => {
     row.addEventListener('click', e => {
       const btn = e.target.closest('.mo');
+      if (btn && row.contains(btn)) spawn(btn);
+    });
+  });
+
+  /* same delegation for the Icons subsection preview row · clicking the
+     pixel icons drops, rises, or scatters them inside the mock window */
+  document.querySelectorAll('.mp-mood-row').forEach(row => {
+    row.addEventListener('click', e => {
+      const btn = e.target.closest('.mp-mo');
       if (btn && row.contains(btn)) spawn(btn);
     });
   });
