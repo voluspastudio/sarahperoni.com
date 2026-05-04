@@ -483,7 +483,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   gap: 6px;
 }
 .ov-deliverables span {
-  background: var(--cream); border: 1.5px solid var(--ink);
+  background: var(--cream);
+  /* explicit ink text · the parent .ov-block.ov-pink sets color: cream
+     which would have made these pills cream-on-cream and unreadable */
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
   padding: 5px 8px;
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.06em;
