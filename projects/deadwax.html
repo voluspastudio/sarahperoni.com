@@ -177,14 +177,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .cover-stage {
   position: relative; z-index: 3;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: clamp(20px, 4vw, 64px);
-  align-items: end;
+  /* single column · masthead is the only thing on the cover now */
   margin: clamp(40px, 8vw, 90px) 0 clamp(28px, 5vw, 60px);
-}
-@media (max-width: 880px) {
-  .cover-stage { grid-template-columns: 1fr; gap: 28px; }
 }
 .cover-mast {
   position: relative;
@@ -1496,29 +1490,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <span class="mast-stamp">music ezine</span>
       <h1>Deadwax</h1>
       <p class="cover-tagline">for artist discovery and visual culture</p>
-    </div>
-    <div class="cover-art">
-      <figure class="cover-photo">
-        <img src="../images/projects/deadwax/mkgee/mkgee-halftone.png" alt="MK.gee · halftone portrait"/>
-      </figure>
-      <div class="cover-callouts">
-        <div class="cover-co cco-pink">
-          <strong>Artist file</strong>
-          12 features inside this issue.
-        </div>
-        <div class="cover-co cco-acid">
-          <strong>Track notes</strong>
-          Recommended cuts, copied from the wall.
-        </div>
-        <div class="cover-co">
-          <strong>Issue 01</strong>
-          New noise / spring 2026.
-        </div>
-        <div class="cover-co">
-          <strong>Visual index</strong>
-          Posters, stickers, pull-outs.
-        </div>
-      </div>
     </div>
   </div>
 
