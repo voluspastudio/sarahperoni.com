@@ -15,13 +15,14 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Subdued indie zine palette · faded, printed, slightly sun-worn */
+  /* Indie music zine palette · faded, printed, slightly sun-worn ·
+     no pink, no neon — record-store flyer / Xerox zine territory. */
   --washed-grass:   #6F8F4E;   /* main editorial green · base */
   --washed-grass-d: #5a7440;
   --dusty-sky:      #8FB7C9;   /* cover, hero contrast */
   --dusty-sky-d:    #74a0b3;
-  --faded-rose:     #D86F8D;   /* artist features, callouts */
-  --faded-rose-d:   #b95775;
+  --deep-olive:     #4F5836;   /* artist features, dark panels (replaces pink) */
+  --deep-olive-d:   #3c4329;
   --newsprint:      #EFE6D2;   /* main base · paper */
   --newsprint-d:    #dcd3bd;
   --ink-black:      #171717;   /* type, photocopy texture */
@@ -30,11 +31,13 @@
   --brick:          #A84236;   /* stamps, issue marks · accent */
   --concrete:       #8D8A82;   /* neutral / inactive UI */
 
-  /* Legacy aliases · keep old selectors working without rewrites */
+  /* Legacy aliases · keep old selectors working without rewrites.
+     The legacy `--pink` token now points at deep olive — the page
+     reads as record-store flyer, not pink-grunge. */
   --acid:        var(--washed-grass);
   --acid-d:      var(--washed-grass-d);
-  --pink:        var(--faded-rose);
-  --pink-d:      var(--faded-rose-d);
+  --pink:        var(--deep-olive);
+  --pink-d:      var(--deep-olive-d);
   --sky:         var(--dusty-sky);
   --sky-d:       var(--dusty-sky-d);
   --cream:       var(--newsprint);
@@ -724,16 +727,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tag-row span.alt { background: var(--ink); color: var(--cream); }
 
 /* ============================================================
-   03 · ARTIST FEATURES · pink Xerox cards
+   03 · ARTIST FEATURES · deep-olive Xerox cards
    ============================================================ */
 .section-artists {
-  background: var(--pink);
-  color: var(--ink);
+  background: var(--deep-olive);
+  color: var(--newsprint);
 }
-.section-artists .label-bar { background: var(--ink); color: var(--pink); }
+.section-artists .label-bar { background: var(--newsprint); color: var(--deep-olive); }
 .section-artists .section-num,
-.section-artists .section-name { color: var(--ink); }
-.section-artists .section-head { border-color: var(--ink); }
+.section-artists .section-name { color: var(--newsprint); }
+.section-artists .section-head { border-color: var(--newsprint); }
+.section-artists .si-lead,
+.section-artists .si-body { color: var(--newsprint); }
+.section-artists .bullet-list { color: var(--newsprint); }
+.section-artists .bullet-list li::before { color: var(--mustard); }
 
 .af-grid {
   display: grid;
@@ -1281,14 +1288,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
   line-height: 1;
 }
 .bs-sw .bs-sw-hex { opacity: 0.85; }
-.bs-sw.acid   { background: var(--acid);     color: var(--ink); }
-.bs-sw.pink   { background: var(--pink);     color: var(--cream); }
-.bs-sw.sky    { background: var(--sky);      color: var(--ink); }
-.bs-sw.cream  { background: var(--cream);    color: var(--ink); }
-.bs-sw.ink    { background: var(--ink);      color: var(--cream); border-color: var(--cream); }
-.bs-sw.marker { background: var(--marker);   color: var(--ink); }
-.bs-sw.red    { background: var(--xerox-red); color: var(--cream); }
-.bs-sw.concrete { background: var(--concrete); color: var(--ink); }
+.bs-sw.acid     { background: var(--washed-grass); color: var(--cream); }
+.bs-sw.sky      { background: var(--dusty-sky);    color: var(--ink); }
+.bs-sw.olive    { background: var(--deep-olive);   color: var(--cream); }
+.bs-sw.cream    { background: var(--cream);        color: var(--ink); }
+.bs-sw.ink      { background: var(--ink);          color: var(--cream); border-color: var(--cream); }
+.bs-sw.marker   { background: var(--mustard);      color: var(--ink); }
+.bs-sw.red      { background: var(--brick);        color: var(--cream); }
+.bs-sw.concrete { background: var(--concrete);     color: var(--ink); }
 
 /* type spec */
 .bs-type {
@@ -1773,7 +1780,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </article>
     </div>
 
-    <ul class="bullet-list" style="margin-top: 28px; color: var(--ink);">
+    <ul class="bullet-list" style="margin-top: 28px;">
       <li>Image · mark · title · metadata · short note</li>
       <li>Duotone / halftone / photocopy treatment per card</li>
       <li>Recommended track lives at the front, not behind a click</li>
@@ -1974,11 +1981,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <!-- PALETTE -->
       <div class="bs-block">
         <h3>Palette</h3>
-        <p>A subdued indie-zine palette · faded, printed, slightly sun-worn. Washed grass and newsprint cream are the base. Dusty sky and faded rose vary the section panels. Ink black holds the type and photocopy texture. Muted mustard and brick red live only in the annotations, stamps, and issue marks.</p>
+        <p>An indie music zine palette · faded, printed, slightly sun-worn. Washed grass and newsprint cream are the base. Dusty sky and deep olive vary the section panels. Ink black holds the type and photocopy texture. Muted mustard and brick red live only in the annotations, stamps, and issue marks. No pink. No neon. The page reads as record-store flyer, not rave.</p>
         <div class="bs-palette">
           <div class="bs-sw acid"><span class="bs-sw-name">Washed<br/>Grass</span><span class="bs-sw-hex">#6F8F4E</span></div>
           <div class="bs-sw sky"><span class="bs-sw-name">Dusty<br/>Sky</span><span class="bs-sw-hex">#8FB7C9</span></div>
-          <div class="bs-sw pink"><span class="bs-sw-name">Faded<br/>Rose</span><span class="bs-sw-hex">#D86F8D</span></div>
+          <div class="bs-sw olive"><span class="bs-sw-name">Deep<br/>Olive</span><span class="bs-sw-hex">#4F5836</span></div>
           <div class="bs-sw cream"><span class="bs-sw-name">Newsprint<br/>Cream</span><span class="bs-sw-hex">#EFE6D2</span></div>
           <div class="bs-sw ink"><span class="bs-sw-name">Ink<br/>Black</span><span class="bs-sw-hex">#171717</span></div>
           <div class="bs-sw marker"><span class="bs-sw-name">Muted<br/>Mustard</span><span class="bs-sw-hex">#C5A23A</span></div>
