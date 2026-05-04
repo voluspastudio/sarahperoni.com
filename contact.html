@@ -96,15 +96,10 @@ a { color: inherit; text-decoration: none; }
 .contact-page {
   flex: 1;
   padding: 4rem 2rem 6rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  max-width: 1240px;
+  /* form-only · single centered column */
+  max-width: 640px;
   margin: 0 auto;
   width: 100%;
-}
-@media (max-width: 760px) {
-  .contact-page { grid-template-columns: 1fr; }
 }
 
 .contact-info {
@@ -255,29 +250,9 @@ a { color: inherit; text-decoration: none; }
 <header class="page-head">
   <span class="page-eyebrow">contact // get in touch</span>
   <h1 class="page-title">Let's build<br>something <span class="outline">extraordinary</span></h1>
-  <p class="page-sub">Send a project brief, a question, or a hello. I read every message myself and reply in a couple of business days.</p>
 </header>
 
 <main class="contact-page">
-  <aside class="contact-info">
-    <div class="contact-info-block">
-      <span class="contact-info-label">— email</span>
-      <span class="contact-info-value"><a href="mailto:peroni.sarah@gmail.com">peroni.sarah@gmail.com</a></span>
-    </div>
-    <div class="contact-info-block">
-      <span class="contact-info-label">— linkedin</span>
-      <span class="contact-info-value"><a href="https://www.linkedin.com/in/sarahperoni/" target="_blank" rel="noopener">linkedin.com/in/sarahperoni</a></span>
-    </div>
-    <div class="contact-info-block">
-      <span class="contact-info-label">— location</span>
-      <span class="contact-info-value">Costa Mesa, California</span>
-    </div>
-    <div class="contact-info-block">
-      <span class="contact-info-label">— inquiries</span>
-      <span class="contact-info-value">Brand identity, UI/UX, creative direction, illustration, and small-team studio collaborations.</span>
-    </div>
-  </aside>
-
   <form class="contact-form" id="contact-form" novalidate>
     <div class="field" data-required="true">
       <label class="field-label" for="cf-name">— name <span class="req">*</span></label>
