@@ -244,7 +244,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cover-photo img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.4);
+  /* halftone PNGs are pre-treated · multiply lets the sky-blue cover
+     bleed through any white parts of the artwork */
   mix-blend-mode: multiply;
 }
 .cover-photo .cp-feature-tag {
@@ -571,6 +572,17 @@ button { font: inherit; color: inherit; cursor: pointer; }
     radial-gradient(circle at 70% 30%, var(--cream) 0 20%, transparent 20%),
     repeating-linear-gradient(135deg, var(--ink) 0 2px, var(--ink-soft) 2px 5px);
 }
+/* real artist photo variant · halftone-ish duotone effect on a real image */
+.ez-photo.ez-photo-real img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* mix on the ink background to keep the gritty zine look */
+  filter: contrast(1.15) saturate(1.05);
+}
+.ez-photo.ez-photo-real {
+  background: var(--ink);
+}
 .ez-photo .ez-photo-tag {
   position: absolute;
   bottom: 8px; left: 8px;
@@ -760,6 +772,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
     repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 2px 5px),
     var(--sky);
   filter: contrast(1.3);
+}
+/* real artist halftone photos on Xerox cards · multiply on the colored
+   background gives each card a riso-printed feel */
+.af-photo.af-photo-real {
+  background: var(--pink);
+}
+.af-card:nth-child(3n+2) .af-photo.af-photo-real { background: var(--acid); }
+.af-card:nth-child(3n+3) .af-photo.af-photo-real { background: var(--sky); }
+.af-photo.af-photo-real img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  display: block;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05);
 }
 .af-photo .af-photo-mark {
   position: absolute;
@@ -983,6 +1010,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border-bottom: 2px solid var(--ink);
   filter: contrast(1.3);
 }
+.pd-card .pdc-photo.pdc-photo-real {
+  background: var(--pink);
+  filter: none;
+  position: relative;
+  overflow: hidden;
+}
+.pd-card:nth-child(3n+2) .pdc-photo.pdc-photo-real { background: var(--acid); }
+.pd-card:nth-child(3n+3) .pdc-photo.pdc-photo-real { background: var(--sky); }
+.pd-card .pdc-photo.pdc-photo-real img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  mix-blend-mode: multiply;
+}
 .pd-card .pdc-name {
   font-family: var(--display);
   font-size: 22px;
@@ -1152,6 +1193,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 32px;
   color: var(--xerox-red);
   transform: rotate(-12deg);
+}
+
+/* 4.5 · Merch hoodie · plain photographic frame on cream panel */
+.pd-merch {
+  margin: 18px auto 0;
+  max-width: 720px;
+}
+.pd-merch img {
+  width: 100%; height: auto; display: block;
+  background: transparent;
 }
 
 /* ============================================================
@@ -1409,9 +1460,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
     </div>
     <div class="cover-art">
       <figure class="cover-photo">
-        <span class="cp-feature-tag">feature panel</span>
-        <!-- swap with <img src="../images/projects/deadwax/cover-artist.png" alt="..."/> when ready -->
-        <span class="cp-placeholder" aria-hidden="true"></span>
+        <span class="cp-feature-tag">feature · mk.gee</span>
+        <img src="../images/projects/deadwax/mkgee/mkgee-halftone.png" alt="MK.gee · halftone portrait"/>
       </figure>
       <div class="cover-callouts">
         <div class="cover-co cco-pink">
@@ -1437,7 +1487,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   <div class="cover-foot">
     <div>editorial · art direction · zine system</div>
     <div class="cf-deliverables">
-      <span>ezine</span><span>poster</span><span>cards</span><span>stickers</span>
+      <span>ezine</span><span>poster</span><span>cards</span><span>stickers</span><span>merch</span>
     </div>
   </div>
 </header>
@@ -1477,6 +1527,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <span>Feature cards</span>
           <span>Poster system</span>
           <span>Sticker sheet</span>
+          <span>Issue merch</span>
           <span>Brand system</span>
         </div>
       </div>
@@ -1530,23 +1581,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
         <main class="ez-feed">
           <section class="ez-feature">
-            <div class="ez-photo">
-              <span class="ez-photo-fill" aria-hidden="true"></span>
+            <div class="ez-photo ez-photo-real">
+              <img src="../images/projects/deadwax/cezinando/image-cezinando2.jpeg" alt="Cezinando"/>
               <span class="ez-photo-num">01</span>
               <span class="ez-photo-tag">artist file</span>
             </div>
             <div class="ez-text">
               <div class="ez-meta">
                 <span>artist</span>
-                <span class="alt">post-punk</span>
-                <span>brooklyn</span>
+                <span class="alt">norsk rap · alt-pop</span>
+                <span>oslo</span>
               </div>
-              <h4>Static Garden</h4>
-              <p>Wiry guitar lines, drum-machine fog, and one of the cleanest live mixes coming out of the city. The new EP doubles as a slow-burn closer for late shifts.</p>
-              <span class="ez-rec">recommended track · "wide angle"</span>
+              <h4>Cezinando</h4>
+              <p>Norwegian rap that scans more like art-pop. Cezinando writes long, shifting songs with horn-section detours and lyrics built like short stories. Plays loud, hits soft.</p>
+              <span class="ez-rec">recommended track · "Sannheten"</span>
               <p class="ez-note">copied from the wall ✦</p>
               <div class="tag-row">
-                <span>new noise</span><span class="alt">listen first</span><span>field recording</span>
+                <span>new noise</span><span class="alt">listen first</span><span>norsk</span>
               </div>
             </div>
           </section>
@@ -1554,22 +1605,22 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <hr class="ez-divider"/>
 
           <section class="ez-feature flip">
-            <div class="ez-photo ez-photo-acid">
-              <span class="ez-photo-fill" aria-hidden="true"></span>
+            <div class="ez-photo ez-photo-real">
+              <img src="../images/projects/deadwax/mkgee/mkgee-image1.jpg" alt="MK.gee"/>
               <span class="ez-photo-num">02</span>
               <span class="ez-photo-tag">track notes</span>
             </div>
             <div class="ez-text">
               <div class="ez-meta">
                 <span>artist</span>
-                <span class="alt">ambient · loops</span>
-                <span>kyoto</span>
+                <span class="alt">indie · experimental</span>
+                <span>new jersey</span>
               </div>
-              <h4>Hana Watanabe</h4>
-              <p>Tape loops, weather, half-finished hymns. Built from one room mic and a broken cassette deck. The recordings sound like a window left open.</p>
-              <span class="ez-rec">recommended track · "second floor light"</span>
+              <h4>MK.gee</h4>
+              <p>Mike Gordon recording in a fog. Reverb, blur, half-spoken hooks, and guitar tones that feel like they were dragged through a tape machine. <em>Two Star &amp; The Dream Police</em> sounds like a record made alone at four in the morning.</p>
+              <span class="ez-rec">recommended track · "Are You Looking Up"</span>
               <div class="tag-row">
-                <span>field recording</span><span>loops</span><span class="alt">recommended</span>
+                <span>field recording</span><span>tape</span><span class="alt">recommended</span>
               </div>
             </div>
           </section>
@@ -1577,20 +1628,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <hr class="ez-divider"/>
 
           <section class="ez-feature">
-            <div class="ez-photo ez-photo-sky">
-              <span class="ez-photo-fill" aria-hidden="true"></span>
+            <div class="ez-photo ez-photo-real">
+              <img src="../images/projects/deadwax/remiwolf/image-remi1.png" alt="Remi Wolf"/>
               <span class="ez-photo-num">03</span>
               <span class="ez-photo-tag">feature</span>
             </div>
             <div class="ez-text">
               <div class="ez-meta">
-                <span>band</span>
-                <span class="alt">noise pop</span>
-                <span>portland</span>
+                <span>artist</span>
+                <span class="alt">funk-pop · alt</span>
+                <span>los angeles</span>
               </div>
-              <h4>Sour Patch Saints</h4>
-              <p>Three-piece, bedroom-loud, half their songs end in feedback. Tracklist annotated by the band themselves and copied without permission.</p>
-              <span class="ez-rec">recommended track · "tape teeth"</span>
+              <h4>Remi Wolf</h4>
+              <p>Color-saturated funk-pop with a horn section, a yelp, and a sense of humor. Songs that feel like the kind of party you only get invited to once. Built loud, mixed loud, played louder.</p>
+              <span class="ez-rec">recommended track · "Photo ID"</span>
               <p class="ez-note">listen at volume.</p>
             </div>
           </section>
@@ -1599,11 +1650,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
         <aside class="ez-side" aria-label="Issue sidebar">
           <h5>Now spinning</h5>
           <ul class="ez-side-pl">
-            <li><span>01</span><strong>Static Garden</strong> wide angle</li>
-            <li><span>02</span><strong>Hana W.</strong> second floor light</li>
-            <li><span>03</span><strong>Sour Patch Saints</strong> tape teeth</li>
-            <li><span>04</span><strong>Deer Pavilion</strong> drift days</li>
-            <li><span>05</span><strong>Mira ロー</strong> low ferry</li>
+            <li><span>01</span><strong>Cezinando</strong> Sannheten</li>
+            <li><span>02</span><strong>MK.gee</strong> Are You Looking Up</li>
+            <li><span>03</span><strong>Remi Wolf</strong> Photo ID</li>
+            <li><span>04</span><strong>Cezinando</strong> Håper du har plass</li>
+            <li><span>05</span><strong>MK.gee</strong> Candy</li>
+            <li><span>06</span><strong>Remi Wolf</strong> Liquor Store</li>
           </ul>
           <div class="ez-side-mood">mood · soft static, late shift, last train.</div>
           <h5>Read next</h5>
@@ -1653,104 +1705,55 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
     <div class="af-grid">
       <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
+        <div class="af-photo af-photo-real">
+          <img src="../images/projects/deadwax/cezinando/cezinando-halftone.png" alt="Cezinando · halftone"/>
           <span class="af-photo-mark">artist 01</span>
           <span class="af-photo-stamp">listen first</span>
         </div>
         <div class="af-body">
-          <h4>Static Garden</h4>
+          <h4>Cezinando</h4>
           <div class="af-meta">
-            <span class="fill">post-punk</span>
-            <span>brooklyn</span>
-            <span>2024 →</span>
+            <span class="fill">norsk rap · alt-pop</span>
+            <span>oslo</span>
+            <span>2015 →</span>
           </div>
-          <span class="af-track">wide angle · 3:42</span>
-          <p>Wiry guitar lines and drum-machine fog. Best heard on a late shift.</p>
+          <span class="af-track">Sannheten · 3:42</span>
+          <p>Long, shifting songs with horn-section detours and lyrics built like short stories. Plays loud, hits soft.</p>
           <span class="af-note">copied from the wall ✦</span>
         </div>
       </article>
 
       <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
+        <div class="af-photo af-photo-real">
+          <img src="../images/projects/deadwax/mkgee/mkgee-halftone.png" alt="MK.gee · halftone"/>
           <span class="af-photo-mark alt">new noise</span>
-        </div>
-        <div class="af-body">
-          <h4>Hana Watanabe</h4>
-          <div class="af-meta">
-            <span class="fill">ambient · loops</span>
-            <span>kyoto</span>
-          </div>
-          <span class="af-track">second floor light · 6:08</span>
-          <p>Tape loops, weather, half-finished hymns. Sounds like a window left open.</p>
-        </div>
-      </article>
-
-      <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
-          <span class="af-photo-mark">artist 03</span>
           <span class="af-photo-stamp">play loud</span>
         </div>
         <div class="af-body">
-          <h4>Sour Patch Saints</h4>
+          <h4>MK.gee</h4>
           <div class="af-meta">
-            <span class="fill">noise pop</span>
-            <span>portland</span>
+            <span class="fill">indie · experimental</span>
+            <span>new jersey</span>
           </div>
-          <span class="af-track">tape teeth · 2:51</span>
-          <p>Three-piece, bedroom-loud, half their songs end in feedback.</p>
+          <span class="af-track">Are You Looking Up · 3:24</span>
+          <p>Reverb, blur, half-spoken hooks, and guitar tones dragged through a tape machine. Sounds like a record made alone at 4am.</p>
         </div>
       </article>
 
       <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
-          <span class="af-photo-mark">artist 04</span>
+        <div class="af-photo af-photo-real">
+          <img src="../images/projects/deadwax/remiwolf/remiwolf-halftone.png" alt="Remi Wolf · halftone"/>
+          <span class="af-photo-mark">artist 03</span>
+          <span class="af-photo-stamp">recommended</span>
         </div>
         <div class="af-body">
-          <h4>Deer Pavilion</h4>
+          <h4>Remi Wolf</h4>
           <div class="af-meta">
-            <span class="fill">slow-core</span>
-            <span>chicago</span>
+            <span class="fill">funk-pop · alt</span>
+            <span>los angeles</span>
           </div>
-          <span class="af-track">drift days · 4:17</span>
-          <p>Two voices, one room. The kind of record you only play after dark.</p>
-          <span class="af-note">recommended ✦</span>
-        </div>
-      </article>
-
-      <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
-          <span class="af-photo-mark alt">recommended</span>
-        </div>
-        <div class="af-body">
-          <h4>Mira ロー</h4>
-          <div class="af-meta">
-            <span class="fill">drone · vocal</span>
-            <span>osaka</span>
-          </div>
-          <span class="af-track">low ferry · 5:33</span>
-          <p>Long held vowels and a single field recording from the harbor at 4am.</p>
-        </div>
-      </article>
-
-      <article class="af-card">
-        <div class="af-photo">
-          <span class="af-photo-fill" aria-hidden="true"></span>
-          <span class="af-photo-mark">artist 06</span>
-          <span class="af-photo-stamp">issue 01</span>
-        </div>
-        <div class="af-body">
-          <h4>Cassette North</h4>
-          <div class="af-meta">
-            <span class="fill">shoegaze</span>
-            <span>montreal</span>
-          </div>
-          <span class="af-track">mall fog · 4:02</span>
-          <p>Reverb on every channel. Recorded in a mall after hours, mixed in a car.</p>
+          <span class="af-track">Photo ID · 3:09</span>
+          <p>Color-saturated funk-pop with a horn section, a yelp, and a sense of humor. Built loud, mixed loud, played louder.</p>
         </div>
       </article>
     </div>
@@ -1804,14 +1807,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <div class="pdz-spread-art" aria-hidden="true"></div>
           <div class="pdz-spread-text">
             <div>
-              <strong>Static Garden</strong>
-              post-punk · brooklyn<br/>
-              wiry guitars, drum-machine fog. recommended cut: wide angle.
+              <strong>Cezinando</strong>
+              norsk rap · oslo<br/>
+              long, shifting songs with horn-section detours. recommended cut: Sannheten.
             </div>
             <div>
-              <strong>Hana W.</strong>
-              ambient loops · kyoto<br/>
-              one room mic, broken cassette. recommended cut: second floor light.
+              <strong>MK.gee</strong>
+              indie · new jersey<br/>
+              reverb, blur, half-spoken hooks. recommended cut: Are You Looking Up.
             </div>
           </div>
         </article>
@@ -1825,27 +1828,33 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <div class="pd-cards">
         <div class="pd-card">
           <div class="pdc-bar"><span>card 01</span><span>iss 01</span></div>
-          <div class="pdc-photo" aria-hidden="true"></div>
-          <div class="pdc-name">Static Garden</div>
-          <div class="pdc-track">wide angle · 3:42</div>
+          <div class="pdc-photo pdc-photo-real">
+            <img src="../images/projects/deadwax/cezinando/cezinando-halftone.png" alt="Cezinando"/>
+          </div>
+          <div class="pdc-name">Cezinando</div>
+          <div class="pdc-track">Sannheten · 3:42</div>
         </div>
         <div class="pd-card">
           <div class="pdc-bar"><span>card 02</span><span>iss 01</span></div>
-          <div class="pdc-photo" aria-hidden="true"></div>
-          <div class="pdc-name">Hana W.</div>
-          <div class="pdc-track">second floor light · 6:08</div>
+          <div class="pdc-photo pdc-photo-real">
+            <img src="../images/projects/deadwax/mkgee/mkgee-halftone.png" alt="MK.gee"/>
+          </div>
+          <div class="pdc-name">MK.gee</div>
+          <div class="pdc-track">Are You Looking Up · 3:24</div>
         </div>
         <div class="pd-card">
           <div class="pdc-bar"><span>card 03</span><span>iss 01</span></div>
-          <div class="pdc-photo" aria-hidden="true"></div>
-          <div class="pdc-name">Sour Patch</div>
-          <div class="pdc-track">tape teeth · 2:51</div>
+          <div class="pdc-photo pdc-photo-real">
+            <img src="../images/projects/deadwax/remiwolf/remiwolf-halftone.png" alt="Remi Wolf"/>
+          </div>
+          <div class="pdc-name">Remi Wolf</div>
+          <div class="pdc-track">Photo ID · 3:09</div>
         </div>
         <div class="pd-card">
           <div class="pdc-bar"><span>card 04</span><span>iss 01</span></div>
-          <div class="pdc-photo" aria-hidden="true"></div>
-          <div class="pdc-name">Deer Pavilion</div>
-          <div class="pdc-track">drift days · 4:17</div>
+          <div class="pdc-photo" aria-hidden="true" style="background: var(--ink); display:grid; place-items:center; color:var(--cream); font-family:var(--display); font-size:36px; line-height:0.85; letter-spacing:-0.02em;">DEAD<br/>WAX</div>
+          <div class="pdc-name" style="color:var(--ink);">Issue 01</div>
+          <div class="pdc-track">collect &middot; tape &middot; trade</div>
         </div>
       </div>
     </div>
@@ -1864,14 +1873,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <h4 class="pp-title">Spring<br/>tracklist</h4>
 
           <ul class="pp-tracklist">
-            <li><span>01</span><span><strong>Static Garden</strong> · wide angle</span><span class="pp-time">3:42</span></li>
-            <li><span>02</span><span><strong>Hana W.</strong> · second floor light</span><span class="pp-time">6:08</span></li>
-            <li><span>03</span><span><strong>Sour Patch Saints</strong> · tape teeth</span><span class="pp-time">2:51</span></li>
-            <li><span>04</span><span><strong>Deer Pavilion</strong> · drift days</span><span class="pp-time">4:17</span></li>
-            <li><span>05</span><span><strong>Mira ロー</strong> · low ferry</span><span class="pp-time">5:33</span></li>
-            <li><span>06</span><span><strong>Cassette North</strong> · mall fog</span><span class="pp-time">4:02</span></li>
-            <li><span>07</span><span><strong>Drift Pageant</strong> · last train</span><span class="pp-time">3:11</span></li>
-            <li><span>08</span><span><strong>Lo Tide</strong> · split signal</span><span class="pp-time">5:30</span></li>
+            <li><span>01</span><span><strong>Cezinando</strong> · Sannheten</span><span class="pp-time">3:42</span></li>
+            <li><span>02</span><span><strong>MK.gee</strong> · Are You Looking Up</span><span class="pp-time">3:24</span></li>
+            <li><span>03</span><span><strong>Remi Wolf</strong> · Photo ID</span><span class="pp-time">3:09</span></li>
+            <li><span>04</span><span><strong>Cezinando</strong> · Håper du har plass</span><span class="pp-time">4:03</span></li>
+            <li><span>05</span><span><strong>MK.gee</strong> · Candy</span><span class="pp-time">3:33</span></li>
+            <li><span>06</span><span><strong>Remi Wolf</strong> · Liquor Store</span><span class="pp-time">3:32</span></li>
+            <li><span>07</span><span><strong>MK.gee</strong> · Rylee &amp; I</span><span class="pp-time">3:48</span></li>
+            <li><span>08</span><span><strong>Remi Wolf</strong> · Hello Hello Hello</span><span class="pp-time">2:40</span></li>
           </ul>
 
           <span class="pp-note n1">play loud</span>
@@ -1901,6 +1910,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <div class="pd-sticker s-ink"><span class="pds-circle">copy<br/>+ paste</span></div>
         </div>
       </div>
+    </div>
+
+    <!-- 4.5 Merch / Hoodie -->
+    <div class="pd-sub" id="pd-merch">
+      <h3><span class="pd-sub-num">04.5</span> Merch</h3>
+      <p>One simple piece of issue merch per release. The hoodie carries the masthead, an issue number, and one pull-quote — the same hierarchy used on the printed cover. Worn like a back-cover, not a logo drop.</p>
+      <figure class="pd-merch" aria-label="Deadwax issue hoodie mockup">
+        <img src="../images/projects/deadwax/mockups/deadwax-hoodie.png" alt="Deadwax issue hoodie"/>
+      </figure>
     </div>
 
     <ul class="bullet-list" style="margin-top: 28px;">
