@@ -87,7 +87,8 @@ a { color: inherit; text-decoration: none; }
   flex: 1;
   padding: 4rem 2rem 6rem;
   display: grid;
-  grid-template-columns: minmax(220px, 360px) 1fr;
+  /* portrait column halved · was 220–360px, now 110–180px */
+  grid-template-columns: minmax(110px, 180px) 1fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
   max-width: 1240px;
@@ -221,7 +222,6 @@ a { color: inherit; text-decoration: none; }
 
 <header class="page-head">
   <span class="page-eyebrow">about // bio</span>
-  <h1 class="page-title">Sarah Peroni</h1>
 </header>
 
 <main class="about-page">
@@ -230,10 +230,6 @@ a { color: inherit; text-decoration: none; }
       <!-- swap with <img src="images/about/sarah.jpg" alt="Sarah Peroni"/> when ready -->
       <span class="about-photo-placeholder">portrait · drop image</span>
     </figure>
-    <div class="about-photo-meta">
-      <span>FILE 01</span>
-      <span>SP / DESIGN</span>
-    </div>
   </aside>
 
   <div class="about-body">
@@ -244,25 +240,6 @@ a { color: inherit; text-decoration: none; }
     <p>Professionally, I've worked across higher education, freelance branding, performing arts marketing, editorial design, and accessibility-focused design systems. I've created large-scale print pieces, social media systems, brand guides, digital interfaces, compliance documents, campaign assets, and portfolio-driven conceptual work. I'm especially interested in projects that combine <em>structure with atmosphere</em>: systems that are functional, visually distinct, and built around a strong central idea.</p>
 
     <p>My current work sits between <strong>brand design</strong>, <strong>digital experience</strong>, and <strong>art direction</strong>. I like building worlds around ideas, then translating those worlds into usable systems: websites, printed artifacts, interface concepts, visual identities, and campaign materials. Whether the project is practical, experimental, or somewhere between the two, I care about clarity, cohesion, and the details that make a visual system feel intentional.</p>
-
-    <span class="about-section-label">data // metrics</span>
-    <div class="about-stats">
-      <div class="stat"><div class="stat-num">8+</div><div class="stat-unit">Years Active</div></div>
-      <div class="stat"><div class="stat-num">60+</div><div class="stat-unit">Projects</div></div>
-      <div class="stat"><div class="stat-num">25+</div><div class="stat-unit">Clients</div></div>
-    </div>
-
-    <span class="about-section-label">services // capabilities</span>
-    <div class="services-grid">
-      <span class="service-item">Brand Identity</span>
-      <span class="service-item">UI/UX Design</span>
-      <span class="service-item">Creative Direction</span>
-      <span class="service-item">Illustration</span>
-      <span class="service-item">Packaging</span>
-      <span class="service-item">Web Design</span>
-      <span class="service-item">Art Direction</span>
-      <span class="service-item">Motion</span>
-    </div>
 
     <a href="https://www.linkedin.com/in/sarahperoni/" target="_blank" rel="noopener" class="about-linkedin">
       Connect on LinkedIn →
