@@ -1044,12 +1044,16 @@ const revealObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-// ——— Smooth nav scroll ———
+// ——— Smooth nav scroll · only for in-page anchors. Cross-page links
+//     like about.html and contact.html navigate normally. ———
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', e => {
+    const href = link.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;          // let real pages load
+    const t = document.querySelector(href);
+    if (!t) return;
     e.preventDefault();
-    const t = document.querySelector(link.getAttribute('href'));
-    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
