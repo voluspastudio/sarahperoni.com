@@ -1224,15 +1224,30 @@ button { font: inherit; color: inherit; cursor: pointer; }
   background: transparent;
 }
 
-/* 4.3 · Social media mockups · pair of phone-style posts */
+/* 4.3 · Social media mockups · stacked vertically so each scales up
+   to the panel width. Labels differentiate posts vs. stories/reels. */
 .pd-socials {
-  margin: 18px 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
-  align-items: start;
+  margin: 18px auto 0;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
-.pd-social { margin: 0; }
+.pd-social {
+  margin: 0;
+  position: relative;
+}
+.pd-social-label {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  margin-bottom: 10px;
+}
 .pd-social img {
   width: 100%; height: auto; display: block;
   background: transparent;
@@ -1884,11 +1899,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <h3><span class="pd-sub-num">04.3</span> Social Media</h3>
       <p>The social media system extends the ezine onto Instagram and other feeds. Posts adapt the artist file format into single-image and carousel layouts so each new feature lands as a recognizable piece of the system.</p>
       <div class="pd-socials">
-        <figure class="pd-social" aria-label="Deadwax social post 01">
-          <img src="../images/projects/deadwax/deadwax/deadwax-socials1.png" alt="Deadwax social media post"/>
+        <figure class="pd-social" aria-label="Deadwax · feed posts">
+          <span class="pd-social-label">posts</span>
+          <img src="../images/projects/deadwax/deadwax/deadwax-socials1.png" alt="Deadwax · feed posts"/>
         </figure>
-        <figure class="pd-social" aria-label="Deadwax social post 02">
-          <img src="../images/projects/deadwax/deadwax/deadwax-socials2.png" alt="Deadwax social media post"/>
+        <figure class="pd-social" aria-label="Deadwax · stories and reels">
+          <span class="pd-social-label">stories / reels</span>
+          <img src="../images/projects/deadwax/deadwax/deadwax-socials2.png" alt="Deadwax · stories and reels"/>
         </figure>
       </div>
     </div>
