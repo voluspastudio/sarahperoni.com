@@ -137,11 +137,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
    ============================================================ */
 .cover {
   position: relative;
-  min-height: 100vh;
+  /* shorter hero · masthead-only, blue background ends earlier */
+  min-height: clamp(360px, 56vh, 560px);
   background: var(--sky);
   border-bottom: 4px solid var(--ink);
   overflow: hidden;
-  padding: 96px var(--pad) clamp(40px, 6vw, 80px);
+  padding: 96px var(--pad) clamp(28px, 4vw, 48px);
   display: grid;
   grid-template-columns: 1fr;
   align-content: space-between;
@@ -194,6 +195,22 @@ button { font: inherit; color: inherit; cursor: pointer; }
   text-shadow:
      6px 6px 0 var(--pink),
     12px 12px 0 var(--acid);
+  /* digital glitch · the masthead falls out of focus, snaps back to a
+     blocky pixelated read, blurs again, then re-focuses · loops slowly */
+  animation: mast-pixel-glitch 7s steps(1, end) infinite;
+  will-change: filter, transform;
+}
+@keyframes mast-pixel-glitch {
+  0%   { filter: blur(0)   contrast(1);    transform: translate(0,0); }
+  18%  { filter: blur(7px) contrast(0.85); transform: translate(0,0); }
+  32%  { filter: blur(0)   contrast(1.6) saturate(0.9); transform: translate(0.5px, -0.5px); }
+  44%  { filter: blur(0)   contrast(1);    transform: translate(0,0); }
+  62%  { filter: blur(4px) contrast(0.95); transform: translate(-0.5px, 0); }
+  78%  { filter: blur(0)   contrast(1.5);  transform: translate(0.5px, 0); }
+  100% { filter: blur(0)   contrast(1);    transform: translate(0,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-mast h1 { animation: none; }
 }
 .cover-mast .mast-tag {
   position: absolute;
@@ -1530,13 +1547,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
         <p>The system covers the digital page, the printed issue, and the artifacts that live between them.</p>
         <div class="ov-deliverables" style="margin-top: 14px;">
           <span>Digital ezine</span>
-          <span>Artist spotlight system</span>
-          <span>Issue cover</span>
-          <span>Printed ezine</span>
-          <span>Social media</span>
-          <span>T-shirt</span>
-          <span>Cassette tape</span>
-          <span>Brand system</span>
+          <span>Printable zine</span>
+          <span>Shirts</span>
+          <span>Cassette</span>
+          <span>Social media campaign</span>
         </div>
       </div>
     </div>
@@ -1676,12 +1690,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </div>
     </article>
 
-    <ul class="bullet-list" style="margin-top: 28px; max-width: 720px;">
-      <li>Cascading artist sections with overlapping cutouts</li>
-      <li>Small metadata columns + side issue rail</li>
-      <li>Repeated tag system: about · artist · track · genre · mood</li>
-      <li>Side notes and handwritten annotations as accents</li>
-    </ul>
   </div>
 </section>
 
@@ -1765,11 +1773,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </article>
     </div>
 
-    <ul class="bullet-list" style="margin-top: 28px;">
-      <li>Image · mark · title · metadata · short note</li>
-      <li>Duotone / halftone / photocopy treatment per card</li>
-      <li>Card grid feels collected, not curated</li>
-    </ul>
   </div>
 </section>
 
@@ -1840,12 +1843,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </figure>
     </div>
 
-    <ul class="bullet-list" style="margin-top: 28px;">
-      <li>Tactile, printed, slightly imperfect. Not luxury merch.</li>
-      <li>Same artist-file logic as the digital ezine</li>
-      <li>Color and metadata stays consistent across surfaces</li>
-      <li>Designed to be folded, taped, or passed along</li>
-    </ul>
   </div>
 </section>
 
@@ -1933,31 +1930,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
         </div>
       </div>
 
-      <!-- LAYOUT + MARKS -->
-      <div class="bs-block">
-        <h3>Layout &amp; marks</h3>
-        <p>Cascading cards, uneven columns, side labels, issue metadata, handwritten arrows. Dense scrolling sections held together by repeated tags and small stamps.</p>
-        <ul class="bs-rules">
-          <li>Use large flat color fields</li>
-          <li>Treat images like cutouts, photocopies, or zine panels</li>
-          <li>Keep metadata visible</li>
-          <li>Use handwritten marks as accents, not decoration</li>
-          <li>Let layouts feel dense, but keep section logic consistent</li>
-          <li>Use issue numbers and category tags to organize content</li>
-          <li>Mix digital scrolling layouts with print ephemera</li>
-        </ul>
-        <div class="bs-marks">
-          <span class="alt">about</span>
-          <span class="pink">artist</span>
-          <span class="marker">track</span>
-          <span>genre</span>
-          <span class="alt">mood</span>
-          <span class="red">new noise</span>
-          <span class="marker">listen first</span>
-          <span>recommended</span>
-          <span class="pink">issue 01</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
