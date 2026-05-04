@@ -15,20 +15,34 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Loud zine palette */
-  --acid:        #B8FF3C;   /* main editorial green */
-  --acid-d:      #95d220;
-  --pink:        #FF3F8B;   /* artist features, callouts */
-  --pink-d:      #d12970;
-  --sky:         #5FC9FF;   /* hero, cover energy */
-  --sky-d:       #3da9e8;
-  --cream:       #F4EFE5;   /* off-white */
-  --cream-d:     #E5DCC8;
-  --ink:         #0F0F0F;   /* near-black */
-  --ink-soft:    #2a2a2a;
-  --marker:      #FFEC3D;   /* highlights, track marks */
-  --xerox-red:   #FF2E2E;   /* stamps, attention */
-  --gray:        #c8c4be;
+  /* Subdued indie zine palette · faded, printed, slightly sun-worn */
+  --washed-grass:   #6F8F4E;   /* main editorial green · base */
+  --washed-grass-d: #5a7440;
+  --dusty-sky:      #8FB7C9;   /* cover, hero contrast */
+  --dusty-sky-d:    #74a0b3;
+  --faded-rose:     #D86F8D;   /* artist features, callouts */
+  --faded-rose-d:   #b95775;
+  --newsprint:      #EFE6D2;   /* main base · paper */
+  --newsprint-d:    #dcd3bd;
+  --ink-black:      #171717;   /* type, photocopy texture */
+  --ink-soft:       #2e2e2e;
+  --mustard:        #C5A23A;   /* annotations, highlights · accent */
+  --brick:          #A84236;   /* stamps, issue marks · accent */
+  --concrete:       #8D8A82;   /* neutral / inactive UI */
+
+  /* Legacy aliases · keep old selectors working without rewrites */
+  --acid:        var(--washed-grass);
+  --acid-d:      var(--washed-grass-d);
+  --pink:        var(--faded-rose);
+  --pink-d:      var(--faded-rose-d);
+  --sky:         var(--dusty-sky);
+  --sky-d:       var(--dusty-sky-d);
+  --cream:       var(--newsprint);
+  --cream-d:     var(--newsprint-d);
+  --ink:         var(--ink-black);
+  --marker:      var(--mustard);
+  --xerox-red:   var(--brick);
+  --gray:        var(--concrete);
 
   /* Type stack */
   --display: 'Anton', 'Inter', 'Impact', sans-serif;        /* mastheads */
@@ -132,7 +146,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* halftone dots overlay for printed feel */
 .cover::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(15,15,15,0.16) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgba(23,23,23,0.16) 1px, transparent 1.5px);
   background-size: 4px 4px;
   opacity: 0.5;
   mix-blend-mode: multiply;
@@ -141,7 +155,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cover::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
-    repeating-linear-gradient(0deg, rgba(15,15,15,0.04) 0 1px, transparent 1px 4px);
+    repeating-linear-gradient(0deg, rgba(23,23,23,0.04) 0 1px, transparent 1px 4px);
   opacity: 0.6;
 }
 .cover-bar {
@@ -531,7 +545,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   display: flex; flex-direction: column;
   gap: 28px;
   background:
-    repeating-linear-gradient(0deg, transparent 0 39px, rgba(15,15,15,0.06) 39px 40px),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(23,23,23,0.06) 39px 40px),
     var(--cream);
 }
 .ez-feature {
@@ -673,7 +687,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .ez-side .ez-side-pl li {
   display: flex; gap: 8px; align-items: baseline;
   list-style: none;
-  border-bottom: 1px dashed rgba(244,239,229,0.2);
+  border-bottom: 1px dashed rgba(239,230,210,0.2);
   padding-bottom: 4px;
 }
 .ez-side .ez-side-pl li span:first-child {
@@ -912,7 +926,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .pd-zine-page::after {
   content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(15,15,15,0.12) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgba(23,23,23,0.12) 1px, transparent 1.5px);
   background-size: 4px 4px;
   pointer-events: none;
   opacity: 0.5;
@@ -1069,7 +1083,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .pd-poster::after {
   /* halftone dots overlay on poster */
   content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(15,15,15,0.15) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgba(23,23,23,0.15) 1px, transparent 1.5px);
   background-size: 5px 5px;
   pointer-events: none;
   opacity: 0.55;
@@ -1109,7 +1123,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   display: grid;
   grid-template-columns: 28px 1fr auto;
   gap: 10px;
-  border-bottom: 1.5px dashed rgba(15,15,15,0.45);
+  border-bottom: 1.5px dashed rgba(23,23,23,0.45);
   padding: 5px 6px;
 }
 .pd-poster .pp-tracklist li span:first-child { color: var(--xerox-red); font-weight: 700; }
@@ -1151,8 +1165,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   gap: 0;
   /* perforation marks between cells */
   background:
-    repeating-linear-gradient(0deg, transparent 0 109px, rgba(15,15,15,0.3) 109px 110px),
-    repeating-linear-gradient(90deg, transparent 0 109px, rgba(15,15,15,0.3) 109px 110px);
+    repeating-linear-gradient(0deg, transparent 0 109px, rgba(23,23,23,0.3) 109px 110px),
+    repeating-linear-gradient(90deg, transparent 0 109px, rgba(23,23,23,0.3) 109px 110px);
 }
 .pd-sticker {
   aspect-ratio: 1 / 1;
@@ -1274,6 +1288,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bs-sw.ink    { background: var(--ink);      color: var(--cream); border-color: var(--cream); }
 .bs-sw.marker { background: var(--marker);   color: var(--ink); }
 .bs-sw.red    { background: var(--xerox-red); color: var(--cream); }
+.bs-sw.concrete { background: var(--concrete); color: var(--ink); }
 
 /* type spec */
 .bs-type {
@@ -1331,7 +1346,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .bs-img-tile.t-halftone {
   background:
-    radial-gradient(rgba(15,15,15,0.85) 1.5px, transparent 2px),
+    radial-gradient(rgba(23,23,23,0.85) 1.5px, transparent 2px),
     var(--acid);
   background-size: 6px 6px, auto;
 }
@@ -1950,7 +1965,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
     <div class="section-intro" style="color: var(--cream);">
       <p class="si-lead" style="color: var(--cream);">Loud color fields, rough image treatment, handwritten marks, dense editorial grids, music-culture metadata.</p>
-      <div class="si-body" style="color: rgba(244,239,229,0.85);">
+      <div class="si-body" style="color: rgba(239,230,210,0.85);">
         <p>The system is designed to feel collected and immediate, while still keeping artist features and playlists readable. Sections lean on flat color blocks, photocopy textures, issue numbers, and small tags so the content always feels like part of an issue.</p>
       </div>
     </div>
@@ -1959,15 +1974,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <!-- PALETTE -->
       <div class="bs-block">
         <h3>Palette</h3>
-        <p>A loud, limited palette. Acid green carries digital sections, hot pink runs the artist features, sky blue holds the cover, marker yellow and Xerox red live in the marks and stamps. Cream grounds the print, ink locks everything down.</p>
+        <p>A subdued indie-zine palette · faded, printed, slightly sun-worn. Washed grass and newsprint cream are the base. Dusty sky and faded rose vary the section panels. Ink black holds the type and photocopy texture. Muted mustard and brick red live only in the annotations, stamps, and issue marks.</p>
         <div class="bs-palette">
-          <div class="bs-sw acid"><span class="bs-sw-name">Acid<br/>Green</span><span class="bs-sw-hex">#B8FF3C</span></div>
-          <div class="bs-sw pink"><span class="bs-sw-name">Hot<br/>Pink</span><span class="bs-sw-hex">#FF3F8B</span></div>
-          <div class="bs-sw sky"><span class="bs-sw-name">Sky<br/>Blue</span><span class="bs-sw-hex">#5FC9FF</span></div>
-          <div class="bs-sw cream"><span class="bs-sw-name">Off<br/>White</span><span class="bs-sw-hex">#F4EFE5</span></div>
-          <div class="bs-sw ink"><span class="bs-sw-name">Black<br/>Ink</span><span class="bs-sw-hex">#0F0F0F</span></div>
-          <div class="bs-sw marker"><span class="bs-sw-name">Marker<br/>Yellow</span><span class="bs-sw-hex">#FFEC3D</span></div>
-          <div class="bs-sw red"><span class="bs-sw-name">Xerox<br/>Red</span><span class="bs-sw-hex">#FF2E2E</span></div>
+          <div class="bs-sw acid"><span class="bs-sw-name">Washed<br/>Grass</span><span class="bs-sw-hex">#6F8F4E</span></div>
+          <div class="bs-sw sky"><span class="bs-sw-name">Dusty<br/>Sky</span><span class="bs-sw-hex">#8FB7C9</span></div>
+          <div class="bs-sw pink"><span class="bs-sw-name">Faded<br/>Rose</span><span class="bs-sw-hex">#D86F8D</span></div>
+          <div class="bs-sw cream"><span class="bs-sw-name">Newsprint<br/>Cream</span><span class="bs-sw-hex">#EFE6D2</span></div>
+          <div class="bs-sw ink"><span class="bs-sw-name">Ink<br/>Black</span><span class="bs-sw-hex">#171717</span></div>
+          <div class="bs-sw marker"><span class="bs-sw-name">Muted<br/>Mustard</span><span class="bs-sw-hex">#C5A23A</span></div>
+          <div class="bs-sw red"><span class="bs-sw-name">Brick<br/>Red</span><span class="bs-sw-hex">#A84236</span></div>
+          <div class="bs-sw concrete"><span class="bs-sw-name">Concrete<br/>Gray</span><span class="bs-sw-hex">#8D8A82</span></div>
         </div>
       </div>
 
