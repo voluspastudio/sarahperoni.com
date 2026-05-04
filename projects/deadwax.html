@@ -4,179 +4,2036 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deadwax — Sarah Peroni</title>
+<meta name="description" content="Deadwax · a music ezine and visual culture archive for artist discovery, playlists, and band-driven design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Permanent+Marker&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   DEADWAX · MUSIC EZINE / VISUAL CULTURE ARCHIVE
+   ============================================================ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --black: #e8e4de;
-  --cream: #0a0a0a;
-  --cream-dim: #2a2820;
-  --warm-gray: #5a5448;
-  --mid-gray: #7a7670;
-  --dark-gray: #c8c4be;
-  --green: #5a7a4a;
-  --green-bright: #7a9a6a;
-  --green-dim: #3a5a2a;
-  --font-display: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Loud zine palette */
+  --acid:        #B8FF3C;   /* main editorial green */
+  --acid-d:      #95d220;
+  --pink:        #FF3F8B;   /* artist features, callouts */
+  --pink-d:      #d12970;
+  --sky:         #5FC9FF;   /* hero, cover energy */
+  --sky-d:       #3da9e8;
+  --cream:       #F4EFE5;   /* off-white */
+  --cream-d:     #E5DCC8;
+  --ink:         #0F0F0F;   /* near-black */
+  --ink-soft:    #2a2a2a;
+  --marker:      #FFEC3D;   /* highlights, track marks */
+  --xerox-red:   #FF2E2E;   /* stamps, attention */
+  --gray:        #c8c4be;
+
+  /* Type stack */
+  --display: 'Anton', 'Inter', 'Impact', sans-serif;        /* mastheads */
+  --headline: 'Bebas Neue', 'Inter', 'Impact', sans-serif;  /* section heads */
+  --body:    'Space Grotesk', system-ui, sans-serif;        /* body */
+  --mono:    'JetBrains Mono', 'Courier New', monospace;    /* metadata + catalog */
+  --hand:    'Permanent Marker', 'Caveat', cursive;         /* annotations */
+
+  --pad: clamp(20px, 5vw, 64px);
 }
+
 html { scroll-behavior: smooth; }
-body { font-family: var(--font-mono); background: var(--black); color: var(--cream); -webkit-font-smoothing: antialiased; }
+body {
+  margin: 0;
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; cursor: pointer; }
+::selection { background: var(--marker); color: var(--ink); }
 
-/* Nav */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1.25rem 2rem;
+/* ============================================================
+   SITE NAV · keep portfolio chrome consistent
+   ============================================================ */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 14px 22px;
   display: flex; justify-content: space-between; align-items: center;
-  background: rgba(232, 228, 222, 0.9); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--dark-gray);
+  background: var(--ink);
+  color: var(--cream);
+  border-bottom: 2px solid var(--acid);
 }
-.nav-logo { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0a0a0a; }
-.nav-back { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-gray); transition: color 0.3s; }
-.nav-back:hover { color: var(--cream); }
+.site-nav-logo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.site-nav-logo img { height: 16px; width: auto; display: block; filter: invert(1) brightness(1.05); }
+.site-nav-back {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream);
+  transition: color 0.2s;
+}
+.site-nav-back:hover { color: var(--acid); }
 
-/* Hero */
-.project-hero {
-  padding: 8rem 2rem 4rem;
-  max-width: 1200px; margin: 0 auto;
+/* ============================================================
+   ISSUE TABLE OF CONTENTS · sticky right-side nav
+   ============================================================ */
+.issue-toc {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 60;
+  background: var(--ink);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  border-right: 0;
+  padding: 10px 14px 10px 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
-.project-meta {
-  display: flex; gap: 0.4rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+.issue-toc::before {
+  content: 'issue 01 · contents';
+  display: block;
+  font-family: var(--mono); font-size: 9px;
+  color: var(--acid);
+  border-bottom: 1px dashed var(--acid);
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  letter-spacing: 0.18em;
 }
-.project-tag {
-  font-family: var(--font-mono); font-size: 0.45rem;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--green); border: 1px solid var(--green-dim);
-  padding: 0.15rem 0.5rem;
+.issue-toc a {
+  display: flex; gap: 8px; align-items: baseline;
+  color: var(--cream);
+  padding: 2px 0;
+  transition: color 0.2s, background 0.2s;
 }
-.project-title {
-  font-family: var(--font-display); font-weight: 900;
-  font-size: clamp(3rem, 8vw, 6rem); line-height: 1;
-  letter-spacing: -0.03em; margin-bottom: 1rem;
-}
-.project-subtitle {
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
-  color: var(--warm-gray); line-height: 1.8; max-width: 600px;
-  margin-bottom: 2rem;
-}
-.project-coord {
-  font-family: var(--font-mono); font-size: 0.5rem;
-  color: var(--mid-gray); letter-spacing: 0.1em;
-}
-
-/* Hero Image */
-.project-hero-img {
-  width: 100%; max-width: 1200px; margin: 0 auto 4rem;
-  padding: 0 2rem;
-}
-.project-hero-img img {
-  width: 100%; height: auto; display: block;
-  border: 1px solid var(--dark-gray);
-}
-
-/* Content Sections */
-.project-content {
-  max-width: 800px; margin: 0 auto;
-  padding: 0 2rem 4rem;
-}
-.project-content h2 {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: 1.8rem; margin-bottom: 1.5rem;
-}
-.project-content p {
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
-  color: var(--cream-dim); line-height: 1.9; margin-bottom: 1.5rem;
+.issue-toc a:hover { color: var(--acid); }
+.issue-toc a span:first-child { color: var(--marker); width: 18px; }
+@media (max-width: 880px) {
+  .issue-toc { display: none; }
 }
 
-/* Image Grid */
-.project-images {
-  max-width: 1200px; margin: 0 auto;
-  padding: 0 2rem 4rem;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+/* ============================================================
+   HERO · ISSUE COVER
+   ============================================================ */
+.cover {
+  position: relative;
+  min-height: 100vh;
+  background: var(--sky);
+  border-bottom: 4px solid var(--ink);
+  overflow: hidden;
+  padding: 96px var(--pad) clamp(40px, 6vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: space-between;
 }
-.project-images.full { grid-template-columns: 1fr; }
-.project-images img {
-  width: 100%; height: auto; display: block;
-  border: 1px solid var(--dark-gray);
+/* halftone dots overlay for printed feel */
+.cover::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(15,15,15,0.16) 1px, transparent 1.5px);
+  background-size: 4px 4px;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+/* xerox edge noise */
+.cover::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(15,15,15,0.04) 0 1px, transparent 1px 4px);
+  opacity: 0.6;
+}
+.cover-bar {
+  position: relative; z-index: 3;
+  display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+.cover-bar .cb-issue { font-weight: 700; }
+.cover-bar .cb-cat   { background: var(--ink); color: var(--cream); padding: 2px 8px; }
+.cover-bar .cb-spacer { flex: 1; }
+
+.cover-stage {
+  position: relative; z-index: 3;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(20px, 4vw, 64px);
+  align-items: end;
+  margin: clamp(40px, 8vw, 90px) 0 clamp(28px, 5vw, 60px);
+}
+@media (max-width: 880px) {
+  .cover-stage { grid-template-columns: 1fr; gap: 28px; }
+}
+.cover-mast {
+  position: relative;
+}
+.cover-mast h1 {
+  font-family: var(--display);
+  font-size: clamp(72px, 18vw, 220px);
+  line-height: 0.84;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-transform: uppercase;
+  /* offset shadow gives the masthead a riso/print kick */
+  text-shadow:
+     6px 6px 0 var(--pink),
+    12px 12px 0 var(--acid);
+}
+.cover-mast .mast-tag {
+  position: absolute;
+  bottom: -8px; right: 12%;
+  background: var(--xerox-red);
+  color: var(--cream);
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 4px 8px;
+  transform: rotate(-3deg);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cover-mast .mast-stamp {
+  position: absolute;
+  top: -10px; left: -2px;
+  font-family: var(--hand);
+  color: var(--xerox-red);
+  font-size: clamp(18px, 3vw, 28px);
+  transform: rotate(-8deg);
+}
+.cover-tagline {
+  font-family: var(--hand);
+  font-size: clamp(20px, 2.4vw, 30px);
+  color: var(--ink);
+  line-height: 1.15;
+  margin-top: clamp(16px, 2vw, 24px);
+  max-width: 560px;
 }
 
-/* Footer */
+.cover-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+/* Xerox photo frame — placeholder for hero artist cutout */
+.cover-photo {
+  position: relative;
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--pink);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  display: grid; place-items: center;
+}
+/* Built-in placeholder · CSS-only Xerox face silhouette so the cover
+   reads even without an artist image. Replace with <img/> when ready. */
+.cover-photo .cp-placeholder {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 50% 36%, var(--cream) 0 22%, transparent 22%),
+    radial-gradient(circle at 50% 78%, var(--cream) 0 32%, transparent 32%),
+    repeating-linear-gradient(0deg, var(--ink) 0 2px, var(--ink-soft) 2px 4px);
+  filter: contrast(1.1);
+}
+.cover-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.4);
+  mix-blend-mode: multiply;
+}
+.cover-photo .cp-feature-tag {
+  position: absolute;
+  top: 12px; left: -8px;
+  background: var(--marker);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cover-callouts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cover-co {
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  padding: 8px 10px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  line-height: 1.4;
+  position: relative;
+}
+.cover-co strong {
+  display: block;
+  font-family: var(--headline);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.cover-co.cco-pink { background: var(--pink); color: var(--cream); }
+.cover-co.cco-pink strong { color: var(--cream); }
+.cover-co.cco-acid { background: var(--acid); }
+
+.cover-foot {
+  position: relative; z-index: 3;
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  padding-top: 14px;
+  border-top: 2px solid var(--ink);
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.cover-foot .cf-deliverables {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.cover-foot .cf-deliverables span {
+  background: var(--cream); border: 1.5px solid var(--ink);
+  padding: 2px 6px;
+}
+
+/* ============================================================
+   SECTIONS · shared rhythm
+   ============================================================ */
+.section {
+  padding: clamp(60px, 7vw, 110px) var(--pad);
+  position: relative;
+}
+.section-head {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  align-items: end;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 20px;
+  margin-bottom: clamp(28px, 4vw, 56px);
+  max-width: 1280px;
+  margin-left: auto; margin-right: auto;
+}
+.section-num {
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 0.85;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.section-name {
+  font-family: var(--headline);
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.section-meta {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: flex; gap: 12px; align-items: baseline;
+  margin-top: 4px;
+}
+.section-meta .sm-tag {
+  background: var(--ink); color: var(--cream);
+  padding: 2px 8px;
+}
+.section-body {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(20px, 3vw, 40px);
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+@media (max-width: 720px) {
+  .section-head { grid-template-columns: 1fr; gap: 8px; }
+  .section-intro { grid-template-columns: 1fr; }
+}
+.section-intro .si-lead {
+  font-family: var(--headline);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.section-intro .si-body {
+  font-family: var(--body);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.section-intro .si-body p + p { margin-top: 12px; }
+
+.label-bar {
+  display: inline-flex;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.label-bar.lb-pink { background: var(--pink); color: var(--cream); }
+.label-bar.lb-acid { background: var(--acid); color: var(--ink); }
+.label-bar.lb-yellow { background: var(--marker); color: var(--ink); }
+
+.bullet-list {
+  list-style: none;
+  margin-top: 18px;
+  display: flex; flex-direction: column; gap: 6px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--ink);
+}
+.bullet-list li {
+  position: relative; padding-left: 22px;
+}
+.bullet-list li::before {
+  content: '▸';
+  position: absolute; left: 0; top: 0;
+  color: var(--xerox-red);
+}
+
+/* ============================================================
+   01 · OVERVIEW
+   ============================================================ */
+.section-overview { background: var(--cream); }
+.ov-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 36px);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .ov-grid { grid-template-columns: 1fr; }
+}
+.ov-block {
+  background: var(--cream-d);
+  border: 2px solid var(--ink);
+  padding: 22px;
+  position: relative;
+}
+.ov-block.ov-pink { background: var(--pink); color: var(--cream); }
+.ov-block.ov-pink .label-bar { background: var(--ink); color: var(--cream); }
+.ov-block.ov-acid { background: var(--acid); }
+.ov-block h3 {
+  font-family: var(--headline);
+  font-size: clamp(22px, 2.4vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.ov-block p {
+  font-family: var(--body);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.ov-deliverables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 6px;
+}
+.ov-deliverables span {
+  background: var(--cream); border: 1.5px solid var(--ink);
+  padding: 5px 8px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   02 · DIGITAL EZINE · acid-green scrolling spread
+   ============================================================ */
+.section-ezine {
+  background: var(--acid);
+  color: var(--ink);
+}
+.section-ezine .label-bar { background: var(--ink); color: var(--acid); }
+.ez-mock {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+  overflow: hidden;
+  margin-top: clamp(20px, 3vw, 40px);
+  position: relative;
+}
+.ez-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ez-bar .ez-dots { display: flex; gap: 4px; }
+.ez-bar .ez-dots span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--xerox-red); border: 1px solid var(--cream);
+}
+.ez-bar .ez-dots span:nth-child(2) { background: var(--marker); }
+.ez-bar .ez-dots span:nth-child(3) { background: var(--acid); }
+.ez-bar .ez-url { flex: 1; }
+.ez-grid {
+  display: grid;
+  grid-template-columns: 90px 1fr 220px;
+  min-height: 600px;
+}
+@media (max-width: 880px) {
+  .ez-grid { grid-template-columns: 60px 1fr; }
+  .ez-grid .ez-side { display: none; }
+}
+.ez-rail {
+  background: var(--ink);
+  color: var(--cream);
+  display: flex; flex-direction: column;
+  padding: 16px 8px;
+  gap: 10px;
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  align-items: center;
+}
+.ez-rail span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--acid);
+}
+.ez-rail .ez-rail-iss {
+  color: var(--acid);
+  font-family: var(--display);
+  font-size: 22px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.05em;
+}
+
+.ez-feed {
+  padding: 24px;
+  display: flex; flex-direction: column;
+  gap: 28px;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(15,15,15,0.06) 39px 40px),
+    var(--cream);
+}
+.ez-feature {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 16px;
+  align-items: start;
+}
+.ez-feature.flip { grid-template-columns: 1.2fr 1fr; direction: rtl; }
+.ez-feature.flip > * { direction: ltr; }
+@media (max-width: 720px) {
+  .ez-feature, .ez-feature.flip { grid-template-columns: 1fr; direction: ltr; }
+}
+.ez-photo {
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+}
+.ez-photo .ez-photo-fill {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 40% 60%, var(--pink) 0 30%, transparent 30%),
+    radial-gradient(circle at 70% 40%, var(--marker) 0 20%, transparent 20%),
+    repeating-linear-gradient(45deg, var(--ink) 0 3px, var(--cream) 3px 6px);
+  mix-blend-mode: normal;
+  filter: contrast(1.2);
+}
+.ez-photo.ez-photo-acid .ez-photo-fill {
+  background:
+    radial-gradient(circle at 50% 50%, var(--acid) 0 35%, transparent 35%),
+    repeating-linear-gradient(0deg, var(--ink) 0 2px, var(--cream) 2px 5px);
+}
+.ez-photo.ez-photo-sky .ez-photo-fill {
+  background:
+    radial-gradient(circle at 30% 70%, var(--sky) 0 35%, transparent 35%),
+    radial-gradient(circle at 70% 30%, var(--cream) 0 20%, transparent 20%),
+    repeating-linear-gradient(135deg, var(--ink) 0 2px, var(--ink-soft) 2px 5px);
+}
+.ez-photo .ez-photo-tag {
+  position: absolute;
+  bottom: 8px; left: 8px;
+  background: var(--marker);
+  border: 1.5px solid var(--ink);
+  padding: 2px 6px;
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ez-photo .ez-photo-num {
+  position: absolute;
+  top: 6px; right: 8px;
+  font-family: var(--display);
+  color: var(--cream);
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.ez-text {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ez-text .ez-meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ez-text .ez-meta span {
+  background: var(--ink); color: var(--cream);
+  padding: 1.5px 6px;
+}
+.ez-text .ez-meta span.alt { background: var(--pink); color: var(--cream); }
+.ez-text h4 {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.5vw, 42px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.ez-text p {
+  font-family: var(--body);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.ez-text .ez-rec {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.06em;
+  background: var(--marker);
+  border: 1.5px solid var(--ink);
+  padding: 4px 8px;
+  align-self: flex-start;
+}
+.ez-text .ez-rec::before { content: '♪ '; }
+.ez-text .ez-note {
+  font-family: var(--hand);
+  color: var(--xerox-red);
+  font-size: 18px;
+  line-height: 1.1;
+  transform: rotate(-1.5deg);
+  margin-top: 4px;
+}
+.ez-divider {
+  border: 0; border-top: 1px dashed var(--ink-soft);
+  margin: 4px 0;
+}
+
+.ez-side {
+  background: var(--ink);
+  color: var(--cream);
+  border-left: 2px solid var(--ink);
+  padding: 18px 14px;
+  display: flex; flex-direction: column; gap: 14px;
+  font-family: var(--mono);
+}
+.ez-side h5 {
+  font-family: var(--headline);
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--acid);
+}
+.ez-side .ez-side-pl {
+  display: flex; flex-direction: column; gap: 5px;
+  font-size: 11px; line-height: 1.4;
+}
+.ez-side .ez-side-pl li {
+  display: flex; gap: 8px; align-items: baseline;
+  list-style: none;
+  border-bottom: 1px dashed rgba(244,239,229,0.2);
+  padding-bottom: 4px;
+}
+.ez-side .ez-side-pl li span:first-child {
+  color: var(--marker); width: 18px;
+}
+.ez-side .ez-side-pl li strong {
+  font-family: var(--body);
+  font-weight: 700;
+  flex: 1;
+}
+.ez-side .ez-side-mood {
+  background: var(--pink);
+  color: var(--cream);
+  padding: 6px 8px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--cream);
+}
+
+/* small pill row used by both ezine + cards */
+.tag-row {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-top: 12px;
+}
+.tag-row span {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.08em;
+  background: var(--cream);
+  border: 1.5px solid var(--ink);
+  padding: 2px 7px;
+  text-transform: uppercase;
+}
+.tag-row span.alt { background: var(--ink); color: var(--cream); }
+
+/* ============================================================
+   03 · ARTIST FEATURES · pink Xerox cards
+   ============================================================ */
+.section-artists {
+  background: var(--pink);
+  color: var(--ink);
+}
+.section-artists .label-bar { background: var(--ink); color: var(--pink); }
+.section-artists .section-num,
+.section-artists .section-name { color: var(--ink); }
+.section-artists .section-head { border-color: var(--ink); }
+
+.af-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(20px, 3vw, 40px);
+}
+.af-card {
+  background: var(--cream);
+  border: 2.5px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  display: flex; flex-direction: column;
+  position: relative;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.2s ease;
+}
+.af-card:hover { transform: rotate(0) translateY(-2px); }
+.af-card:nth-child(3n+1) { --tilt: -1deg; }
+.af-card:nth-child(3n+2) { --tilt:  0.6deg; }
+.af-card:nth-child(3n+3) { --tilt: -0.4deg; }
+
+.af-photo {
+  aspect-ratio: 1 / 1;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid var(--ink);
+}
+/* CSS-only Xerox face placeholder · duotone halftone pattern */
+.af-photo .af-photo-fill {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 50% 35%, var(--cream) 0 18%, transparent 18%),
+    radial-gradient(circle at 50% 78%, var(--cream) 0 28%, transparent 28%),
+    repeating-radial-gradient(circle at 50% 50%, var(--ink) 0 1px, transparent 1px 4px),
+    var(--pink);
+  filter: contrast(1.4);
+}
+.af-card:nth-child(3n+2) .af-photo-fill {
+  background:
+    radial-gradient(circle at 40% 40%, var(--cream) 0 25%, transparent 25%),
+    repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 5px),
+    var(--acid);
+  filter: contrast(1.3);
+}
+.af-card:nth-child(3n+3) .af-photo-fill {
+  background:
+    radial-gradient(circle at 60% 50%, var(--cream) 0 20%, transparent 20%),
+    radial-gradient(circle at 30% 30%, var(--marker) 0 16%, transparent 16%),
+    repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 2px 5px),
+    var(--sky);
+  filter: contrast(1.3);
+}
+.af-photo .af-photo-mark {
+  position: absolute;
+  top: 8px; left: -8px;
+  background: var(--marker);
+  border: 2px solid var(--ink);
+  padding: 2px 8px;
+  font-family: var(--mono); font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.af-photo .af-photo-mark.alt { background: var(--xerox-red); color: var(--cream); }
+.af-photo .af-photo-stamp {
+  position: absolute;
+  bottom: 10px; right: 8px;
+  font-family: var(--hand);
+  color: var(--xerox-red);
+  font-size: 22px;
+  transform: rotate(-12deg);
+  text-shadow: 1px 1px 0 var(--cream);
+}
+.af-body {
+  padding: 14px 14px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.af-body h4 {
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.af-body .af-meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.af-body .af-meta span {
+  border: 1.5px solid var(--ink);
+  padding: 1.5px 6px;
+}
+.af-body .af-meta span.fill { background: var(--ink); color: var(--cream); }
+.af-body .af-track {
+  font-family: var(--mono); font-size: 11px;
+  background: var(--marker);
+  border: 1.5px solid var(--ink);
+  padding: 4px 8px;
+  align-self: flex-start;
+}
+.af-body .af-track::before { content: '♪ '; }
+.af-body p {
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.af-body .af-note {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--xerox-red);
+  transform: rotate(-1deg);
+}
+
+/* ============================================================
+   04 · PHYSICAL DELIVERABLES
+   ============================================================ */
+.section-physical {
+  background: var(--cream);
+  color: var(--ink);
+}
+.pd-sub {
+  margin: clamp(36px, 4vw, 60px) 0 0;
+  padding-top: 22px;
+  border-top: 2px dashed var(--ink);
+}
+.pd-sub:first-of-type { margin-top: clamp(24px, 3vw, 40px); }
+.pd-sub h3 {
+  font-family: var(--headline);
+  font-size: clamp(28px, 3.5vw, 44px);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin-bottom: 6px;
+  display: flex; align-items: baseline; gap: 14px;
+}
+.pd-sub h3 .pd-sub-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--ink);
+  color: var(--marker);
+  padding: 2px 8px;
+  letter-spacing: 0.12em;
+}
+.pd-sub p {
+  font-family: var(--body); font-size: 14px;
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 18px;
+}
+
+/* 4.1 · Printed Ezine spread */
+.pd-zine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+@media (max-width: 720px) { .pd-zine { grid-template-columns: 1fr; } }
+.pd-zine-page {
+  background: var(--cream-d);
+  border: 2.5px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  aspect-ratio: 3 / 4;
+  padding: 18px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.pd-zine-page::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(15,15,15,0.12) 1px, transparent 1.5px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.pd-zine-page .pdz-bar {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  display: flex; justify-content: space-between;
+}
+.pd-zine-page.pdz-cover {
+  background: var(--sky);
+}
+.pd-zine-page.pdz-cover .pdz-mast {
+  font-family: var(--display);
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 4px 4px 0 var(--pink), 8px 8px 0 var(--acid);
+  margin-top: auto;
+}
+.pd-zine-page.pdz-cover .pdz-issue {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  margin-top: 8px;
+}
+.pd-zine-page.pdz-spread {
+  background: var(--cream);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.pdz-spread-art {
+  flex: 1;
+  background:
+    radial-gradient(circle at 50% 50%, var(--pink) 0 30%, transparent 30%),
+    repeating-linear-gradient(45deg, var(--ink) 0 2px, var(--cream) 2px 5px);
+  border: 2px solid var(--ink);
+  aspect-ratio: 1.4 / 1;
+  margin-bottom: 10px;
+  filter: contrast(1.2);
+}
+.pdz-spread-text {
+  font-family: var(--mono); font-size: 9px;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pdz-spread-text strong {
+  display: block;
+  font-family: var(--headline);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+/* 4.2 · Spotlight Cards */
+.pd-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.pd-card {
+  background: var(--cream);
+  border: 2.5px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  display: flex; flex-direction: column;
+  transform: rotate(var(--tilt, 0deg));
+}
+.pd-card:nth-child(3n+1) { --tilt: -1.2deg; }
+.pd-card:nth-child(3n+2) { --tilt:  0.8deg; background: var(--acid); }
+.pd-card:nth-child(3n+3) { --tilt: -0.6deg; background: var(--marker); }
+.pd-card .pdc-bar {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 3px 8px;
+  display: flex; justify-content: space-between;
+}
+.pd-card .pdc-photo {
+  aspect-ratio: 1 / 1;
+  background:
+    radial-gradient(circle at 50% 40%, var(--cream) 0 20%, transparent 20%),
+    radial-gradient(circle at 50% 80%, var(--cream) 0 30%, transparent 30%),
+    repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 2px 4px);
+  border-bottom: 2px solid var(--ink);
+  filter: contrast(1.3);
+}
+.pd-card .pdc-name {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  padding: 8px 10px 4px;
+  text-transform: uppercase;
+}
+.pd-card .pdc-track {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 0 10px 10px;
+}
+.pd-card .pdc-track::before { content: '♪ '; color: var(--xerox-red); }
+
+/* 4.3 · Tracklist Poster (banana shape · acid-green hero with title flowing inside an irregular blob) */
+.pd-poster-wrap {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.pd-poster {
+  background: var(--ink);
+  color: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--xerox-red);
+  padding: clamp(20px, 3vw, 40px);
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+}
+.pd-poster::before {
+  /* the irregular acid blob */
+  content: ''; position: absolute;
+  top: 8%; left: 12%; right: 18%; bottom: 8%;
+  background: var(--acid);
+  border: 3px solid var(--ink);
+  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  transform: rotate(-6deg);
+  z-index: 0;
+}
+.pd-poster::after {
+  /* halftone dots overlay on poster */
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(15,15,15,0.15) 1px, transparent 1.5px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+.pd-poster .pp-corner {
+  position: absolute; z-index: 2;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pd-poster .pp-corner.tl { top: 16px; left: 18px; }
+.pd-poster .pp-corner.tr { top: 16px; right: 18px; }
+.pd-poster .pp-corner.bl { bottom: 18px; left: 18px; color: var(--marker); }
+.pd-poster .pp-corner.br { bottom: 18px; right: 18px; color: var(--acid); }
+.pd-poster .pp-title {
+  position: relative; z-index: 2;
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 0.9;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-align: center;
+  padding: 70px 30px 0;
+}
+.pd-poster .pp-tracklist {
+  position: relative; z-index: 2;
+  margin: 24px auto 0;
+  max-width: 540px;
+  font-family: var(--mono); font-size: 12.5px;
+  color: var(--ink);
+  display: flex; flex-direction: column;
+  gap: 4px;
+}
+.pd-poster .pp-tracklist li {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 10px;
+  border-bottom: 1.5px dashed rgba(15,15,15,0.45);
+  padding: 5px 6px;
+}
+.pd-poster .pp-tracklist li span:first-child { color: var(--xerox-red); font-weight: 700; }
+.pd-poster .pp-tracklist li strong { font-weight: 700; }
+.pd-poster .pp-tracklist li .pp-time { font-style: italic; opacity: 0.75; }
+.pd-poster .pp-note {
+  position: absolute; z-index: 2;
+  font-family: var(--hand);
+  color: var(--xerox-red);
+  font-size: 22px;
+  line-height: 1;
+  transform: rotate(-8deg);
+}
+.pd-poster .pp-note.n1 { top: 40%; left: 4%; }
+.pd-poster .pp-note.n2 { bottom: 25%; right: 6%; transform: rotate(6deg); color: var(--marker); }
+
+/* 4.4 · Sticker Sheet */
+.pd-stickers {
+  margin-top: 18px;
+  background: var(--cream);
+  border: 2.5px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.pd-stickers .pds-bar {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 5px 12px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+.pd-stickers .pds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0;
+  /* perforation marks between cells */
+  background:
+    repeating-linear-gradient(0deg, transparent 0 109px, rgba(15,15,15,0.3) 109px 110px),
+    repeating-linear-gradient(90deg, transparent 0 109px, rgba(15,15,15,0.3) 109px 110px);
+}
+.pd-sticker {
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+  padding: 12px;
+  text-align: center;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+}
+.pd-sticker .pds-mark {
+  font-family: var(--display);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.pd-sticker .pds-circle {
+  width: 70%; aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  padding: 8px;
+  font-family: var(--mono); font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pd-sticker.s-acid   { background: var(--acid); }
+.pd-sticker.s-pink   { background: var(--pink); color: var(--cream); }
+.pd-sticker.s-sky    { background: var(--sky); }
+.pd-sticker.s-marker { background: var(--marker); }
+.pd-sticker.s-red    { background: var(--xerox-red); color: var(--cream); }
+.pd-sticker.s-ink    { background: var(--ink); color: var(--cream); }
+.pd-sticker.s-cream  { background: var(--cream); }
+.pd-sticker .pds-x {
+  font-family: var(--hand);
+  font-size: 32px;
+  color: var(--xerox-red);
+  transform: rotate(-12deg);
+}
+
+/* ============================================================
+   05 · BRAND SYSTEM
+   ============================================================ */
+.section-brand {
+  background: var(--ink);
+  color: var(--cream);
+}
+.section-brand .label-bar { background: var(--acid); color: var(--ink); }
+.section-brand .section-num,
+.section-brand .section-name { color: var(--cream); }
+.section-brand .section-head { border-color: var(--cream); }
+
+.bs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 36px);
+  margin-top: clamp(20px, 3vw, 40px);
+}
+@media (max-width: 880px) { .bs-grid { grid-template-columns: 1fr; } }
+.bs-block {
+  background: var(--cream);
+  color: var(--ink);
+  border: 2.5px solid var(--cream);
+  padding: 20px 20px 22px;
+  position: relative;
+}
+.bs-block h3 {
+  font-family: var(--headline);
+  font-size: clamp(22px, 2.4vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.bs-block p {
+  font-family: var(--body); font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* palette */
+.bs-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.bs-sw {
+  border: 2px solid var(--ink);
+  padding: 10px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 120px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bs-sw .bs-sw-name {
+  font-family: var(--headline);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.bs-sw .bs-sw-hex { opacity: 0.85; }
+.bs-sw.acid   { background: var(--acid);     color: var(--ink); }
+.bs-sw.pink   { background: var(--pink);     color: var(--cream); }
+.bs-sw.sky    { background: var(--sky);      color: var(--ink); }
+.bs-sw.cream  { background: var(--cream);    color: var(--ink); }
+.bs-sw.ink    { background: var(--ink);      color: var(--cream); border-color: var(--cream); }
+.bs-sw.marker { background: var(--marker);   color: var(--ink); }
+.bs-sw.red    { background: var(--xerox-red); color: var(--cream); }
+
+/* type spec */
+.bs-type {
+  display: flex; flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+.bs-type-row {
+  border: 1.5px solid var(--ink);
+  padding: 10px 12px;
+}
+.bs-type-row .bs-tr-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.bs-type-row .bs-tr-sample {
+  color: var(--ink);
+  line-height: 1;
+}
+.bs-tr-sample.display { font-family: var(--display); font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.02em; text-transform: uppercase; }
+.bs-tr-sample.headline { font-family: var(--headline); font-size: clamp(22px, 2.6vw, 30px); letter-spacing: 0.04em; text-transform: uppercase; }
+.bs-tr-sample.mono { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; line-height: 1.4; }
+.bs-tr-sample.body { font-family: var(--body); font-size: 14px; line-height: 1.5; }
+.bs-tr-sample.hand { font-family: var(--hand); font-size: 22px; color: var(--xerox-red); }
+
+/* image rules block */
+.bs-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.bs-img-tile {
+  aspect-ratio: 1 / 1;
+  border: 1.5px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.bs-img-tile .bs-img-cap {
+  position: absolute;
+  bottom: 4px; left: 4px;
+  background: var(--ink); color: var(--cream);
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.1em;
+  padding: 1px 5px;
+  text-transform: uppercase;
+}
+.bs-img-tile.t-cutout {
+  background:
+    radial-gradient(circle at 50% 55%, var(--cream) 0 35%, transparent 35%),
+    var(--pink);
+}
+.bs-img-tile.t-halftone {
+  background:
+    radial-gradient(rgba(15,15,15,0.85) 1.5px, transparent 2px),
+    var(--acid);
+  background-size: 6px 6px, auto;
+}
+.bs-img-tile.t-duotone {
+  background:
+    linear-gradient(135deg, var(--xerox-red) 0%, var(--ink) 70%);
+  filter: contrast(1.2);
+}
+.bs-img-tile.t-xerox {
+  background:
+    repeating-linear-gradient(0deg, var(--ink) 0 1px, var(--cream) 1px 3px),
+    var(--cream);
+}
+.bs-img-tile.t-mask {
+  background:
+    radial-gradient(circle at 30% 30%, var(--marker) 0 30%, transparent 30%),
+    radial-gradient(circle at 70% 70%, var(--sky) 0 30%, transparent 30%),
+    var(--ink);
+}
+.bs-img-tile.t-thumb {
+  background:
+    repeating-linear-gradient(45deg, var(--cream) 0 6px, var(--pink) 6px 12px);
+}
+
+/* rules + sticker marks */
+.bs-rules { margin-top: 6px; }
+.bs-rules li {
+  list-style: none;
+  font-family: var(--mono); font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+  margin-bottom: 4px;
+}
+.bs-rules li::before {
+  content: '▸';
+  position: absolute; left: 0; top: 0;
+  color: var(--xerox-red);
+}
+
+.bs-marks {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 12px;
+}
+.bs-marks span {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.1em;
+  background: var(--ink); color: var(--cream);
+  border: 1.5px solid var(--ink);
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+.bs-marks span.alt { background: var(--acid); color: var(--ink); }
+.bs-marks span.pink { background: var(--pink); color: var(--cream); }
+.bs-marks span.red { background: var(--xerox-red); color: var(--cream); }
+.bs-marks span.marker { background: var(--marker); color: var(--ink); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 .project-footer {
-  padding: 2rem;
-  border-top: 1px solid var(--dark-gray);
+  padding: 22px var(--pad);
+  border-top: 2px solid var(--cream);
+  background: var(--ink);
+  color: var(--cream);
   display: flex; justify-content: space-between; align-items: center;
-  max-width: 1200px; margin: 0 auto;
+  flex-wrap: wrap; gap: 12px;
 }
 .project-footer a {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--green-bright); transition: color 0.3s;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  transition: color 0.2s;
 }
-.project-footer a:hover { color: var(--cream); }
+.project-footer a:hover { color: var(--acid); }
 .project-footer .pf-center {
-  display: flex; gap: 22px; align-items: center;
-  flex-wrap: wrap; justify-content: center;
+  display: flex; gap: 22px; flex-wrap: wrap;
+  justify-content: center;
 }
-.project-footer .pf-link {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--warm-gray); text-decoration: none;
-  transition: color 0.3s;
-}
-.project-footer .pf-link:hover { color: var(--cream); }
 
-@media (max-width: 600px) {
-  .project-hero { padding: 6rem 1.25rem 2rem; }
-  .project-images { grid-template-columns: 1fr; }
-  .project-hero-img { padding: 0 1.25rem; }
-  .project-content { padding: 0 1.25rem 3rem; }
+/* mobile tweaks */
+@media (max-width: 720px) {
+  .cover-mast h1 { text-shadow: 4px 4px 0 var(--pink), 8px 8px 0 var(--acid); }
+  .ez-grid { min-height: 0; }
+  .pd-poster { min-height: 420px; }
 }
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="../" class="nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni" style="height: 20px; width: auto;"></a>
-  <a href="../" class="nav-back">← BACK TO WORK</a>
+<nav class="site-nav">
+  <a href="../" class="site-nav-logo"><img src="../images/SPlogo-horizontal.png" alt="Sarah Peroni"></a>
+  <a href="../" class="site-nav-back">← BACK TO WORK</a>
 </nav>
 
-<section class="project-hero">
-  <div class="project-meta">
-    <span class="project-tag">Editorial</span>
-    <span class="project-tag">Digital Zine</span>
-    <span class="project-tag">Art Dir</span>
+<!-- Issue table-of-contents · sticky right side -->
+<nav class="issue-toc" aria-label="Issue contents">
+  <a href="#overview"><span>01</span><span>Overview</span></a>
+  <a href="#ezine"><span>02</span><span>Digital Ezine</span></a>
+  <a href="#artists"><span>03</span><span>Artist Features</span></a>
+  <a href="#physical"><span>04</span><span>Physical</span></a>
+  <a href="#brand"><span>05</span><span>Brand System</span></a>
+</nav>
+
+<!-- ============================================================
+     ISSUE COVER · loud hero
+     ============================================================ -->
+<header class="cover" id="top">
+  <div class="cover-bar">
+    <span class="cb-issue">issue 01</span>
+    <span class="cb-cat">music ezine</span>
+    <span class="cb-cat">visual culture</span>
+    <span class="cb-spacer"></span>
+    <span>est. 2026</span>
+    <span>$0 · free, copy it</span>
   </div>
-  <h1 class="project-title">Deadwax</h1>
-  <p class="project-subtitle">Underground digital music zine powered by community submissions and monthly editorial picks.</p>
-  <div class="project-coord">X: 12.00 / EDITORIAL DESIGN</div>
+
+  <div class="cover-stage">
+    <div class="cover-mast">
+      <span class="mast-stamp">listen first ✦</span>
+      <h1>Deadwax</h1>
+      <span class="mast-tag">new noise</span>
+      <p class="cover-tagline">A music ezine for artist discovery and visual culture.</p>
+    </div>
+    <div class="cover-art">
+      <figure class="cover-photo">
+        <span class="cp-feature-tag">feature panel</span>
+        <!-- swap with <img src="../images/projects/deadwax/cover-artist.png" alt="..."/> when ready -->
+        <span class="cp-placeholder" aria-hidden="true"></span>
+      </figure>
+      <div class="cover-callouts">
+        <div class="cover-co cco-pink">
+          <strong>Artist file</strong>
+          12 features inside this issue.
+        </div>
+        <div class="cover-co cco-acid">
+          <strong>Track notes</strong>
+          Recommended cuts, copied from the wall.
+        </div>
+        <div class="cover-co">
+          <strong>Issue 01</strong>
+          New noise / spring 2026.
+        </div>
+        <div class="cover-co">
+          <strong>Visual index</strong>
+          Posters, stickers, pull-outs.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-foot">
+    <div>editorial · art direction · zine system</div>
+    <div class="cf-deliverables">
+      <span>ezine</span><span>poster</span><span>cards</span><span>stickers</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     01 · OVERVIEW
+     ============================================================ -->
+<section class="section section-overview" id="overview">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <div>
+      <span class="section-name">Overview</span>
+      <div class="section-meta">
+        <span class="sm-tag">about</span>
+        <span>what is deadwax</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <span class="label-bar">issue 01 / about</span>
+
+    <div class="ov-grid">
+      <div class="ov-block">
+        <h3>A music ezine for artist discovery.</h3>
+        <p>Deadwax is a music ezine and visual culture archive for artist discovery, playlists, and band-driven design. The project turns music coverage into a collectible visual system: digital issues, artist spotlights, playlist notes, posters, stickers, and printed ephemera.</p>
+        <p style="margin-top: 14px;">The visual language pulls from indie magazines, Xerox zines, record-store flyers, and dense scrolling web layouts — designed and copied like something passed around the back of a venue.</p>
+      </div>
+      <div class="ov-block ov-pink">
+        <h3>Deliverables</h3>
+        <p>The system covers the digital page, the printed issue, and the artifacts that live between them.</p>
+        <div class="ov-deliverables" style="margin-top: 14px;">
+          <span>Digital ezine</span>
+          <span>Artist spotlight system</span>
+          <span>Playlist layouts</span>
+          <span>Issue cover</span>
+          <span>Feature cards</span>
+          <span>Poster system</span>
+          <span>Sticker sheet</span>
+          <span>Brand system</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="project-hero-img">
-  <img src="../images/projects/Deadwax-zine.png" alt="Deadwax Project">
-</div>
+<!-- ============================================================
+     02 · DIGITAL EZINE
+     ============================================================ -->
+<section class="section section-ezine" id="ezine">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <div>
+      <span class="section-name">Digital Ezine</span>
+      <div class="section-meta">
+        <span class="sm-tag">issue 01</span>
+        <span>scrolling magazine spread</span>
+      </div>
+    </div>
+  </div>
 
-<!-- Add your content sections here -->
-<section class="project-content">
-  <h2>Overview</h2>
-  <p>Add your project overview and case study content here.</p>
+  <div class="section-body">
+    <span class="label-bar">listen first / read second</span>
+
+    <div class="section-intro">
+      <p class="si-lead">A scrolling magazine spread. Artist features, playlist notes, reviews, and visual references stack across the page in a loose editorial rhythm.</p>
+      <div class="si-body">
+        <p>The layout is intentionally dense, but each section follows a system: feature image, short text, metadata, track reference, and visual tag. Side rails carry issue numbers and category labels so the reader always knows what they are inside.</p>
+        <p>The page mixes flat color sections with overlapping cutouts, staggered text blocks, small metadata columns, and repeated tag systems — closer to a Japanese indie magazine than a streaming app.</p>
+      </div>
+    </div>
+
+    <!-- Ezine browser-style mockup -->
+    <article class="ez-mock" aria-label="Digital ezine scrolling spread mockup">
+      <div class="ez-bar">
+        <span class="ez-dots"><span></span><span></span><span></span></span>
+        <span class="ez-url">▸ deadwax.zine / issue-01</span>
+        <span>music ezine · scrolling</span>
+      </div>
+      <div class="ez-grid">
+        <aside class="ez-rail" aria-label="Issue rail">
+          <span class="ez-rail-iss">No. 01</span>
+          <span>about</span>
+          <span>artist</span>
+          <span>track</span>
+          <span>genre</span>
+          <span>category</span>
+          <span>mood</span>
+        </aside>
+
+        <main class="ez-feed">
+          <section class="ez-feature">
+            <div class="ez-photo">
+              <span class="ez-photo-fill" aria-hidden="true"></span>
+              <span class="ez-photo-num">01</span>
+              <span class="ez-photo-tag">artist file</span>
+            </div>
+            <div class="ez-text">
+              <div class="ez-meta">
+                <span>artist</span>
+                <span class="alt">post-punk</span>
+                <span>brooklyn</span>
+              </div>
+              <h4>Static Garden</h4>
+              <p>Wiry guitar lines, drum-machine fog, and one of the cleanest live mixes coming out of the city. The new EP doubles as a slow-burn closer for late shifts.</p>
+              <span class="ez-rec">recommended track · "wide angle"</span>
+              <p class="ez-note">copied from the wall ✦</p>
+              <div class="tag-row">
+                <span>new noise</span><span class="alt">listen first</span><span>field recording</span>
+              </div>
+            </div>
+          </section>
+
+          <hr class="ez-divider"/>
+
+          <section class="ez-feature flip">
+            <div class="ez-photo ez-photo-acid">
+              <span class="ez-photo-fill" aria-hidden="true"></span>
+              <span class="ez-photo-num">02</span>
+              <span class="ez-photo-tag">track notes</span>
+            </div>
+            <div class="ez-text">
+              <div class="ez-meta">
+                <span>artist</span>
+                <span class="alt">ambient · loops</span>
+                <span>kyoto</span>
+              </div>
+              <h4>Hana Watanabe</h4>
+              <p>Tape loops, weather, half-finished hymns. Built from one room mic and a broken cassette deck. The recordings sound like a window left open.</p>
+              <span class="ez-rec">recommended track · "second floor light"</span>
+              <div class="tag-row">
+                <span>field recording</span><span>loops</span><span class="alt">recommended</span>
+              </div>
+            </div>
+          </section>
+
+          <hr class="ez-divider"/>
+
+          <section class="ez-feature">
+            <div class="ez-photo ez-photo-sky">
+              <span class="ez-photo-fill" aria-hidden="true"></span>
+              <span class="ez-photo-num">03</span>
+              <span class="ez-photo-tag">feature</span>
+            </div>
+            <div class="ez-text">
+              <div class="ez-meta">
+                <span>band</span>
+                <span class="alt">noise pop</span>
+                <span>portland</span>
+              </div>
+              <h4>Sour Patch Saints</h4>
+              <p>Three-piece, bedroom-loud, half their songs end in feedback. Tracklist annotated by the band themselves and copied without permission.</p>
+              <span class="ez-rec">recommended track · "tape teeth"</span>
+              <p class="ez-note">listen at volume.</p>
+            </div>
+          </section>
+        </main>
+
+        <aside class="ez-side" aria-label="Issue sidebar">
+          <h5>Now spinning</h5>
+          <ul class="ez-side-pl">
+            <li><span>01</span><strong>Static Garden</strong> wide angle</li>
+            <li><span>02</span><strong>Hana W.</strong> second floor light</li>
+            <li><span>03</span><strong>Sour Patch Saints</strong> tape teeth</li>
+            <li><span>04</span><strong>Deer Pavilion</strong> drift days</li>
+            <li><span>05</span><strong>Mira ロー</strong> low ferry</li>
+          </ul>
+          <div class="ez-side-mood">mood · soft static, late shift, last train.</div>
+          <h5>Read next</h5>
+          <ul class="ez-side-pl">
+            <li><span>▸</span><strong>Issue 02</strong> field guide</li>
+            <li><span>▸</span><strong>Visual index</strong> 12 covers</li>
+            <li><span>▸</span><strong>Stickers</strong> peel and apply</li>
+          </ul>
+        </aside>
+      </div>
+    </article>
+
+    <ul class="bullet-list" style="margin-top: 28px; max-width: 720px;">
+      <li>Cascading artist sections with overlapping cutouts</li>
+      <li>Small metadata columns + side issue rail</li>
+      <li>Repeated tag system: about · artist · track · genre · mood</li>
+      <li>Side notes and handwritten annotations as accents</li>
+    </ul>
+  </div>
 </section>
 
-<!-- Add more images here -->
-<div class="project-images">
-  <!-- <img src="../images/projects/mnta-detail-1.jpg" alt="MNTA Detail"> -->
-  <!-- <img src="../images/projects/mnta-detail-2.jpg" alt="MNTA Detail"> -->
-</div>
+<!-- ============================================================
+     03 · ARTIST FEATURES
+     ============================================================ -->
+<section class="section section-artists" id="artists">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <div>
+      <span class="section-name">Artist Features</span>
+      <div class="section-meta">
+        <span class="sm-tag">artist file</span>
+        <span>cut · copy · paste</span>
+      </div>
+    </div>
+  </div>
 
+  <div class="section-body">
+    <span class="label-bar lb-acid">new noise / panel system</span>
+
+    <div class="section-intro">
+      <p class="si-lead">A cut-and-paste zine system for artist coverage. Image, mark, title, metadata, short note.</p>
+      <div class="si-body">
+        <p>Each card works as a quick entry point into an artist's sound and visual world. The treatment is high-contrast and intentionally rough — duotone or halftone images, photocopy edges, marker scribbles, and small handwritten notes.</p>
+        <p>This is not a streaming profile. It is a music discovery artifact that feels collected, marked, copied, and passed around.</p>
+      </div>
+    </div>
+
+    <div class="af-grid">
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark">artist 01</span>
+          <span class="af-photo-stamp">listen first</span>
+        </div>
+        <div class="af-body">
+          <h4>Static Garden</h4>
+          <div class="af-meta">
+            <span class="fill">post-punk</span>
+            <span>brooklyn</span>
+            <span>2024 →</span>
+          </div>
+          <span class="af-track">wide angle · 3:42</span>
+          <p>Wiry guitar lines and drum-machine fog. Best heard on a late shift.</p>
+          <span class="af-note">copied from the wall ✦</span>
+        </div>
+      </article>
+
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark alt">new noise</span>
+        </div>
+        <div class="af-body">
+          <h4>Hana Watanabe</h4>
+          <div class="af-meta">
+            <span class="fill">ambient · loops</span>
+            <span>kyoto</span>
+          </div>
+          <span class="af-track">second floor light · 6:08</span>
+          <p>Tape loops, weather, half-finished hymns. Sounds like a window left open.</p>
+        </div>
+      </article>
+
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark">artist 03</span>
+          <span class="af-photo-stamp">play loud</span>
+        </div>
+        <div class="af-body">
+          <h4>Sour Patch Saints</h4>
+          <div class="af-meta">
+            <span class="fill">noise pop</span>
+            <span>portland</span>
+          </div>
+          <span class="af-track">tape teeth · 2:51</span>
+          <p>Three-piece, bedroom-loud, half their songs end in feedback.</p>
+        </div>
+      </article>
+
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark">artist 04</span>
+        </div>
+        <div class="af-body">
+          <h4>Deer Pavilion</h4>
+          <div class="af-meta">
+            <span class="fill">slow-core</span>
+            <span>chicago</span>
+          </div>
+          <span class="af-track">drift days · 4:17</span>
+          <p>Two voices, one room. The kind of record you only play after dark.</p>
+          <span class="af-note">recommended ✦</span>
+        </div>
+      </article>
+
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark alt">recommended</span>
+        </div>
+        <div class="af-body">
+          <h4>Mira ロー</h4>
+          <div class="af-meta">
+            <span class="fill">drone · vocal</span>
+            <span>osaka</span>
+          </div>
+          <span class="af-track">low ferry · 5:33</span>
+          <p>Long held vowels and a single field recording from the harbor at 4am.</p>
+        </div>
+      </article>
+
+      <article class="af-card">
+        <div class="af-photo">
+          <span class="af-photo-fill" aria-hidden="true"></span>
+          <span class="af-photo-mark">artist 06</span>
+          <span class="af-photo-stamp">issue 01</span>
+        </div>
+        <div class="af-body">
+          <h4>Cassette North</h4>
+          <div class="af-meta">
+            <span class="fill">shoegaze</span>
+            <span>montreal</span>
+          </div>
+          <span class="af-track">mall fog · 4:02</span>
+          <p>Reverb on every channel. Recorded in a mall after hours, mixed in a car.</p>
+        </div>
+      </article>
+    </div>
+
+    <ul class="bullet-list" style="margin-top: 28px; color: var(--ink);">
+      <li>Image · mark · title · metadata · short note</li>
+      <li>Duotone / halftone / photocopy treatment per card</li>
+      <li>Recommended track lives at the front, not behind a click</li>
+      <li>Card grid feels collected, not curated</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 · PHYSICAL DELIVERABLES
+     ============================================================ -->
+<section class="section section-physical" id="physical">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <div>
+      <span class="section-name">Physical Deliverables</span>
+      <div class="section-meta">
+        <span class="sm-tag">print</span>
+        <span>music ephemera</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <span class="label-bar lb-pink">copy it / pin it / pass it on</span>
+
+    <div class="section-intro">
+      <p class="si-lead">Deadwax extends into printed pieces that feel like music ephemera.</p>
+      <div class="si-body">
+        <p>Issue covers, spotlight cards, posters, stickers, and playlist inserts. The physical system keeps the project connected to flyers, record stores, zines, and bedroom walls. Tactile, slightly imperfect, high-contrast — never luxury, never polished merch.</p>
+      </div>
+    </div>
+
+    <!-- 4.1 Printed Ezine -->
+    <div class="pd-sub" id="pd-zine">
+      <h3><span class="pd-sub-num">04.1</span> Printed Ezine</h3>
+      <p>The printed issue is the same content, redrawn for paper. A bold flat-color cover with the masthead, then interior spreads that mix artist features, playlist notes, and visual references.</p>
+      <div class="pd-zine">
+        <article class="pd-zine-page pdz-cover">
+          <div class="pdz-bar"><span>deadwax · iss 01</span><span>spring '26</span></div>
+          <div class="pdz-mast">Dead<br/>wax</div>
+          <div class="pdz-issue">new noise · 12 features · poster pull-out</div>
+        </article>
+        <article class="pd-zine-page pdz-spread">
+          <div class="pdz-bar"><span>spread · 04—05</span><span>artist file</span></div>
+          <div class="pdz-spread-art" aria-hidden="true"></div>
+          <div class="pdz-spread-text">
+            <div>
+              <strong>Static Garden</strong>
+              post-punk · brooklyn<br/>
+              wiry guitars, drum-machine fog. recommended cut: wide angle.
+            </div>
+            <div>
+              <strong>Hana W.</strong>
+              ambient loops · kyoto<br/>
+              one room mic, broken cassette. recommended cut: second floor light.
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- 4.2 Spotlight Cards -->
+    <div class="pd-sub" id="pd-cards">
+      <h3><span class="pd-sub-num">04.2</span> Artist Spotlight Cards</h3>
+      <p>Loose collectible cards that ship inside each issue. Same artist file system as the digital ezine — image, name, recommended track — but small enough to slip into a wallet, tape to a wall, or pass to a friend.</p>
+      <div class="pd-cards">
+        <div class="pd-card">
+          <div class="pdc-bar"><span>card 01</span><span>iss 01</span></div>
+          <div class="pdc-photo" aria-hidden="true"></div>
+          <div class="pdc-name">Static Garden</div>
+          <div class="pdc-track">wide angle · 3:42</div>
+        </div>
+        <div class="pd-card">
+          <div class="pdc-bar"><span>card 02</span><span>iss 01</span></div>
+          <div class="pdc-photo" aria-hidden="true"></div>
+          <div class="pdc-name">Hana W.</div>
+          <div class="pdc-track">second floor light · 6:08</div>
+        </div>
+        <div class="pd-card">
+          <div class="pdc-bar"><span>card 03</span><span>iss 01</span></div>
+          <div class="pdc-photo" aria-hidden="true"></div>
+          <div class="pdc-name">Sour Patch</div>
+          <div class="pdc-track">tape teeth · 2:51</div>
+        </div>
+        <div class="pd-card">
+          <div class="pdc-bar"><span>card 04</span><span>iss 01</span></div>
+          <div class="pdc-photo" aria-hidden="true"></div>
+          <div class="pdc-name">Deer Pavilion</div>
+          <div class="pdc-track">drift days · 4:17</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.3 Tracklist Poster -->
+    <div class="pd-sub" id="pd-poster">
+      <h3><span class="pd-sub-num">04.3</span> Tracklist Poster</h3>
+      <p>A pull-out poster built around an irregular shape — playlist text flows inside the form, with handwritten annotations at the corners. Folded into the printed issue, hung on the wall after.</p>
+      <div class="pd-poster-wrap">
+        <figure class="pd-poster" aria-label="Tracklist poster mockup">
+          <span class="pp-corner tl">deadwax · poster 01</span>
+          <span class="pp-corner tr">listen first</span>
+          <span class="pp-corner bl">side a / b · 35:14</span>
+          <span class="pp-corner br">printed at home</span>
+
+          <h4 class="pp-title">Spring<br/>tracklist</h4>
+
+          <ul class="pp-tracklist">
+            <li><span>01</span><span><strong>Static Garden</strong> · wide angle</span><span class="pp-time">3:42</span></li>
+            <li><span>02</span><span><strong>Hana W.</strong> · second floor light</span><span class="pp-time">6:08</span></li>
+            <li><span>03</span><span><strong>Sour Patch Saints</strong> · tape teeth</span><span class="pp-time">2:51</span></li>
+            <li><span>04</span><span><strong>Deer Pavilion</strong> · drift days</span><span class="pp-time">4:17</span></li>
+            <li><span>05</span><span><strong>Mira ロー</strong> · low ferry</span><span class="pp-time">5:33</span></li>
+            <li><span>06</span><span><strong>Cassette North</strong> · mall fog</span><span class="pp-time">4:02</span></li>
+            <li><span>07</span><span><strong>Drift Pageant</strong> · last train</span><span class="pp-time">3:11</span></li>
+            <li><span>08</span><span><strong>Lo Tide</strong> · split signal</span><span class="pp-time">5:30</span></li>
+          </ul>
+
+          <span class="pp-note n1">play loud</span>
+          <span class="pp-note n2">copy + tape this up</span>
+        </figure>
+      </div>
+    </div>
+
+    <!-- 4.4 Sticker Sheet -->
+    <div class="pd-sub" id="pd-stickers">
+      <h3><span class="pd-sub-num">04.4</span> Sticker Sheet</h3>
+      <p>Issue marks, track tags, and stamps as physical stickers. Lifted from the same sticker system used inside the digital ezine — issue numbers, recommended marks, hand-drawn faces — printed on a single sheet.</p>
+      <div class="pd-stickers">
+        <div class="pds-bar"><span>deadwax · sticker sheet 01</span><span>peel + apply</span></div>
+        <div class="pds-grid">
+          <div class="pd-sticker s-acid"><span class="pds-mark">DEAD<br/>WAX</span></div>
+          <div class="pd-sticker s-pink"><span class="pds-circle">new noise</span></div>
+          <div class="pd-sticker s-marker"><span class="pds-mark">♪ 01</span></div>
+          <div class="pd-sticker s-sky"><span class="pds-circle">listen first</span></div>
+          <div class="pd-sticker s-red"><span class="pds-circle">issue 01</span></div>
+          <div class="pd-sticker s-cream"><span class="pds-x">✦</span></div>
+          <div class="pd-sticker s-ink"><span class="pds-mark">▸ play</span></div>
+          <div class="pd-sticker s-marker"><span class="pds-circle">recommended</span></div>
+          <div class="pd-sticker s-pink"><span class="pds-mark">artist<br/>file</span></div>
+          <div class="pd-sticker s-acid"><span class="pds-circle">side a · b</span></div>
+          <div class="pd-sticker s-cream"><span class="pds-x">♥</span></div>
+          <div class="pd-sticker s-ink"><span class="pds-circle">copy<br/>+ paste</span></div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bullet-list" style="margin-top: 28px;">
+      <li>Tactile, printed, slightly imperfect — not luxury merch</li>
+      <li>Same artist-file logic as the digital ezine</li>
+      <li>Color and metadata stays consistent across surfaces</li>
+      <li>Designed to be folded, taped, or passed along</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     05 · BRAND SYSTEM
+     ============================================================ -->
+<section class="section section-brand" id="brand">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <div>
+      <span class="section-name">Brand System</span>
+      <div class="section-meta">
+        <span class="sm-tag">visual rules</span>
+        <span>palette · type · grid</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <span class="label-bar">visual index / iss 01</span>
+
+    <div class="section-intro" style="color: var(--cream);">
+      <p class="si-lead" style="color: var(--cream);">Loud color fields, rough image treatment, handwritten marks, dense editorial grids, music-culture metadata.</p>
+      <div class="si-body" style="color: rgba(244,239,229,0.85);">
+        <p>The system is designed to feel collected and immediate, while still keeping artist features and playlists readable. Sections lean on flat color blocks, photocopy textures, issue numbers, and small tags so the content always feels like part of an issue.</p>
+      </div>
+    </div>
+
+    <div class="bs-grid">
+      <!-- PALETTE -->
+      <div class="bs-block">
+        <h3>Palette</h3>
+        <p>A loud, limited palette. Acid green carries digital sections, hot pink runs the artist features, sky blue holds the cover, marker yellow and Xerox red live in the marks and stamps. Cream grounds the print, ink locks everything down.</p>
+        <div class="bs-palette">
+          <div class="bs-sw acid"><span class="bs-sw-name">Acid<br/>Green</span><span class="bs-sw-hex">#B8FF3C</span></div>
+          <div class="bs-sw pink"><span class="bs-sw-name">Hot<br/>Pink</span><span class="bs-sw-hex">#FF3F8B</span></div>
+          <div class="bs-sw sky"><span class="bs-sw-name">Sky<br/>Blue</span><span class="bs-sw-hex">#5FC9FF</span></div>
+          <div class="bs-sw cream"><span class="bs-sw-name">Off<br/>White</span><span class="bs-sw-hex">#F4EFE5</span></div>
+          <div class="bs-sw ink"><span class="bs-sw-name">Black<br/>Ink</span><span class="bs-sw-hex">#0F0F0F</span></div>
+          <div class="bs-sw marker"><span class="bs-sw-name">Marker<br/>Yellow</span><span class="bs-sw-hex">#FFEC3D</span></div>
+          <div class="bs-sw red"><span class="bs-sw-name">Xerox<br/>Red</span><span class="bs-sw-hex">#FF2E2E</span></div>
+        </div>
+      </div>
+
+      <!-- TYPE -->
+      <div class="bs-block">
+        <h3>Type</h3>
+        <p>Chunky display sans for mastheads, condensed bold for section heads, monospace for catalog metadata, body sans for readable copy, marker for handwritten accents only. Five voices, one issue.</p>
+        <div class="bs-type">
+          <div class="bs-type-row">
+            <div class="bs-tr-label">Masthead · display</div>
+            <div class="bs-tr-sample display">DEADWAX</div>
+          </div>
+          <div class="bs-type-row">
+            <div class="bs-tr-label">Section · headline</div>
+            <div class="bs-tr-sample headline">artist file · issue 01</div>
+          </div>
+          <div class="bs-type-row">
+            <div class="bs-tr-label">Catalog · mono</div>
+            <div class="bs-tr-sample mono">▸ track 01 · static garden · wide angle · 3:42</div>
+          </div>
+          <div class="bs-type-row">
+            <div class="bs-tr-label">Body · sans</div>
+            <div class="bs-tr-sample body">Tape loops, weather, half-finished hymns. Built from one room mic and a broken cassette deck.</div>
+          </div>
+          <div class="bs-type-row">
+            <div class="bs-tr-label">Annotation · hand</div>
+            <div class="bs-tr-sample hand">copied from the wall ✦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGE RULES -->
+      <div class="bs-block">
+        <h3>Image rules</h3>
+        <p>Images get treated like cutouts, photocopies, or zine panels. Use halftone, duotone, rough masks, repeated thumbnail systems, and sticker-like crops. Skip clean stock photography and influencer imagery.</p>
+        <div class="bs-images">
+          <div class="bs-img-tile t-cutout"><span class="bs-img-cap">cutout</span></div>
+          <div class="bs-img-tile t-halftone"><span class="bs-img-cap">halftone</span></div>
+          <div class="bs-img-tile t-duotone"><span class="bs-img-cap">duotone</span></div>
+          <div class="bs-img-tile t-xerox"><span class="bs-img-cap">xerox</span></div>
+          <div class="bs-img-tile t-mask"><span class="bs-img-cap">mask</span></div>
+          <div class="bs-img-tile t-thumb"><span class="bs-img-cap">thumbnail</span></div>
+        </div>
+      </div>
+
+      <!-- LAYOUT + MARKS -->
+      <div class="bs-block">
+        <h3>Layout &amp; marks</h3>
+        <p>Cascading cards, uneven columns, side labels, issue metadata, handwritten arrows. Dense scrolling sections held together by repeated tags and small stamps.</p>
+        <ul class="bs-rules">
+          <li>Use large flat color fields</li>
+          <li>Treat images like cutouts, photocopies, or zine panels</li>
+          <li>Keep metadata visible</li>
+          <li>Use handwritten marks as accents, not decoration</li>
+          <li>Let layouts feel dense, but keep section logic consistent</li>
+          <li>Use issue numbers and category tags to organize content</li>
+          <li>Mix digital scrolling layouts with print ephemera</li>
+        </ul>
+        <div class="bs-marks">
+          <span class="alt">about</span>
+          <span class="pink">artist</span>
+          <span class="marker">track</span>
+          <span>genre</span>
+          <span class="alt">mood</span>
+          <span class="red">new noise</span>
+          <span class="marker">listen first</span>
+          <span>recommended</span>
+          <span class="pink">issue 01</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECT FOOTER
+     ============================================================ -->
 <footer class="project-footer">
-  <a href="last-bite.html">← PREV PROJECT</a>
+  <a href="last-bite.html">← prev project</a>
   <div class="pf-center">
-    <a href="#top" class="pf-link">↑ Return to top</a>
-    <a href="../" class="pf-link">↩ Return home</a>
+    <a href="#top">↑ return to top</a>
+    <a href="../">↩ return home</a>
   </div>
-  <a href="low-battery-press.html">NEXT PROJECT →</a>
+  <a href="low-battery-press.html">next project →</a>
 </footer>
 
 </body>
