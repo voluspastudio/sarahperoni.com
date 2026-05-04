@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deadwax — Sarah Peroni</title>
+<title>Deadwax · Sarah Peroni</title>
 <meta name="description" content="Deadwax · a music ezine and visual culture archive for artist discovery, playlists, and band-driven design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 
 :root {
   /* Indie music zine palette · faded, printed, slightly sun-worn ·
-     no pink, no neon — record-store flyer / Xerox zine territory. */
+     no pink, no neon. record-store flyer / Xerox zine territory. */
   --washed-grass:   #6F8F4E;   /* main editorial green · base */
   --washed-grass-d: #5a7440;
   --dusty-sky:      #8FB7C9;   /* cover, hero contrast */
@@ -32,7 +32,7 @@
   --concrete:       #8D8A82;   /* neutral / inactive UI */
 
   /* Legacy aliases · keep old selectors working without rewrites.
-     The legacy `--pink` token now points at deep olive — the page
+     The legacy `--pink` token now points at deep olive. The page
      reads as record-store flyer, not pink-grunge. */
   --acid:        var(--washed-grass);
   --acid-d:      var(--washed-grass-d);
@@ -238,7 +238,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   align-items: stretch;
   gap: 10px;
 }
-/* Xerox photo frame — placeholder for hero artist cutout */
+/* Xerox photo frame · placeholder for hero artist cutout */
 .cover-photo {
   position: relative;
   background: var(--ink);
@@ -794,13 +794,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
     var(--sky);
   filter: contrast(1.3);
 }
-/* real artist halftone photos on Xerox cards · multiply on the colored
-   background gives each card a riso-printed feel */
+/* real artist halftone photos on Xerox cards · uniform dusty-sky
+   background; multiply lets the halftone tint through it */
 .af-photo.af-photo-real {
-  background: var(--pink);
+  background: var(--dusty-sky);
 }
-.af-card:nth-child(3n+2) .af-photo.af-photo-real { background: var(--acid); }
-.af-card:nth-child(3n+3) .af-photo.af-photo-real { background: var(--sky); }
 .af-photo.af-photo-real img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -1216,12 +1214,26 @@ button { font: inherit; color: inherit; cursor: pointer; }
   transform: rotate(-12deg);
 }
 
-/* 4.5 · Merch hoodie · plain photographic frame on cream panel */
+/* 4.4 · Merch t-shirt · photographic frame on cream panel */
 .pd-merch {
   margin: 18px auto 0;
   max-width: 720px;
 }
 .pd-merch img {
+  width: 100%; height: auto; display: block;
+  background: transparent;
+}
+
+/* 4.3 · Social media mockups · pair of phone-style posts */
+.pd-socials {
+  margin: 18px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.pd-social { margin: 0; }
+.pd-social img {
   width: 100%; height: auto; display: block;
   background: transparent;
 }
@@ -1456,7 +1468,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   <a href="#overview"><span>01</span><span>Overview</span></a>
   <a href="#ezine"><span>02</span><span>Digital Ezine</span></a>
   <a href="#artists"><span>03</span><span>Artist Features</span></a>
-  <a href="#physical"><span>04</span><span>Physical</span></a>
+  <a href="#physical"><span>04</span><span>Deliverables</span></a>
   <a href="#brand"><span>05</span><span>Brand System</span></a>
 </nav>
 
@@ -1464,25 +1476,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
      ISSUE COVER · loud hero
      ============================================================ -->
 <header class="cover" id="top">
-  <div class="cover-bar">
-    <span class="cb-issue">issue 01</span>
-    <span class="cb-cat">music ezine</span>
-    <span class="cb-cat">visual culture</span>
-    <span class="cb-spacer"></span>
-    <span>est. 2026</span>
-    <span>$0 · free, copy it</span>
-  </div>
-
   <div class="cover-stage">
     <div class="cover-mast">
-      <span class="mast-stamp">listen first ✦</span>
+      <span class="mast-stamp">music ezine</span>
       <h1>Deadwax</h1>
-      <span class="mast-tag">new noise</span>
-      <p class="cover-tagline">A music ezine for artist discovery and visual culture.</p>
+      <p class="cover-tagline">for artist discovery and visual culture</p>
     </div>
     <div class="cover-art">
       <figure class="cover-photo">
-        <span class="cp-feature-tag">feature · mk.gee</span>
         <img src="../images/projects/deadwax/mkgee/mkgee-halftone.png" alt="MK.gee · halftone portrait"/>
       </figure>
       <div class="cover-callouts">
@@ -1509,7 +1510,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   <div class="cover-foot">
     <div>editorial · art direction · zine system</div>
     <div class="cf-deliverables">
-      <span>ezine</span><span>poster</span><span>cards</span><span>stickers</span><span>merch</span>
+      <span>ezine</span><span>cards</span><span>social</span><span>t-shirt</span>
     </div>
   </div>
 </header>
@@ -1536,7 +1537,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <div class="ov-block">
         <h3>A music ezine for artist discovery.</h3>
         <p>Deadwax is a music ezine and visual culture archive for artist discovery, playlists, and band-driven design. The project turns music coverage into a collectible visual system: digital issues, artist spotlights, playlist notes, posters, stickers, and printed ephemera.</p>
-        <p style="margin-top: 14px;">The visual language pulls from indie magazines, Xerox zines, record-store flyers, and dense scrolling web layouts — designed and copied like something passed around the back of a venue.</p>
+        <p style="margin-top: 14px;">The visual language pulls from indie magazines, Xerox zines, record-store flyers, and dense scrolling web layouts. Designed and copied like something passed around the back of a venue.</p>
       </div>
       <div class="ov-block ov-pink">
         <h3>Deliverables</h3>
@@ -1544,12 +1545,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
         <div class="ov-deliverables" style="margin-top: 14px;">
           <span>Digital ezine</span>
           <span>Artist spotlight system</span>
-          <span>Playlist layouts</span>
           <span>Issue cover</span>
-          <span>Feature cards</span>
-          <span>Poster system</span>
-          <span>Sticker sheet</span>
-          <span>Issue merch</span>
+          <span>Printed ezine</span>
+          <span>Spotlight cards</span>
+          <span>Social media</span>
+          <span>T-shirt</span>
           <span>Brand system</span>
         </div>
       </div>
@@ -1573,13 +1573,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
   </div>
 
   <div class="section-body">
-    <span class="label-bar">listen first / read second</span>
+    <span class="label-bar">user submitted content</span>
 
     <div class="section-intro">
       <p class="si-lead">A scrolling magazine spread. Artist features, playlist notes, reviews, and visual references stack across the page in a loose editorial rhythm.</p>
       <div class="si-body">
+        <p>Deadwax is built around user submissions. Readers send in bands and artists they want featured, and each issue collects those submissions into a curated spread of new music.</p>
         <p>The layout is intentionally dense, but each section follows a system: feature image, short text, metadata, track reference, and visual tag. Side rails carry issue numbers and category labels so the reader always knows what they are inside.</p>
-        <p>The page mixes flat color sections with overlapping cutouts, staggered text blocks, small metadata columns, and repeated tag systems — closer to a Japanese indie magazine than a streaming app.</p>
       </div>
     </div>
 
@@ -1617,7 +1617,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
               <h4>Cezinando</h4>
               <p>Norwegian rap that scans more like art-pop. Cezinando writes long, shifting songs with horn-section detours and lyrics built like short stories. Plays loud, hits soft.</p>
               <span class="ez-rec">recommended track · "Sannheten"</span>
-              <p class="ez-note">copied from the wall ✦</p>
+              <p class="ez-note">international artist</p>
               <div class="tag-row">
                 <span>new noise</span><span class="alt">listen first</span><span>norsk</span>
               </div>
@@ -1709,7 +1709,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <span class="section-name">Artist Features</span>
       <div class="section-meta">
         <span class="sm-tag">artist file</span>
-        <span>cut · copy · paste</span>
       </div>
     </div>
   </div>
@@ -1720,7 +1719,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <div class="section-intro">
       <p class="si-lead">A cut-and-paste zine system for artist coverage. Image, mark, title, metadata, short note.</p>
       <div class="si-body">
-        <p>Each card works as a quick entry point into an artist's sound and visual world. The treatment is high-contrast and intentionally rough — duotone or halftone images, photocopy edges, marker scribbles, and small handwritten notes.</p>
+        <p>Each card works as a quick entry point into an artist's sound and visual world. The treatment is high-contrast and intentionally rough. Duotone or halftone images, photocopy edges, marker scribbles, and small handwritten notes.</p>
         <p>This is not a streaming profile. It is a music discovery artifact that feels collected, marked, copied, and passed around.</p>
       </div>
     </div>
@@ -1783,7 +1782,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <ul class="bullet-list" style="margin-top: 28px;">
       <li>Image · mark · title · metadata · short note</li>
       <li>Duotone / halftone / photocopy treatment per card</li>
-      <li>Recommended track lives at the front, not behind a click</li>
       <li>Card grid feels collected, not curated</li>
     </ul>
   </div>
@@ -1796,10 +1794,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
   <div class="section-head">
     <span class="section-num">04</span>
     <div>
-      <span class="section-name">Physical Deliverables</span>
+      <span class="section-name">Deliverables</span>
       <div class="section-meta">
-        <span class="sm-tag">print</span>
-        <span>music ephemera</span>
+        <span class="sm-tag">print · digital</span>
       </div>
     </div>
   </div>
@@ -1808,9 +1805,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <span class="label-bar lb-pink">copy it / pin it / pass it on</span>
 
     <div class="section-intro">
-      <p class="si-lead">Deadwax extends into printed pieces that feel like music ephemera.</p>
+      <p class="si-lead">Deadwax extends from the digital ezine into printed pieces, social feeds, and issue merch.</p>
       <div class="si-body">
-        <p>Issue covers, spotlight cards, posters, stickers, and playlist inserts. The physical system keeps the project connected to flyers, record stores, zines, and bedroom walls. Tactile, slightly imperfect, high-contrast — never luxury, never polished merch.</p>
+        <p>Printed ezine, spotlight cards, social posts, and one piece of issue merch. The deliverables keep the project connected to flyers, record stores, zines, feeds, and bedroom walls. Tactile, slightly imperfect, high-contrast. Never luxury, never polished merch.</p>
       </div>
     </div>
 
@@ -1825,7 +1822,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <div class="pdz-issue">new noise · 12 features · poster pull-out</div>
         </article>
         <article class="pd-zine-page pdz-spread">
-          <div class="pdz-bar"><span>spread · 04—05</span><span>artist file</span></div>
+          <div class="pdz-bar"><span>spread · 04 / 05</span><span>artist file</span></div>
           <div class="pdz-spread-art" aria-hidden="true"></div>
           <div class="pdz-spread-text">
             <div>
@@ -1846,7 +1843,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <!-- 4.2 Spotlight Cards -->
     <div class="pd-sub" id="pd-cards">
       <h3><span class="pd-sub-num">04.2</span> Artist Spotlight Cards</h3>
-      <p>Loose collectible cards that ship inside each issue. Same artist file system as the digital ezine — image, name, recommended track — but small enough to slip into a wallet, tape to a wall, or pass to a friend.</p>
+      <p>Loose collectible cards that ship inside each issue. Same artist file system as the digital ezine: image, name, recommended track. Small enough to slip into a wallet, tape to a wall, or pass to a friend.</p>
       <div class="pd-cards">
         <div class="pd-card">
           <div class="pdc-bar"><span>card 01</span><span>iss 01</span></div>
@@ -1881,70 +1878,31 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </div>
     </div>
 
-    <!-- 4.3 Tracklist Poster -->
-    <div class="pd-sub" id="pd-poster">
-      <h3><span class="pd-sub-num">04.3</span> Tracklist Poster</h3>
-      <p>A pull-out poster built around an irregular shape — playlist text flows inside the form, with handwritten annotations at the corners. Folded into the printed issue, hung on the wall after.</p>
-      <div class="pd-poster-wrap">
-        <figure class="pd-poster" aria-label="Tracklist poster mockup">
-          <span class="pp-corner tl">deadwax · poster 01</span>
-          <span class="pp-corner tr">listen first</span>
-          <span class="pp-corner bl">side a / b · 35:14</span>
-          <span class="pp-corner br">printed at home</span>
-
-          <h4 class="pp-title">Spring<br/>tracklist</h4>
-
-          <ul class="pp-tracklist">
-            <li><span>01</span><span><strong>Cezinando</strong> · Sannheten</span><span class="pp-time">3:42</span></li>
-            <li><span>02</span><span><strong>MK.gee</strong> · Are You Looking Up</span><span class="pp-time">3:24</span></li>
-            <li><span>03</span><span><strong>Remi Wolf</strong> · Photo ID</span><span class="pp-time">3:09</span></li>
-            <li><span>04</span><span><strong>Cezinando</strong> · Håper du har plass</span><span class="pp-time">4:03</span></li>
-            <li><span>05</span><span><strong>MK.gee</strong> · Candy</span><span class="pp-time">3:33</span></li>
-            <li><span>06</span><span><strong>Remi Wolf</strong> · Liquor Store</span><span class="pp-time">3:32</span></li>
-            <li><span>07</span><span><strong>MK.gee</strong> · Rylee &amp; I</span><span class="pp-time">3:48</span></li>
-            <li><span>08</span><span><strong>Remi Wolf</strong> · Hello Hello Hello</span><span class="pp-time">2:40</span></li>
-          </ul>
-
-          <span class="pp-note n1">play loud</span>
-          <span class="pp-note n2">copy + tape this up</span>
+    <!-- 4.3 Social Media -->
+    <div class="pd-sub" id="pd-socials">
+      <h3><span class="pd-sub-num">04.3</span> Social Media</h3>
+      <p>The social media system extends the ezine onto Instagram and other feeds. Posts adapt the artist file format into single-image and carousel layouts so each new feature lands as a recognizable piece of the system.</p>
+      <div class="pd-socials">
+        <figure class="pd-social" aria-label="Deadwax social post 01">
+          <img src="../images/projects/deadwax/deadwax/deadwax-socials1.png" alt="Deadwax social media post"/>
+        </figure>
+        <figure class="pd-social" aria-label="Deadwax social post 02">
+          <img src="../images/projects/deadwax/deadwax/deadwax-socials2.png" alt="Deadwax social media post"/>
         </figure>
       </div>
     </div>
 
-    <!-- 4.4 Sticker Sheet -->
-    <div class="pd-sub" id="pd-stickers">
-      <h3><span class="pd-sub-num">04.4</span> Sticker Sheet</h3>
-      <p>Issue marks, track tags, and stamps as physical stickers. Lifted from the same sticker system used inside the digital ezine — issue numbers, recommended marks, hand-drawn faces — printed on a single sheet.</p>
-      <div class="pd-stickers">
-        <div class="pds-bar"><span>deadwax · sticker sheet 01</span><span>peel + apply</span></div>
-        <div class="pds-grid">
-          <div class="pd-sticker s-acid"><span class="pds-mark">DEAD<br/>WAX</span></div>
-          <div class="pd-sticker s-pink"><span class="pds-circle">new noise</span></div>
-          <div class="pd-sticker s-marker"><span class="pds-mark">♪ 01</span></div>
-          <div class="pd-sticker s-sky"><span class="pds-circle">listen first</span></div>
-          <div class="pd-sticker s-red"><span class="pds-circle">issue 01</span></div>
-          <div class="pd-sticker s-cream"><span class="pds-x">✦</span></div>
-          <div class="pd-sticker s-ink"><span class="pds-mark">▸ play</span></div>
-          <div class="pd-sticker s-marker"><span class="pds-circle">recommended</span></div>
-          <div class="pd-sticker s-pink"><span class="pds-mark">artist<br/>file</span></div>
-          <div class="pd-sticker s-acid"><span class="pds-circle">side a · b</span></div>
-          <div class="pd-sticker s-cream"><span class="pds-x">♥</span></div>
-          <div class="pd-sticker s-ink"><span class="pds-circle">copy<br/>+ paste</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4.5 Merch / Hoodie -->
-    <div class="pd-sub" id="pd-merch">
-      <h3><span class="pd-sub-num">04.5</span> Merch</h3>
-      <p>One simple piece of issue merch per release. The hoodie carries the masthead, an issue number, and one pull-quote — the same hierarchy used on the printed cover. Worn like a back-cover, not a logo drop.</p>
-      <figure class="pd-merch" aria-label="Deadwax issue hoodie mockup">
-        <img src="../images/projects/deadwax/mockups/deadwax-hoodie.png" alt="Deadwax issue hoodie"/>
+    <!-- 4.4 T-shirt -->
+    <div class="pd-sub" id="pd-shirt">
+      <h3><span class="pd-sub-num">04.4</span> T-shirt</h3>
+      <p>One simple piece of issue merch per release. The t-shirt carries the masthead and the issue number, using the same hierarchy as the printed cover. Worn like a back-cover, not a logo drop.</p>
+      <figure class="pd-merch" aria-label="Deadwax issue t-shirt mockup">
+        <img src="../images/projects/deadwax/deadwax/deadwax-shirt1.png" alt="Deadwax issue t-shirt"/>
       </figure>
     </div>
 
     <ul class="bullet-list" style="margin-top: 28px;">
-      <li>Tactile, printed, slightly imperfect — not luxury merch</li>
+      <li>Tactile, printed, slightly imperfect. Not luxury merch.</li>
       <li>Same artist-file logic as the digital ezine</li>
       <li>Color and metadata stays consistent across surfaces</li>
       <li>Designed to be folded, taped, or passed along</li>
