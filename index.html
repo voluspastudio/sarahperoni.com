@@ -815,8 +815,8 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
   <a href="#" class="nav-logo"><img src="images/SPlogo-horizontal.png" alt="Sarah Peroni" class="nav-logo-img"></a>
   <ul class="nav-links">
     <li><a href="#work">[work]</a></li>
-    <li><a href="#about">[about]</a></li>
-    <li><a href="#contact">[contact]</a></li>
+    <li><a href="about.html">[about]</a></li>
+    <li><a href="contact.html">[contact]</a></li>
   </ul>
 </nav>
 
@@ -825,7 +825,6 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
   <div class="hero-grid"></div>
   <div class="hero-vignette"></div>
   <div class="hero-glow"></div>
-  <div class="hero-data d3">DATE: <span class="hl" id="hero-date"></span></div>
 
   <!-- 3D Cube (hero right column) -->
   <div class="cube-section" id="cube-section">
@@ -970,25 +969,6 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
   </div>
 </section>
 
-<!-- Divider -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-line"></div>
-</div>
-
-<!-- Contact -->
-<section class="contact" id="contact">
-  <div class="contact-grid-bg"></div>
-  <div class="contact-glow"></div>
-  <div class="contact-inner">
-    <h2 class="contact-heading reveal">Let's build<br>something <span class="outline">extraordinary</span></h2>
-    <a href="mailto:peroni.sarah@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Let%E2%80%99s%20Work%20Together&body=Hi%20Sarah%2C%0A%0AI%E2%80%99d%20love%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20type%3A%20%0ABrief%20description%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0ALooking%20forward%20to%20hearing%20from%20you!" class="contact-email-btn reveal">
-      GET IN TOUCH
-      <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5"/></svg>
-    </a>
-  </div>
-</section>
-
 <!-- Footer -->
 <footer class="footer">
   <span class="footer-left">© 2026 SARAH PERONI</span>
@@ -1054,16 +1034,6 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
     requestAnimationFrame(animateTrail);
   }
   animateTrail();
-})();
-
-// ——— Dynamic Date ———
-(function() {
-  const d = new Date();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  const yyyy = d.getFullYear();
-  const el = document.getElementById('hero-date');
-  if (el) el.textContent = mm + '.' + dd + '.' + yyyy;
 })();
 
 // ——— Scroll Reveal ———

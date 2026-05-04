@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · Sarah Peroni</title>
+<meta name="description" content="Get in touch with Sarah Peroni · multidisciplinary designer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #e8e4de;
+  --surface: #ddd8d0;
+  --cream: #0a0a0a;
+  --cream-dim: #2a2820;
+  --warm-gray: #5a5448;
+  --mid-gray: #7a7670;
+  --dark-gray: #c8c4be;
+  --green: #5a7a4a;
+  --green-bright: #7a9a6a;
+  --green-dim: #3a5a2a;
+  --green-glow: rgba(90, 122, 74, 0.15);
+  --red-data: #8a4a3a;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body {
+  font-family: var(--font-mono);
+  background: var(--black);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+::selection { background: var(--green); color: #e8e4de; }
+a { color: inherit; text-decoration: none; }
+
+/* ——— NAV (matches homepage) ——— */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 2rem;
+  background: rgba(232, 228, 222, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--dark-gray);
+}
+.nav-logo-img { height: 18px; width: auto; display: block; }
+.nav-links {
+  display: flex; gap: 1.5rem; list-style: none;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--warm-gray);
+  transition: color 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--cream); }
+
+/* ——— PAGE HEADER ——— */
+.page-head {
+  padding: 4rem 2rem 2rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  border-bottom: 1px solid var(--dark-gray);
+}
+.page-eyebrow {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--green);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.page-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--green); }
+.page-title {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 1; letter-spacing: -0.02em;
+}
+.page-title .outline {
+  -webkit-text-stroke: 1.5px #0a0a0a; color: transparent;
+}
+.page-sub {
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
+  color: var(--warm-gray); line-height: 1.7;
+  max-width: 56ch;
+  margin-top: 0.5rem;
+}
+
+/* ——— CONTACT GRID ——— */
+.contact-page {
+  flex: 1;
+  padding: 4rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (max-width: 760px) {
+  .contact-page { grid-template-columns: 1fr; }
+}
+
+.contact-info {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 300;
+  color: var(--cream-dim); line-height: 1.85;
+}
+.contact-info p strong { color: var(--cream); font-weight: 600; }
+.contact-info-block {
+  border-top: 1px solid var(--dark-gray);
+  padding-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.contact-info-label {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--green);
+}
+.contact-info-value {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--cream);
+}
+.contact-info-value a:hover { color: var(--green-bright); }
+
+/* ——— FORM ——— */
+.contact-form {
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+.field {
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.field-label {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--green);
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.field-label .req {
+  color: var(--red-data);
+  font-size: 0.6rem;
+  letter-spacing: 0;
+}
+.field-label .opt {
+  color: var(--mid-gray);
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: var(--font-mono); font-size: 0.85rem;
+  color: var(--cream);
+  background: transparent;
+  border: 1px solid var(--dark-gray);
+  padding: 0.85rem 1rem;
+  transition: border-color 0.25s, background 0.25s;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  background: var(--green-glow);
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--mid-gray);
+  font-weight: 300;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 160px;
+  line-height: 1.6;
+}
+
+/* invalid state · highlights when user submits with empty required field */
+.field.invalid input,
+.field.invalid textarea {
+  border-color: var(--red-data);
+  background: rgba(138, 74, 58, 0.06);
+}
+.field-error {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--red-data); letter-spacing: 0.05em;
+  display: none;
+}
+.field.invalid .field-error { display: block; }
+
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.submit-btn {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 0.85rem;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  padding: 0.95rem 2.2rem;
+  border: 1px solid var(--green-dim);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.4s, border-color 0.4s, transform 0.3s var(--ease-out-expo), color 0.3s;
+}
+.submit-btn:hover {
+  background: var(--green-glow);
+  border-color: var(--green);
+  color: var(--cream);
+  transform: translateY(-1px);
+}
+.submit-btn .arrow { transition: transform 0.3s var(--ease-out-expo); }
+.submit-btn:hover .arrow { transform: translate(3px, -3px); }
+.submit-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.form-status {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); min-height: 1em;
+  margin-top: 0.4rem;
+}
+.form-status.error { color: var(--red-data); }
+
+/* ——— FOOTER ——— */
+.footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--dark-gray);
+  display: flex; justify-content: center; align-items: center;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--mid-gray); letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="images/SPlogo-horizontal.png" alt="Sarah Peroni" class="nav-logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">[work]</a></li>
+    <li><a href="about.html">[about]</a></li>
+    <li><a href="contact.html" class="active">[contact]</a></li>
+  </ul>
+</nav>
+
+<header class="page-head">
+  <span class="page-eyebrow">contact // get in touch</span>
+  <h1 class="page-title">Let's build<br>something <span class="outline">extraordinary</span></h1>
+  <p class="page-sub">Send a project brief, a question, or a hello. I read every message myself and reply in a couple of business days.</p>
+</header>
+
+<main class="contact-page">
+  <aside class="contact-info">
+    <div class="contact-info-block">
+      <span class="contact-info-label">— email</span>
+      <span class="contact-info-value"><a href="mailto:peroni.sarah@gmail.com">peroni.sarah@gmail.com</a></span>
+    </div>
+    <div class="contact-info-block">
+      <span class="contact-info-label">— linkedin</span>
+      <span class="contact-info-value"><a href="https://www.linkedin.com/in/sarahperoni/" target="_blank" rel="noopener">linkedin.com/in/sarahperoni</a></span>
+    </div>
+    <div class="contact-info-block">
+      <span class="contact-info-label">— location</span>
+      <span class="contact-info-value">Costa Mesa, California</span>
+    </div>
+    <div class="contact-info-block">
+      <span class="contact-info-label">— inquiries</span>
+      <span class="contact-info-value">Brand identity, UI/UX, creative direction, illustration, and small-team studio collaborations.</span>
+    </div>
+  </aside>
+
+  <form class="contact-form" id="contact-form" novalidate>
+    <div class="field" data-required="true">
+      <label class="field-label" for="cf-name">— name <span class="req">*</span></label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your full name"/>
+      <span class="field-error">Please enter your name.</span>
+    </div>
+
+    <div class="form-row">
+      <div class="field" data-required="true">
+        <label class="field-label" for="cf-email">— email <span class="req">*</span></label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@domain.com"/>
+        <span class="field-error">Please enter a valid email.</span>
+      </div>
+      <div class="field">
+        <label class="field-label" for="cf-phone">— phone <span class="opt">opt</span></label>
+        <input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 (000) 000 0000"/>
+      </div>
+    </div>
+
+    <div class="field" data-required="true">
+      <label class="field-label" for="cf-message">— message <span class="req">*</span></label>
+      <textarea id="cf-message" name="message" placeholder="Tell me about the project, timeline, and anything else useful."></textarea>
+      <span class="field-error">Please add a short message.</span>
+    </div>
+
+    <button type="submit" class="submit-btn">
+      Send message
+      <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+
+    <p class="form-status" id="form-status" aria-live="polite"></p>
+  </form>
+</main>
+
+<footer class="footer">
+  <span class="footer-left">© 2026 SARAH PERONI</span>
+</footer>
+
+<script>
+/* Contact form handler · validates required fields, then opens the
+   user's default mail client with a pre-filled message addressed to
+   peroni.sarah@gmail.com. No backend / no third-party dependency. */
+(function() {
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  if (!form) return;
+
+  const requiredFields = form.querySelectorAll('.field[data-required="true"]');
+  const emailField = form.querySelector('#cf-email').closest('.field');
+  const emailInput = form.querySelector('#cf-email');
+
+  function clearInvalid(field) { field.classList.remove('invalid'); }
+  function markInvalid(field)  { field.classList.add('invalid'); }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  // clear invalid state as the user types
+  form.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', () => clearInvalid(el.closest('.field')));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let firstInvalid = null;
+
+    // empty-check required fields
+    requiredFields.forEach(field => {
+      const ctrl = field.querySelector('input, textarea');
+      const value = (ctrl.value || '').trim();
+      if (!value) {
+        markInvalid(field);
+        if (!firstInvalid) firstInvalid = ctrl;
+      } else {
+        clearInvalid(field);
+      }
+    });
+
+    // additional email format check
+    const emailValue = (emailInput.value || '').trim();
+    if (emailValue && !isEmail(emailValue)) {
+      markInvalid(emailField);
+      if (!firstInvalid) firstInvalid = emailInput;
+    }
+
+    if (firstInvalid) {
+      status.textContent = 'Please complete the required fields.';
+      status.classList.add('error');
+      firstInvalid.focus();
+      return;
+    }
+
+    // build the mailto payload
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString().trim();
+    const email = (data.get('email') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const message = (data.get('message') || '').toString().trim();
+
+    const subject = 'Project Inquiry · ' + name;
+    const lines = [
+      'Name: ' + name,
+      'Email: ' + email
+    ];
+    if (phone) lines.push('Phone: ' + phone);
+    lines.push('', message);
+    const body = lines.join('\n');
+
+    const mailto = 'mailto:peroni.sarah@gmail.com'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body='   + encodeURIComponent(body);
+
+    status.classList.remove('error');
+    status.textContent = 'Opening your email client…';
+    window.location.href = mailto;
+  });
+})();
+</script>
+
+</body>
+</html>
