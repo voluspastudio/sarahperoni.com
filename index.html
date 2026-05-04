@@ -669,6 +669,20 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
   transition: color 0.3s;
 }
 .about-linkedin:hover { color: var(--cream); }
+.about-readmore {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green-bright);
+  margin-top: 1.25rem;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--green-dim);
+  transition: color 0.3s, border-color 0.3s;
+}
+.about-readmore:hover {
+  color: var(--cream);
+  border-color: var(--cream);
+}
 
 /* ——— CONTACT ——— */
 .contact {
@@ -943,6 +957,7 @@ a.cube-face { text-decoration: none; color: inherit; cursor: pointer; }
     <div class="about-label">—— ABOUT // BIO</div>
     <h2 class="about-quote">I design brand systems, interfaces, and visual <em>worlds</em></h2>
     <p class="about-bio">I'm a multidisciplinary designer working across identity, digital interfaces, illustration, and art direction. I focus on turning concepts into systems, building visuals that carry meaning, and making every detail hold together visually, conceptually, and across every scale.</p>
+    <a href="about.html" class="about-readmore">Read more →</a>
   </div>
   <div class="about-divider-v"></div>
   <div class="about-right reveal">
