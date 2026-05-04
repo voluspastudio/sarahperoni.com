@@ -226,12 +226,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
   text-transform: uppercase;
 }
 .cover-mast .mast-stamp {
-  position: absolute;
-  top: -10px; left: -2px;
+  /* sit inline above the masthead with enough room to be fully
+     visible · tilted slightly for a hand-stamped feel */
+  display: inline-block;
   font-family: var(--hand);
   color: var(--xerox-red);
-  font-size: clamp(18px, 3vw, 28px);
-  transform: rotate(-8deg);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1;
+  margin: 0 0 14px 6px;
+  transform: rotate(-3deg);
+  transform-origin: left bottom;
 }
 .cover-tagline {
   font-family: var(--hand);
